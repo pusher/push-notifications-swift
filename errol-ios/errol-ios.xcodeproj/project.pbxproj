@@ -14,7 +14,9 @@
 		A1D7D4561F8BAFBA009EDE1A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1D7D4541F8BAFBA009EDE1A /* LaunchScreen.storyboard */; };
 		A1D7D45E1F8BB963009EDE1A /* Pusher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D7D45D1F8BB963009EDE1A /* Pusher.swift */; };
 		A1D7D4601F8BB9F8009EDE1A /* PusherRegisterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D7D45F1F8BB9F8009EDE1A /* PusherRegisterable.swift */; };
+		A1D7D4621F8BBA7E009EDE1A /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D7D4611F8BBA7E009EDE1A /* NetworkService.swift */; };
 		A1D7D4641F8BBAB5009EDE1A /* PusherSubscribable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D7D4631F8BBAB5009EDE1A /* PusherSubscribable.swift */; };
+		A1D7D4661F8BBBF7009EDE1A /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D7D4651F8BBBF7009EDE1A /* NetworkResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +29,9 @@
 		A1D7D4571F8BAFBA009EDE1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1D7D45D1F8BB963009EDE1A /* Pusher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pusher.swift; sourceTree = "<group>"; };
 		A1D7D45F1F8BB9F8009EDE1A /* PusherRegisterable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PusherRegisterable.swift; sourceTree = "<group>"; };
+		A1D7D4611F8BBA7E009EDE1A /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		A1D7D4631F8BBAB5009EDE1A /* PusherSubscribable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PusherSubscribable.swift; sourceTree = "<group>"; };
+		A1D7D4651F8BBBF7009EDE1A /* NetworkResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,7 +72,9 @@
 				A1D7D4571F8BAFBA009EDE1A /* Info.plist */,
 				A1D7D45D1F8BB963009EDE1A /* Pusher.swift */,
 				A1D7D45F1F8BB9F8009EDE1A /* PusherRegisterable.swift */,
+				A1D7D4611F8BBA7E009EDE1A /* NetworkService.swift */,
 				A1D7D4631F8BBAB5009EDE1A /* PusherSubscribable.swift */,
+				A1D7D4651F8BBBF7009EDE1A /* NetworkResponse.swift */,
 			);
 			path = "errol-ios";
 			sourceTree = "<group>";
@@ -145,7 +151,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1D7D4621F8BBA7E009EDE1A /* NetworkService.swift in Sources */,
 				A1D7D4641F8BBAB5009EDE1A /* PusherSubscribable.swift in Sources */,
+				A1D7D4661F8BBBF7009EDE1A /* NetworkResponse.swift in Sources */,
 				A1D7D44E1F8BAFBA009EDE1A /* ViewController.swift in Sources */,
 				A1D7D44C1F8BAFBA009EDE1A /* AppDelegate.swift in Sources */,
 				A1D7D45E1F8BB963009EDE1A /* Pusher.swift in Sources */,
