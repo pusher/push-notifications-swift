@@ -18,6 +18,7 @@ struct Pusher {
 
     private func registerForPushNotifications() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) {
-            (granted, error) in }
+            (granted, error) in
+        }
     }
 }
