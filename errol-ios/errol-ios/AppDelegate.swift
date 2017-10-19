@@ -7,7 +7,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let pusher = Pusher(instanceId: "c0c65938-5dcf-4e8b-9206-f72a8d86684b")
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        self.pusher.register()
+        self.pusher.register(application: application)
 
         return true
     }

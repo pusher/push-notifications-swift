@@ -1,11 +1,12 @@
+import UIKit
 import Foundation
 import UserNotifications
 
 struct Pusher {
     let instanceId: String
 
-    public func register() {
-        self.registerForPushNotifications()
+    public func register(application: UIApplication) {
+        self.registerForPushNotifications(application: application)
     }
 
     public func registerDeviceToken(_ deviceToken: Data) {
@@ -16,9 +17,13 @@ struct Pusher {
         networkService.register(deviceToken: deviceToken)
     }
 
-    private func registerForPushNotifications() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) {
-            (granted, error) in
+    private func registerForPushNotifications(application: UIApplication) {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
+            if (granted) {
+                DispatchQueue.main.async {
+                    application.registerForRemoteNotifications()
+                }
+            }
         }
     }
 }
