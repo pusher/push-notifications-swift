@@ -7,20 +7,27 @@ struct NetworkService: PusherRegisterable, PusherSubscribable {
 
     typealias NetworkCompletionHandler = (_ response: NetworkResponse) -> Void
 
+    //MARK: PusherRegisterable
     func register(deviceToken: String) {
         let bodyString = "{\"platformType\": \"apns\", \"token\": \"dssss\"}"
-        let body = bodyString.data(using: .utf8)!
-        let request = self.setRequest(url: self.url, body: body)
+        guard let body = bodyString.data(using: .utf8) else { return }
+        let request = self.setRequest(url: self.url, httpMethod: .POST, body: body)
 
         self.postRequest(request: request, session: self.session) { (response) in
             print(response)
         }
     }
 
+    //MARK: PusherSubscribable
     func subscribe(interest: String) {
         //TODO
     }
 
+    func unsubscribe(interest: String) {
+        //TODO
+    }
+
+    //MARK: Networking Layer
     private func postRequest(request: URLRequest, session: URLSession, completion: @escaping NetworkCompletionHandler) {
         session.dataTask(with: request, completionHandler: { (data, response, error) in
             guard
@@ -33,10 +40,10 @@ struct NetworkService: PusherRegisterable, PusherSubscribable {
         }).resume()
     }
 
-    private func setRequest(url: URL, body: Data) -> URLRequest {
+    private func setRequest(url: URL, httpMethod: HTTPMethod, body: Data) -> URLRequest {
         var request = URLRequest(url: url)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
+        request.httpMethod = httpMethod.rawValue
         request.httpBody = body
 
         return request
