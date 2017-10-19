@@ -7,21 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A1B55B191F98BBA1004DBC27 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B55B181F98BBA1004DBC27 /* HTTPMethod.swift */; };
+		A1B55B211F98C887004DBC27 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B55B1B1F98C887004DBC27 /* HTTPMethod.swift */; };
+		A1B55B221F98C887004DBC27 /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B55B1C1F98C887004DBC27 /* NetworkResponse.swift */; };
+		A1B55B231F98C887004DBC27 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B55B1D1F98C887004DBC27 /* NetworkService.swift */; };
+		A1B55B241F98C887004DBC27 /* Pusher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B55B1E1F98C887004DBC27 /* Pusher.swift */; };
+		A1B55B251F98C887004DBC27 /* PusherRegisterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B55B1F1F98C887004DBC27 /* PusherRegisterable.swift */; };
+		A1B55B261F98C887004DBC27 /* PusherSubscribable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B55B201F98C887004DBC27 /* PusherSubscribable.swift */; };
 		A1D7D44C1F8BAFBA009EDE1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D7D44B1F8BAFBA009EDE1A /* AppDelegate.swift */; };
 		A1D7D44E1F8BAFBA009EDE1A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D7D44D1F8BAFBA009EDE1A /* ViewController.swift */; };
 		A1D7D4511F8BAFBA009EDE1A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1D7D44F1F8BAFBA009EDE1A /* Main.storyboard */; };
 		A1D7D4531F8BAFBA009EDE1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1D7D4521F8BAFBA009EDE1A /* Assets.xcassets */; };
 		A1D7D4561F8BAFBA009EDE1A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1D7D4541F8BAFBA009EDE1A /* LaunchScreen.storyboard */; };
-		A1D7D45E1F8BB963009EDE1A /* Pusher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D7D45D1F8BB963009EDE1A /* Pusher.swift */; };
-		A1D7D4601F8BB9F8009EDE1A /* PusherRegisterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D7D45F1F8BB9F8009EDE1A /* PusherRegisterable.swift */; };
-		A1D7D4621F8BBA7E009EDE1A /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D7D4611F8BBA7E009EDE1A /* NetworkService.swift */; };
-		A1D7D4641F8BBAB5009EDE1A /* PusherSubscribable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D7D4631F8BBAB5009EDE1A /* PusherSubscribable.swift */; };
-		A1D7D4661F8BBBF7009EDE1A /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D7D4651F8BBBF7009EDE1A /* NetworkResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A1B55B181F98BBA1004DBC27 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		A1B55B1B1F98C887004DBC27 /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		A1B55B1C1F98C887004DBC27 /* NetworkResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkResponse.swift; sourceTree = "<group>"; };
+		A1B55B1D1F98C887004DBC27 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		A1B55B1E1F98C887004DBC27 /* Pusher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pusher.swift; sourceTree = "<group>"; };
+		A1B55B1F1F98C887004DBC27 /* PusherRegisterable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PusherRegisterable.swift; sourceTree = "<group>"; };
+		A1B55B201F98C887004DBC27 /* PusherSubscribable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PusherSubscribable.swift; sourceTree = "<group>"; };
 		A1D7D4481F8BAFBA009EDE1A /* errol-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "errol-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1D7D44B1F8BAFBA009EDE1A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1D7D44D1F8BAFBA009EDE1A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -29,11 +34,6 @@
 		A1D7D4521F8BAFBA009EDE1A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A1D7D4551F8BAFBA009EDE1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A1D7D4571F8BAFBA009EDE1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A1D7D45D1F8BB963009EDE1A /* Pusher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pusher.swift; sourceTree = "<group>"; };
-		A1D7D45F1F8BB9F8009EDE1A /* PusherRegisterable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PusherRegisterable.swift; sourceTree = "<group>"; };
-		A1D7D4611F8BBA7E009EDE1A /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
-		A1D7D4631F8BBAB5009EDE1A /* PusherSubscribable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PusherSubscribable.swift; sourceTree = "<group>"; };
-		A1D7D4651F8BBBF7009EDE1A /* NetworkResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +47,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A1B55B1A1F98C887004DBC27 /* Pusher */ = {
+			isa = PBXGroup;
+			children = (
+				A1B55B1B1F98C887004DBC27 /* HTTPMethod.swift */,
+				A1B55B1C1F98C887004DBC27 /* NetworkResponse.swift */,
+				A1B55B1D1F98C887004DBC27 /* NetworkService.swift */,
+				A1B55B1E1F98C887004DBC27 /* Pusher.swift */,
+				A1B55B1F1F98C887004DBC27 /* PusherRegisterable.swift */,
+				A1B55B201F98C887004DBC27 /* PusherSubscribable.swift */,
+			);
+			path = Pusher;
+			sourceTree = "<group>";
+		};
 		A1D7D43F1F8BAFBA009EDE1A = {
 			isa = PBXGroup;
 			children = (
@@ -67,17 +80,12 @@
 			isa = PBXGroup;
 			children = (
 				A1D7D44B1F8BAFBA009EDE1A /* AppDelegate.swift */,
-				A1D7D44D1F8BAFBA009EDE1A /* ViewController.swift */,
-				A1D7D44F1F8BAFBA009EDE1A /* Main.storyboard */,
 				A1D7D4521F8BAFBA009EDE1A /* Assets.xcassets */,
-				A1D7D4541F8BAFBA009EDE1A /* LaunchScreen.storyboard */,
 				A1D7D4571F8BAFBA009EDE1A /* Info.plist */,
-				A1D7D45D1F8BB963009EDE1A /* Pusher.swift */,
-				A1D7D45F1F8BB9F8009EDE1A /* PusherRegisterable.swift */,
-				A1D7D4611F8BBA7E009EDE1A /* NetworkService.swift */,
-				A1D7D4631F8BBAB5009EDE1A /* PusherSubscribable.swift */,
-				A1D7D4651F8BBBF7009EDE1A /* NetworkResponse.swift */,
-				A1B55B181F98BBA1004DBC27 /* HTTPMethod.swift */,
+				A1D7D4541F8BAFBA009EDE1A /* LaunchScreen.storyboard */,
+				A1D7D44F1F8BAFBA009EDE1A /* Main.storyboard */,
+				A1B55B1A1F98C887004DBC27 /* Pusher */,
+				A1D7D44D1F8BAFBA009EDE1A /* ViewController.swift */,
 			);
 			path = "errol-ios";
 			sourceTree = "<group>";
@@ -154,14 +162,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1D7D4621F8BBA7E009EDE1A /* NetworkService.swift in Sources */,
-				A1D7D4641F8BBAB5009EDE1A /* PusherSubscribable.swift in Sources */,
-				A1D7D4661F8BBBF7009EDE1A /* NetworkResponse.swift in Sources */,
+				A1B55B231F98C887004DBC27 /* NetworkService.swift in Sources */,
 				A1D7D44E1F8BAFBA009EDE1A /* ViewController.swift in Sources */,
-				A1B55B191F98BBA1004DBC27 /* HTTPMethod.swift in Sources */,
+				A1B55B241F98C887004DBC27 /* Pusher.swift in Sources */,
+				A1B55B261F98C887004DBC27 /* PusherSubscribable.swift in Sources */,
+				A1B55B251F98C887004DBC27 /* PusherRegisterable.swift in Sources */,
+				A1B55B221F98C887004DBC27 /* NetworkResponse.swift in Sources */,
 				A1D7D44C1F8BAFBA009EDE1A /* AppDelegate.swift in Sources */,
-				A1D7D45E1F8BB963009EDE1A /* Pusher.swift in Sources */,
-				A1D7D4601F8BB9F8009EDE1A /* PusherRegisterable.swift in Sources */,
+				A1B55B211F98C887004DBC27 /* HTTPMethod.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
