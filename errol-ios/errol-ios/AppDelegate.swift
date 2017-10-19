@@ -13,6 +13,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        self.pusher.register(deviceToken: deviceToken)
+        self.pusher.registerDeviceToken(deviceToken)
     }
 }
