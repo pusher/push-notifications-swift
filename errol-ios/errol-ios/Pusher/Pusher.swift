@@ -11,7 +11,7 @@ struct Pusher {
 
     public func registerDeviceToken(_ deviceToken: Data) {
         let session = URLSession.shared
-        let url = URL(string: "https://errol-staging.herokuapp.com/device_api/v1/instances/\(instanceId)/devices/apns")!
+        guard let url = URL(string: "https://errol-staging.herokuapp.com/device_api/v1/instances/\(instanceId)/devices/ppns") else { return }
         let networkService: PusherRegisterable & PusherSubscribable = NetworkService(url: url, session: session)
 
         networkService.register(deviceToken: deviceToken)

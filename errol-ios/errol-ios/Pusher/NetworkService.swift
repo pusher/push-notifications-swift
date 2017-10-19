@@ -10,7 +10,7 @@ struct NetworkService: PusherRegisterable, PusherSubscribable {
     //MARK: PusherRegisterable
     func register(deviceToken: Data) {
         let deviceTokenString = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
-        let bodyString = "{\"platformType\": \"apns\", \"token\": \"\(deviceTokenString)\"}"
+        let bodyString = "{\"platformType\": \"ppns\", \"token\": \"\(deviceTokenString)\"}"
         guard let body = bodyString.data(using: .utf8) else { return }
         let request = self.setRequest(url: self.url, httpMethod: .POST, body: body)
 
