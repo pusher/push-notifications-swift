@@ -14,7 +14,7 @@ struct NetworkService: PusherRegisterable, PusherSubscribable {
         guard let body = bodyString.data(using: .utf8) else { return }
         let request = self.setRequest(url: self.url, httpMethod: .POST, body: body)
 
-        self.postRequest(request: request, session: self.session) { (response) in
+        self.networkRequest(request, session: self.session) { (response) in
             print(response)
         }
     }
@@ -29,7 +29,7 @@ struct NetworkService: PusherRegisterable, PusherSubscribable {
     }
 
     //MARK: Networking Layer
-    private func postRequest(request: URLRequest, session: URLSession, completion: @escaping NetworkCompletionHandler) {
+    private func networkRequest(_ request: URLRequest, session: URLSession, completion: @escaping NetworkCompletionHandler) {
         session.dataTask(with: request, completionHandler: { (data, response, error) in
             guard
                 let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
