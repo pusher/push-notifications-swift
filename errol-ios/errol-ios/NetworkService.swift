@@ -26,7 +26,7 @@ struct NetworkService: PusherRegisterable, PusherSubscribable {
             guard
                 let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
                 let data = data, error == nil
-                else { return completion(NetworkResponse.Failure) }
+                else { return completion(NetworkResponse.Failure(response: response!)) }
 
             completion(NetworkResponse.Success(data: data))
 
