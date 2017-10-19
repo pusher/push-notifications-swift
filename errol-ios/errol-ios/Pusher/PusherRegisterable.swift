@@ -1,5 +1,5 @@
 import Foundation
 
 protocol PusherRegisterable {
-    func register()
+    func register(deviceToken: Data)
 }
