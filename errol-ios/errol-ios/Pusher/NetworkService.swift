@@ -15,7 +15,13 @@ struct NetworkService: PusherRegisterable, PusherSubscribable {
         let request = self.setRequest(url: self.url, httpMethod: .POST, body: body)
 
         self.networkRequest(request, session: self.session) { (response) in
-            print(response)
+            switch response {
+            case .Success(let data):
+                let device = try! JSONDecoder().decode(Device.self, from: data)
+                print(device.id)
+            case .Failure:
+                break
+            }
         }
     }
 
