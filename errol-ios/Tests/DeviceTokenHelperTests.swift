@@ -3,14 +3,6 @@ import XCTest
 
 class DeviceTokenHelperTests: XCTestCase {
 
-    override func setUp() {
-        super.setUp()
-    }
-    
-    override func tearDown() {
-        super.tearDown()
-    }
-    
     func testConvertToString() {
         let deviceTokenString = "551c547e8dba7f13b69b00cead88e9c2adcc0a68a8659214d03de71f4b9357e2"
         let deviceTokenData = deviceTokenString.toData()! // Convert to `Data` from hexadecimal representation.
