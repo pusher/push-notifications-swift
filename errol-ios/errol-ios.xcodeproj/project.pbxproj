@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A168B3201F99FA9C003E4B72 /* DeviceTokenHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A168B31F1F99FA9C003E4B72 /* DeviceTokenHelper.swift */; };
+		A168B3221F99FF16003E4B72 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = A168B3211F99FF16003E4B72 /* Device.swift */; };
 		A1B55B211F98C887004DBC27 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B55B1B1F98C887004DBC27 /* HTTPMethod.swift */; };
 		A1B55B221F98C887004DBC27 /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B55B1C1F98C887004DBC27 /* NetworkResponse.swift */; };
 		A1B55B231F98C887004DBC27 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B55B1D1F98C887004DBC27 /* NetworkService.swift */; };
@@ -23,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		A168B31F1F99FA9C003E4B72 /* DeviceTokenHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceTokenHelper.swift; sourceTree = "<group>"; };
+		A168B3211F99FF16003E4B72 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		A1B55B1B1F98C887004DBC27 /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		A1B55B1C1F98C887004DBC27 /* NetworkResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkResponse.swift; sourceTree = "<group>"; };
 		A1B55B1D1F98C887004DBC27 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 				A1B55B1F1F98C887004DBC27 /* PusherRegisterable.swift */,
 				A1B55B201F98C887004DBC27 /* PusherSubscribable.swift */,
 				A168B31F1F99FA9C003E4B72 /* DeviceTokenHelper.swift */,
+				A168B3211F99FF16003E4B72 /* Device.swift */,
 			);
 			path = Pusher;
 			sourceTree = "<group>";
@@ -183,6 +186,7 @@
 				A1B55B221F98C887004DBC27 /* NetworkResponse.swift in Sources */,
 				A168B3201F99FA9C003E4B72 /* DeviceTokenHelper.swift in Sources */,
 				A1D7D44C1F8BAFBA009EDE1A /* AppDelegate.swift in Sources */,
+				A168B3221F99FF16003E4B72 /* Device.swift in Sources */,
 				A1B55B211F98C887004DBC27 /* HTTPMethod.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
