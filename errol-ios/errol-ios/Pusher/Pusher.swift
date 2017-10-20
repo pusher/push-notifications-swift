@@ -3,21 +3,26 @@ import Foundation
 import UserNotifications
 
 final class Pusher {
-    let instanceId: String
     private var deviceId: String?
+    private var instanceId: String?
     private let session = URLSession.shared
     private let baseURL = "https://errol-staging.herokuapp.com/device_api/v1/instances"
 
-    public init(instanceId: String) {
-        self.instanceId = instanceId
-    }
+    static let shared = Pusher()
 
-    public func register(application: UIApplication) {
+    private init() {}
+
+    public func register(instanceId: String, application: UIApplication) {
+        self.instanceId = instanceId
         self.registerForPushNotifications(application: application)
     }
 
     public func registerDeviceToken(_ deviceToken: Data) {
-        guard let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/ppns") else { return }
+        guard
+            let instanceId = self.instanceId,
+            let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/ppns")
+        else { return }
+
         let networkService: PusherRegisterable & PusherSubscribable = NetworkService(url: url, session: session)
 
         networkService.register(deviceToken: deviceToken) { [weak self] (deviceId) in
@@ -29,6 +34,7 @@ final class Pusher {
     public func subscribe(interest: String) {
         guard
             let deviceId = self.deviceId,
+            let instanceId = self.instanceId,
             let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/ppns/\(deviceId)/interests/\(interest)")
         else { return }
 
@@ -40,6 +46,7 @@ final class Pusher {
     public func unsubscribe(interest: String) {
         guard
             let deviceId = self.deviceId,
+            let instanceId = self.instanceId,
             let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/ppns/\(deviceId)/interests/\(interest)")
         else { return }
 
