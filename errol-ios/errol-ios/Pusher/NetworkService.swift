@@ -41,7 +41,7 @@ struct NetworkService: PusherRegisterable, PusherSubscribable {
         }).resume()
     }
 
-    private func setRequest(url: URL, httpMethod: HTTPMethod, body: Data) -> URLRequest {
+    private func setRequest(url: URL, httpMethod: HTTPMethod, body: Data? = nil) -> URLRequest {
         var request = URLRequest(url: url)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = httpMethod.rawValue
