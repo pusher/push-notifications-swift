@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		A168B3201F99FA9C003E4B72 /* DeviceTokenHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A168B31F1F99FA9C003E4B72 /* DeviceTokenHelper.swift */; };
 		A168B3221F99FF16003E4B72 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = A168B3211F99FF16003E4B72 /* Device.swift */; };
-		A168B32A1F9A2BEE003E4B72 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A168B3291F9A2BEE003E4B72 /* Tests.swift */; };
 		A1B55B211F98C887004DBC27 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B55B1B1F98C887004DBC27 /* HTTPMethod.swift */; };
 		A1B55B221F98C887004DBC27 /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B55B1C1F98C887004DBC27 /* NetworkResponse.swift */; };
 		A1B55B231F98C887004DBC27 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B55B1D1F98C887004DBC27 /* NetworkService.swift */; };
@@ -37,7 +36,6 @@
 		A168B31F1F99FA9C003E4B72 /* DeviceTokenHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceTokenHelper.swift; sourceTree = "<group>"; };
 		A168B3211F99FF16003E4B72 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		A168B3271F9A2BEE003E4B72 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A168B3291F9A2BEE003E4B72 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		A168B32B1F9A2BEE003E4B72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1B55B1B1F98C887004DBC27 /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		A1B55B1C1F98C887004DBC27 /* NetworkResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkResponse.swift; sourceTree = "<group>"; };
@@ -76,7 +74,6 @@
 		A168B3281F9A2BEE003E4B72 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				A168B3291F9A2BEE003E4B72 /* Tests.swift */,
 				A168B32B1F9A2BEE003E4B72 /* Info.plist */,
 			);
 			path = Tests;
@@ -180,6 +177,7 @@
 				TargetAttributes = {
 					A168B3261F9A2BEE003E4B72 = {
 						CreatedOnToolsVersion = 9.1;
+						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
 						TestTargetID = A1D7D4471F8BAFBA009EDE1A;
 					};
@@ -241,7 +239,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A168B32A1F9A2BEE003E4B72 /* Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,12 +293,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H7FL434D9W;
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pusher.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tests/Tests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/errol-ios.app/errol-ios";
@@ -312,12 +312,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H7FL434D9W;
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pusher.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tests/Tests-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/errol-ios.app/errol-ios";
