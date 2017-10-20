@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A168B3201F99FA9C003E4B72 /* DeviceTokenHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A168B31F1F99FA9C003E4B72 /* DeviceTokenHelper.swift */; };
 		A168B3221F99FF16003E4B72 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = A168B3211F99FF16003E4B72 /* Device.swift */; };
+		A168B32A1F9A2BEE003E4B72 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A168B3291F9A2BEE003E4B72 /* Tests.swift */; };
 		A1B55B211F98C887004DBC27 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B55B1B1F98C887004DBC27 /* HTTPMethod.swift */; };
 		A1B55B221F98C887004DBC27 /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B55B1C1F98C887004DBC27 /* NetworkResponse.swift */; };
 		A1B55B231F98C887004DBC27 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B55B1D1F98C887004DBC27 /* NetworkService.swift */; };
@@ -22,9 +23,22 @@
 		A1D7D4561F8BAFBA009EDE1A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1D7D4541F8BAFBA009EDE1A /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		A168B32C1F9A2BEE003E4B72 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1D7D4401F8BAFBA009EDE1A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A1D7D4471F8BAFBA009EDE1A;
+			remoteInfo = "errol-ios";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		A168B31F1F99FA9C003E4B72 /* DeviceTokenHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceTokenHelper.swift; sourceTree = "<group>"; };
 		A168B3211F99FF16003E4B72 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		A168B3271F9A2BEE003E4B72 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A168B3291F9A2BEE003E4B72 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
+		A168B32B1F9A2BEE003E4B72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1B55B1B1F98C887004DBC27 /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		A1B55B1C1F98C887004DBC27 /* NetworkResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkResponse.swift; sourceTree = "<group>"; };
 		A1B55B1D1F98C887004DBC27 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -42,6 +56,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		A168B3241F9A2BEE003E4B72 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A1D7D4451F8BAFBA009EDE1A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -52,6 +73,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A168B3281F9A2BEE003E4B72 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				A168B3291F9A2BEE003E4B72 /* Tests.swift */,
+				A168B32B1F9A2BEE003E4B72 /* Info.plist */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
 		A1B55B1A1F98C887004DBC27 /* Pusher */ = {
 			isa = PBXGroup;
 			children = (
@@ -71,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				A1D7D44A1F8BAFBA009EDE1A /* errol-ios */,
+				A168B3281F9A2BEE003E4B72 /* Tests */,
 				A1D7D4491F8BAFBA009EDE1A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -79,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				A1D7D4481F8BAFBA009EDE1A /* errol-ios.app */,
+				A168B3271F9A2BEE003E4B72 /* Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -101,6 +133,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		A168B3261F9A2BEE003E4B72 /* Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A168B32E1F9A2BEE003E4B72 /* Build configuration list for PBXNativeTarget "Tests" */;
+			buildPhases = (
+				A168B3231F9A2BEE003E4B72 /* Sources */,
+				A168B3241F9A2BEE003E4B72 /* Frameworks */,
+				A168B3251F9A2BEE003E4B72 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A168B32D1F9A2BEE003E4B72 /* PBXTargetDependency */,
+			);
+			name = Tests;
+			productName = Tests;
+			productReference = A168B3271F9A2BEE003E4B72 /* Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		A1D7D4471F8BAFBA009EDE1A /* errol-ios */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A1D7D45A1F8BAFBA009EDE1A /* Build configuration list for PBXNativeTarget "errol-ios" */;
@@ -128,6 +178,11 @@
 				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = Pusher;
 				TargetAttributes = {
+					A168B3261F9A2BEE003E4B72 = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = A1D7D4471F8BAFBA009EDE1A;
+					};
 					A1D7D4471F8BAFBA009EDE1A = {
 						CreatedOnToolsVersion = 9.1;
 						ProvisioningStyle = Automatic;
@@ -156,11 +211,19 @@
 			projectRoot = "";
 			targets = (
 				A1D7D4471F8BAFBA009EDE1A /* errol-ios */,
+				A168B3261F9A2BEE003E4B72 /* Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		A168B3251F9A2BEE003E4B72 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A1D7D4461F8BAFBA009EDE1A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -174,6 +237,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		A168B3231F9A2BEE003E4B72 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A168B32A1F9A2BEE003E4B72 /* Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A1D7D4441F8BAFBA009EDE1A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -192,6 +263,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A168B32D1F9A2BEE003E4B72 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A1D7D4471F8BAFBA009EDE1A /* errol-ios */;
+			targetProxy = A168B32C1F9A2BEE003E4B72 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		A1D7D44F1F8BAFBA009EDE1A /* Main.storyboard */ = {
@@ -213,6 +292,38 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		A168B32F1F9A2BEE003E4B72 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H7FL434D9W;
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pusher.Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/errol-ios.app/errol-ios";
+			};
+			name = Debug;
+		};
+		A168B3301F9A2BEE003E4B72 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H7FL434D9W;
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pusher.Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/errol-ios.app/errol-ios";
+			};
+			name = Release;
+		};
 		A1D7D4581F8BAFBA009EDE1A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -357,6 +468,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A168B32E1F9A2BEE003E4B72 /* Build configuration list for PBXNativeTarget "Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A168B32F1F9A2BEE003E4B72 /* Debug */,
+				A168B3301F9A2BEE003E4B72 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A1D7D4431F8BAFBA009EDE1A /* Build configuration list for PBXProject "errol-ios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
