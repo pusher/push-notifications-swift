@@ -8,7 +8,7 @@ struct NetworkService: PusherRegisterable, PusherSubscribable {
     typealias NetworkCompletionHandler = (_ response: NetworkResponse) -> Void
 
     //MARK: PusherRegisterable
-    func register(deviceToken: Data) {
+    func register(deviceToken: Data, completion: @escaping CompletionHandler) {
         let deviceTokenString = DeviceTokenHelper().convertToString(deviceToken)
         let bodyString = "{\"platformType\": \"ppns\", \"token\": \"\(deviceTokenString)\"}"
         guard let body = bodyString.data(using: .utf8) else { return }
@@ -18,7 +18,7 @@ struct NetworkService: PusherRegisterable, PusherSubscribable {
             switch response {
             case .Success(let data):
                 let device = try! JSONDecoder().decode(Device.self, from: data)
-                print(device.id)
+                completion(device.id)
             case .Failure:
                 break
             }
