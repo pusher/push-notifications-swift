@@ -20,12 +20,16 @@ struct NetworkService: PusherRegisterable, PusherSubscribable {
     }
 
     //MARK: PusherSubscribable
-    func subscribe(interest: String) {
-        //TODO
+    func subscribe() {
+        let request = self.setRequest(url: self.url, httpMethod: .POST)
+
+        self.networkRequest(request, session: self.session) { (response) in }
     }
 
-    func unsubscribe(interest: String) {
-        //TODO
+    func unsubscribe() {
+        let request = self.setRequest(url: self.url, httpMethod: .DELETE)
+
+        self.networkRequest(request, session: self.session) { (response) in }
     }
 
     //MARK: Networking Layer
