@@ -7,22 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A168B3201F99FA9C003E4B72 /* DeviceTokenHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A168B31F1F99FA9C003E4B72 /* DeviceTokenHelper.swift */; };
-		A168B3221F99FF16003E4B72 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = A168B3211F99FF16003E4B72 /* Device.swift */; };
-		A168B3351F9A2E7E003E4B72 /* DeviceTokenHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A168B3341F9A2E7E003E4B72 /* DeviceTokenHelperTests.swift */; };
-		A1B55B211F98C887004DBC27 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B55B1B1F98C887004DBC27 /* HTTPMethod.swift */; };
-		A1B55B221F98C887004DBC27 /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B55B1C1F98C887004DBC27 /* NetworkResponse.swift */; };
-		A1B55B231F98C887004DBC27 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B55B1D1F98C887004DBC27 /* NetworkService.swift */; };
-		A1B55B241F98C887004DBC27 /* Pusher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B55B1E1F98C887004DBC27 /* Pusher.swift */; };
-		A1B55B251F98C887004DBC27 /* PusherRegisterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B55B1F1F98C887004DBC27 /* PusherRegisterable.swift */; };
-		A1B55B261F98C887004DBC27 /* PusherSubscribable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B55B201F98C887004DBC27 /* PusherSubscribable.swift */; };
+		A1071F7D1F9A52F20045A58E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A1071F701F9A52F20045A58E /* Info.plist */; };
+		A1071F801F9A52F20045A58E /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1071F741F9A52F20045A58E /* Device.swift */; };
+		A1071F811F9A52F20045A58E /* DeviceTokenHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1071F751F9A52F20045A58E /* DeviceTokenHelper.swift */; };
+		A1071F821F9A52F20045A58E /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1071F761F9A52F20045A58E /* HTTPMethod.swift */; };
+		A1071F831F9A52F20045A58E /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1071F771F9A52F20045A58E /* NetworkResponse.swift */; };
+		A1071F841F9A52F20045A58E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1071F781F9A52F20045A58E /* NetworkService.swift */; };
+		A1071F851F9A52F20045A58E /* Pusher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1071F791F9A52F20045A58E /* Pusher.swift */; };
+		A1071F861F9A52F20045A58E /* PusherRegisterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1071F7A1F9A52F20045A58E /* PusherRegisterable.swift */; };
+		A1071F871F9A52F20045A58E /* PusherSubscribable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1071F7B1F9A52F20045A58E /* PusherSubscribable.swift */; };
+		A1071F8B1F9A53B00045A58E /* DeviceTokenHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1071F6F1F9A52F20045A58E /* DeviceTokenHelperTests.swift */; };
+		A1071F8D1F9A53B90045A58E /* PusherRegisterableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1071F721F9A52F20045A58E /* PusherRegisterableTests.swift */; };
+		A1071F8E1F9A53C90045A58E /* MockPusherRegisterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1071F711F9A52F20045A58E /* MockPusherRegisterable.swift */; };
 		A1D7D44C1F8BAFBA009EDE1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D7D44B1F8BAFBA009EDE1A /* AppDelegate.swift */; };
 		A1D7D44E1F8BAFBA009EDE1A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D7D44D1F8BAFBA009EDE1A /* ViewController.swift */; };
 		A1D7D4511F8BAFBA009EDE1A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1D7D44F1F8BAFBA009EDE1A /* Main.storyboard */; };
 		A1D7D4531F8BAFBA009EDE1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1D7D4521F8BAFBA009EDE1A /* Assets.xcassets */; };
 		A1D7D4561F8BAFBA009EDE1A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1D7D4541F8BAFBA009EDE1A /* LaunchScreen.storyboard */; };
-		A1E8585C1F9A459F00D8D6C3 /* MockPusherRegisterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E8585B1F9A459F00D8D6C3 /* MockPusherRegisterable.swift */; };
-		A1E8585E1F9A48B900D8D6C3 /* PusherRegisterableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E8585D1F9A48B900D8D6C3 /* PusherRegisterableTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,17 +37,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		A168B31F1F99FA9C003E4B72 /* DeviceTokenHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceTokenHelper.swift; sourceTree = "<group>"; };
-		A168B3211F99FF16003E4B72 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		A1071F6F1F9A52F20045A58E /* DeviceTokenHelperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTokenHelperTests.swift; sourceTree = "<group>"; };
+		A1071F701F9A52F20045A58E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A1071F711F9A52F20045A58E /* MockPusherRegisterable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockPusherRegisterable.swift; sourceTree = "<group>"; };
+		A1071F721F9A52F20045A58E /* PusherRegisterableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PusherRegisterableTests.swift; sourceTree = "<group>"; };
+		A1071F741F9A52F20045A58E /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		A1071F751F9A52F20045A58E /* DeviceTokenHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTokenHelper.swift; sourceTree = "<group>"; };
+		A1071F761F9A52F20045A58E /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		A1071F771F9A52F20045A58E /* NetworkResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkResponse.swift; sourceTree = "<group>"; };
+		A1071F781F9A52F20045A58E /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		A1071F791F9A52F20045A58E /* Pusher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pusher.swift; sourceTree = "<group>"; };
+		A1071F7A1F9A52F20045A58E /* PusherRegisterable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PusherRegisterable.swift; sourceTree = "<group>"; };
+		A1071F7B1F9A52F20045A58E /* PusherSubscribable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PusherSubscribable.swift; sourceTree = "<group>"; };
 		A168B3271F9A2BEE003E4B72 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A168B32B1F9A2BEE003E4B72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A168B3341F9A2E7E003E4B72 /* DeviceTokenHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceTokenHelperTests.swift; sourceTree = "<group>"; };
-		A1B55B1B1F98C887004DBC27 /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
-		A1B55B1C1F98C887004DBC27 /* NetworkResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkResponse.swift; sourceTree = "<group>"; };
-		A1B55B1D1F98C887004DBC27 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
-		A1B55B1E1F98C887004DBC27 /* Pusher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pusher.swift; sourceTree = "<group>"; };
-		A1B55B1F1F98C887004DBC27 /* PusherRegisterable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PusherRegisterable.swift; sourceTree = "<group>"; };
-		A1B55B201F98C887004DBC27 /* PusherSubscribable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PusherSubscribable.swift; sourceTree = "<group>"; };
 		A1B55B271F98CC9E004DBC27 /* errol-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "errol-ios.entitlements"; sourceTree = "<group>"; };
 		A1D7D4481F8BAFBA009EDE1A /* errol-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "errol-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1D7D44B1F8BAFBA009EDE1A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -55,8 +58,6 @@
 		A1D7D4521F8BAFBA009EDE1A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A1D7D4551F8BAFBA009EDE1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A1D7D4571F8BAFBA009EDE1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A1E8585B1F9A459F00D8D6C3 /* MockPusherRegisterable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPusherRegisterable.swift; sourceTree = "<group>"; };
-		A1E8585D1F9A48B900D8D6C3 /* PusherRegisterableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PusherRegisterableTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,30 +78,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A168B3281F9A2BEE003E4B72 /* Tests */ = {
+		A1071F6E1F9A52F20045A58E /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				A168B32B1F9A2BEE003E4B72 /* Info.plist */,
-				A168B3341F9A2E7E003E4B72 /* DeviceTokenHelperTests.swift */,
-				A1E8585B1F9A459F00D8D6C3 /* MockPusherRegisterable.swift */,
-				A1E8585D1F9A48B900D8D6C3 /* PusherRegisterableTests.swift */,
+				A1071F6F1F9A52F20045A58E /* DeviceTokenHelperTests.swift */,
+				A1071F701F9A52F20045A58E /* Info.plist */,
+				A1071F711F9A52F20045A58E /* MockPusherRegisterable.swift */,
+				A1071F721F9A52F20045A58E /* PusherRegisterableTests.swift */,
 			);
-			path = Tests;
+			name = Tests;
+			path = ../Tests;
 			sourceTree = "<group>";
 		};
-		A1B55B1A1F98C887004DBC27 /* Sources */ = {
+		A1071F731F9A52F20045A58E /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				A1B55B1B1F98C887004DBC27 /* HTTPMethod.swift */,
-				A1B55B1C1F98C887004DBC27 /* NetworkResponse.swift */,
-				A1B55B1D1F98C887004DBC27 /* NetworkService.swift */,
-				A1B55B1E1F98C887004DBC27 /* Pusher.swift */,
-				A1B55B1F1F98C887004DBC27 /* PusherRegisterable.swift */,
-				A1B55B201F98C887004DBC27 /* PusherSubscribable.swift */,
-				A168B31F1F99FA9C003E4B72 /* DeviceTokenHelper.swift */,
-				A168B3211F99FF16003E4B72 /* Device.swift */,
+				A1071F741F9A52F20045A58E /* Device.swift */,
+				A1071F751F9A52F20045A58E /* DeviceTokenHelper.swift */,
+				A1071F761F9A52F20045A58E /* HTTPMethod.swift */,
+				A1071F771F9A52F20045A58E /* NetworkResponse.swift */,
+				A1071F781F9A52F20045A58E /* NetworkService.swift */,
+				A1071F791F9A52F20045A58E /* Pusher.swift */,
+				A1071F7A1F9A52F20045A58E /* PusherRegisterable.swift */,
+				A1071F7B1F9A52F20045A58E /* PusherSubscribable.swift */,
 			);
-			path = Sources;
+			name = Sources;
+			path = ../Sources;
 			sourceTree = "<group>";
 		};
 		A1D7D43F1F8BAFBA009EDE1A = {
@@ -108,8 +111,8 @@
 			children = (
 				A1D7D44A1F8BAFBA009EDE1A /* errol-ios */,
 				A1D7D4491F8BAFBA009EDE1A /* Products */,
-				A1B55B1A1F98C887004DBC27 /* Sources */,
-				A168B3281F9A2BEE003E4B72 /* Tests */,
+				A1071F731F9A52F20045A58E /* Sources */,
+				A1071F6E1F9A52F20045A58E /* Tests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -235,6 +238,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1071F7D1F9A52F20045A58E /* Info.plist in Resources */,
 				A1D7D4561F8BAFBA009EDE1A /* LaunchScreen.storyboard in Resources */,
 				A1D7D4531F8BAFBA009EDE1A /* Assets.xcassets in Resources */,
 				A1D7D4511F8BAFBA009EDE1A /* Main.storyboard in Resources */,
@@ -248,9 +252,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1E8585E1F9A48B900D8D6C3 /* PusherRegisterableTests.swift in Sources */,
-				A168B3351F9A2E7E003E4B72 /* DeviceTokenHelperTests.swift in Sources */,
-				A1E8585C1F9A459F00D8D6C3 /* MockPusherRegisterable.swift in Sources */,
+				A1071F8D1F9A53B90045A58E /* PusherRegisterableTests.swift in Sources */,
+				A1071F8B1F9A53B00045A58E /* DeviceTokenHelperTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,16 +261,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1B55B231F98C887004DBC27 /* NetworkService.swift in Sources */,
+				A1071F8E1F9A53C90045A58E /* MockPusherRegisterable.swift in Sources */,
+				A1071F841F9A52F20045A58E /* NetworkService.swift in Sources */,
+				A1071F851F9A52F20045A58E /* Pusher.swift in Sources */,
 				A1D7D44E1F8BAFBA009EDE1A /* ViewController.swift in Sources */,
-				A1B55B241F98C887004DBC27 /* Pusher.swift in Sources */,
-				A1B55B261F98C887004DBC27 /* PusherSubscribable.swift in Sources */,
-				A1B55B251F98C887004DBC27 /* PusherRegisterable.swift in Sources */,
-				A1B55B221F98C887004DBC27 /* NetworkResponse.swift in Sources */,
-				A168B3201F99FA9C003E4B72 /* DeviceTokenHelper.swift in Sources */,
+				A1071F811F9A52F20045A58E /* DeviceTokenHelper.swift in Sources */,
+				A1071F821F9A52F20045A58E /* HTTPMethod.swift in Sources */,
+				A1071F831F9A52F20045A58E /* NetworkResponse.swift in Sources */,
+				A1071F801F9A52F20045A58E /* Device.swift in Sources */,
+				A1071F871F9A52F20045A58E /* PusherSubscribable.swift in Sources */,
 				A1D7D44C1F8BAFBA009EDE1A /* AppDelegate.swift in Sources */,
-				A168B3221F99FF16003E4B72 /* Device.swift in Sources */,
-				A1B55B211F98C887004DBC27 /* HTTPMethod.swift in Sources */,
+				A1071F861F9A52F20045A58E /* PusherRegisterable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,4 @@
 import Foundation
-@testable import errol_ios
 
 struct MockPusherRegisterable: PusherRegisterable {
     func register(deviceToken: Data, completion: @escaping CompletionHandler) {
