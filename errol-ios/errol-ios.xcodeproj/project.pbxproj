@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A168B3201F99FA9C003E4B72 /* DeviceTokenHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A168B31F1F99FA9C003E4B72 /* DeviceTokenHelper.swift */; };
 		A168B3221F99FF16003E4B72 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = A168B3211F99FF16003E4B72 /* Device.swift */; };
+		A168B3351F9A2E7E003E4B72 /* DeviceTokenHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A168B3341F9A2E7E003E4B72 /* DeviceTokenHelperTests.swift */; };
 		A1B55B211F98C887004DBC27 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B55B1B1F98C887004DBC27 /* HTTPMethod.swift */; };
 		A1B55B221F98C887004DBC27 /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B55B1C1F98C887004DBC27 /* NetworkResponse.swift */; };
 		A1B55B231F98C887004DBC27 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B55B1D1F98C887004DBC27 /* NetworkService.swift */; };
@@ -37,6 +38,7 @@
 		A168B3211F99FF16003E4B72 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		A168B3271F9A2BEE003E4B72 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A168B32B1F9A2BEE003E4B72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A168B3341F9A2E7E003E4B72 /* DeviceTokenHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceTokenHelperTests.swift; sourceTree = "<group>"; };
 		A1B55B1B1F98C887004DBC27 /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		A1B55B1C1F98C887004DBC27 /* NetworkResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkResponse.swift; sourceTree = "<group>"; };
 		A1B55B1D1F98C887004DBC27 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				A168B32B1F9A2BEE003E4B72 /* Info.plist */,
+				A168B3341F9A2E7E003E4B72 /* DeviceTokenHelperTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -239,6 +242,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A168B3351F9A2E7E003E4B72 /* DeviceTokenHelperTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
