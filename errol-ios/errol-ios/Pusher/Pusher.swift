@@ -13,21 +13,21 @@ struct Pusher {
 
     public func registerDeviceToken(_ deviceToken: Data) {
         guard let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/ppns") else { return }
-        let networkService: PusherRegisterable & PusherSubscribable = NetworkService(url: self.url, session: session)
+        let networkService: PusherRegisterable & PusherSubscribable = NetworkService(url: url, session: session)
 
         networkService.register(deviceToken: deviceToken)
     }
 
     public func subscribe(interest: String) {
         guard let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/ppns/ppns-876eeb5d-0dc8-4d74-9f59-b65412b2c742/interests/\(interest)") else { return }
-        let networkService: PusherRegisterable & PusherSubscribable = NetworkService(url: self.session, session: session)
+        let networkService: PusherRegisterable & PusherSubscribable = NetworkService(url: url, session: session)
 
         networkService.subscribe()
     }
 
     public func unsubscribe(interest: String) {
         guard let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/ppns/ppns-876eeb5d-0dc8-4d74-9f59-b65412b2c742/interests/\(interest)") else { return }
-        let networkService: PusherRegisterable & PusherSubscribable = NetworkService(url: self.url, session: session)
+        let networkService: PusherRegisterable & PusherSubscribable = NetworkService(url: url, session: session)
 
         networkService.unsubscribe()
     }
