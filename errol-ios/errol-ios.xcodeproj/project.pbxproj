@@ -88,7 +88,7 @@
 			path = Tests;
 			sourceTree = "<group>";
 		};
-		A1B55B1A1F98C887004DBC27 /* Pusher */ = {
+		A1B55B1A1F98C887004DBC27 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				A1B55B1B1F98C887004DBC27 /* HTTPMethod.swift */,
@@ -100,15 +100,16 @@
 				A168B31F1F99FA9C003E4B72 /* DeviceTokenHelper.swift */,
 				A168B3211F99FF16003E4B72 /* Device.swift */,
 			);
-			path = Pusher;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		A1D7D43F1F8BAFBA009EDE1A = {
 			isa = PBXGroup;
 			children = (
 				A1D7D44A1F8BAFBA009EDE1A /* errol-ios */,
-				A168B3281F9A2BEE003E4B72 /* Tests */,
 				A1D7D4491F8BAFBA009EDE1A /* Products */,
+				A1B55B1A1F98C887004DBC27 /* Sources */,
+				A168B3281F9A2BEE003E4B72 /* Tests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -130,7 +131,6 @@
 				A1D7D4571F8BAFBA009EDE1A /* Info.plist */,
 				A1D7D4541F8BAFBA009EDE1A /* LaunchScreen.storyboard */,
 				A1D7D44F1F8BAFBA009EDE1A /* Main.storyboard */,
-				A1B55B1A1F98C887004DBC27 /* Pusher */,
 				A1D7D44D1F8BAFBA009EDE1A /* ViewController.swift */,
 			);
 			path = "errol-ios";
