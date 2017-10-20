@@ -2,10 +2,15 @@ import UIKit
 import Foundation
 import UserNotifications
 
-struct Pusher {
+final class Pusher {
     let instanceId: String
+    private var deviceId: String?
     private let session = URLSession.shared
     private let baseURL = "https://errol-staging.herokuapp.com/device_api/v1/instances"
+
+    public init(instanceId: String) {
+        self.instanceId = instanceId
+    }
 
     public func register(application: UIApplication) {
         self.registerForPushNotifications(application: application)
@@ -15,18 +20,29 @@ struct Pusher {
         guard let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/ppns") else { return }
         let networkService: PusherRegisterable & PusherSubscribable = NetworkService(url: url, session: session)
 
-        networkService.register(deviceToken: deviceToken)
+        networkService.register(deviceToken: deviceToken) { [weak self] (deviceId) in
+            guard let strongSelf = self else { return }
+            strongSelf.deviceId = deviceId
+        }
     }
 
     public func subscribe(interest: String) {
-        guard let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/ppns/ppns-876eeb5d-0dc8-4d74-9f59-b65412b2c742/interests/\(interest)") else { return }
+        guard
+            let deviceId = self.deviceId,
+            let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/ppns/\(deviceId)/interests/\(interest)")
+        else { return }
+
         let networkService: PusherRegisterable & PusherSubscribable = NetworkService(url: url, session: session)
 
         networkService.subscribe()
     }
 
     public func unsubscribe(interest: String) {
-        guard let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/ppns/ppns-876eeb5d-0dc8-4d74-9f59-b65412b2c742/interests/\(interest)") else { return }
+        guard
+            let deviceId = self.deviceId,
+            let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/ppns/\(deviceId)/interests/\(interest)")
+        else { return }
+
         let networkService: PusherRegisterable & PusherSubscribable = NetworkService(url: url, session: session)
 
         networkService.unsubscribe()
