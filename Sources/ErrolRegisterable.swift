@@ -1,6 +1,6 @@
 import Foundation
 
-protocol PusherRegisterable {
+protocol ErrolRegisterable {
     typealias CompletionHandler = (String) -> ()
     func register(deviceToken: Data, completion: @escaping CompletionHandler)
 }

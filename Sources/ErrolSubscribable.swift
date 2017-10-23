@@ -1,6 +1,6 @@
 import Foundation
 
-protocol PusherSubscribable {
+protocol ErrolSubscribable {
     func subscribe()
     func unsubscribe()
 }

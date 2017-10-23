@@ -7,17 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A144AB4B1F9E3DA3009F0040 /* PusherRegisterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB431F9E3DA2009F0040 /* PusherRegisterable.swift */; };
+		A144AB4B1F9E3DA3009F0040 /* ErrolRegisterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB431F9E3DA2009F0040 /* ErrolRegisterable.swift */; };
 		A144AB4C1F9E3DA3009F0040 /* DeviceTokenHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB441F9E3DA2009F0040 /* DeviceTokenHelper.swift */; };
 		A144AB4D1F9E3DA3009F0040 /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB451F9E3DA2009F0040 /* NetworkResponse.swift */; };
-		A144AB4E1F9E3DA3009F0040 /* PusherSubscribable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB461F9E3DA2009F0040 /* PusherSubscribable.swift */; };
+		A144AB4E1F9E3DA3009F0040 /* ErrolSubscribable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB461F9E3DA2009F0040 /* ErrolSubscribable.swift */; };
 		A144AB4F1F9E3DA3009F0040 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB471F9E3DA2009F0040 /* Device.swift */; };
-		A144AB501F9E3DA3009F0040 /* Pusher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB481F9E3DA2009F0040 /* Pusher.swift */; };
+		A144AB501F9E3DA3009F0040 /* Errol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB481F9E3DA2009F0040 /* Errol.swift */; };
 		A144AB511F9E3DA3009F0040 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB491F9E3DA3009F0040 /* HTTPMethod.swift */; };
 		A144AB521F9E3DA3009F0040 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB4A1F9E3DA3009F0040 /* NetworkService.swift */; };
-		A144AB561F9E3DBF009F0040 /* PusherRegisterableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB531F9E3DBE009F0040 /* PusherRegisterableTests.swift */; };
+		A144AB561F9E3DBF009F0040 /* ErrolRegisterableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB531F9E3DBE009F0040 /* ErrolRegisterableTests.swift */; };
 		A144AB571F9E3DBF009F0040 /* DeviceTokenHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB541F9E3DBF009F0040 /* DeviceTokenHelperTests.swift */; };
-		A144AB591F9E3DCC009F0040 /* MockPusherRegisterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB551F9E3DBF009F0040 /* MockPusherRegisterable.swift */; };
+		A144AB591F9E3DCC009F0040 /* MockErrolRegisterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB551F9E3DBF009F0040 /* MockErrolRegisterable.swift */; };
 		A155BFBD1F9E38040070A609 /* Errol.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A155BFB31F9E38040070A609 /* Errol.framework */; };
 		A155BFC41F9E38040070A609 /* Errol.h in Headers */ = {isa = PBXBuildFile; fileRef = A155BFB61F9E38040070A609 /* Errol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
@@ -33,17 +33,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		A144AB431F9E3DA2009F0040 /* PusherRegisterable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PusherRegisterable.swift; path = ../../Sources/PusherRegisterable.swift; sourceTree = "<group>"; };
+		A144AB431F9E3DA2009F0040 /* ErrolRegisterable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ErrolRegisterable.swift; path = ../../Sources/ErrolRegisterable.swift; sourceTree = "<group>"; };
 		A144AB441F9E3DA2009F0040 /* DeviceTokenHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceTokenHelper.swift; path = ../../Sources/DeviceTokenHelper.swift; sourceTree = "<group>"; };
 		A144AB451F9E3DA2009F0040 /* NetworkResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkResponse.swift; path = ../../Sources/NetworkResponse.swift; sourceTree = "<group>"; };
-		A144AB461F9E3DA2009F0040 /* PusherSubscribable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PusherSubscribable.swift; path = ../../Sources/PusherSubscribable.swift; sourceTree = "<group>"; };
+		A144AB461F9E3DA2009F0040 /* ErrolSubscribable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ErrolSubscribable.swift; path = ../../Sources/ErrolSubscribable.swift; sourceTree = "<group>"; };
 		A144AB471F9E3DA2009F0040 /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Device.swift; path = ../../Sources/Device.swift; sourceTree = "<group>"; };
-		A144AB481F9E3DA2009F0040 /* Pusher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Pusher.swift; path = ../../Sources/Pusher.swift; sourceTree = "<group>"; };
+		A144AB481F9E3DA2009F0040 /* Errol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Errol.swift; path = ../../Sources/Errol.swift; sourceTree = "<group>"; };
 		A144AB491F9E3DA3009F0040 /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HTTPMethod.swift; path = ../../Sources/HTTPMethod.swift; sourceTree = "<group>"; };
 		A144AB4A1F9E3DA3009F0040 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkService.swift; path = ../../Sources/NetworkService.swift; sourceTree = "<group>"; };
-		A144AB531F9E3DBE009F0040 /* PusherRegisterableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PusherRegisterableTests.swift; path = ../../Tests/PusherRegisterableTests.swift; sourceTree = "<group>"; };
+		A144AB531F9E3DBE009F0040 /* ErrolRegisterableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ErrolRegisterableTests.swift; path = ../../Tests/ErrolRegisterableTests.swift; sourceTree = "<group>"; };
 		A144AB541F9E3DBF009F0040 /* DeviceTokenHelperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceTokenHelperTests.swift; path = ../../Tests/DeviceTokenHelperTests.swift; sourceTree = "<group>"; };
-		A144AB551F9E3DBF009F0040 /* MockPusherRegisterable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockPusherRegisterable.swift; path = ../../Tests/MockPusherRegisterable.swift; sourceTree = "<group>"; };
+		A144AB551F9E3DBF009F0040 /* MockErrolRegisterable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockErrolRegisterable.swift; path = ../../Tests/MockErrolRegisterable.swift; sourceTree = "<group>"; };
 		A155BFB31F9E38040070A609 /* Errol.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Errol.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A155BFB61F9E38040070A609 /* Errol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Errol.h; sourceTree = "<group>"; };
 		A155BFB71F9E38040070A609 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -97,9 +97,9 @@
 				A144AB491F9E3DA3009F0040 /* HTTPMethod.swift */,
 				A144AB451F9E3DA2009F0040 /* NetworkResponse.swift */,
 				A144AB4A1F9E3DA3009F0040 /* NetworkService.swift */,
-				A144AB481F9E3DA2009F0040 /* Pusher.swift */,
-				A144AB431F9E3DA2009F0040 /* PusherRegisterable.swift */,
-				A144AB461F9E3DA2009F0040 /* PusherSubscribable.swift */,
+				A144AB481F9E3DA2009F0040 /* Errol.swift */,
+				A144AB431F9E3DA2009F0040 /* ErrolRegisterable.swift */,
+				A144AB461F9E3DA2009F0040 /* ErrolSubscribable.swift */,
 				A155BFB61F9E38040070A609 /* Errol.h */,
 				A155BFB71F9E38040070A609 /* Info.plist */,
 			);
@@ -110,8 +110,8 @@
 			isa = PBXGroup;
 			children = (
 				A144AB541F9E3DBF009F0040 /* DeviceTokenHelperTests.swift */,
-				A144AB551F9E3DBF009F0040 /* MockPusherRegisterable.swift */,
-				A144AB531F9E3DBE009F0040 /* PusherRegisterableTests.swift */,
+				A144AB551F9E3DBF009F0040 /* MockErrolRegisterable.swift */,
+				A144AB531F9E3DBE009F0040 /* ErrolRegisterableTests.swift */,
 				A1ED00141F9E392700A029F2 /* ErrolTests-Bridging-Header.h */,
 				A155BFC31F9E38040070A609 /* Info.plist */,
 			);
@@ -230,14 +230,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A144AB4B1F9E3DA3009F0040 /* PusherRegisterable.swift in Sources */,
+				A144AB4B1F9E3DA3009F0040 /* ErrolRegisterable.swift in Sources */,
 				A144AB4C1F9E3DA3009F0040 /* DeviceTokenHelper.swift in Sources */,
-				A144AB591F9E3DCC009F0040 /* MockPusherRegisterable.swift in Sources */,
+				A144AB591F9E3DCC009F0040 /* MockErrolRegisterable.swift in Sources */,
 				A144AB521F9E3DA3009F0040 /* NetworkService.swift in Sources */,
 				A144AB511F9E3DA3009F0040 /* HTTPMethod.swift in Sources */,
-				A144AB501F9E3DA3009F0040 /* Pusher.swift in Sources */,
+				A144AB501F9E3DA3009F0040 /* Errol.swift in Sources */,
 				A144AB4D1F9E3DA3009F0040 /* NetworkResponse.swift in Sources */,
-				A144AB4E1F9E3DA3009F0040 /* PusherSubscribable.swift in Sources */,
+				A144AB4E1F9E3DA3009F0040 /* ErrolSubscribable.swift in Sources */,
 				A144AB4F1F9E3DA3009F0040 /* Device.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -246,7 +246,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A144AB561F9E3DBF009F0040 /* PusherRegisterableTests.swift in Sources */,
+				A144AB561F9E3DBF009F0040 /* ErrolRegisterableTests.swift in Sources */,
 				A144AB571F9E3DBF009F0040 /* DeviceTokenHelperTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,13 +1,13 @@
 import Foundation
 
-struct NetworkService: PusherRegisterable, PusherSubscribable {
+struct NetworkService: ErrolRegisterable, ErrolSubscribable {
 
     let url: URL
     let session: URLSession
 
     typealias NetworkCompletionHandler = (_ response: NetworkResponse) -> Void
 
-    //MARK: PusherRegisterable
+    //MARK: ErrolRegisterable
     func register(deviceToken: Data, completion: @escaping CompletionHandler) {
         let deviceTokenString = deviceToken.hexadecimalRepresentation()
         let bodyString = "{\"platformType\": \"ppns\", \"token\": \"\(deviceTokenString)\"}"
@@ -25,7 +25,7 @@ struct NetworkService: PusherRegisterable, PusherSubscribable {
         }
     }
 
-    //MARK: PusherSubscribable
+    //MARK: ErrolSubscribable
     func subscribe() {
         let request = self.setRequest(url: self.url, httpMethod: .POST)
 
