@@ -1,4 +1,5 @@
 import UIKit
+import Errol
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
