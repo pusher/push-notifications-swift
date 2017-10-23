@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A1071F7D1F9A52F20045A58E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A1071F701F9A52F20045A58E /* Info.plist */; };
 		A1071F801F9A52F20045A58E /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1071F741F9A52F20045A58E /* Device.swift */; };
 		A1071F811F9A52F20045A58E /* DeviceTokenHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1071F751F9A52F20045A58E /* DeviceTokenHelper.swift */; };
 		A1071F821F9A52F20045A58E /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1071F761F9A52F20045A58E /* HTTPMethod.swift */; };
@@ -19,6 +18,7 @@
 		A1071F8B1F9A53B00045A58E /* DeviceTokenHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1071F6F1F9A52F20045A58E /* DeviceTokenHelperTests.swift */; };
 		A1071F8D1F9A53B90045A58E /* PusherRegisterableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1071F721F9A52F20045A58E /* PusherRegisterableTests.swift */; };
 		A1071F8E1F9A53C90045A58E /* MockPusherRegisterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1071F711F9A52F20045A58E /* MockPusherRegisterable.swift */; };
+		A1A398061F9DFCCE004FA3C9 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A1071F701F9A52F20045A58E /* Info.plist */; };
 		A1D7D44C1F8BAFBA009EDE1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D7D44B1F8BAFBA009EDE1A /* AppDelegate.swift */; };
 		A1D7D44E1F8BAFBA009EDE1A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D7D44D1F8BAFBA009EDE1A /* ViewController.swift */; };
 		A1D7D4511F8BAFBA009EDE1A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1D7D44F1F8BAFBA009EDE1A /* Main.storyboard */; };
@@ -38,7 +38,7 @@
 
 /* Begin PBXFileReference section */
 		A1071F6F1F9A52F20045A58E /* DeviceTokenHelperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTokenHelperTests.swift; sourceTree = "<group>"; };
-		A1071F701F9A52F20045A58E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A1071F701F9A52F20045A58E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "/Users/luka/Developer/errol-ios/Tests/Info.plist"; sourceTree = "<absolute>"; };
 		A1071F711F9A52F20045A58E /* MockPusherRegisterable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockPusherRegisterable.swift; sourceTree = "<group>"; };
 		A1071F721F9A52F20045A58E /* PusherRegisterableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PusherRegisterableTests.swift; sourceTree = "<group>"; };
 		A1071F741F9A52F20045A58E /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
@@ -231,6 +231,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1A398061F9DFCCE004FA3C9 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,7 +239,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1071F7D1F9A52F20045A58E /* Info.plist in Resources */,
 				A1D7D4561F8BAFBA009EDE1A /* LaunchScreen.storyboard in Resources */,
 				A1D7D4531F8BAFBA009EDE1A /* Assets.xcassets in Resources */,
 				A1D7D4511F8BAFBA009EDE1A /* Main.storyboard in Resources */,
@@ -312,7 +312,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H7FL434D9W;
-				INFOPLIST_FILE = Tests/Info.plist;
+				INFOPLIST_FILE = ../Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pusher.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -331,7 +331,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H7FL434D9W;
-				INFOPLIST_FILE = Tests/Info.plist;
+				INFOPLIST_FILE = ../Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pusher.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
