@@ -1,5 +1,5 @@
 import XCTest
-@testable import errol_ios
+@testable import Errol
 
 class PusherRegisterableTests: XCTestCase {
 
