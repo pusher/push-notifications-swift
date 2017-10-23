@@ -2,13 +2,13 @@ import UIKit
 import Foundation
 import UserNotifications
 
-final class Pusher {
+public final class Pusher {
     private var deviceId: String?
     private var instanceId: String?
     private let session = URLSession.shared
     private let baseURL = "https://errol-staging.herokuapp.com/device_api/v1/instances"
 
-    static let shared = Pusher()
+    public static let shared = Pusher()
 
     private init() {}
 
