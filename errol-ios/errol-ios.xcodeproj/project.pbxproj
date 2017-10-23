@@ -7,18 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A1071F801F9A52F20045A58E /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1071F741F9A52F20045A58E /* Device.swift */; };
-		A1071F811F9A52F20045A58E /* DeviceTokenHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1071F751F9A52F20045A58E /* DeviceTokenHelper.swift */; };
-		A1071F821F9A52F20045A58E /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1071F761F9A52F20045A58E /* HTTPMethod.swift */; };
-		A1071F831F9A52F20045A58E /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1071F771F9A52F20045A58E /* NetworkResponse.swift */; };
-		A1071F841F9A52F20045A58E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1071F781F9A52F20045A58E /* NetworkService.swift */; };
-		A1071F851F9A52F20045A58E /* Pusher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1071F791F9A52F20045A58E /* Pusher.swift */; };
-		A1071F861F9A52F20045A58E /* PusherRegisterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1071F7A1F9A52F20045A58E /* PusherRegisterable.swift */; };
-		A1071F871F9A52F20045A58E /* PusherSubscribable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1071F7B1F9A52F20045A58E /* PusherSubscribable.swift */; };
-		A1071F8B1F9A53B00045A58E /* DeviceTokenHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1071F6F1F9A52F20045A58E /* DeviceTokenHelperTests.swift */; };
-		A1071F8D1F9A53B90045A58E /* PusherRegisterableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1071F721F9A52F20045A58E /* PusherRegisterableTests.swift */; };
-		A1071F8E1F9A53C90045A58E /* MockPusherRegisterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1071F711F9A52F20045A58E /* MockPusherRegisterable.swift */; };
-		A1A398061F9DFCCE004FA3C9 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A1071F701F9A52F20045A58E /* Info.plist */; };
 		A1D7D44C1F8BAFBA009EDE1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D7D44B1F8BAFBA009EDE1A /* AppDelegate.swift */; };
 		A1D7D44E1F8BAFBA009EDE1A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D7D44D1F8BAFBA009EDE1A /* ViewController.swift */; };
 		A1D7D4511F8BAFBA009EDE1A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1D7D44F1F8BAFBA009EDE1A /* Main.storyboard */; };
@@ -26,30 +14,7 @@
 		A1D7D4561F8BAFBA009EDE1A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1D7D4541F8BAFBA009EDE1A /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		A168B32C1F9A2BEE003E4B72 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A1D7D4401F8BAFBA009EDE1A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A1D7D4471F8BAFBA009EDE1A;
-			remoteInfo = "errol-ios";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		A1071F6F1F9A52F20045A58E /* DeviceTokenHelperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTokenHelperTests.swift; sourceTree = "<group>"; };
-		A1071F701F9A52F20045A58E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "/Users/luka/Developer/errol-ios/Tests/Info.plist"; sourceTree = "<absolute>"; };
-		A1071F711F9A52F20045A58E /* MockPusherRegisterable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockPusherRegisterable.swift; sourceTree = "<group>"; };
-		A1071F721F9A52F20045A58E /* PusherRegisterableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PusherRegisterableTests.swift; sourceTree = "<group>"; };
-		A1071F741F9A52F20045A58E /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
-		A1071F751F9A52F20045A58E /* DeviceTokenHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTokenHelper.swift; sourceTree = "<group>"; };
-		A1071F761F9A52F20045A58E /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
-		A1071F771F9A52F20045A58E /* NetworkResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkResponse.swift; sourceTree = "<group>"; };
-		A1071F781F9A52F20045A58E /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
-		A1071F791F9A52F20045A58E /* Pusher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pusher.swift; sourceTree = "<group>"; };
-		A1071F7A1F9A52F20045A58E /* PusherRegisterable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PusherRegisterable.swift; sourceTree = "<group>"; };
-		A1071F7B1F9A52F20045A58E /* PusherSubscribable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PusherSubscribable.swift; sourceTree = "<group>"; };
-		A168B3271F9A2BEE003E4B72 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1B55B271F98CC9E004DBC27 /* errol-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "errol-ios.entitlements"; sourceTree = "<group>"; };
 		A1D7D4481F8BAFBA009EDE1A /* errol-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "errol-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1D7D44B1F8BAFBA009EDE1A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -61,13 +26,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		A168B3241F9A2BEE003E4B72 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		A1D7D4451F8BAFBA009EDE1A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -78,41 +36,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A1071F6E1F9A52F20045A58E /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				A1071F6F1F9A52F20045A58E /* DeviceTokenHelperTests.swift */,
-				A1071F701F9A52F20045A58E /* Info.plist */,
-				A1071F711F9A52F20045A58E /* MockPusherRegisterable.swift */,
-				A1071F721F9A52F20045A58E /* PusherRegisterableTests.swift */,
-			);
-			name = Tests;
-			path = ../Tests;
-			sourceTree = "<group>";
-		};
-		A1071F731F9A52F20045A58E /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				A1071F741F9A52F20045A58E /* Device.swift */,
-				A1071F751F9A52F20045A58E /* DeviceTokenHelper.swift */,
-				A1071F761F9A52F20045A58E /* HTTPMethod.swift */,
-				A1071F771F9A52F20045A58E /* NetworkResponse.swift */,
-				A1071F781F9A52F20045A58E /* NetworkService.swift */,
-				A1071F791F9A52F20045A58E /* Pusher.swift */,
-				A1071F7A1F9A52F20045A58E /* PusherRegisterable.swift */,
-				A1071F7B1F9A52F20045A58E /* PusherSubscribable.swift */,
-			);
-			name = Sources;
-			path = ../Sources;
-			sourceTree = "<group>";
-		};
 		A1D7D43F1F8BAFBA009EDE1A = {
 			isa = PBXGroup;
 			children = (
 				A1D7D44A1F8BAFBA009EDE1A /* errol-ios */,
 				A1D7D4491F8BAFBA009EDE1A /* Products */,
-				A1071F731F9A52F20045A58E /* Sources */,
-				A1071F6E1F9A52F20045A58E /* Tests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -120,7 +48,6 @@
 			isa = PBXGroup;
 			children = (
 				A1D7D4481F8BAFBA009EDE1A /* errol-ios.app */,
-				A168B3271F9A2BEE003E4B72 /* Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -142,24 +69,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A168B3261F9A2BEE003E4B72 /* Tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A168B32E1F9A2BEE003E4B72 /* Build configuration list for PBXNativeTarget "Tests" */;
-			buildPhases = (
-				A168B3231F9A2BEE003E4B72 /* Sources */,
-				A168B3241F9A2BEE003E4B72 /* Frameworks */,
-				A168B3251F9A2BEE003E4B72 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				A168B32D1F9A2BEE003E4B72 /* PBXTargetDependency */,
-			);
-			name = Tests;
-			productName = Tests;
-			productReference = A168B3271F9A2BEE003E4B72 /* Tests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		A1D7D4471F8BAFBA009EDE1A /* errol-ios */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A1D7D45A1F8BAFBA009EDE1A /* Build configuration list for PBXNativeTarget "errol-ios" */;
@@ -187,12 +96,6 @@
 				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = Pusher;
 				TargetAttributes = {
-					A168B3261F9A2BEE003E4B72 = {
-						CreatedOnToolsVersion = 9.1;
-						LastSwiftMigration = 0910;
-						ProvisioningStyle = Automatic;
-						TestTargetID = A1D7D4471F8BAFBA009EDE1A;
-					};
 					A1D7D4471F8BAFBA009EDE1A = {
 						CreatedOnToolsVersion = 9.1;
 						ProvisioningStyle = Automatic;
@@ -221,20 +124,11 @@
 			projectRoot = "";
 			targets = (
 				A1D7D4471F8BAFBA009EDE1A /* errol-ios */,
-				A168B3261F9A2BEE003E4B72 /* Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		A168B3251F9A2BEE003E4B72 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A1A398061F9DFCCE004FA3C9 /* Info.plist in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		A1D7D4461F8BAFBA009EDE1A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -248,42 +142,16 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		A168B3231F9A2BEE003E4B72 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A1071F8D1F9A53B90045A58E /* PusherRegisterableTests.swift in Sources */,
-				A1071F8B1F9A53B00045A58E /* DeviceTokenHelperTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		A1D7D4441F8BAFBA009EDE1A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1071F8E1F9A53C90045A58E /* MockPusherRegisterable.swift in Sources */,
-				A1071F841F9A52F20045A58E /* NetworkService.swift in Sources */,
-				A1071F851F9A52F20045A58E /* Pusher.swift in Sources */,
 				A1D7D44E1F8BAFBA009EDE1A /* ViewController.swift in Sources */,
-				A1071F811F9A52F20045A58E /* DeviceTokenHelper.swift in Sources */,
-				A1071F821F9A52F20045A58E /* HTTPMethod.swift in Sources */,
-				A1071F831F9A52F20045A58E /* NetworkResponse.swift in Sources */,
-				A1071F801F9A52F20045A58E /* Device.swift in Sources */,
-				A1071F871F9A52F20045A58E /* PusherSubscribable.swift in Sources */,
 				A1D7D44C1F8BAFBA009EDE1A /* AppDelegate.swift in Sources */,
-				A1071F861F9A52F20045A58E /* PusherRegisterable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		A168B32D1F9A2BEE003E4B72 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = A1D7D4471F8BAFBA009EDE1A /* errol-ios */;
-			targetProxy = A168B32C1F9A2BEE003E4B72 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		A1D7D44F1F8BAFBA009EDE1A /* Main.storyboard */ = {
@@ -305,43 +173,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		A168B32F1F9A2BEE003E4B72 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = H7FL434D9W;
-				INFOPLIST_FILE = ../Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.pusher.Tests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/errol-ios.app/errol-ios";
-			};
-			name = Debug;
-		};
-		A168B3301F9A2BEE003E4B72 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = H7FL434D9W;
-				INFOPLIST_FILE = ../Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.pusher.Tests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/errol-ios.app/errol-ios";
-			};
-			name = Release;
-		};
 		A1D7D4581F8BAFBA009EDE1A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -486,15 +317,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A168B32E1F9A2BEE003E4B72 /* Build configuration list for PBXNativeTarget "Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A168B32F1F9A2BEE003E4B72 /* Debug */,
-				A168B3301F9A2BEE003E4B72 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		A1D7D4431F8BAFBA009EDE1A /* Build configuration list for PBXProject "errol-ios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
