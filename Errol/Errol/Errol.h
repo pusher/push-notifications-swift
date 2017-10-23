@@ -1,11 +1,3 @@
-//
-//  Errol.h
-//  Errol
-//
-//  Created by Luka on 23/10/2017.
-//  Copyright © 2017 Pusher. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 
 //! Project version number for Errol.
