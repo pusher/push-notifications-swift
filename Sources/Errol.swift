@@ -8,15 +8,33 @@ public final class Errol {
     private let session = URLSession.shared
     private let baseURL = "https://errol-staging.herokuapp.com/device_api/v1/instances"
 
+
+    //! Returns a shared singleton Errol object.
     public static let shared = Errol()
 
     private init() {}
 
+    /**
+     Register with Errol service.
+
+     - Parameter instanceId: Errol instance id.
+     - Parameter application: Your singleton app object.
+
+     - Precondition: `instanceId` should not be nil.
+     - Precondition: `application` should not be nil.
+     */
     public func register(instanceId: String, application: UIApplication) {
         self.instanceId = instanceId
         self.registerForPushNotifications(application: application)
     }
 
+    /**
+     Register device token with Errol service.
+
+     - Parameter deviceToken: A token that identifies the device to APNs.
+
+     - Precondition: `deviceToken` should not be nil.
+     */
     public func registerDeviceToken(_ deviceToken: Data) {
         guard
             let instanceId = self.instanceId,
@@ -31,6 +49,13 @@ public final class Errol {
         }
     }
 
+    /**
+     Subscribe to an interest.
+
+     - Parameter interest: Interest that you want to subscribe to.
+
+     - Precondition: `interest` should not be nil.
+     */
     public func subscribe(interest: String) {
         guard
             let deviceId = self.deviceId,
@@ -43,6 +68,13 @@ public final class Errol {
         networkService.subscribe()
     }
 
+    /**
+     Unsubscribe from an interest.
+
+     - Parameter interest: Interest that you want to unsubscribe to.
+
+     - Precondition: `interest` should not be nil.
+     */
     public func unsubscribe(interest: String) {
         guard
             let deviceId = self.deviceId,
