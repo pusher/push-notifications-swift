@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A1A6681D1F9F38BA001E5D31 /* Errol.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1A6681C1F9F3838001E5D31 /* Errol.framework */; };
+		A1A6681E1F9F38BA001E5D31 /* Errol.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A1A6681C1F9F3838001E5D31 /* Errol.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A1D7D44C1F8BAFBA009EDE1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D7D44B1F8BAFBA009EDE1A /* AppDelegate.swift */; };
 		A1D7D44E1F8BAFBA009EDE1A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D7D44D1F8BAFBA009EDE1A /* ViewController.swift */; };
 		A1D7D4511F8BAFBA009EDE1A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1D7D44F1F8BAFBA009EDE1A /* Main.storyboard */; };
@@ -14,7 +16,22 @@
 		A1D7D4561F8BAFBA009EDE1A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1D7D4541F8BAFBA009EDE1A /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		A1A6681F1F9F38BA001E5D31 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				A1A6681E1F9F38BA001E5D31 /* Errol.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		A1A6681C1F9F3838001E5D31 /* Errol.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Errol.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1B55B271F98CC9E004DBC27 /* errol-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "errol-ios.entitlements"; sourceTree = "<group>"; };
 		A1D7D4481F8BAFBA009EDE1A /* errol-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "errol-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1D7D44B1F8BAFBA009EDE1A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -30,17 +47,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1A6681D1F9F38BA001E5D31 /* Errol.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A1A6681A1F9F3838001E5D31 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A1A6681C1F9F3838001E5D31 /* Errol.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A1D7D43F1F8BAFBA009EDE1A = {
 			isa = PBXGroup;
 			children = (
 				A1D7D44A1F8BAFBA009EDE1A /* errol-ios */,
 				A1D7D4491F8BAFBA009EDE1A /* Products */,
+				A1A6681A1F9F3838001E5D31 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -76,6 +103,7 @@
 				A1D7D4441F8BAFBA009EDE1A /* Sources */,
 				A1D7D4451F8BAFBA009EDE1A /* Frameworks */,
 				A1D7D4461F8BAFBA009EDE1A /* Resources */,
+				A1A6681F1F9F38BA001E5D31 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
