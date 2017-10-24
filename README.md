@@ -10,6 +10,35 @@
 
 ## Installation
 
+### CocoaPods
+
+[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
+
+```bash
+$ gem install cocoapods
+```
+
+> CocoaPods version 1.3.1 or newer is recommended to build Errol.
+
+To integrate Errol into your Xcode project using CocoaPods, specify it in your `Podfile`:
+
+```ruby
+source 'https://github.com/pusher/PrivatePodSpecs.git'
+platform :ios, '11.0'
+use_frameworks!
+
+# Replace `<Your Target Name>` with your app's target name.
+target '<Your Target Name>' do
+    pod 'Errol', '~> 0.0.2'
+end
+```
+
+Then, run the following command:
+
+```bash
+$ pod install
+```
+
 ### Carthage
 
 [Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
