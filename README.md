@@ -35,7 +35,7 @@ Run `carthage update` to build the framework and drag the built `Errol.framework
 
 - Found a bug? Please open an [issue](https://github.com/pusher/errol-ios/issues).
 - Have a feature request. Please open an [issue](https://github.com/pusher/errol-ios/issues).
-- If you want to contribute, please submit a [pull request](https://github.com/pusher/errol-ios/pulls) (preferrably with some tests 🙂 ).
+- If you want to contribute, please submit a [pull request](https://github.com/pusher/errol-ios/pulls) (preferrably with some tests).
 
 
 ## Credits
