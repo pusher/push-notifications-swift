@@ -32,34 +32,11 @@ public final class Errol {
      Register device token with Errol service.
 
      - Parameter deviceToken: A token that identifies the device to APNs.
-
-     - Precondition: `deviceToken` should not be nil.
-     */
-    public func registerDeviceToken(_ deviceToken: Data) {
-        guard
-            let instanceId = self.instanceId,
-            let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/ppns")
-        else { return }
-
-        let networkService: ErrolRegisterable & ErrolSubscribable = NetworkService(url: url, session: session)
-
-        networkService.register(deviceToken: deviceToken) { [weak self] (deviceId) in
-            guard let strongSelf = self else { return }
-            strongSelf.deviceId = deviceId
-        }
-    }
-
-    /**
-     Register device token with Errol service.
-
-     - Parameter deviceToken: A token that identifies the device to APNs.
      - Parameter completion: The block to execute when the register device token operation is complete.
 
-     - Remark: Use this if you want to for example subscribe to an interest immediately after the token registration operation is completed.
-
      - Precondition: `deviceToken` should not be nil.
      */
-    public func registerDeviceToken(_ deviceToken: Data, completion: @escaping () -> Void) {
+    public func registerDeviceToken(_ deviceToken: Data, completion: @escaping () -> Void = {}) {
         guard
             let instanceId = self.instanceId,
             let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/ppns")
