@@ -45,4 +45,4 @@ Errol is owned and maintained by [Pusher](https://pusher.com).
 
 ## License
 
-Errol is released under the MIT license. See [LICENSE](https://github.com/pusher/errol-ios/blob/master/LICENSE.md) for details.
+Errol is released under the MIT license. See [LICENSE](https://github.com/pusher/errol-ios/blob/master/LICENSE) for details.
