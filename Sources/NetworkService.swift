@@ -10,7 +10,7 @@ struct NetworkService: ErrolRegisterable, ErrolSubscribable {
     //MARK: ErrolRegisterable
     func register(deviceToken: Data, completion: @escaping CompletionHandler) {
         let deviceTokenString = deviceToken.hexadecimalRepresentation()
-        let bodyString = "{\"platformType\": \"ddd\", \"token\": \"\(deviceTokenString)\"}"
+        let bodyString = "{\"platformType\": \"apns\", \"token\": \"\(deviceTokenString)\"}"
         guard let body = bodyString.data(using: .utf8) else { return }
         let request = self.setRequest(url: self.url, httpMethod: .POST, body: body)
 
