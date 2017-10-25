@@ -1,5 +1,5 @@
 import Foundation
 
-struct Device: Codable {
+struct Device: Decodable {
     var id: String
 }
