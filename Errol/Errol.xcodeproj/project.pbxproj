@@ -20,7 +20,7 @@
 		A144AB591F9E3DCC009F0040 /* MockErrolRegisterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB551F9E3DBF009F0040 /* MockErrolRegisterable.swift */; };
 		A155BFBD1F9E38040070A609 /* Errol.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A155BFB31F9E38040070A609 /* Errol.framework */; };
 		A155BFC41F9E38040070A609 /* Errol.h in Headers */ = {isa = PBXBuildFile; fileRef = A155BFB61F9E38040070A609 /* Errol.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A16782531FA0976F00A193DF /* Reason.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16782521FA0976F00A193DF /* Reason.swift */; };
+		A16782551FA0EA2D00A193DF /* Reason.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16782541FA0EA2C00A193DF /* Reason.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +50,7 @@
 		A155BFB71F9E38040070A609 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A155BFBC1F9E38040070A609 /* ErrolTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ErrolTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A155BFC31F9E38040070A609 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A16782521FA0976F00A193DF /* Reason.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reason.swift; sourceTree = "<group>"; };
+		A16782541FA0EA2C00A193DF /* Reason.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reason.swift; path = ../../Sources/Reason.swift; sourceTree = "<group>"; };
 		A1ED00141F9E392700A029F2 /* ErrolTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ErrolTests-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -94,6 +94,7 @@
 		A155BFB51F9E38040070A609 /* Errol */ = {
 			isa = PBXGroup;
 			children = (
+				A16782541FA0EA2C00A193DF /* Reason.swift */,
 				A144AB471F9E3DA2009F0040 /* Device.swift */,
 				A144AB441F9E3DA2009F0040 /* DeviceTokenHelper.swift */,
 				A144AB491F9E3DA3009F0040 /* HTTPMethod.swift */,
@@ -104,7 +105,6 @@
 				A144AB461F9E3DA2009F0040 /* ErrolSubscribable.swift */,
 				A155BFB61F9E38040070A609 /* Errol.h */,
 				A155BFB71F9E38040070A609 /* Info.plist */,
-				A16782521FA0976F00A193DF /* Reason.swift */,
 			);
 			path = Errol;
 			sourceTree = "<group>";
@@ -241,8 +241,8 @@
 				A144AB501F9E3DA3009F0040 /* Errol.swift in Sources */,
 				A144AB4D1F9E3DA3009F0040 /* NetworkResponse.swift in Sources */,
 				A144AB4E1F9E3DA3009F0040 /* ErrolSubscribable.swift in Sources */,
-				A16782531FA0976F00A193DF /* Reason.swift in Sources */,
 				A144AB4F1F9E3DA3009F0040 /* Device.swift in Sources */,
+				A16782551FA0EA2D00A193DF /* Reason.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,7 +392,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Errol/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pusher.Errol;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -416,7 +416,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Errol/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pusher.Errol;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
