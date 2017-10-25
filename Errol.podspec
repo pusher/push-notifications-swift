@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Errol'
-  s.version          = '0.0.2'
+  s.version          = '0.0.3'
   s.summary          = 'Errol SDK'
   s.homepage         = 'https://github.com/pusher/errol-ios'
   s.license          = 'MIT'
@@ -11,5 +11,5 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.source_files = 'Sources/*.swift'
 
-  s.ios.deployment_target = '11.0'
+  s.ios.deployment_target = '10.0'
 end
