@@ -2,5 +2,5 @@ import Foundation
 
 enum NetworkResponse {
     case Success(data: Data)
-    case Failure
+    case Failure(description: String)
 }

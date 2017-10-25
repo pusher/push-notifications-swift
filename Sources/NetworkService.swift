@@ -10,7 +10,7 @@ struct NetworkService: ErrolRegisterable, ErrolSubscribable {
     //MARK: ErrolRegisterable
     func register(deviceToken: Data, completion: @escaping CompletionHandler) {
         let deviceTokenString = deviceToken.hexadecimalRepresentation()
-        let bodyString = "{\"platformType\": \"ppns\", \"token\": \"\(deviceTokenString)\"}"
+        let bodyString = "{\"platformType\": \"ddd\", \"token\": \"\(deviceTokenString)\"}"
         guard let body = bodyString.data(using: .utf8) else { return }
         let request = self.setRequest(url: self.url, httpMethod: .POST, body: body)
 
@@ -19,8 +19,8 @@ struct NetworkService: ErrolRegisterable, ErrolSubscribable {
             case .Success(let data):
                 let device = try! JSONDecoder().decode(Device.self, from: data)
                 completion(device.id)
-            case .Failure:
-                break
+            case .Failure(let data):
+                print(data)
             }
         }
     }
@@ -41,10 +41,13 @@ struct NetworkService: ErrolRegisterable, ErrolSubscribable {
     //MARK: Networking Layer
     private func networkRequest(_ request: URLRequest, session: URLSession, completion: @escaping NetworkCompletionHandler) {
         session.dataTask(with: request, completionHandler: { (data, response, error) in
+            guard let data = data else { return }
             guard
-                let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
-                let data = data, error == nil
-                else { return completion(NetworkResponse.Failure) }
+                let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200, error == nil
+            else {
+                let reason = try! JSONDecoder().decode(Reason.self, from: data)
+                return completion(NetworkResponse.Failure(description: reason.description))
+            }
 
             completion(NetworkResponse.Success(data: data))
 
