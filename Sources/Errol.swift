@@ -23,7 +23,7 @@ public final class Errol {
      - Precondition: `instanceId` should not be nil.
      - Precondition: `application` should not be nil.
      */
-    public func register(instanceId: String, application: UIApplication) {
+    public func register(instanceId: String, application: UIApplication = UIApplication.shared) {
         self.instanceId = instanceId
         self.registerForPushNotifications(application: application)
     }
