@@ -8,7 +8,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let errol = Errol.shared
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        self.errol.register(instanceId: "c0c65938-5dcf-4e8b-9206-f72a8d86684b")
+        self.errol.register(instanceId: "8a070eaa-033f-46d6-bb90-f4c15acc47e1")
 
         return true
     }
