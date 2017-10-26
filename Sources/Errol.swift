@@ -39,7 +39,7 @@ public final class Errol {
     public func registerDeviceToken(_ deviceToken: Data, completion: @escaping () -> Void = {}) {
         guard
             let instanceId = self.instanceId,
-            let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/ppns")
+            let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/apns")
             else { return }
 
         let networkService: ErrolRegisterable & ErrolSubscribable = NetworkService(url: url, session: session)
@@ -62,7 +62,7 @@ public final class Errol {
         guard
             let deviceId = self.deviceId,
             let instanceId = self.instanceId,
-            let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/ppns/\(deviceId)/interests/\(interest)")
+            let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/apns/\(deviceId)/interests/\(interest)")
         else { return }
 
         let networkService: ErrolRegisterable & ErrolSubscribable = NetworkService(url: url, session: session)
@@ -81,7 +81,7 @@ public final class Errol {
         guard
             let deviceId = self.deviceId,
             let instanceId = self.instanceId,
-            let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/ppns/\(deviceId)/interests/\(interest)")
+            let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/apns/\(deviceId)/interests/\(interest)")
         else { return }
 
         let networkService: ErrolRegisterable & ErrolSubscribable = NetworkService(url: url, session: session)
