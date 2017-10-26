@@ -24,12 +24,12 @@ To integrate Errol into your Xcode project using CocoaPods, specify it in your `
 
 ```ruby
 source 'https://github.com/pusher/PrivatePodSpecs.git'
-platform :ios, '11.0'
+platform :ios, '10.3'
 use_frameworks!
 
 # Replace `<Your Target Name>` with your app's target name.
 target '<Your Target Name>' do
-    pod 'Errol', '~> 0.0.2'
+    pod 'Errol'
 end
 ```
 
