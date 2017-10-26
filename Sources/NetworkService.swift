@@ -10,14 +10,15 @@ struct NetworkService: ErrolRegisterable, ErrolSubscribable {
     //MARK: ErrolRegisterable
     func register(deviceToken: Data, completion: @escaping CompletionHandler) {
         let deviceTokenString = deviceToken.hexadecimalRepresentation()
-        let bodyString = "{\"platformType\": \"apns\", \"token\": \"\(deviceTokenString)\"}"
+        let bundleIdentifier = Bundle.main.bundleIdentifier ?? ""
+        let bodyString = "{\"platformType\": \"apns\", \"token\": \"\(deviceTokenString)\", \"bundleIdentifier\": \"\(bundleIdentifier)\"}"
         guard let body = bodyString.data(using: .utf8) else { return }
         let request = self.setRequest(url: self.url, httpMethod: .POST, body: body)
 
         self.networkRequest(request, session: self.session) { (response) in
             switch response {
             case .Success(let data):
-                let device = try! JSONDecoder().decode(Device.self, from: data)
+                guard let device = try? JSONDecoder().decode(Device.self, from: data) else { return }
                 completion(device.id)
             case .Failure(let data):
                 print(data)
@@ -45,7 +46,7 @@ struct NetworkService: ErrolRegisterable, ErrolSubscribable {
             guard
                 let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200, error == nil
             else {
-                let reason = try! JSONDecoder().decode(Reason.self, from: data)
+                guard let reason = try? JSONDecoder().decode(Reason.self, from: data) else { return }
                 return completion(NetworkResponse.Failure(description: reason.description))
             }
 
