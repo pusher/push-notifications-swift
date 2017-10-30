@@ -1,6 +1,6 @@
 import Foundation
 
 protocol ErrolSubscribable {
-    func subscribe()
-    func unsubscribe()
+    func subscribe(completion: @escaping () -> Void)
+    func unsubscribe(completion: @escaping () -> Void)
 }

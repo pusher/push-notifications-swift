@@ -58,7 +58,7 @@ public final class Errol {
 
      - Precondition: `interest` should not be nil.
      */
-    public func subscribe(interest: String) {
+    public func subscribe(interest: String, completion: @escaping () -> Void = {}) {
         guard
             let deviceId = self.deviceId,
             let instanceId = self.instanceId,
@@ -67,7 +67,9 @@ public final class Errol {
 
         let networkService: ErrolRegisterable & ErrolSubscribable = NetworkService(url: url, session: session)
 
-        networkService.subscribe()
+        networkService.subscribe {
+            completion()
+        }
     }
 
     /**
@@ -77,7 +79,7 @@ public final class Errol {
 
      - Precondition: `interest` should not be nil.
      */
-    public func unsubscribe(interest: String) {
+    public func unsubscribe(interest: String, completion: @escaping () -> Void = {}) {
         guard
             let deviceId = self.deviceId,
             let instanceId = self.instanceId,
@@ -86,7 +88,9 @@ public final class Errol {
 
         let networkService: ErrolRegisterable & ErrolSubscribable = NetworkService(url: url, session: session)
 
-        networkService.unsubscribe()
+        networkService.unsubscribe {
+            completion()
+        }
     }
 
     private func registerForPushNotifications(application: UIApplication) {

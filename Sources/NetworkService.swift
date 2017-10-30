@@ -27,16 +27,20 @@ struct NetworkService: ErrolRegisterable, ErrolSubscribable {
     }
 
     //MARK: ErrolSubscribable
-    func subscribe() {
+    func subscribe(completion: @escaping () -> Void = {}) {
         let request = self.setRequest(url: self.url, httpMethod: .POST)
 
-        self.networkRequest(request, session: self.session) { (response) in }
+        self.networkRequest(request, session: self.session) { (response) in
+            completion()
+        }
     }
 
-    func unsubscribe() {
+    func unsubscribe(completion: @escaping () -> Void = {}) {
         let request = self.setRequest(url: self.url, httpMethod: .DELETE)
 
-        self.networkRequest(request, session: self.session) { (response) in }
+        self.networkRequest(request, session: self.session) { (response) in
+            completion()
+        }
     }
 
     //MARK: Networking Layer
