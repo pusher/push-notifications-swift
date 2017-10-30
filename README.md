@@ -24,7 +24,7 @@ To integrate Errol into your Xcode project using CocoaPods, specify it in your `
 
 ```ruby
 source 'https://github.com/pusher/PrivatePodSpecs.git'
-platform :ios, '10.3'
+platform :ios, '10.0'
 use_frameworks!
 
 # Replace `<Your Target Name>` with your app's target name.
