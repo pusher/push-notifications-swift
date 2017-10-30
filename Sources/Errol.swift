@@ -55,6 +55,7 @@ public final class Errol {
      Subscribe to an interest.
 
      - Parameter interest: Interest that you want to subscribe to.
+     - Parameter completion: The block to execute when subscription to the interest is complete.
 
      - Precondition: `interest` should not be nil.
      */
@@ -76,6 +77,7 @@ public final class Errol {
      Unsubscribe from an interest.
 
      - Parameter interest: Interest that you want to unsubscribe to.
+     - Parameter completion: The block to execute when subscription to the interest is successfully cancelled.
 
      - Precondition: `interest` should not be nil.
      */
