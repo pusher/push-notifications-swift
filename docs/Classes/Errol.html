@@ -14,12 +14,13 @@
     <a title="Errol Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html"> Docs</a> (100% documented)</p>
+        <p><a href="../index.html">Errol Docs</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/pusher/errol-ios"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
     <div class="content-wrapper">
       <p id="breadcrumbs">
-        <a href="../index.html"> Reference</a>
+        <a href="../index.html">Errol Reference</a>
         <img id="carat" src="../img/carat.png" />
         Errol Class Reference
       </p>
@@ -94,7 +95,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">register</span><span class="p">(</span><span class="nv">instanceId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">application</span><span class="p">:</span> <span class="kt">UIApplication</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">register</span><span class="p">(</span><span class="nv">instanceId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">application</span><span class="p">:</span> <span class="kt">UIApplication</span> <span class="o">=</span> <span class="kt">UIApplication</span><span class="o">.</span><span class="n"><a href="../Classes/Errol.html#/s:5ErrolAAC6sharedABvZ">shared</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -135,9 +136,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:5ErrolAAC19registerDeviceTokeny10Foundation4DataVF"></a>
-                    <a name="//apple_ref/swift/Method/registerDeviceToken(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:5ErrolAAC19registerDeviceTokeny10Foundation4DataVF">registerDeviceToken(_:)</a>
+                    <a name="/s:5ErrolAAC19registerDeviceTokeny10Foundation4DataV_yyc10completiontF"></a>
+                    <a name="//apple_ref/swift/Method/registerDeviceToken(_:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5ErrolAAC19registerDeviceTokeny10Foundation4DataV_yyc10completiontF">registerDeviceToken(_:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -157,7 +158,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">registerDeviceToken</span><span class="p">(</span><span class="n">_</span> <span class="nv">deviceToken</span><span class="p">:</span> <span class="kt">Data</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">registerDeviceToken</span><span class="p">(</span><span class="n">_</span> <span class="nv">deviceToken</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="o">=</span> <span class="p">{})</span></code></pre>
 
                         </div>
                       </div>
@@ -177,6 +178,18 @@
                                 </div>
                               </td>
                             </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The block to execute when the register device token operation is complete.</p>
+                                </div>
+                              </td>
+                            </tr>
                           </tbody>
                         </table>
                       </div>
@@ -186,9 +199,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:5ErrolAAC9subscribeySS8interest_tF"></a>
-                    <a name="//apple_ref/swift/Method/subscribe(interest:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:5ErrolAAC9subscribeySS8interest_tF">subscribe(interest:)</a>
+                    <a name="/s:5ErrolAAC9subscribeySS8interest_yyc10completiontF"></a>
+                    <a name="//apple_ref/swift/Method/subscribe(interest:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5ErrolAAC9subscribeySS8interest_yyc10completiontF">subscribe(interest:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -208,7 +221,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">subscribe</span><span class="p">(</span><span class="nv">interest</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">subscribe</span><span class="p">(</span><span class="nv">interest</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="o">=</span> <span class="p">{})</span></code></pre>
 
                         </div>
                       </div>
@@ -228,6 +241,18 @@
                                 </div>
                               </td>
                             </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The block to execute when subscription to the interest is complete.</p>
+                                </div>
+                              </td>
+                            </tr>
                           </tbody>
                         </table>
                       </div>
@@ -237,9 +262,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:5ErrolAAC11unsubscribeySS8interest_tF"></a>
-                    <a name="//apple_ref/swift/Method/unsubscribe(interest:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:5ErrolAAC11unsubscribeySS8interest_tF">unsubscribe(interest:)</a>
+                    <a name="/s:5ErrolAAC11unsubscribeySS8interest_yyc10completiontF"></a>
+                    <a name="//apple_ref/swift/Method/unsubscribe(interest:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5ErrolAAC11unsubscribeySS8interest_yyc10completiontF">unsubscribe(interest:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -259,7 +284,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">unsubscribe</span><span class="p">(</span><span class="nv">interest</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">unsubscribe</span><span class="p">(</span><span class="nv">interest</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="o">=</span> <span class="p">{})</span></code></pre>
 
                         </div>
                       </div>
@@ -279,6 +304,18 @@
                                 </div>
                               </td>
                             </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The block to execute when subscription to the interest is successfully cancelled.</p>
+                                </div>
+                              </td>
+                            </tr>
                           </tbody>
                         </table>
                       </div>
@@ -290,7 +327,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2017-10-24)</p>
+          <p>&copy; 2017 <a class="link" href="https://pusher.com" target="_blank" rel="external">Pusher</a>. All rights reserved. (Last updated: 2017-10-30)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.4</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
