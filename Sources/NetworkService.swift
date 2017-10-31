@@ -12,7 +12,7 @@ struct NetworkService: ErrolRegisterable, ErrolSubscribable {
         let deviceTokenString = deviceToken.hexadecimalRepresentation()
         let bundleIdentifier = Bundle.main.bundleIdentifier ?? ""
         let bodyString = "{\"token\": \"\(deviceTokenString)\", \"bundleIdentifier\": \"\(bundleIdentifier)\"}"
-        guard let body = bodyString.data(using: .utf8) else { return }
+        let body = Data(bodyString.utf8)
         let request = self.setRequest(url: self.url, httpMethod: .POST, body: body)
 
         self.networkRequest(request, session: self.session) { (response) in
