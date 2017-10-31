@@ -40,7 +40,7 @@ public final class Errol {
         guard
             let instanceId = self.instanceId,
             let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/apns")
-            else { return }
+        else { return }
 
         let networkService: ErrolRegisterable & ErrolSubscribable = NetworkService(url: url, session: session)
 
@@ -86,7 +86,7 @@ public final class Errol {
             let deviceId = self.deviceId,
             let instanceId = self.instanceId,
             let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/apns/\(deviceId)/interests")
-            else { return }
+        else { return }
 
         let networkService: ErrolRegisterable & ErrolSubscribable = NetworkService(url: url, session: session)
 
