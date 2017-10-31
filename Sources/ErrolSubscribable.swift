@@ -5,4 +5,5 @@ protocol ErrolSubscribable {
     func subscribe(interests: Array<String>, completion: @escaping () -> Void)
 
     func unsubscribe(completion: @escaping () -> Void)
+    func unsubscribeAll(completion: @escaping () -> Void)
 }
