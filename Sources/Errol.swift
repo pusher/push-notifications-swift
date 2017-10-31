@@ -74,6 +74,28 @@ public final class Errol {
     }
 
     /**
+     Subscribe to interests.
+
+     - Parameter interests: Interests that you want to subscribe to.
+     - Parameter completion: The block to execute when subscription to interests is complete.
+
+     - Precondition: `interests` should not be nil.
+     */
+    public func subscribe(interests: Array<String>, completion: @escaping () -> Void = {}) {
+        guard
+            let deviceId = self.deviceId,
+            let instanceId = self.instanceId,
+            let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/apns/\(deviceId)/interests")
+            else { return }
+
+        let networkService: ErrolRegisterable & ErrolSubscribable = NetworkService(url: url, session: session)
+
+        networkService.subscribe(interests: interests) {
+            completion()
+        }
+    }
+
+    /**
      Unsubscribe from an interest.
 
      - Parameter interest: Interest that you want to unsubscribe to.
