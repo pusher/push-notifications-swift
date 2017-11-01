@@ -35,7 +35,7 @@ struct NetworkService: ErrolRegisterable, ErrolSubscribable {
         }
     }
 
-    func subscribe(interests: Array<String>, completion: @escaping () -> Void = {}) {
+    func setSubscriptions(interests: Array<String>, completion: @escaping () -> Void = {}) {
         let bodyString = "{\"interests\": \(interests)}"
         let body = Data(bodyString.utf8)
         let request = self.setRequest(url: self.url, httpMethod: .PUT, body: body)

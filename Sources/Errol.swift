@@ -74,14 +74,14 @@ public final class Errol {
     }
 
     /**
-     Subscribe to interests.
+     Set subscriptions.
 
      - Parameter interests: Interests that you want to subscribe to.
      - Parameter completion: The block to execute when subscription to interests is complete.
 
      - Precondition: `interests` should not be nil.
      */
-    public func subscribe(interests: Array<String>, completion: @escaping () -> Void = {}) {
+    public func setSubscriptions(interests: Array<String>, completion: @escaping () -> Void = {}) {
         guard
             let deviceId = self.deviceId,
             let instanceId = self.instanceId,
@@ -90,7 +90,7 @@ public final class Errol {
 
         let networkService: ErrolRegisterable & ErrolSubscribable = NetworkService(url: url, session: session)
 
-        networkService.subscribe(interests: interests) {
+        networkService.setSubscriptions(interests: interests) {
             completion()
         }
     }
