@@ -40,7 +40,7 @@ public final class Errol {
         guard
             let instanceId = self.instanceId,
             let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/apns")
-            else { return }
+        else { return }
 
         let networkService: ErrolRegisterable & ErrolSubscribable = NetworkService(url: url, session: session)
 
@@ -74,6 +74,28 @@ public final class Errol {
     }
 
     /**
+     Set subscriptions.
+
+     - Parameter interests: Interests that you want to subscribe to.
+     - Parameter completion: The block to execute when subscription to interests is complete.
+
+     - Precondition: `interests` should not be nil.
+     */
+    public func setSubscriptions(interests: Array<String>, completion: @escaping () -> Void = {}) {
+        guard
+            let deviceId = self.deviceId,
+            let instanceId = self.instanceId,
+            let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/apns/\(deviceId)/interests")
+        else { return }
+
+        let networkService: ErrolRegisterable & ErrolSubscribable = NetworkService(url: url, session: session)
+
+        networkService.setSubscriptions(interests: interests) {
+            completion()
+        }
+    }
+
+    /**
      Unsubscribe from an interest.
 
      - Parameter interest: Interest that you want to unsubscribe to.
@@ -91,6 +113,25 @@ public final class Errol {
         let networkService: ErrolRegisterable & ErrolSubscribable = NetworkService(url: url, session: session)
 
         networkService.unsubscribe {
+            completion()
+        }
+    }
+
+    /**
+     Unsubscribe from all interests.
+
+     - Parameter completion: The block to execute when all subscriptions to the interests are successfully cancelled.
+     */
+    public func unsubscribeAll(completion: @escaping () -> Void = {}) {
+        guard
+            let deviceId = self.deviceId,
+            let instanceId = self.instanceId,
+            let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/apns/\(deviceId)/interests")
+        else { return }
+
+        let networkService: ErrolRegisterable & ErrolSubscribable = NetworkService(url: url, session: session)
+
+        networkService.unsubscribeAll {
             completion()
         }
     }
