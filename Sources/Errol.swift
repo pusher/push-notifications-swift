@@ -6,7 +6,7 @@ public final class Errol {
     private var deviceId: String?
     private var instanceId: String?
     private let session = URLSession.shared
-    private let baseURL = "http://192.168.7.89:8111/device_api/v1/instances"
+    private let baseURL = "https://errol-staging.herokuapp.com/device_api/v1/instances"
 
 
     //! Returns a shared singleton Errol object.
