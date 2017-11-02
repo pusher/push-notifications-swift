@@ -15,8 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         self.errol.registerDeviceToken(deviceToken) {
-            self.errol.getInterests(completion: { (interestSetArray) in
-                print(interestSetArray)
+            self.errol.getInterests(completion: { (interests) in
+                print(interests)
             })
         }
     }
