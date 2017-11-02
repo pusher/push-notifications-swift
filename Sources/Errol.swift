@@ -6,7 +6,7 @@ public final class Errol {
     private var deviceId: String?
     private var instanceId: String?
     private let session = URLSession.shared
-    private let baseURL = "https://errol-staging.herokuapp.com/device_api/v1/instances"
+    private let baseURL = "http://192.168.7.89:8111/device_api/v1/instances"
 
 
     //! Returns a shared singleton Errol object.
@@ -132,6 +132,25 @@ public final class Errol {
         let networkService: ErrolRegisterable & ErrolSubscribable = NetworkService(url: url, session: session)
 
         networkService.unsubscribeAll {
+            completion()
+        }
+    }
+
+    /**
+     Get a list of all interests.
+
+     - Parameter completion: The block to execute when list of interests is successfully retrieved.
+     */
+    public func getInterests(completion: @escaping () -> Void = {}) {
+        guard
+            let deviceId = self.deviceId,
+            let instanceId = self.instanceId,
+            let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/apns/\(deviceId)/interests")
+        else { return }
+
+        let networkService: ErrolRegisterable & ErrolSubscribable = NetworkService(url: url, session: session)
+
+        networkService.getInterests {
             completion()
         }
     }

@@ -63,6 +63,19 @@ struct NetworkService: ErrolRegisterable, ErrolSubscribable {
         }
     }
 
+    func getInterests(completion: @escaping () -> Void = {}) {
+        let request = self.setRequest(url: self.url, httpMethod: .GET)
+
+        self.networkRequest(request, session: self.session) { (response) in
+            switch response {
+            case .Success(_):
+                completion()
+            case .Failure(let data):
+                print(data)
+            }
+        }
+    }
+
     //MARK: Networking Layer
     private func networkRequest(_ request: URLRequest, session: URLSession, completion: @escaping NetworkCompletionHandler) {
         session.dataTask(with: request, completionHandler: { (data, response, error) in
