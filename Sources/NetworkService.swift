@@ -63,13 +63,14 @@ struct NetworkService: ErrolRegisterable, ErrolSubscribable {
         }
     }
 
-    func getInterests(completion: @escaping () -> Void = {}) {
+    func getInterests(completion: @escaping (Array<String>) -> Void) {
         let request = self.setRequest(url: self.url, httpMethod: .GET)
 
         self.networkRequest(request, session: self.session) { (response) in
             switch response {
-            case .Success(_):
-                completion()
+            case .Success(let data):
+                guard let interestSet = try? JSONDecoder().decode(InterestSet.self, from: data) else { return }
+                completion(interestSet.interests)
             case .Failure(let data):
                 print(data)
             }

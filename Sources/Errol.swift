@@ -141,7 +141,7 @@ public final class Errol {
 
      - Parameter completion: The block to execute when list of interests is successfully retrieved.
      */
-    public func getInterests(completion: @escaping () -> Void = {}) {
+    public func getInterests(completion: @escaping (Array<String>) -> Void) {
         guard
             let deviceId = self.deviceId,
             let instanceId = self.instanceId,
@@ -150,8 +150,8 @@ public final class Errol {
 
         let networkService: ErrolRegisterable & ErrolSubscribable = NetworkService(url: url, session: session)
 
-        networkService.getInterests {
-            completion()
+        networkService.getInterests { (interestSet) in
+            completion(interestSet)
         }
     }
 
