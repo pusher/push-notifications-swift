@@ -140,8 +140,9 @@ public final class Errol {
      Get a list of all interests.
 
      - Parameter completion: The block to execute when list of interests is successfully retrieved.
+     - Parameter interests: Retrieved interests
      */
-    public func getInterests(completion: @escaping (Array<String>) -> Void) {
+    public func getInterests(completion: @escaping (_ interests: Array<String>) -> Void) {
         guard
             let deviceId = self.deviceId,
             let instanceId = self.instanceId,
