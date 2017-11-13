@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Errol'
-  s.version          = '0.0.7'
+  s.version          = '0.0.8'
   s.summary          = 'Errol SDK'
   s.homepage         = 'https://github.com/pusher/errol-ios'
   s.license          = 'MIT'
