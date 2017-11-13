@@ -63,6 +63,32 @@ struct NetworkService: ErrolRegisterable, ErrolSubscribable {
         }
     }
 
+     func getInterests(completion: @escaping (Array<String>) -> Void) {
+        self.getPaginatedIterests(url: self.url) { (interests) in
+            completion(interests)
+        }
+    }
+
+    private func getPaginatedIterests(url: URL, interests: Array<String> = [], completion: @escaping (Array<String>) -> Void) {
+        let request = self.setRequest(url: url, httpMethod: .GET)
+
+        self.networkRequest(request, session: self.session) { (response) in
+            switch response {
+            case .Success(let data):
+                guard let interestSet = try? JSONDecoder().decode(InterestSet.self, from: data) else { return }
+                guard let nextCursor = interestSet.nextCursor() else {
+                    completion(interests + interestSet.interests)
+                    return
+                }
+
+                guard let url = url.append(queryParameter: "cursor=\(nextCursor)") else { return }
+                self.getPaginatedIterests(url: url, interests: interests + interestSet.interests, completion: completion)
+            case .Failure(let data):
+                print(data)
+            }
+        }
+    }
+
     //MARK: Networking Layer
     private func networkRequest(_ request: URLRequest, session: URLSession, completion: @escaping NetworkCompletionHandler) {
         session.dataTask(with: request, completionHandler: { (data, response, error) in

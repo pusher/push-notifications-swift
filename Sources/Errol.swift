@@ -136,6 +136,26 @@ public final class Errol {
         }
     }
 
+    /**
+     Get a list of all interests.
+
+     - Parameter completion: The block to execute when list of interests is successfully retrieved.
+     - Parameter interests: Retrieved interests
+     */
+    public func getInterests(completion: @escaping (_ interests: Array<String>) -> Void) {
+        guard
+            let deviceId = self.deviceId,
+            let instanceId = self.instanceId,
+            let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/apns/\(deviceId)/interests")
+        else { return }
+
+        let networkService: ErrolRegisterable & ErrolSubscribable = NetworkService(url: url, session: session)
+
+        networkService.getInterests { (interestSet) in
+            completion(interestSet)
+        }
+    }
+
     private func registerForPushNotifications(application: UIApplication) {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
             if (granted) {

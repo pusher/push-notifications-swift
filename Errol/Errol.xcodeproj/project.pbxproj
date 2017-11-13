@@ -21,6 +21,8 @@
 		A155BFBD1F9E38040070A609 /* Errol.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A155BFB31F9E38040070A609 /* Errol.framework */; };
 		A155BFC41F9E38040070A609 /* Errol.h in Headers */ = {isa = PBXBuildFile; fileRef = A155BFB61F9E38040070A609 /* Errol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A16782551FA0EA2D00A193DF /* Reason.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16782541FA0EA2C00A193DF /* Reason.swift */; };
+		A1EA93841FACAA03000671D9 /* InterestSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EA93821FACAA02000671D9 /* InterestSet.swift */; };
+		A1EA93851FACAA03000671D9 /* URLHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EA93831FACAA02000671D9 /* URLHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		A155BFBC1F9E38040070A609 /* ErrolTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ErrolTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A155BFC31F9E38040070A609 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A16782541FA0EA2C00A193DF /* Reason.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reason.swift; path = ../../Sources/Reason.swift; sourceTree = "<group>"; };
+		A1EA93821FACAA02000671D9 /* InterestSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterestSet.swift; path = ../../Sources/InterestSet.swift; sourceTree = "<group>"; };
+		A1EA93831FACAA02000671D9 /* URLHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URLHelper.swift; path = ../../Sources/URLHelper.swift; sourceTree = "<group>"; };
 		A1ED00141F9E392700A029F2 /* ErrolTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ErrolTests-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -94,17 +98,19 @@
 		A155BFB51F9E38040070A609 /* Errol */ = {
 			isa = PBXGroup;
 			children = (
-				A16782541FA0EA2C00A193DF /* Reason.swift */,
 				A144AB471F9E3DA2009F0040 /* Device.swift */,
 				A144AB441F9E3DA2009F0040 /* DeviceTokenHelper.swift */,
-				A144AB491F9E3DA3009F0040 /* HTTPMethod.swift */,
-				A144AB451F9E3DA2009F0040 /* NetworkResponse.swift */,
-				A144AB4A1F9E3DA3009F0040 /* NetworkService.swift */,
+				A155BFB61F9E38040070A609 /* Errol.h */,
 				A144AB481F9E3DA2009F0040 /* Errol.swift */,
 				A144AB431F9E3DA2009F0040 /* ErrolRegisterable.swift */,
 				A144AB461F9E3DA2009F0040 /* ErrolSubscribable.swift */,
-				A155BFB61F9E38040070A609 /* Errol.h */,
+				A144AB491F9E3DA3009F0040 /* HTTPMethod.swift */,
 				A155BFB71F9E38040070A609 /* Info.plist */,
+				A1EA93821FACAA02000671D9 /* InterestSet.swift */,
+				A144AB451F9E3DA2009F0040 /* NetworkResponse.swift */,
+				A144AB4A1F9E3DA3009F0040 /* NetworkService.swift */,
+				A16782541FA0EA2C00A193DF /* Reason.swift */,
+				A1EA93831FACAA02000671D9 /* URLHelper.swift */,
 			);
 			path = Errol;
 			sourceTree = "<group>";
@@ -239,8 +245,10 @@
 				A144AB521F9E3DA3009F0040 /* NetworkService.swift in Sources */,
 				A144AB511F9E3DA3009F0040 /* HTTPMethod.swift in Sources */,
 				A144AB501F9E3DA3009F0040 /* Errol.swift in Sources */,
+				A1EA93841FACAA03000671D9 /* InterestSet.swift in Sources */,
 				A144AB4D1F9E3DA3009F0040 /* NetworkResponse.swift in Sources */,
 				A144AB4E1F9E3DA3009F0040 /* ErrolSubscribable.swift in Sources */,
+				A1EA93851FACAA03000671D9 /* URLHelper.swift in Sources */,
 				A144AB4F1F9E3DA3009F0040 /* Device.swift in Sources */,
 				A16782551FA0EA2D00A193DF /* Reason.swift in Sources */,
 			);
