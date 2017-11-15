@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A1A6681D1F9F38BA001E5D31 /* Errol.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1A6681C1F9F3838001E5D31 /* Errol.framework */; };
-		A1A6681E1F9F38BA001E5D31 /* Errol.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A1A6681C1F9F3838001E5D31 /* Errol.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A1A6681D1F9F38BA001E5D31 /* PushNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1A6681C1F9F3838001E5D31 /* PushNotifications.framework */; };
+		A1A6681E1F9F38BA001E5D31 /* PushNotifications.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A1A6681C1F9F3838001E5D31 /* PushNotifications.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A1D7D44C1F8BAFBA009EDE1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D7D44B1F8BAFBA009EDE1A /* AppDelegate.swift */; };
 		A1D7D44E1F8BAFBA009EDE1A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D7D44D1F8BAFBA009EDE1A /* ViewController.swift */; };
 		A1D7D4511F8BAFBA009EDE1A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1D7D44F1F8BAFBA009EDE1A /* Main.storyboard */; };
@@ -23,7 +23,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				A1A6681E1F9F38BA001E5D31 /* Errol.framework in Embed Frameworks */,
+				A1A6681E1F9F38BA001E5D31 /* PushNotifications.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -31,7 +31,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		A1A6681C1F9F3838001E5D31 /* Errol.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Errol.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1A6681C1F9F3838001E5D31 /* PushNotifications.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PushNotifications.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1B55B271F98CC9E004DBC27 /* push-notifications-swift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "push-notifications-swift.entitlements"; sourceTree = "<group>"; };
 		A1D7D4481F8BAFBA009EDE1A /* push-notifications-swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "push-notifications-swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1D7D44B1F8BAFBA009EDE1A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -47,7 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1A6681D1F9F38BA001E5D31 /* Errol.framework in Frameworks */,
+				A1A6681D1F9F38BA001E5D31 /* PushNotifications.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,7 +57,7 @@
 		A1A6681A1F9F3838001E5D31 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A1A6681C1F9F3838001E5D31 /* Errol.framework */,
+				A1A6681C1F9F3838001E5D31 /* PushNotifications.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
