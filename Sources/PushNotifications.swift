@@ -42,7 +42,7 @@ public final class PushNotifications {
             let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/apns")
         else { return }
 
-        let networkService: ErrolRegisterable & ErrolSubscribable = NetworkService(url: url, session: session)
+        let networkService: PushNotificationsRegisterable & PushNotificationsSubscribable = NetworkService(url: url, session: session)
 
         networkService.register(deviceToken: deviceToken) { [weak self] (deviceId) in
             guard let strongSelf = self else { return }
@@ -66,7 +66,7 @@ public final class PushNotifications {
             let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/apns/\(deviceId)/interests/\(interest)")
         else { return }
 
-        let networkService: ErrolRegisterable & ErrolSubscribable = NetworkService(url: url, session: session)
+        let networkService: PushNotificationsRegisterable & PushNotificationsSubscribable = NetworkService(url: url, session: session)
 
         networkService.subscribe {
             completion()
@@ -88,7 +88,7 @@ public final class PushNotifications {
             let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/apns/\(deviceId)/interests")
         else { return }
 
-        let networkService: ErrolRegisterable & ErrolSubscribable = NetworkService(url: url, session: session)
+        let networkService: PushNotificationsRegisterable & PushNotificationsSubscribable = NetworkService(url: url, session: session)
 
         networkService.setSubscriptions(interests: interests) {
             completion()
@@ -110,7 +110,7 @@ public final class PushNotifications {
             let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/apns/\(deviceId)/interests/\(interest)")
         else { return }
 
-        let networkService: ErrolRegisterable & ErrolSubscribable = NetworkService(url: url, session: session)
+        let networkService: PushNotificationsRegisterable & PushNotificationsSubscribable = NetworkService(url: url, session: session)
 
         networkService.unsubscribe {
             completion()
@@ -129,7 +129,7 @@ public final class PushNotifications {
             let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/apns/\(deviceId)/interests")
         else { return }
 
-        let networkService: ErrolRegisterable & ErrolSubscribable = NetworkService(url: url, session: session)
+        let networkService: PushNotificationsRegisterable & PushNotificationsSubscribable = NetworkService(url: url, session: session)
 
         networkService.unsubscribeAll {
             completion()
@@ -149,7 +149,7 @@ public final class PushNotifications {
             let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/apns/\(deviceId)/interests")
         else { return }
 
-        let networkService: ErrolRegisterable & ErrolSubscribable = NetworkService(url: url, session: session)
+        let networkService: PushNotificationsRegisterable & PushNotificationsSubscribable = NetworkService(url: url, session: session)
 
         networkService.getInterests { (interestSet) in
             completion(interestSet)

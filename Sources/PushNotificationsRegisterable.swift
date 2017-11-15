@@ -1,6 +1,6 @@
 import Foundation
 
-protocol ErrolRegisterable {
+protocol PushNotificationsRegisterable {
     typealias CompletionHandler = (String) -> ()
     func register(deviceToken: Data, completion: @escaping CompletionHandler)
 }
