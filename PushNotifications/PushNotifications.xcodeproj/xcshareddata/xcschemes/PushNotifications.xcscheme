@@ -44,10 +44,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A155BFB21F9E38040070A609"
-            BuildableName = "Errol.framework"
-            BlueprintName = "Errol"
-            ReferencedContainer = "container:Errol.xcodeproj">
+            BlueprintIdentifier = "A1D7D4471F8BAFBA009EDE1A"
+            BuildableName = "push-notifications-swift.app"
+            BlueprintName = "push-notifications-swift"
+            ReferencedContainer = "container:../push-notifications-swift/push-notifications-swift.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -64,15 +64,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A155BFB21F9E38040070A609"
-            BuildableName = "Errol.framework"
-            BlueprintName = "Errol"
-            ReferencedContainer = "container:Errol.xcodeproj">
+            BlueprintIdentifier = "A1D7D4471F8BAFBA009EDE1A"
+            BuildableName = "push-notifications-swift.app"
+            BlueprintName = "push-notifications-swift"
+            ReferencedContainer = "container:../push-notifications-swift/push-notifications-swift.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
