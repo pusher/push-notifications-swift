@@ -32,8 +32,8 @@
 
 /* Begin PBXFileReference section */
 		A1A6681C1F9F3838001E5D31 /* Errol.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Errol.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A1B55B271F98CC9E004DBC27 /* errol-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "errol-ios.entitlements"; sourceTree = "<group>"; };
-		A1D7D4481F8BAFBA009EDE1A /* errol-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "errol-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1B55B271F98CC9E004DBC27 /* push-notifications-swift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "push-notifications-swift.entitlements"; sourceTree = "<group>"; };
+		A1D7D4481F8BAFBA009EDE1A /* push-notifications-swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "push-notifications-swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1D7D44B1F8BAFBA009EDE1A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1D7D44D1F8BAFBA009EDE1A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A1D7D4501F8BAFBA009EDE1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -65,7 +65,7 @@
 		A1D7D43F1F8BAFBA009EDE1A = {
 			isa = PBXGroup;
 			children = (
-				A1D7D44A1F8BAFBA009EDE1A /* errol-ios */,
+				A1D7D44A1F8BAFBA009EDE1A /* push-notifications-swift */,
 				A1D7D4491F8BAFBA009EDE1A /* Products */,
 				A1A6681A1F9F3838001E5D31 /* Frameworks */,
 			);
@@ -74,15 +74,15 @@
 		A1D7D4491F8BAFBA009EDE1A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A1D7D4481F8BAFBA009EDE1A /* errol-ios.app */,
+				A1D7D4481F8BAFBA009EDE1A /* push-notifications-swift.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A1D7D44A1F8BAFBA009EDE1A /* errol-ios */ = {
+		A1D7D44A1F8BAFBA009EDE1A /* push-notifications-swift */ = {
 			isa = PBXGroup;
 			children = (
-				A1B55B271F98CC9E004DBC27 /* errol-ios.entitlements */,
+				A1B55B271F98CC9E004DBC27 /* push-notifications-swift.entitlements */,
 				A1D7D44B1F8BAFBA009EDE1A /* AppDelegate.swift */,
 				A1D7D4521F8BAFBA009EDE1A /* Assets.xcassets */,
 				A1D7D4571F8BAFBA009EDE1A /* Info.plist */,
@@ -90,15 +90,15 @@
 				A1D7D44F1F8BAFBA009EDE1A /* Main.storyboard */,
 				A1D7D44D1F8BAFBA009EDE1A /* ViewController.swift */,
 			);
-			path = "errol-ios";
+			path = "push-notifications-swift";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A1D7D4471F8BAFBA009EDE1A /* errol-ios */ = {
+		A1D7D4471F8BAFBA009EDE1A /* push-notifications-swift */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A1D7D45A1F8BAFBA009EDE1A /* Build configuration list for PBXNativeTarget "errol-ios" */;
+			buildConfigurationList = A1D7D45A1F8BAFBA009EDE1A /* Build configuration list for PBXNativeTarget "push-notifications-swift" */;
 			buildPhases = (
 				A1D7D4441F8BAFBA009EDE1A /* Sources */,
 				A1D7D4451F8BAFBA009EDE1A /* Frameworks */,
@@ -109,9 +109,9 @@
 			);
 			dependencies = (
 			);
-			name = "errol-ios";
+			name = "push-notifications-swift";
 			productName = "errol-ios";
-			productReference = A1D7D4481F8BAFBA009EDE1A /* errol-ios.app */;
+			productReference = A1D7D4481F8BAFBA009EDE1A /* push-notifications-swift.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -138,7 +138,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A1D7D4431F8BAFBA009EDE1A /* Build configuration list for PBXProject "errol-ios" */;
+			buildConfigurationList = A1D7D4431F8BAFBA009EDE1A /* Build configuration list for PBXProject "push-notifications-swift" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -151,7 +151,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A1D7D4471F8BAFBA009EDE1A /* errol-ios */,
+				A1D7D4471F8BAFBA009EDE1A /* push-notifications-swift */,
 			);
 		};
 /* End PBXProject section */
@@ -312,13 +312,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "errol-ios/errol-ios.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "push-notifications-swift/push-notifications-swift.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H7FL434D9W;
-				INFOPLIST_FILE = "errol-ios/Info.plist";
+				INFOPLIST_FILE = "push-notifications-swift/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.pusher.errol-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pusher.push-notifications-swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -329,13 +329,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "errol-ios/errol-ios.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "push-notifications-swift/push-notifications-swift.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H7FL434D9W;
-				INFOPLIST_FILE = "errol-ios/Info.plist";
+				INFOPLIST_FILE = "push-notifications-swift/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.pusher.errol-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pusher.push-notifications-swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -345,7 +345,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A1D7D4431F8BAFBA009EDE1A /* Build configuration list for PBXProject "errol-ios" */ = {
+		A1D7D4431F8BAFBA009EDE1A /* Build configuration list for PBXProject "push-notifications-swift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A1D7D4581F8BAFBA009EDE1A /* Debug */,
@@ -354,7 +354,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A1D7D45A1F8BAFBA009EDE1A /* Build configuration list for PBXNativeTarget "errol-ios" */ = {
+		A1D7D45A1F8BAFBA009EDE1A /* Build configuration list for PBXNativeTarget "push-notifications-swift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A1D7D45B1F8BAFBA009EDE1A /* Debug */,

@@ -2,9 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "container:errol-ios/errol-ios.xcodeproj">
+      location = "container:/Users/luka/Developer/push-notifications-swift/errol-ios/push-notifications-swift.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Errol/Errol.xcodeproj">
+      location = "group:/Users/luka/Developer/push-notifications-swift/Errol/PushNotifications.xcodeproj">
    </FileRef>
 </Workspace>

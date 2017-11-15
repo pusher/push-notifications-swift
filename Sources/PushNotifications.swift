@@ -2,22 +2,22 @@ import UIKit
 import Foundation
 import UserNotifications
 
-public final class Errol {
+public final class PushNotifications {
     private var deviceId: String?
     private var instanceId: String?
     private let session = URLSession.shared
     private let baseURL = "https://errol-staging.herokuapp.com/device_api/v1/instances"
 
 
-    //! Returns a shared singleton Errol object.
-    public static let shared = Errol()
+    //! Returns a shared singleton PushNotifications object.
+    public static let shared = PushNotifications()
 
     private init() {}
 
     /**
-     Register with Errol service.
+     Register with PushNotifications service.
 
-     - Parameter instanceId: Errol instance id.
+     - Parameter instanceId: PushNotifications instance id.
      - Parameter application: Your singleton app object.
 
      - Precondition: `instanceId` should not be nil.
@@ -29,7 +29,7 @@ public final class Errol {
     }
 
     /**
-     Register device token with Errol service.
+     Register device token with PushNotifications service.
 
      - Parameter deviceToken: A token that identifies the device to APNs.
      - Parameter completion: The block to execute when the register device token operation is complete.
