@@ -1,8 +1,8 @@
 #!/bin/bash
 
 jazzy \
---source-directory Errol \
+--source-directory PushNotifications \
 --author Pusher \
 --author_url https://pusher.com \
---github_url https://github.com/pusher/errol-ios \
+--github_url https://github.com/pusher/push-notifications-swift \
 --output docs/ \
