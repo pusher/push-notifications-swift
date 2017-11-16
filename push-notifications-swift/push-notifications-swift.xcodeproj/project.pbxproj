@@ -110,7 +110,7 @@
 			dependencies = (
 			);
 			name = "push-notifications-swift";
-			productName = "errol-ios";
+			productName = "push-notifications-swift";
 			productReference = A1D7D4481F8BAFBA009EDE1A /* push-notifications-swift.app */;
 			productType = "com.apple.product-type.application";
 		};

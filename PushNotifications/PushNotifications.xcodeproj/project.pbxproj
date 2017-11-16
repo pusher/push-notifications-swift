@@ -31,7 +31,7 @@
 			containerPortal = A155BFAA1F9E38040070A609 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = A155BFB21F9E38040070A609;
-			remoteInfo = Errol;
+			remoteInfo = PushNotifications;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -155,7 +155,7 @@
 			dependencies = (
 			);
 			name = PushNotifications;
-			productName = Errol;
+			productName = PushNotifications;
 			productReference = A155BFB31F9E38040070A609 /* PushNotifications.framework */;
 			productType = "com.apple.product-type.framework";
 		};
@@ -173,7 +173,7 @@
 				A155BFBF1F9E38040070A609 /* PBXTargetDependency */,
 			);
 			name = PushNotificationsTests;
-			productName = ErrolTests;
+			productName = PushNotificationsTests;
 			productReference = A155BFBC1F9E38040070A609 /* PushNotificationsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
