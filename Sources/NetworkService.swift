@@ -1,13 +1,13 @@
 import Foundation
 
-struct NetworkService: ErrolRegisterable, ErrolSubscribable {
+struct NetworkService: PushNotificationsRegisterable, PushNotificationsSubscribable {
 
     let url: URL
     let session: URLSession
 
     typealias NetworkCompletionHandler = (_ response: NetworkResponse) -> Void
 
-    //MARK: ErrolRegisterable
+    //MARK: PushNotificationsRegisterable
     func register(deviceToken: Data, completion: @escaping CompletionHandler) {
         let deviceTokenString = deviceToken.hexadecimalRepresentation()
         let bundleIdentifier = Bundle.main.bundleIdentifier ?? ""
@@ -26,7 +26,7 @@ struct NetworkService: ErrolRegisterable, ErrolSubscribable {
         }
     }
 
-    //MARK: ErrolSubscribable
+    //MARK: PushNotificationsSubscribable
     func subscribe(completion: @escaping () -> Void = {}) {
         let request = self.setRequest(url: self.url, httpMethod: .POST)
 
