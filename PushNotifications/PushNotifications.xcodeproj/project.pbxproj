@@ -21,6 +21,7 @@
 		A155BFBD1F9E38040070A609 /* PushNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A155BFB31F9E38040070A609 /* PushNotifications.framework */; };
 		A155BFC41F9E38040070A609 /* PushNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = A155BFB61F9E38040070A609 /* PushNotifications.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A16782551FA0EA2D00A193DF /* Reason.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16782541FA0EA2C00A193DF /* Reason.swift */; };
+		A18A79681FC7158B00401B54 /* InterestPersistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A79671FC7158B00401B54 /* InterestPersistable.swift */; };
 		A1EA93841FACAA03000671D9 /* InterestSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EA93821FACAA02000671D9 /* InterestSet.swift */; };
 		A1EA93851FACAA03000671D9 /* URLHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EA93831FACAA02000671D9 /* URLHelper.swift */; };
 /* End PBXBuildFile section */
@@ -53,6 +54,7 @@
 		A155BFBC1F9E38040070A609 /* PushNotificationsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PushNotificationsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A155BFC31F9E38040070A609 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A16782541FA0EA2C00A193DF /* Reason.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reason.swift; path = ../../Sources/Reason.swift; sourceTree = "<group>"; };
+		A18A79671FC7158B00401B54 /* InterestPersistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestPersistable.swift; sourceTree = "<group>"; };
 		A1EA93821FACAA02000671D9 /* InterestSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterestSet.swift; path = ../../Sources/InterestSet.swift; sourceTree = "<group>"; };
 		A1EA93831FACAA02000671D9 /* URLHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URLHelper.swift; path = ../../Sources/URLHelper.swift; sourceTree = "<group>"; };
 		A1ED00141F9E392700A029F2 /* PushNotificationsTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PushNotificationsTests-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				A144AB4A1F9E3DA3009F0040 /* NetworkService.swift */,
 				A16782541FA0EA2C00A193DF /* Reason.swift */,
 				A1EA93831FACAA02000671D9 /* URLHelper.swift */,
+				A18A79671FC7158B00401B54 /* InterestPersistable.swift */,
 			);
 			path = PushNotifications;
 			sourceTree = "<group>";
@@ -239,6 +242,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A18A79681FC7158B00401B54 /* InterestPersistable.swift in Sources */,
 				A144AB4B1F9E3DA3009F0040 /* PushNotificationsRegisterable.swift in Sources */,
 				A144AB4C1F9E3DA3009F0040 /* DeviceTokenHelper.swift in Sources */,
 				A144AB591F9E3DCC009F0040 /* MockPushNotificationsRegisterable.swift in Sources */,
