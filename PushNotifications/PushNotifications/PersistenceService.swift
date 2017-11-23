@@ -1,6 +1,6 @@
 import Foundation
 
-struct PersistanceService: InterestPersistable {
+struct PersistenceService: InterestPersistable {
 
     let service: UserDefaults
 

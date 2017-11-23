@@ -67,9 +67,12 @@ public final class PushNotifications {
         else { return }
 
         let networkService: PushNotificationsRegisterable & PushNotificationsSubscribable = NetworkService(url: url, session: session)
+        let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
 
-        networkService.subscribe {
-            completion()
+        if (persistenceService.persist(interest: interest)) {
+            networkService.subscribe {
+                completion()
+            }
         }
     }
 
@@ -89,9 +92,12 @@ public final class PushNotifications {
         else { return }
 
         let networkService: PushNotificationsRegisterable & PushNotificationsSubscribable = NetworkService(url: url, session: session)
+        let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
 
-        networkService.setSubscriptions(interests: interests) {
-            completion()
+        if (persistenceService.persist(interests: interests)) {
+            networkService.setSubscriptions(interests: interests) {
+                completion()
+            }
         }
     }
 
@@ -111,9 +117,12 @@ public final class PushNotifications {
         else { return }
 
         let networkService: PushNotificationsRegisterable & PushNotificationsSubscribable = NetworkService(url: url, session: session)
+        let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
 
-        networkService.unsubscribe {
-            completion()
+        if (persistenceService.remove(interest: interest)) {
+            networkService.unsubscribe {
+                completion()
+            }
         }
     }
 
@@ -130,8 +139,10 @@ public final class PushNotifications {
         else { return }
 
         let networkService: PushNotificationsRegisterable & PushNotificationsSubscribable = NetworkService(url: url, session: session)
+        let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
 
         networkService.unsubscribeAll {
+            persistenceService.removeAll()
             completion()
         }
     }
@@ -139,21 +150,12 @@ public final class PushNotifications {
     /**
      Get a list of all interests.
 
-     - Parameter completion: The block to execute when list of interests is successfully retrieved.
-     - Parameter interests: Retrieved interests
+     - returns: Array of interests
      */
-    public func getInterests(completion: @escaping (_ interests: Array<String>) -> Void) {
-        guard
-            let deviceId = self.deviceId,
-            let instanceId = self.instanceId,
-            let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/apns/\(deviceId)/interests")
-        else { return }
+    public func getInterests() -> Array<String> {
+        let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
 
-        let networkService: PushNotificationsRegisterable & PushNotificationsSubscribable = NetworkService(url: url, session: session)
-
-        networkService.getInterests { (interestSet) in
-            completion(interestSet)
-        }
+        return persistenceService.getSubscriptions()
     }
 
     private func registerForPushNotifications(application: UIApplication) {
