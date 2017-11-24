@@ -5,32 +5,24 @@ struct PersistenceService: InterestPersistable {
     let service: UserDefaults
 
     func persist(interest: String) -> Bool {
-        if self.interestExists(interest: interest) {
-            return false
-        }
-        else {
-            service.set(interest, forKey: interest)
-            return true
-        }
+        guard !self.interestExists(interest: interest) else { return false }
+
+        service.set(interest, forKey: interest)
+        return true
     }
 
     func persist(interests: Array<String>) -> Bool {
-        if self.interestsExists(interests: interests) {
-            return false
-        }
-        else {
-            service.set(interests, forKey: "subscriptions")
-            return true
-        }
+        guard !self.interestsExists(interests: interests) else { return false }
+
+        service.set(interests, forKey: "subscriptions")
+        return true
     }
 
     func remove(interest: String) -> Bool {
-        if self.interestExists(interest: interest) {
-            service.removeObject(forKey: interest)
-            return true
-        }
+        guard self.interestExists(interest: interest) else { return false }
 
-        return false
+        service.removeObject(forKey: interest)
+        return true
     }
 
     func removeAll() {
