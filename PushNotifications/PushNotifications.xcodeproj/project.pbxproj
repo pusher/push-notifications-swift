@@ -24,6 +24,8 @@
 		A18A79681FC7158B00401B54 /* InterestPersistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A79671FC7158B00401B54 /* InterestPersistable.swift */; };
 		A18A796A1FC7170A00401B54 /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A79691FC7170A00401B54 /* PersistenceService.swift */; };
 		A18A79701FC82A3C00401B54 /* InterestPersistableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A796F1FC82A3C00401B54 /* InterestPersistableTests.swift */; };
+		A18A79751FC85A6900401B54 /* MockPushNotificationsSubscribable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A79731FC85A5A00401B54 /* MockPushNotificationsSubscribable.swift */; };
+		A1E5738E1FC85B21001C4D42 /* PushNotificationsSubscribableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E5738D1FC85B21001C4D42 /* PushNotificationsSubscribableTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,8 @@
 		A18A79671FC7158B00401B54 /* InterestPersistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestPersistable.swift; sourceTree = "<group>"; };
 		A18A79691FC7170A00401B54 /* PersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
 		A18A796F1FC82A3C00401B54 /* InterestPersistableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestPersistableTests.swift; sourceTree = "<group>"; };
+		A18A79731FC85A5A00401B54 /* MockPushNotificationsSubscribable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPushNotificationsSubscribable.swift; sourceTree = "<group>"; };
+		A1E5738D1FC85B21001C4D42 /* PushNotificationsSubscribableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsSubscribableTests.swift; sourceTree = "<group>"; };
 		A1ED00141F9E392700A029F2 /* PushNotificationsTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PushNotificationsTests-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -126,6 +130,8 @@
 				A144AB551F9E3DBF009F0040 /* MockPushNotificationsRegisterable.swift */,
 				A144AB531F9E3DBE009F0040 /* PushNotificationsRegisterableTests.swift */,
 				A1ED00141F9E392700A029F2 /* PushNotificationsTests-Bridging-Header.h */,
+				A18A79731FC85A5A00401B54 /* MockPushNotificationsSubscribable.swift */,
+				A1E5738D1FC85B21001C4D42 /* PushNotificationsSubscribableTests.swift */,
 			);
 			path = PushNotificationsTests;
 			sourceTree = "<group>";
@@ -246,6 +252,7 @@
 				A144AB4B1F9E3DA3009F0040 /* PushNotificationsRegisterable.swift in Sources */,
 				A144AB4C1F9E3DA3009F0040 /* DeviceTokenHelper.swift in Sources */,
 				A144AB591F9E3DCC009F0040 /* MockPushNotificationsRegisterable.swift in Sources */,
+				A18A79751FC85A6900401B54 /* MockPushNotificationsSubscribable.swift in Sources */,
 				A144AB521F9E3DA3009F0040 /* NetworkService.swift in Sources */,
 				A18A796A1FC7170A00401B54 /* PersistenceService.swift in Sources */,
 				A144AB511F9E3DA3009F0040 /* HTTPMethod.swift in Sources */,
@@ -262,6 +269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A144AB561F9E3DBF009F0040 /* PushNotificationsRegisterableTests.swift in Sources */,
+				A1E5738E1FC85B21001C4D42 /* PushNotificationsSubscribableTests.swift in Sources */,
 				A18A79701FC82A3C00401B54 /* InterestPersistableTests.swift in Sources */,
 				A144AB571F9E3DBF009F0040 /* DeviceTokenHelperTests.swift in Sources */,
 			);
