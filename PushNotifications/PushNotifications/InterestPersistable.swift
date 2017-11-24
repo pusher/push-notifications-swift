@@ -5,5 +5,5 @@ protocol InterestPersistable {
     func persist(interests: Array<String>) -> Bool
     func remove(interest: String) -> Bool
     func removeAll()
-    func getSubscriptions() -> Array<String>
+    func getSubscriptions() -> Array<String>?
 }

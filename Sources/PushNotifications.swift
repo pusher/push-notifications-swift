@@ -152,7 +152,7 @@ public final class PushNotifications {
 
      - returns: Array of interests
      */
-    public func getInterests() -> Array<String> {
+    public func getInterests() -> Array<String>? {
         let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
 
         return persistenceService.getSubscriptions()

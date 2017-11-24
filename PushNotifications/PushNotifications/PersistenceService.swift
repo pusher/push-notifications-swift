@@ -37,8 +37,10 @@ struct PersistenceService: InterestPersistable {
         service.removeObject(forKey: "subscriptions")
     }
 
-    func getSubscriptions() -> Array<String> {
-        return service.array(forKey: "subscriptions") as! Array<String>
+    func getSubscriptions() -> Array<String>? {
+        guard let subscriptions = service.array(forKey: "subscriptions") else { return nil }
+
+        return subscriptions as? Array<String>
     }
 
     private func interestExists(interest: String) -> Bool {
