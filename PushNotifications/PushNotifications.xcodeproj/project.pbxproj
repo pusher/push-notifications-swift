@@ -24,7 +24,6 @@
 		A18A79681FC7158B00401B54 /* InterestPersistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A79671FC7158B00401B54 /* InterestPersistable.swift */; };
 		A18A796A1FC7170A00401B54 /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A79691FC7170A00401B54 /* PersistenceService.swift */; };
 		A18A79701FC82A3C00401B54 /* InterestPersistableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A796F1FC82A3C00401B54 /* InterestPersistableTests.swift */; };
-		A1EA93841FACAA03000671D9 /* InterestSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EA93821FACAA02000671D9 /* InterestSet.swift */; };
 		A1EA93851FACAA03000671D9 /* URLHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EA93831FACAA02000671D9 /* URLHelper.swift */; };
 /* End PBXBuildFile section */
 
@@ -59,7 +58,6 @@
 		A18A79671FC7158B00401B54 /* InterestPersistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestPersistable.swift; sourceTree = "<group>"; };
 		A18A79691FC7170A00401B54 /* PersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
 		A18A796F1FC82A3C00401B54 /* InterestPersistableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestPersistableTests.swift; sourceTree = "<group>"; };
-		A1EA93821FACAA02000671D9 /* InterestSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterestSet.swift; path = ../../Sources/InterestSet.swift; sourceTree = "<group>"; };
 		A1EA93831FACAA02000671D9 /* URLHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URLHelper.swift; path = ../../Sources/URLHelper.swift; sourceTree = "<group>"; };
 		A1ED00141F9E392700A029F2 /* PushNotificationsTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PushNotificationsTests-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -112,7 +110,6 @@
 				A144AB461F9E3DA2009F0040 /* PushNotificationsSubscribable.swift */,
 				A144AB491F9E3DA3009F0040 /* HTTPMethod.swift */,
 				A155BFB71F9E38040070A609 /* Info.plist */,
-				A1EA93821FACAA02000671D9 /* InterestSet.swift */,
 				A144AB451F9E3DA2009F0040 /* NetworkResponse.swift */,
 				A144AB4A1F9E3DA3009F0040 /* NetworkService.swift */,
 				A16782541FA0EA2C00A193DF /* Reason.swift */,
@@ -256,7 +253,6 @@
 				A18A796A1FC7170A00401B54 /* PersistenceService.swift in Sources */,
 				A144AB511F9E3DA3009F0040 /* HTTPMethod.swift in Sources */,
 				A144AB501F9E3DA3009F0040 /* PushNotifications.swift in Sources */,
-				A1EA93841FACAA03000671D9 /* InterestSet.swift in Sources */,
 				A144AB4D1F9E3DA3009F0040 /* NetworkResponse.swift in Sources */,
 				A144AB4E1F9E3DA3009F0040 /* PushNotificationsSubscribable.swift in Sources */,
 				A1EA93851FACAA03000671D9 /* URLHelper.swift in Sources */,
