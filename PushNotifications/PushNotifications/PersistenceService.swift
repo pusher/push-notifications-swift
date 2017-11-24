@@ -42,14 +42,9 @@ struct PersistenceService: InterestPersistable {
     }
 
     private func interestsExists(interests: Array<String>) -> Bool {
-        guard let localInterests = service.array(forKey: "subscriptions") else { return false }
+        guard let localInterests = service.array(forKey: "subscriptions") as? Array<String> else { return false }
 
-        if interests.containsSameElements(as: localInterests as! Array<String>) {
-            return true
-        }
-        else {
-            return false
-        }
+        return interests.containsSameElements(as: localInterests)
     }
 }
 
