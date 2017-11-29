@@ -54,39 +54,7 @@ struct NetworkService: PushNotificationsRegisterable, PushNotificationsSubscriba
     }
 
     func unsubscribeAll(completion: @escaping () -> Void = {}) {
-        let bodyString = "{\"interests\": []}"
-        let body = Data(bodyString.utf8)
-        let request = self.setRequest(url: self.url, httpMethod: .PUT, body: body)
-
-        self.networkRequest(request, session: self.session) { (response) in
-            completion()
-        }
-    }
-
-     func getInterests(completion: @escaping (Array<String>) -> Void) {
-        self.getPaginatedIterests(url: self.url) { (interests) in
-            completion(interests)
-        }
-    }
-
-    private func getPaginatedIterests(url: URL, interests: Array<String> = [], completion: @escaping (Array<String>) -> Void) {
-        let request = self.setRequest(url: url, httpMethod: .GET)
-
-        self.networkRequest(request, session: self.session) { (response) in
-            switch response {
-            case .Success(let data):
-                guard let interestSet = try? JSONDecoder().decode(InterestSet.self, from: data) else { return }
-                guard let nextCursor = interestSet.nextCursor() else {
-                    completion(interests + interestSet.interests)
-                    return
-                }
-
-                guard let url = url.append(queryParameter: "cursor=\(nextCursor)") else { return }
-                self.getPaginatedIterests(url: url, interests: interests + interestSet.interests, completion: completion)
-            case .Failure(let data):
-                print(data)
-            }
-        }
+        self.setSubscriptions(interests: [])
     }
 
     //MARK: Networking Layer

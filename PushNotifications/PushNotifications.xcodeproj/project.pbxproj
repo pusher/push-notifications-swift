@@ -21,8 +21,11 @@
 		A155BFBD1F9E38040070A609 /* PushNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A155BFB31F9E38040070A609 /* PushNotifications.framework */; };
 		A155BFC41F9E38040070A609 /* PushNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = A155BFB61F9E38040070A609 /* PushNotifications.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A16782551FA0EA2D00A193DF /* Reason.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16782541FA0EA2C00A193DF /* Reason.swift */; };
-		A1EA93841FACAA03000671D9 /* InterestSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EA93821FACAA02000671D9 /* InterestSet.swift */; };
-		A1EA93851FACAA03000671D9 /* URLHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EA93831FACAA02000671D9 /* URLHelper.swift */; };
+		A18A79681FC7158B00401B54 /* InterestPersistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A79671FC7158B00401B54 /* InterestPersistable.swift */; };
+		A18A796A1FC7170A00401B54 /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A79691FC7170A00401B54 /* PersistenceService.swift */; };
+		A18A79701FC82A3C00401B54 /* InterestPersistableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A796F1FC82A3C00401B54 /* InterestPersistableTests.swift */; };
+		A18A79751FC85A6900401B54 /* MockPushNotificationsSubscribable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A79731FC85A5A00401B54 /* MockPushNotificationsSubscribable.swift */; };
+		A1E5738E1FC85B21001C4D42 /* PushNotificationsSubscribableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E5738D1FC85B21001C4D42 /* PushNotificationsSubscribableTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,8 +56,11 @@
 		A155BFBC1F9E38040070A609 /* PushNotificationsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PushNotificationsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A155BFC31F9E38040070A609 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A16782541FA0EA2C00A193DF /* Reason.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reason.swift; path = ../../Sources/Reason.swift; sourceTree = "<group>"; };
-		A1EA93821FACAA02000671D9 /* InterestSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterestSet.swift; path = ../../Sources/InterestSet.swift; sourceTree = "<group>"; };
-		A1EA93831FACAA02000671D9 /* URLHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URLHelper.swift; path = ../../Sources/URLHelper.swift; sourceTree = "<group>"; };
+		A18A79671FC7158B00401B54 /* InterestPersistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestPersistable.swift; sourceTree = "<group>"; };
+		A18A79691FC7170A00401B54 /* PersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
+		A18A796F1FC82A3C00401B54 /* InterestPersistableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestPersistableTests.swift; sourceTree = "<group>"; };
+		A18A79731FC85A5A00401B54 /* MockPushNotificationsSubscribable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPushNotificationsSubscribable.swift; sourceTree = "<group>"; };
+		A1E5738D1FC85B21001C4D42 /* PushNotificationsSubscribableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsSubscribableTests.swift; sourceTree = "<group>"; };
 		A1ED00141F9E392700A029F2 /* PushNotificationsTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PushNotificationsTests-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,11 +112,11 @@
 				A144AB461F9E3DA2009F0040 /* PushNotificationsSubscribable.swift */,
 				A144AB491F9E3DA3009F0040 /* HTTPMethod.swift */,
 				A155BFB71F9E38040070A609 /* Info.plist */,
-				A1EA93821FACAA02000671D9 /* InterestSet.swift */,
 				A144AB451F9E3DA2009F0040 /* NetworkResponse.swift */,
 				A144AB4A1F9E3DA3009F0040 /* NetworkService.swift */,
 				A16782541FA0EA2C00A193DF /* Reason.swift */,
-				A1EA93831FACAA02000671D9 /* URLHelper.swift */,
+				A18A79671FC7158B00401B54 /* InterestPersistable.swift */,
+				A18A79691FC7170A00401B54 /* PersistenceService.swift */,
 			);
 			path = PushNotifications;
 			sourceTree = "<group>";
@@ -119,10 +125,13 @@
 			isa = PBXGroup;
 			children = (
 				A144AB541F9E3DBF009F0040 /* DeviceTokenHelperTests.swift */,
+				A155BFC31F9E38040070A609 /* Info.plist */,
+				A18A796F1FC82A3C00401B54 /* InterestPersistableTests.swift */,
 				A144AB551F9E3DBF009F0040 /* MockPushNotificationsRegisterable.swift */,
 				A144AB531F9E3DBE009F0040 /* PushNotificationsRegisterableTests.swift */,
 				A1ED00141F9E392700A029F2 /* PushNotificationsTests-Bridging-Header.h */,
-				A155BFC31F9E38040070A609 /* Info.plist */,
+				A18A79731FC85A5A00401B54 /* MockPushNotificationsSubscribable.swift */,
+				A1E5738D1FC85B21001C4D42 /* PushNotificationsSubscribableTests.swift */,
 			);
 			path = PushNotificationsTests;
 			sourceTree = "<group>";
@@ -239,16 +248,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A18A79681FC7158B00401B54 /* InterestPersistable.swift in Sources */,
 				A144AB4B1F9E3DA3009F0040 /* PushNotificationsRegisterable.swift in Sources */,
 				A144AB4C1F9E3DA3009F0040 /* DeviceTokenHelper.swift in Sources */,
 				A144AB591F9E3DCC009F0040 /* MockPushNotificationsRegisterable.swift in Sources */,
+				A18A79751FC85A6900401B54 /* MockPushNotificationsSubscribable.swift in Sources */,
 				A144AB521F9E3DA3009F0040 /* NetworkService.swift in Sources */,
+				A18A796A1FC7170A00401B54 /* PersistenceService.swift in Sources */,
 				A144AB511F9E3DA3009F0040 /* HTTPMethod.swift in Sources */,
 				A144AB501F9E3DA3009F0040 /* PushNotifications.swift in Sources */,
-				A1EA93841FACAA03000671D9 /* InterestSet.swift in Sources */,
 				A144AB4D1F9E3DA3009F0040 /* NetworkResponse.swift in Sources */,
 				A144AB4E1F9E3DA3009F0040 /* PushNotificationsSubscribable.swift in Sources */,
-				A1EA93851FACAA03000671D9 /* URLHelper.swift in Sources */,
 				A144AB4F1F9E3DA3009F0040 /* Device.swift in Sources */,
 				A16782551FA0EA2D00A193DF /* Reason.swift in Sources */,
 			);
@@ -259,6 +269,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A144AB561F9E3DBF009F0040 /* PushNotificationsRegisterableTests.swift in Sources */,
+				A1E5738E1FC85B21001C4D42 /* PushNotificationsSubscribableTests.swift in Sources */,
+				A18A79701FC82A3C00401B54 /* InterestPersistableTests.swift in Sources */,
 				A144AB571F9E3DBF009F0040 /* DeviceTokenHelperTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
