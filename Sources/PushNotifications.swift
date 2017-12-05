@@ -24,7 +24,7 @@ public final class PushNotifications {
      */
     public func register(instanceId: String, application: UIApplication = UIApplication.shared) {
         self.instanceId = instanceId
-        self.baseURL = "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/"
+        self.baseURL = "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances"
         self.registerForPushNotifications(application: application)
     }
 
