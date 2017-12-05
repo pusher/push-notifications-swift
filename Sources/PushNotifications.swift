@@ -5,9 +5,8 @@ import UserNotifications
 public final class PushNotifications {
     private var deviceId: String?
     private var instanceId: String?
+    private var baseURL: String?
     private let session = URLSession.shared
-    private let baseURL = "https://errol-staging.herokuapp.com/device_api/v1/instances"
-
 
     //! Returns a shared singleton PushNotifications object.
     public static let shared = PushNotifications()
@@ -25,6 +24,7 @@ public final class PushNotifications {
      */
     public func register(instanceId: String, application: UIApplication = UIApplication.shared) {
         self.instanceId = instanceId
+        self.baseURL = "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/"
         self.registerForPushNotifications(application: application)
     }
 
@@ -39,7 +39,8 @@ public final class PushNotifications {
     public func registerDeviceToken(_ deviceToken: Data, completion: @escaping () -> Void = {}) {
         guard
             let instanceId = self.instanceId,
-            let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/apns")
+            let baseURL = self.baseURL,
+            let url = URL(string: "\(baseURL)/\(instanceId)/devices/apns")
         else { return }
 
         let networkService: PushNotificationsRegisterable & PushNotificationsSubscribable = NetworkService(url: url, session: session)
@@ -63,7 +64,8 @@ public final class PushNotifications {
         guard
             let deviceId = self.deviceId,
             let instanceId = self.instanceId,
-            let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/apns/\(deviceId)/interests/\(interest)")
+            let baseURL = self.baseURL,
+            let url = URL(string: "\(baseURL)/\(instanceId)/devices/apns/\(deviceId)/interests/\(interest)")
         else { return }
 
         let networkService: PushNotificationsRegisterable & PushNotificationsSubscribable = NetworkService(url: url, session: session)
@@ -88,7 +90,8 @@ public final class PushNotifications {
         guard
             let deviceId = self.deviceId,
             let instanceId = self.instanceId,
-            let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/apns/\(deviceId)/interests")
+            let baseURL = self.baseURL,
+            let url = URL(string: "\(baseURL)/\(instanceId)/devices/apns/\(deviceId)/interests")
         else { return }
 
         let networkService: PushNotificationsRegisterable & PushNotificationsSubscribable = NetworkService(url: url, session: session)
@@ -113,7 +116,8 @@ public final class PushNotifications {
         guard
             let deviceId = self.deviceId,
             let instanceId = self.instanceId,
-            let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/apns/\(deviceId)/interests/\(interest)")
+            let baseURL = self.baseURL,
+            let url = URL(string: "\(baseURL)/\(instanceId)/devices/apns/\(deviceId)/interests/\(interest)")
         else { return }
 
         let networkService: PushNotificationsRegisterable & PushNotificationsSubscribable = NetworkService(url: url, session: session)
@@ -135,7 +139,8 @@ public final class PushNotifications {
         guard
             let deviceId = self.deviceId,
             let instanceId = self.instanceId,
-            let url = URL(string: "\(self.baseURL)/\(instanceId)/devices/apns/\(deviceId)/interests")
+            let baseURL = self.baseURL,
+            let url = URL(string: "\(baseURL)/\(instanceId)/devices/apns/\(deviceId)/interests")
         else { return }
 
         let networkService: PushNotificationsRegisterable & PushNotificationsSubscribable = NetworkService(url: url, session: session)
@@ -159,11 +164,15 @@ public final class PushNotifications {
     }
 
     private func registerForPushNotifications(application: UIApplication) {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge, .badge]) { (granted, error) in
             if (granted) {
                 DispatchQueue.main.async {
                     application.registerForRemoteNotifications()
                 }
+            }
+
+            if let error = error {
+                print(error.localizedDescription)
             }
         }
     }
