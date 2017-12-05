@@ -164,7 +164,7 @@ public final class PushNotifications {
     }
 
     private func registerForPushNotifications(application: UIApplication) {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge, .badge]) { (granted, error) in
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
             if (granted) {
                 DispatchQueue.main.async {
                     application.registerForRemoteNotifications()
