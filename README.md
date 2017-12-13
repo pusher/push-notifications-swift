@@ -1,5 +1,6 @@
 # PushNotifications iOS SDK
 
+[![BuddyBuild](https://dashboard.buddybuild.com/api/statusImage?appID=5a31106608b2980001402beb&branch=master&build=latest)](https://dashboard.buddybuild.com/apps/5a31106608b2980001402beb/build/latest?branch=master)
 [![Documentation](https://push-notifications-swift.herokuapp.com/badge.svg)](https://push-notifications-swift.herokuapp.com/Classes/PushNotifications.html)
 ![](https://img.shields.io/badge/Swift-4.0-orange.svg)
 [![CocoaPods](https://img.shields.io/cocoapods/v/PushNotifications.svg)](https://cocoapods.org/pods/PushNotifications)
