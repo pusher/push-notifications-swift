@@ -24,7 +24,7 @@ $ gem install cocoapods
 To integrate PushNotifications into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
 ```ruby
-source 'https://github.com/pusher/PrivatePodSpecs.git'
+source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '10.0'
 use_frameworks!
 
