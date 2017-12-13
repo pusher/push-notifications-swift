@@ -1,6 +1,7 @@
 # PushNotifications iOS SDK
 
 [![Documentation](https://push-notifications-swift.herokuapp.com/badge.svg)](https://push-notifications-swift.herokuapp.com/Classes/PushNotifications.html)
+[![](https://img.shields.io/badge/Swift-4.0-orange.svg)](https://img.shields.io/badge/Swift-4.0-orange.svg)
 [![Twitter](https://img.shields.io/badge/twitter-@Pusher-blue.svg?style=flat)](http://twitter.com/Pusher)
 [![Carthage](https://img.shields.io/badge/carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
