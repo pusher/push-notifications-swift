@@ -1,7 +1,7 @@
 # PushNotifications iOS SDK
 
 [![Build Status](https://travis-ci.org/pusher/push-notifications-swift.svg?branch=master)](https://travis-ci.org/pusher/push-notifications-swift)
-[![Documentation](https://push-notifications-swift.herokuapp.com/badge.svg)](https://push-notifications-swift.herokuapp.com/Classes/PushNotifications.html)
+[![Documentation](https://push-notifications-swift.herokuapp.com/badge.svg)](https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html)
 ![](https://img.shields.io/badge/Swift-4.0-orange.svg)
 [![CocoaPods](https://img.shields.io/cocoapods/v/PushNotifications.svg)](https://cocoapods.org/pods/PushNotifications)
 [![Carthage](https://img.shields.io/badge/carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
