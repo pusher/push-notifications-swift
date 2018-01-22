@@ -54,7 +54,7 @@ class InterestPersistableTests: XCTestCase {
     }
     
     func testPersistInterestAndBatchSaveInterests() {
-        let persistenceOperation = self.persistenceService.persist(interest: "com.pusher.sdk:interest")
+        let persistenceOperation = self.persistenceService.persist(interest: "interest")
         XCTAssertTrue(persistenceOperation)
         let interests = ["a", "b", "c", "d", "e"]
         self.persistenceService.persist(interests: interests)
@@ -67,7 +67,7 @@ class InterestPersistableTests: XCTestCase {
     func testBatchSaveInterestsAndPersistAnotherInterest() {
         let interests = ["a", "b", "c", "d", "e"]
         self.persistenceService.persist(interests: interests)
-        let persistenceOperation = self.persistenceService.persist(interest: "com.pusher.sdk:interest")
+        let persistenceOperation = self.persistenceService.persist(interest: "interest")
         let storedInterests = self.persistenceService.getSubscriptions()
         XCTAssertNotNil(storedInterests!)
         XCTAssertTrue(persistenceOperation)
