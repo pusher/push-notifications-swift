@@ -3,7 +3,7 @@ import Foundation
 struct PersistenceService: InterestPersistable {
 
     let service: UserDefaults
-    private let prefix = "com.pusher.sdk"
+    private let prefix = "com.pusher.sdk.interests"
 
     func persist(interest: String) -> Bool {
         guard !self.interestExists(interest: interest) else { return false }
