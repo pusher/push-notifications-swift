@@ -9,12 +9,12 @@ class PushNotificationsSubscribableTests: XCTestCase {
         self.subscriptionService = MockPushNotificationsSubscribable()
         super.setUp()
     }
-    
+
     override func tearDown() {
         self.subscriptionService = nil
         super.tearDown()
     }
-    
+
     func testSubscribe() {
         let exp = expectation(description: "It should successfuly subscribe to an interest")
         self.subscriptionService.subscribe {

@@ -9,13 +9,13 @@ class InterestPersistableTests: XCTestCase {
         super.setUp()
         self.persistenceService = PersistenceService(service: UserDefaults(suiteName: "Test")!)
     }
-    
+
     override func tearDown() {
         self.persistenceService = nil
         UserDefaults.standard.removePersistentDomain(forName: "Test")
         super.tearDown()
     }
-    
+
     func testPersistInterestThatWasNotSavedYet() {
         let persistenceOperation = self.persistenceService.persist(interest: "tech")
         XCTAssertTrue(persistenceOperation)
