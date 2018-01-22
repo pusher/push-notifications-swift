@@ -3,53 +3,55 @@ import Foundation
 struct PersistenceService: InterestPersistable {
 
     let service: UserDefaults
+    private let prefix = "com.pusher.sdk"
 
     func persist(interest: String) -> Bool {
         guard !self.interestExists(interest: interest) else { return false }
 
-        service.set(interest, forKey: interest)
+        service.set(interest, forKey: self.prefixInterest(interest))
         return true
     }
 
-    func persist(interests: Array<String>) -> Bool {
-        guard !self.interestsExists(interests: interests) else { return false }
-
-        service.set(interests, forKey: "subscriptions")
-        return true
+    func persist(interests: Array<String>) {
+        self.removeAll()
+        for interest in interests {
+            _ = self.persist(interest: interest)
+        }
     }
 
     func remove(interest: String) -> Bool {
         guard self.interestExists(interest: interest) else { return false }
 
-        service.removeObject(forKey: interest)
+        service.removeObject(forKey: self.prefixInterest(interest))
         return true
     }
 
     func removeAll() {
-        service.removeObject(forKey: "subscriptions")
+        for element in service.dictionaryRepresentation() {
+            if element.key.hasPrefix(prefix) {
+                service.removeObject(forKey: element.key)
+            }
+        }
     }
 
     func getSubscriptions() -> Array<String>? {
-        guard let subscriptions = service.array(forKey: "subscriptions") else { return nil }
+        var interests: [String] = []
+        for element in service.dictionaryRepresentation() {
+            if element.key.hasPrefix(prefix) {
+                interests.append(String(describing: element.value))
+            }
+        }
 
-        return subscriptions as? Array<String>
+        return interests
     }
 
     private func interestExists(interest: String) -> Bool {
-        guard let _ = service.object(forKey: interest) else { return false }
+        guard let _ = service.object(forKey: self.prefixInterest(interest)) else { return false }
 
         return true
     }
 
-    private func interestsExists(interests: Array<String>) -> Bool {
-        guard let localInterests = service.array(forKey: "subscriptions") as? Array<String> else { return false }
-
-        return interests.containsSameElements(as: localInterests)
-    }
-}
-
-extension Array where Element: Comparable {
-    func containsSameElements(as other: [Element]) -> Bool {
-        return self.count == other.count && self.sorted() == other.sorted()
+    private func prefixInterest(_ interest: String) -> String {
+        return "\(prefix):\(interest)"
     }
 }
