@@ -72,5 +72,16 @@ class InterestPersistableTests: XCTestCase {
         XCTAssertNotNil(storedInterests!)
         XCTAssertTrue(persistenceOperation)
         XCTAssert(storedInterests?.count == 6)
+        XCTAssertTrue(storedInterests!.containsSameElements(as: ["a", "b", "c", "d", "e", "interest"]))
+    }
+
+    func testBatchSaveInterestsAndSaveExistingInterest() {
+        let interests = ["a", "b", "c"]
+        self.persistenceService.persist(interests: interests)
+        let persistenceOperation = self.persistenceService.persist(interest: "a")
+        XCTAssertFalse(persistenceOperation)
+        let storedInterests = self.persistenceService.getSubscriptions()
+        XCTAssert(storedInterests?.count == 3)
+        XCTAssertTrue(storedInterests!.containsSameElements(as: interests))
     }
 }
