@@ -179,7 +179,7 @@ import UserNotifications
     }
 
     private func validateInterestNames(_ interests: Array<String>) -> Array<String>? {
-        return interests.filter{!self.validateInterestName($0)}
+        return interests.filter { !self.validateInterestName($0) }
     }
 
     private func registerForPushNotifications(application: UIApplication) {
