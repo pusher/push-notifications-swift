@@ -57,6 +57,8 @@ import UserNotifications
      - Parameter completion: The block to execute when subscription to the interest is complete.
 
      - Precondition: `interest` should not be nil.
+
+     - Throws: An error of type `InterestValidationError`
      */
     @objc public func subscribe(interest: String, completion: @escaping () -> Void = {}) throws {
         guard self.validateInterestName(interest) else {
@@ -87,6 +89,8 @@ import UserNotifications
      - Parameter completion: The block to execute when subscription to interests is complete.
 
      - Precondition: `interests` should not be nil.
+
+     - Throws: An error of type `InterestValidationError`
      */
     @objc public func setSubscriptions(interests: Array<String>, completion: @escaping () -> Void = {}) throws {
         if let invalidInterests = self.validateInterestNames(interests) {
@@ -116,6 +120,8 @@ import UserNotifications
      - Parameter completion: The block to execute when subscription to the interest is successfully cancelled.
 
      - Precondition: `interest` should not be nil.
+
+     - Throws: An error of type `InterestValidationError`
      */
     @objc public func unsubscribe(interest: String, completion: @escaping () -> Void = {}) throws {
         guard self.validateInterestName(interest) else {
