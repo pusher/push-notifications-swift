@@ -60,7 +60,11 @@ public final class PushNotifications {
 
      - Precondition: `interest` should not be nil.
      */
-    public func subscribe(interest: String, completion: @escaping () -> Void = {}) {
+    public func subscribe(interest: String, completion: @escaping () -> Void = {}) throws {
+        guard self.validateInterestName(interest) else {
+            throw InterestValidationError.invalidName(interest)
+        }
+
         guard
             let deviceId = self.deviceId,
             let instanceId = self.instanceId,
@@ -86,7 +90,11 @@ public final class PushNotifications {
 
      - Precondition: `interests` should not be nil.
      */
-    public func setSubscriptions(interests: Array<String>, completion: @escaping () -> Void = {}) {
+    public func setSubscriptions(interests: Array<String>, completion: @escaping () -> Void = {}) throws {
+        if let invalidInterests = self.validateInterestNames(interests) {
+            throw InterestValidationError.invalidNames(invalidInterests)
+        }
+
         guard
             let deviceId = self.deviceId,
             let instanceId = self.instanceId,
@@ -111,7 +119,11 @@ public final class PushNotifications {
 
      - Precondition: `interest` should not be nil.
      */
-    public func unsubscribe(interest: String, completion: @escaping () -> Void = {}) {
+    public func unsubscribe(interest: String, completion: @escaping () -> Void = {}) throws {
+        guard self.validateInterestName(interest) else {
+            throw InterestValidationError.invalidName(interest)
+        }
+
         guard
             let deviceId = self.deviceId,
             let instanceId = self.instanceId,
@@ -160,6 +172,16 @@ public final class PushNotifications {
         let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
 
         return persistenceService.getSubscriptions()
+    }
+
+    private func validateInterestName(_ interest: String) -> Bool {
+        let interestNameRegex = "^[a-zA-Z0-9_=@,.;]{1,164}$"
+        let interestNamePredicate = NSPredicate(format:"SELF MATCHES %@", interestNameRegex)
+        return interestNamePredicate.evaluate(with: interest)
+    }
+
+    private func validateInterestNames(_ interests: Array<String>) -> Array<String>? {
+        return interests.filter{!self.validateInterestName($0)}
     }
 
     private func registerForPushNotifications(application: UIApplication) {
