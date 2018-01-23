@@ -10,6 +10,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         self.pushNotifications.register(instanceId: "e3c54800-e058-4e75-9e20-424f7dddce30")
 
+        print("Test")
+
         return true
     }
 
