@@ -95,10 +95,9 @@ import UserNotifications
         let networkService: PushNotificationsRegisterable & PushNotificationsSubscribable = NetworkService(url: url, session: session)
         let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
 
-        if persistenceService.persist(interests: interests) {
-            networkService.setSubscriptions(interests: interests) {
-                completion()
-            }
+        persistenceService.persist(interests: interests)
+        networkService.setSubscriptions(interests: interests) {
+            completion()
         }
     }
 
@@ -144,8 +143,8 @@ import UserNotifications
         let networkService: PushNotificationsRegisterable & PushNotificationsSubscribable = NetworkService(url: url, session: session)
         let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
 
+        persistenceService.removeAll()
         networkService.unsubscribeAll {
-            persistenceService.removeAll()
             completion()
         }
     }
