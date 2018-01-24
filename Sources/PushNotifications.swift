@@ -2,16 +2,14 @@ import UIKit
 import Foundation
 import UserNotifications
 
-public final class PushNotifications {
+@objc public final class PushNotifications: NSObject {
     private var deviceId: String?
     private var instanceId: String?
     private var baseURL: String?
     private let session = URLSession.shared
 
     //! Returns a shared singleton PushNotifications object.
-    public static let shared = PushNotifications()
-
-    private init() {}
+    @objc public static let shared = PushNotifications()
 
     /**
      Register with PushNotifications service.
@@ -22,7 +20,7 @@ public final class PushNotifications {
      - Precondition: `instanceId` should not be nil.
      - Precondition: `application` should not be nil.
      */
-    public func register(instanceId: String, application: UIApplication = UIApplication.shared) {
+    @objc public func register(instanceId: String, application: UIApplication = UIApplication.shared) {
         self.instanceId = instanceId
         self.baseURL = "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances"
         self.registerForPushNotifications(application: application)
@@ -36,7 +34,7 @@ public final class PushNotifications {
 
      - Precondition: `deviceToken` should not be nil.
      */
-    public func registerDeviceToken(_ deviceToken: Data, completion: @escaping () -> Void = {}) {
+    @objc public func registerDeviceToken(_ deviceToken: Data, completion: @escaping () -> Void = {}) {
         guard
             let instanceId = self.instanceId,
             let baseURL = self.baseURL,
@@ -59,8 +57,14 @@ public final class PushNotifications {
      - Parameter completion: The block to execute when subscription to the interest is complete.
 
      - Precondition: `interest` should not be nil.
+
+     - Throws: An error of type `InterestValidationError`
      */
-    public func subscribe(interest: String, completion: @escaping () -> Void = {}) {
+    @objc public func subscribe(interest: String, completion: @escaping () -> Void = {}) throws {
+        guard self.validateInterestName(interest) else {
+            throw InterestValidationError.invalidName(interest)
+        }
+
         guard
             let deviceId = self.deviceId,
             let instanceId = self.instanceId,
@@ -85,8 +89,14 @@ public final class PushNotifications {
      - Parameter completion: The block to execute when subscription to interests is complete.
 
      - Precondition: `interests` should not be nil.
+
+     - Throws: An error of type `InterestValidationError`
      */
-    public func setSubscriptions(interests: Array<String>, completion: @escaping () -> Void = {}) {
+    @objc public func setSubscriptions(interests: Array<String>, completion: @escaping () -> Void = {}) throws {
+        if let invalidInterests = self.validateInterestNames(interests) {
+            throw InterestValidationError.invalidNames(invalidInterests)
+        }
+
         guard
             let deviceId = self.deviceId,
             let instanceId = self.instanceId,
@@ -110,8 +120,14 @@ public final class PushNotifications {
      - Parameter completion: The block to execute when subscription to the interest is successfully cancelled.
 
      - Precondition: `interest` should not be nil.
+
+     - Throws: An error of type `InterestValidationError`
      */
-    public func unsubscribe(interest: String, completion: @escaping () -> Void = {}) {
+    @objc public func unsubscribe(interest: String, completion: @escaping () -> Void = {}) throws {
+        guard self.validateInterestName(interest) else {
+            throw InterestValidationError.invalidName(interest)
+        }
+
         guard
             let deviceId = self.deviceId,
             let instanceId = self.instanceId,
@@ -134,7 +150,7 @@ public final class PushNotifications {
 
      - Parameter completion: The block to execute when all subscriptions to the interests are successfully cancelled.
      */
-    public func unsubscribeAll(completion: @escaping () -> Void = {}) {
+    @objc public func unsubscribeAll(completion: @escaping () -> Void = {}) {
         guard
             let deviceId = self.deviceId,
             let instanceId = self.instanceId,
@@ -156,10 +172,20 @@ public final class PushNotifications {
 
      - returns: Array of interests
      */
-    public func getInterests() -> Array<String>? {
+    @objc public func getInterests() -> Array<String>? {
         let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
 
         return persistenceService.getSubscriptions()
+    }
+
+    private func validateInterestName(_ interest: String) -> Bool {
+        let interestNameRegex = "^[a-zA-Z0-9_=@,.;]{1,164}$"
+        let interestNamePredicate = NSPredicate(format:"SELF MATCHES %@", interestNameRegex)
+        return interestNamePredicate.evaluate(with: interest)
+    }
+
+    private func validateInterestNames(_ interests: Array<String>) -> Array<String>? {
+        return interests.filter { !self.validateInterestName($0) }
     }
 
     private func registerForPushNotifications(application: UIApplication) {

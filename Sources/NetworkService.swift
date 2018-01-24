@@ -7,7 +7,7 @@ struct NetworkService: PushNotificationsRegisterable, PushNotificationsSubscriba
 
     typealias NetworkCompletionHandler = (_ response: NetworkResponse) -> Void
 
-    //MARK: PushNotificationsRegisterable
+    // MARK: PushNotificationsRegisterable
     func register(deviceToken: Data, completion: @escaping CompletionHandler) {
         let deviceTokenString = deviceToken.hexadecimalRepresentation()
         let bundleIdentifier = Bundle.main.bundleIdentifier ?? ""
@@ -26,7 +26,7 @@ struct NetworkService: PushNotificationsRegisterable, PushNotificationsSubscriba
         }
     }
 
-    //MARK: PushNotificationsSubscribable
+    // MARK: PushNotificationsSubscribable
     func subscribe(completion: @escaping () -> Void = {}) {
         let request = self.setRequest(url: self.url, httpMethod: .POST)
 
@@ -57,7 +57,7 @@ struct NetworkService: PushNotificationsRegisterable, PushNotificationsSubscriba
         self.setSubscriptions(interests: [])
     }
 
-    //MARK: Networking Layer
+    // MARK: Networking Layer
     private func networkRequest(_ request: URLRequest, session: URLSession, completion: @escaping NetworkCompletionHandler) {
         session.dataTask(with: request, completionHandler: { (data, response, error) in
             guard let data = data else { return }
