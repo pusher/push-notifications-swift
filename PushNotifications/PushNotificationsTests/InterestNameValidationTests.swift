@@ -7,7 +7,7 @@ class InterestNameValidationTests: XCTestCase {
 
     func testInterestNameIsInvalid() {
         XCTAssertThrowsError(try PushNotifications.shared.subscribe(interest: "#∞¶")) { error in
-            guard case InterestValidationError.invalidName(let name) = error else {
+            guard case InvalidInterestError.invalidName(let name) = error else {
                 return XCTFail()
             }
 
@@ -18,7 +18,7 @@ class InterestNameValidationTests: XCTestCase {
     func testInterestNameLengthShouldNotBeZero() {
         let interest = ""
         XCTAssertThrowsError(try PushNotifications.shared.subscribe(interest: interest)) { error in
-            guard case InterestValidationError.invalidName(let name) = error else {
+            guard case InvalidInterestError.invalidName(let name) = error else {
                 return XCTFail()
             }
 
@@ -29,7 +29,7 @@ class InterestNameValidationTests: XCTestCase {
     func testInterestNameLengthIsOver164Characters() {
         let interest = "wWNQYfD7S@LCH@xlMvYs_ct9uXScs50PJWYDsBXtVAkJt1@d_jUwPUITTRH,ibw1FBlVxwNdcYDoz.,BME=1rpBL7i9hha95rA@tsWZ1JENc=W0ok44_l:OkGmz6SUsdTOMq,_NUsQww7D08lWIE5IhRJwYxp92Qvce:1"
         XCTAssertThrowsError(try PushNotifications.shared.subscribe(interest: interest)) { error in
-            guard case InterestValidationError.invalidName(let name) = error else {
+            guard case InvalidInterestError.invalidName(let name) = error else {
                 return XCTFail()
             }
 
@@ -41,7 +41,7 @@ class InterestNameValidationTests: XCTestCase {
     func testSomeInterestNamesAreInvalid() {
         let interests = ["a", "¢123", "b", "#ssss#dds", "£"]
         XCTAssertThrowsError(try PushNotifications.shared.setSubscriptions(interests: interests)) { error in
-            guard case InterestValidationError.invalidNames(let names) = error else {
+            guard case MultipleInvalidInterestsError.invalidNames(let names) = error else {
                 return XCTFail()
             }
 

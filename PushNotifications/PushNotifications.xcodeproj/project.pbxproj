@@ -30,6 +30,7 @@
 		A19ECF841FCF099200688DAF /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19ECF821FCF099100688DAF /* PersistenceService.swift */; };
 		A19ECF881FCF09A500688DAF /* PushNotificationsSubscribableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19ECF851FCF09A500688DAF /* PushNotificationsSubscribableTests.swift */; };
 		A19ECF891FCF09A500688DAF /* InterestPersistableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19ECF861FCF09A500688DAF /* InterestPersistableTests.swift */; };
+		A1B344402018BAA100481BDF /* MultipleInvalidInterestsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B3443F2018BAA100481BDF /* MultipleInvalidInterestsError.swift */; };
 		A1CBD7DD2016304B00EE2AB2 /* InterestValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CBD7DC2016304B00EE2AB2 /* InterestValidationError.swift */; };
 /* End PBXBuildFile section */
 
@@ -69,6 +70,7 @@
 		A19ECF851FCF09A500688DAF /* PushNotificationsSubscribableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PushNotificationsSubscribableTests.swift; path = ../../Tests/PushNotificationsSubscribableTests.swift; sourceTree = "<group>"; };
 		A19ECF861FCF09A500688DAF /* InterestPersistableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterestPersistableTests.swift; path = ../../Tests/InterestPersistableTests.swift; sourceTree = "<group>"; };
 		A19ECF871FCF09A500688DAF /* MockPushNotificationsSubscribable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockPushNotificationsSubscribable.swift; path = ../../Tests/MockPushNotificationsSubscribable.swift; sourceTree = "<group>"; };
+		A1B3443F2018BAA100481BDF /* MultipleInvalidInterestsError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleInvalidInterestsError.swift; sourceTree = "<group>"; };
 		A1CBD7DC2016304B00EE2AB2 /* InterestValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestValidationError.swift; sourceTree = "<group>"; };
 		A1ED00141F9E392700A029F2 /* PushNotificationsTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PushNotificationsTests-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -128,6 +130,7 @@
 				A16782541FA0EA2C00A193DF /* Reason.swift */,
 				A182088C2014C6F4007D86C6 /* Array+ContainsSameElements.swift */,
 				A1CBD7DC2016304B00EE2AB2 /* InterestValidationError.swift */,
+				A1B3443F2018BAA100481BDF /* MultipleInvalidInterestsError.swift */,
 			);
 			path = PushNotifications;
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 				A144AB501F9E3DA3009F0040 /* PushNotifications.swift in Sources */,
 				A1CBD7DD2016304B00EE2AB2 /* InterestValidationError.swift in Sources */,
 				A144AB4D1F9E3DA3009F0040 /* NetworkResponse.swift in Sources */,
+				A1B344402018BAA100481BDF /* MultipleInvalidInterestsError.swift in Sources */,
 				A144AB4E1F9E3DA3009F0040 /* PushNotificationsSubscribable.swift in Sources */,
 				A144AB4F1F9E3DA3009F0040 /* Device.swift in Sources */,
 				A16782551FA0EA2D00A193DF /* Reason.swift in Sources */,

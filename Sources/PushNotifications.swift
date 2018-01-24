@@ -62,7 +62,7 @@ import UserNotifications
      */
     @objc public func subscribe(interest: String, completion: @escaping () -> Void = {}) throws {
         guard self.validateInterestName(interest) else {
-            throw InterestValidationError.invalidName(interest)
+            throw InvalidInterestError.invalidName(interest)
         }
 
         guard
@@ -94,7 +94,7 @@ import UserNotifications
      */
     @objc public func setSubscriptions(interests: Array<String>, completion: @escaping () -> Void = {}) throws {
         if let invalidInterests = self.validateInterestNames(interests) {
-            throw InterestValidationError.invalidNames(invalidInterests)
+            throw MultipleInvalidInterestsError.invalidNames(invalidInterests)
         }
 
         guard
@@ -125,7 +125,7 @@ import UserNotifications
      */
     @objc public func unsubscribe(interest: String, completion: @escaping () -> Void = {}) throws {
         guard self.validateInterestName(interest) else {
-            throw InterestValidationError.invalidName(interest)
+            throw InvalidInterestError.invalidName(interest)
         }
 
         guard
