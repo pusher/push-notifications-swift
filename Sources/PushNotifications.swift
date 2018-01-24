@@ -191,7 +191,6 @@ import Foundation
         return persistenceService.getSubscriptions()
     }
 
-<<<<<<< HEAD
     private func validateInterestName(_ interest: String) -> Bool {
         let interestNameRegex = "^[a-zA-Z0-9_=@,.;]{1,164}$"
         let interestNamePredicate = NSPredicate(format:"SELF MATCHES %@", interestNameRegex)
@@ -202,9 +201,7 @@ import Foundation
         return interests.filter { !self.validateInterestName($0) }
     }
 
-=======
     #if os(iOS)
->>>>>>> Add support for macOS
     private func registerForPushNotifications(application: UIApplication) {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
             if (granted) {
