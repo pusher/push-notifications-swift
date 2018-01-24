@@ -1,6 +1,6 @@
 import Foundation
 
-struct NetworkService: PushNotificationsRegisterable, PushNotificationsSubscribable {
+struct NetworkService: PushNotificationsNetworkable {
 
     let url: URL
     let session: URLSession
@@ -8,7 +8,7 @@ struct NetworkService: PushNotificationsRegisterable, PushNotificationsSubscriba
     typealias NetworkCompletionHandler = (_ response: NetworkResponse) -> Void
 
     // MARK: PushNotificationsRegisterable
-    func register(deviceToken: Data, completion: @escaping CompletionHandler) {
+    func register(deviceToken: Data, completion: @escaping (String) -> Void) {
         let deviceTokenString = deviceToken.hexadecimalRepresentation()
         let bundleIdentifier = Bundle.main.bundleIdentifier ?? ""
         let bodyString = "{\"token\": \"\(deviceTokenString)\", \"bundleIdentifier\": \"\(bundleIdentifier)\"}"

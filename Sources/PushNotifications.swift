@@ -57,7 +57,7 @@ import Foundation
             let url = URL(string: "\(baseURL)/\(instanceId)/devices/apns")
         else { return }
 
-        let networkService: PushNotificationsRegisterable & PushNotificationsSubscribable = NetworkService(url: url, session: session)
+        let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: session)
 
         networkService.register(deviceToken: deviceToken) { [weak self] (deviceId) in
             guard let strongSelf = self else { return }
@@ -89,7 +89,7 @@ import Foundation
             let url = URL(string: "\(baseURL)/\(instanceId)/devices/apns/\(deviceId)/interests/\(interest)")
         else { return }
 
-        let networkService: PushNotificationsRegisterable & PushNotificationsSubscribable = NetworkService(url: url, session: session)
+        let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: session)
         let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
 
         if persistenceService.persist(interest: interest) {
@@ -122,7 +122,7 @@ import Foundation
             let url = URL(string: "\(baseURL)/\(instanceId)/devices/apns/\(deviceId)/interests")
         else { return }
 
-        let networkService: PushNotificationsRegisterable & PushNotificationsSubscribable = NetworkService(url: url, session: session)
+        let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: session)
         let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
 
         persistenceService.persist(interests: interests)
@@ -154,7 +154,7 @@ import Foundation
             let url = URL(string: "\(baseURL)/\(instanceId)/devices/apns/\(deviceId)/interests/\(interest)")
         else { return }
 
-        let networkService: PushNotificationsRegisterable & PushNotificationsSubscribable = NetworkService(url: url, session: session)
+        let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: session)
         let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
 
         if persistenceService.remove(interest: interest) {
@@ -178,7 +178,7 @@ import Foundation
             let url = URL(string: "\(baseURL)/\(instanceId)/devices/apns/\(deviceId)/interests")
         else { return }
 
-        let networkService: PushNotificationsRegisterable & PushNotificationsSubscribable = NetworkService(url: url, session: session)
+        let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: session)
         let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
 
         persistenceService.removeAll()
