@@ -35,14 +35,7 @@ struct PersistenceService: InterestPersistable {
     }
 
     func getSubscriptions() -> Array<String>? {
-        var interests: [String] = []
-        for element in service.dictionaryRepresentation() {
-            if element.key.hasPrefix(prefix) {
-                interests.append(String(describing: element.value))
-            }
-        }
-
-        return interests
+        return service.dictionaryRepresentation().filter { $0.key.hasPrefix(prefix) }.map { String(describing: ($0.value)) }
     }
 
     private func interestExists(interest: String) -> Bool {

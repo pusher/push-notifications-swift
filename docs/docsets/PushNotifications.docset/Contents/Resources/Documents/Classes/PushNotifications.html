@@ -36,6 +36,17 @@
               </li>
             </ul>
           </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/InvalidInterestError.html">InvalidInterestError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/MultipleInvalidInterestsError.html">MultipleInvalidInterestsError</a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
       <article class="main-content">
@@ -50,9 +61,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:17PushNotificationsAAC6sharedABvZ"></a>
+                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(cpy)shared"></a>
                     <a name="//apple_ref/swift/Variable/shared" class="dashAnchor"></a>
-                    <a class="token" href="#/s:17PushNotificationsAAC6sharedABvZ">shared</a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(cpy)shared">shared</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -68,9 +79,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:17PushNotificationsAAC8registerySS10instanceId_So13UIApplicationC11applicationtF"></a>
+                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)registerWithInstanceId:application:"></a>
                     <a name="//apple_ref/swift/Method/register(instanceId:application:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:17PushNotificationsAAC8registerySS10instanceId_So13UIApplicationC11applicationtF">register(instanceId:application:)</a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)registerWithInstanceId:application:">register(instanceId:application:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -95,7 +106,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">register</span><span class="p">(</span><span class="nv">instanceId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">application</span><span class="p">:</span> <span class="kt">UIApplication</span> <span class="o">=</span> <span class="kt">UIApplication</span><span class="o">.</span><span class="n"><a href="../Classes/PushNotifications.html#/s:17PushNotificationsAAC6sharedABvZ">shared</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">register</span><span class="p">(</span><span class="nv">instanceId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">application</span><span class="p">:</span> <span class="kt">UIApplication</span> <span class="o">=</span> <span class="kt">UIApplication</span><span class="o">.</span><span class="n"><a href="../Classes/PushNotifications.html#/c:@M@PushNotifications@objc(cs)PushNotifications(cpy)shared">shared</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -136,9 +147,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:17PushNotificationsAAC19registerDeviceTokeny10Foundation4DataV_yyc10completiontF"></a>
+                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)registerDeviceToken:completion:"></a>
                     <a name="//apple_ref/swift/Method/registerDeviceToken(_:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:17PushNotificationsAAC19registerDeviceTokeny10Foundation4DataV_yyc10completiontF">registerDeviceToken(_:completion:)</a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)registerDeviceToken:completion:">registerDeviceToken(_:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -158,7 +169,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">registerDeviceToken</span><span class="p">(</span><span class="n">_</span> <span class="nv">deviceToken</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="o">=</span> <span class="p">{})</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">registerDeviceToken</span><span class="p">(</span><span class="n">_</span> <span class="nv">deviceToken</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="o">=</span> <span class="p">{})</span></code></pre>
 
                         </div>
                       </div>
@@ -199,9 +210,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:17PushNotificationsAAC9subscribeySS8interest_yyc10completiontF"></a>
+                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)subscribeWithInterest:error:completion:"></a>
                     <a name="//apple_ref/swift/Method/subscribe(interest:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:17PushNotificationsAAC9subscribeySS8interest_yyc10completiontF">subscribe(interest:completion:)</a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)subscribeWithInterest:error:completion:">subscribe(interest:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -215,13 +226,18 @@
     <p><code>interest</code> should not be nil.</p>
 
 </div>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <p>An error of type <code><a href="../Enums/InvalidInterestError.html">InvalidInterestError</a></code></p>
+
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">subscribe</span><span class="p">(</span><span class="nv">interest</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="o">=</span> <span class="p">{})</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">subscribe</span><span class="p">(</span><span class="nv">interest</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="o">=</span> <span class="p">{})</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
@@ -262,9 +278,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:17PushNotificationsAAC16setSubscriptionsySaySSG9interests_yyc10completiontF"></a>
+                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)setSubscriptionsWithInterests:error:completion:"></a>
                     <a name="//apple_ref/swift/Method/setSubscriptions(interests:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:17PushNotificationsAAC16setSubscriptionsySaySSG9interests_yyc10completiontF">setSubscriptions(interests:completion:)</a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)setSubscriptionsWithInterests:error:completion:">setSubscriptions(interests:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -278,13 +294,18 @@
     <p><code>interests</code> should not be nil.</p>
 
 </div>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <p>An error of type <code><a href="../Enums/MultipleInvalidInterestsError.html">MultipleInvalidInterestsError</a></code></p>
+
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">setSubscriptions</span><span class="p">(</span><span class="nv">interests</span><span class="p">:</span> <span class="kt">Array</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="o">=</span> <span class="p">{})</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">setSubscriptions</span><span class="p">(</span><span class="nv">interests</span><span class="p">:</span> <span class="kt">Array</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="o">=</span> <span class="p">{})</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
@@ -325,9 +346,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:17PushNotificationsAAC11unsubscribeySS8interest_yyc10completiontF"></a>
+                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)unsubscribeWithInterest:error:completion:"></a>
                     <a name="//apple_ref/swift/Method/unsubscribe(interest:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:17PushNotificationsAAC11unsubscribeySS8interest_yyc10completiontF">unsubscribe(interest:completion:)</a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)unsubscribeWithInterest:error:completion:">unsubscribe(interest:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -341,13 +362,18 @@
     <p><code>interest</code> should not be nil.</p>
 
 </div>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <p>An error of type <code><a href="../Enums/InvalidInterestError.html">InvalidInterestError</a></code></p>
+
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">unsubscribe</span><span class="p">(</span><span class="nv">interest</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="o">=</span> <span class="p">{})</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">unsubscribe</span><span class="p">(</span><span class="nv">interest</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="o">=</span> <span class="p">{})</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
@@ -388,9 +414,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:17PushNotificationsAAC14unsubscribeAllyyyc10completion_tF"></a>
+                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)unsubscribeAllWithCompletion:"></a>
                     <a name="//apple_ref/swift/Method/unsubscribeAll(completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:17PushNotificationsAAC14unsubscribeAllyyyc10completion_tF">unsubscribeAll(completion:)</a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)unsubscribeAllWithCompletion:">unsubscribeAll(completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -405,7 +431,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">unsubscribeAll</span><span class="p">(</span><span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="o">=</span> <span class="p">{})</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">unsubscribeAll</span><span class="p">(</span><span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="o">=</span> <span class="p">{})</span></code></pre>
 
                         </div>
                       </div>
@@ -434,9 +460,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:17PushNotificationsAAC12getInterestsyySaySSGc10completion_tF"></a>
-                    <a name="//apple_ref/swift/Method/getInterests(completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:17PushNotificationsAAC12getInterestsyySaySSGc10completion_tF">getInterests(completion:)</a>
+                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)getInterests"></a>
+                    <a name="//apple_ref/swift/Method/getInterests()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)getInterests">getInterests()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -451,40 +477,13 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getInterests</span><span class="p">(</span><span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="n">_</span> <span class="nv">interests</span><span class="p">:</span> <span class="kt">Array</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">getInterests</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Array</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
                       <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>completion</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The block to execute when list of interests is successfully retrieved.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>interests</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Retrieved interests</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                        <h4>Return Value</h4>
+                        <p>Array of interests</p>
                       </div>
                     </section>
                   </div>
@@ -494,7 +493,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://pusher.com" target="_blank" rel="external">Pusher</a>. All rights reserved. (Last updated: 2017-11-16)</p>
+          <p>&copy; 2018 <a class="link" href="https://pusher.com" target="_blank" rel="external">Pusher</a>. All rights reserved. (Last updated: 2018-01-24)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.4</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

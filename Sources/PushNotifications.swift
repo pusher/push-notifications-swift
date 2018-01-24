@@ -57,8 +57,14 @@ import UserNotifications
      - Parameter completion: The block to execute when subscription to the interest is complete.
 
      - Precondition: `interest` should not be nil.
+
+     - Throws: An error of type `InvalidInterestError`
      */
-    @objc public func subscribe(interest: String, completion: @escaping () -> Void = {}) {
+    @objc public func subscribe(interest: String, completion: @escaping () -> Void = {}) throws {
+        guard self.validateInterestName(interest) else {
+            throw InvalidInterestError.invalidName(interest)
+        }
+
         guard
             let deviceId = self.deviceId,
             let instanceId = self.instanceId,
@@ -83,8 +89,14 @@ import UserNotifications
      - Parameter completion: The block to execute when subscription to interests is complete.
 
      - Precondition: `interests` should not be nil.
+
+     - Throws: An error of type `MultipleInvalidInterestsError`
      */
-    @objc public func setSubscriptions(interests: Array<String>, completion: @escaping () -> Void = {}) {
+    @objc public func setSubscriptions(interests: Array<String>, completion: @escaping () -> Void = {}) throws {
+        if let invalidInterests = self.validateInterestNames(interests) {
+            throw MultipleInvalidInterestsError.invalidNames(invalidInterests)
+        }
+
         guard
             let deviceId = self.deviceId,
             let instanceId = self.instanceId,
@@ -108,8 +120,14 @@ import UserNotifications
      - Parameter completion: The block to execute when subscription to the interest is successfully cancelled.
 
      - Precondition: `interest` should not be nil.
+
+     - Throws: An error of type `InvalidInterestError`
      */
-    @objc public func unsubscribe(interest: String, completion: @escaping () -> Void = {}) {
+    @objc public func unsubscribe(interest: String, completion: @escaping () -> Void = {}) throws {
+        guard self.validateInterestName(interest) else {
+            throw InvalidInterestError.invalidName(interest)
+        }
+
         guard
             let deviceId = self.deviceId,
             let instanceId = self.instanceId,
@@ -158,6 +176,16 @@ import UserNotifications
         let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
 
         return persistenceService.getSubscriptions()
+    }
+
+    private func validateInterestName(_ interest: String) -> Bool {
+        let interestNameRegex = "^[a-zA-Z0-9_=@,.;]{1,164}$"
+        let interestNamePredicate = NSPredicate(format:"SELF MATCHES %@", interestNameRegex)
+        return interestNamePredicate.evaluate(with: interest)
+    }
+
+    private func validateInterestNames(_ interests: Array<String>) -> Array<String>? {
+        return interests.filter { !self.validateInterestName($0) }
     }
 
     private func registerForPushNotifications(application: UIApplication) {
