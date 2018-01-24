@@ -12,7 +12,6 @@ import Foundation
     private var instanceId: String?
     private var baseURL: String?
     private let session = URLSession.shared
-    
     //! Returns a shared singleton PushNotifications object.
     @objc public static let shared = PushNotifications()
 
@@ -209,7 +208,6 @@ import Foundation
                     application.registerForRemoteNotifications()
                 }
             }
-            
             if let error = error {
                 print(error.localizedDescription)
             }

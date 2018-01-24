@@ -3,7 +3,6 @@ import PushNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
     var window: UIWindow?
     let pushNotifications = PushNotifications.shared
     
