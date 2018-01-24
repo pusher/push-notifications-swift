@@ -32,7 +32,6 @@
 		A19ECF891FCF09A500688DAF /* InterestPersistableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19ECF861FCF09A500688DAF /* InterestPersistableTests.swift */; };
 		A1B344432018BC0200481BDF /* InterestValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B344412018BC0100481BDF /* InterestValidationError.swift */; };
 		A1B344442018BC0200481BDF /* MultipleInvalidInterestsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B344422018BC0200481BDF /* MultipleInvalidInterestsError.swift */; };
-		A1EA94B9201888A800B93798 /* SysInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = A1EA94B8201888A800B93798 /* SysInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,7 +72,6 @@
 		A19ECF871FCF09A500688DAF /* MockPushNotificationsSubscribable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockPushNotificationsSubscribable.swift; path = ../../Tests/MockPushNotificationsSubscribable.swift; sourceTree = "<group>"; };
 		A1B344412018BC0100481BDF /* InterestValidationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterestValidationError.swift; path = ../../Sources/InterestValidationError.swift; sourceTree = "<group>"; };
 		A1B344422018BC0200481BDF /* MultipleInvalidInterestsError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultipleInvalidInterestsError.swift; path = ../../Sources/MultipleInvalidInterestsError.swift; sourceTree = "<group>"; };
-		A1EA94B8201888A800B93798 /* SysInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SysInfo.h; sourceTree = "<group>"; };
 		A1ED00141F9E392700A029F2 /* PushNotificationsTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PushNotificationsTests-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -133,7 +131,6 @@
 				A144AB461F9E3DA2009F0040 /* PushNotificationsSubscribable.swift */,
 				A16782541FA0EA2C00A193DF /* Reason.swift */,
 				A182088C2014C6F4007D86C6 /* Array+ContainsSameElements.swift */,
-				A1EA94B8201888A800B93798 /* SysInfo.h */,
 			);
 			path = PushNotifications;
 			sourceTree = "<group>";
@@ -162,7 +159,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1EA94B9201888A800B93798 /* SysInfo.h in Headers */,
 				A155BFC41F9E38040070A609 /* PushNotifications.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
