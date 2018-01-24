@@ -16,6 +16,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
+    func application(_ application: NSApplication, didReceiveRemoteNotification userInfo: [String : Any]) {
+        print(userInfo)
+    }
+    
     func application(_ application: NSApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print("Remote notification support is unavailable due to error: \(error.localizedDescription)")
     }
