@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A1D79500201896C800F44F01 /* PushNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1D79501201896C800F44F01 /* PushNotifications.framework */; };
 		A1EA94A220187CC600B93798 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EA94A120187CC600B93798 /* AppDelegate.swift */; };
 		A1EA94A420187CC600B93798 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EA94A320187CC600B93798 /* ViewController.swift */; };
 		A1EA94A620187CC600B93798 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1EA94A520187CC600B93798 /* Assets.xcassets */; };
@@ -27,6 +28,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A1D79501201896C800F44F01 /* PushNotifications.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PushNotifications.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1EA949E20187CC600B93798 /* push-notifications-mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "push-notifications-mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1EA94A120187CC600B93798 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1EA94A320187CC600B93798 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -41,17 +43,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1D79500201896C800F44F01 /* PushNotifications.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A1D794FF201896C800F44F01 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A1D79501201896C800F44F01 /* PushNotifications.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A1EA949520187CC600B93798 = {
 			isa = PBXGroup;
 			children = (
 				A1EA94A020187CC600B93798 /* push-notifications-mac */,
 				A1EA949F20187CC600B93798 /* Products */,
+				A1D794FF201896C800F44F01 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};

@@ -2,10 +2,10 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:push-notifications-mac/push-notifications-mac.xcodeproj">
+      location = "group:push-notifications-ios/push-notifications-ios.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:push-notifications-swift/push-notifications-swift.xcodeproj">
+      location = "group:push-notifications-mac/push-notifications-mac.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:PushNotifications/PushNotifications.xcodeproj">

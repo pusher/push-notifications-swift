@@ -7,23 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A1A6681D1F9F38BA001E5D31 /* PushNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1A6681C1F9F3838001E5D31 /* PushNotifications.framework */; };
-		A1A6681E1F9F38BA001E5D31 /* PushNotifications.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A1A6681C1F9F3838001E5D31 /* PushNotifications.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A1D7D44C1F8BAFBA009EDE1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D7D44B1F8BAFBA009EDE1A /* AppDelegate.swift */; };
-		A1D7D44E1F8BAFBA009EDE1A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D7D44D1F8BAFBA009EDE1A /* ViewController.swift */; };
-		A1D7D4511F8BAFBA009EDE1A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1D7D44F1F8BAFBA009EDE1A /* Main.storyboard */; };
-		A1D7D4531F8BAFBA009EDE1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1D7D4521F8BAFBA009EDE1A /* Assets.xcassets */; };
-		A1D7D4561F8BAFBA009EDE1A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1D7D4541F8BAFBA009EDE1A /* LaunchScreen.storyboard */; };
+		A17D4D012018947B00C01431 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17D4D002018947B00C01431 /* AppDelegate.swift */; };
+		A17D4D032018947B00C01431 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17D4D022018947B00C01431 /* ViewController.swift */; };
+		A17D4D062018947B00C01431 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A17D4D042018947B00C01431 /* Main.storyboard */; };
+		A17D4D082018947B00C01431 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A17D4D072018947B00C01431 /* Assets.xcassets */; };
+		A17D4D0B2018947B00C01431 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A17D4D092018947B00C01431 /* LaunchScreen.storyboard */; };
+		A1D794FD201895F400F44F01 /* PushNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1D794FE201895F400F44F01 /* PushNotifications.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		A1A6681F1F9F38BA001E5D31 /* Embed Frameworks */ = {
+		A17D4D16201894E200C01431 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				A1A6681E1F9F38BA001E5D31 /* PushNotifications.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -31,101 +29,101 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		A1A6681C1F9F3838001E5D31 /* PushNotifications.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PushNotifications.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A1B55B271F98CC9E004DBC27 /* push-notifications-swift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "push-notifications-swift.entitlements"; sourceTree = "<group>"; };
-		A1D7D4481F8BAFBA009EDE1A /* push-notifications-swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "push-notifications-swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A1D7D44B1F8BAFBA009EDE1A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A1D7D44D1F8BAFBA009EDE1A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		A1D7D4501F8BAFBA009EDE1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		A1D7D4521F8BAFBA009EDE1A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		A1D7D4551F8BAFBA009EDE1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		A1D7D4571F8BAFBA009EDE1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A17D4CFD2018947B00C01431 /* push-notifications-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "push-notifications-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A17D4D002018947B00C01431 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A17D4D022018947B00C01431 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		A17D4D052018947B00C01431 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		A17D4D072018947B00C01431 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A17D4D0A2018947B00C01431 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A17D4D0C2018947B00C01431 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A17D4D122018948C00C01431 /* push-notifications-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "push-notifications-ios.entitlements"; sourceTree = "<group>"; };
+		A1D794FE201895F400F44F01 /* PushNotifications.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PushNotifications.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		A1D7D4451F8BAFBA009EDE1A /* Frameworks */ = {
+		A17D4CFA2018947B00C01431 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1A6681D1F9F38BA001E5D31 /* PushNotifications.framework in Frameworks */,
+				A1D794FD201895F400F44F01 /* PushNotifications.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A1A6681A1F9F3838001E5D31 /* Frameworks */ = {
+		A17D4CF42018947B00C01431 = {
 			isa = PBXGroup;
 			children = (
-				A1A6681C1F9F3838001E5D31 /* PushNotifications.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		A1D7D43F1F8BAFBA009EDE1A = {
-			isa = PBXGroup;
-			children = (
-				A1D7D44A1F8BAFBA009EDE1A /* push-notifications-swift */,
-				A1D7D4491F8BAFBA009EDE1A /* Products */,
-				A1A6681A1F9F3838001E5D31 /* Frameworks */,
+				A17D4CFF2018947B00C01431 /* push-notifications-ios */,
+				A17D4CFE2018947B00C01431 /* Products */,
+				A1D794FC201895F400F44F01 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
-		A1D7D4491F8BAFBA009EDE1A /* Products */ = {
+		A17D4CFE2018947B00C01431 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A1D7D4481F8BAFBA009EDE1A /* push-notifications-swift.app */,
+				A17D4CFD2018947B00C01431 /* push-notifications-ios.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A1D7D44A1F8BAFBA009EDE1A /* push-notifications-swift */ = {
+		A17D4CFF2018947B00C01431 /* push-notifications-ios */ = {
 			isa = PBXGroup;
 			children = (
-				A1B55B271F98CC9E004DBC27 /* push-notifications-swift.entitlements */,
-				A1D7D44B1F8BAFBA009EDE1A /* AppDelegate.swift */,
-				A1D7D4521F8BAFBA009EDE1A /* Assets.xcassets */,
-				A1D7D4571F8BAFBA009EDE1A /* Info.plist */,
-				A1D7D4541F8BAFBA009EDE1A /* LaunchScreen.storyboard */,
-				A1D7D44F1F8BAFBA009EDE1A /* Main.storyboard */,
-				A1D7D44D1F8BAFBA009EDE1A /* ViewController.swift */,
+				A17D4D122018948C00C01431 /* push-notifications-ios.entitlements */,
+				A17D4D002018947B00C01431 /* AppDelegate.swift */,
+				A17D4D022018947B00C01431 /* ViewController.swift */,
+				A17D4D042018947B00C01431 /* Main.storyboard */,
+				A17D4D072018947B00C01431 /* Assets.xcassets */,
+				A17D4D092018947B00C01431 /* LaunchScreen.storyboard */,
+				A17D4D0C2018947B00C01431 /* Info.plist */,
 			);
-			path = "push-notifications-swift";
+			path = "push-notifications-ios";
+			sourceTree = "<group>";
+		};
+		A1D794FC201895F400F44F01 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A1D794FE201895F400F44F01 /* PushNotifications.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A1D7D4471F8BAFBA009EDE1A /* push-notifications-swift */ = {
+		A17D4CFC2018947B00C01431 /* push-notifications-ios */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A1D7D45A1F8BAFBA009EDE1A /* Build configuration list for PBXNativeTarget "push-notifications-swift" */;
+			buildConfigurationList = A17D4D0F2018947B00C01431 /* Build configuration list for PBXNativeTarget "push-notifications-ios" */;
 			buildPhases = (
-				A1D7D4441F8BAFBA009EDE1A /* Sources */,
-				A1D7D4451F8BAFBA009EDE1A /* Frameworks */,
-				A1D7D4461F8BAFBA009EDE1A /* Resources */,
-				A1A6681F1F9F38BA001E5D31 /* Embed Frameworks */,
+				A17D4CF92018947B00C01431 /* Sources */,
+				A17D4CFA2018947B00C01431 /* Frameworks */,
+				A17D4CFB2018947B00C01431 /* Resources */,
+				A17D4D16201894E200C01431 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "push-notifications-swift";
-			productName = "push-notifications-swift";
-			productReference = A1D7D4481F8BAFBA009EDE1A /* push-notifications-swift.app */;
+			name = "push-notifications-ios";
+			productName = "push-notifications-ios";
+			productReference = A17D4CFD2018947B00C01431 /* push-notifications-ios.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		A1D7D4401F8BAFBA009EDE1A /* Project object */ = {
+		A17D4CF52018947B00C01431 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0910;
-				LastUpgradeCheck = 0910;
-				ORGANIZATIONNAME = Pusher;
+				LastSwiftUpdateCheck = 0920;
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = "Luka Bratos";
 				TargetAttributes = {
-					A1D7D4471F8BAFBA009EDE1A = {
-						CreatedOnToolsVersion = 9.1;
+					A17D4CFC2018947B00C01431 = {
+						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -138,7 +136,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A1D7D4431F8BAFBA009EDE1A /* Build configuration list for PBXProject "push-notifications-swift" */;
+			buildConfigurationList = A17D4CF82018947B00C01431 /* Build configuration list for PBXProject "push-notifications-ios" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -146,54 +144,54 @@
 				en,
 				Base,
 			);
-			mainGroup = A1D7D43F1F8BAFBA009EDE1A;
-			productRefGroup = A1D7D4491F8BAFBA009EDE1A /* Products */;
+			mainGroup = A17D4CF42018947B00C01431;
+			productRefGroup = A17D4CFE2018947B00C01431 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A1D7D4471F8BAFBA009EDE1A /* push-notifications-swift */,
+				A17D4CFC2018947B00C01431 /* push-notifications-ios */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		A1D7D4461F8BAFBA009EDE1A /* Resources */ = {
+		A17D4CFB2018947B00C01431 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1D7D4561F8BAFBA009EDE1A /* LaunchScreen.storyboard in Resources */,
-				A1D7D4531F8BAFBA009EDE1A /* Assets.xcassets in Resources */,
-				A1D7D4511F8BAFBA009EDE1A /* Main.storyboard in Resources */,
+				A17D4D0B2018947B00C01431 /* LaunchScreen.storyboard in Resources */,
+				A17D4D082018947B00C01431 /* Assets.xcassets in Resources */,
+				A17D4D062018947B00C01431 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		A1D7D4441F8BAFBA009EDE1A /* Sources */ = {
+		A17D4CF92018947B00C01431 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1D7D44E1F8BAFBA009EDE1A /* ViewController.swift in Sources */,
-				A1D7D44C1F8BAFBA009EDE1A /* AppDelegate.swift in Sources */,
+				A17D4D032018947B00C01431 /* ViewController.swift in Sources */,
+				A17D4D012018947B00C01431 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		A1D7D44F1F8BAFBA009EDE1A /* Main.storyboard */ = {
+		A17D4D042018947B00C01431 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A1D7D4501F8BAFBA009EDE1A /* Base */,
+				A17D4D052018947B00C01431 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		A1D7D4541F8BAFBA009EDE1A /* LaunchScreen.storyboard */ = {
+		A17D4D092018947B00C01431 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A1D7D4551F8BAFBA009EDE1A /* Base */,
+				A17D4D0A2018947B00C01431 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -201,7 +199,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		A1D7D4581F8BAFBA009EDE1A /* Debug */ = {
+		A17D4D0D2018947B00C01431 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -249,7 +247,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -258,7 +256,7 @@
 			};
 			name = Debug;
 		};
-		A1D7D4591F8BAFBA009EDE1A /* Release */ = {
+		A17D4D0E2018947B00C01431 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -300,7 +298,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -308,34 +306,34 @@
 			};
 			name = Release;
 		};
-		A1D7D45B1F8BAFBA009EDE1A /* Debug */ = {
+		A17D4D102018947B00C01431 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "push-notifications-swift/push-notifications-swift.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "push-notifications-ios/push-notifications-ios.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = H7FL434D9W;
-				INFOPLIST_FILE = "push-notifications-swift/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				DEVELOPMENT_TEAM = 7ZMER4V3FM;
+				INFOPLIST_FILE = "push-notifications-ios/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.pusher.push-notifications-swift";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pusher.push-notifications-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		A1D7D45C1F8BAFBA009EDE1A /* Release */ = {
+		A17D4D112018947B00C01431 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "push-notifications-swift/push-notifications-swift.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "push-notifications-ios/push-notifications-ios.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = H7FL434D9W;
-				INFOPLIST_FILE = "push-notifications-swift/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				DEVELOPMENT_TEAM = 7ZMER4V3FM;
+				INFOPLIST_FILE = "push-notifications-ios/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.pusher.push-notifications-swift";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pusher.push-notifications-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -345,25 +343,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A1D7D4431F8BAFBA009EDE1A /* Build configuration list for PBXProject "push-notifications-swift" */ = {
+		A17D4CF82018947B00C01431 /* Build configuration list for PBXProject "push-notifications-ios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A1D7D4581F8BAFBA009EDE1A /* Debug */,
-				A1D7D4591F8BAFBA009EDE1A /* Release */,
+				A17D4D0D2018947B00C01431 /* Debug */,
+				A17D4D0E2018947B00C01431 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A1D7D45A1F8BAFBA009EDE1A /* Build configuration list for PBXNativeTarget "push-notifications-swift" */ = {
+		A17D4D0F2018947B00C01431 /* Build configuration list for PBXNativeTarget "push-notifications-ios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A1D7D45B1F8BAFBA009EDE1A /* Debug */,
-				A1D7D45C1F8BAFBA009EDE1A /* Release */,
+				A17D4D102018947B00C01431 /* Debug */,
+				A17D4D112018947B00C01431 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = A1D7D4401F8BAFBA009EDE1A /* Project object */;
+	rootObject = A17D4CF52018947B00C01431 /* Project object */;
 }
