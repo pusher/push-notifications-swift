@@ -16,7 +16,7 @@ class PushNotificationsSubscribableTests: XCTestCase {
     }
 
     func testRegistration() {
-        let exp = expectation(description: "It should successfuly register the device")
+        let exp = expectation(description: "It should successfully register the device")
         self.subscriptionService.register(deviceToken: Data()) { (deviceId) in
             XCTAssert(deviceId == "apns-876eeb5d-0dc8-4d74-9f59-b65412b2c742")
             XCTAssert(true)
@@ -31,7 +31,7 @@ class PushNotificationsSubscribableTests: XCTestCase {
     }
 
     func testSubscribe() {
-        let exp = expectation(description: "It should successfuly subscribe to an interest")
+        let exp = expectation(description: "It should successfully subscribe to an interest")
         self.subscriptionService.subscribe {
             XCTAssert(true)
             exp.fulfill()
@@ -45,7 +45,7 @@ class PushNotificationsSubscribableTests: XCTestCase {
     }
 
     func testSetSubscriptions() {
-        let exp = expectation(description: "It should successfuly subscribe to many interests")
+        let exp = expectation(description: "It should successfully subscribe to many interests")
         self.subscriptionService.setSubscriptions(interests: ["a", "b", "c"]) {
             XCTAssert(true)
             exp.fulfill()
@@ -59,7 +59,7 @@ class PushNotificationsSubscribableTests: XCTestCase {
     }
 
     func testUnsubscribe() {
-        let exp = expectation(description: "It should successfuly unsubscribe from an interest")
+        let exp = expectation(description: "It should successfully unsubscribe from an interest")
         self.subscriptionService.unsubscribe {
             XCTAssert(true)
             exp.fulfill()
@@ -73,7 +73,7 @@ class PushNotificationsSubscribableTests: XCTestCase {
     }
 
     func testUnsubscribeAll() {
-        let exp = expectation(description: "It should successfuly unsubscribe from all the interests")
+        let exp = expectation(description: "It should successfully unsubscribe from all the interests")
         self.subscriptionService.unsubscribeAll {
             XCTAssert(true)
             exp.fulfill()
