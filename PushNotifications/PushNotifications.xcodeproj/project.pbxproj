@@ -32,7 +32,7 @@
 		A19ECF891FCF09A500688DAF /* InterestPersistableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19ECF861FCF09A500688DAF /* InterestPersistableTests.swift */; };
 		A1B344432018BC0200481BDF /* InterestValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B344412018BC0100481BDF /* InterestValidationError.swift */; };
 		A1B344442018BC0200481BDF /* MultipleInvalidInterestsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B344422018BC0200481BDF /* MultipleInvalidInterestsError.swift */; };
-		A1EA94B9201888A800B93798 /* SysInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = A1EA94B8201888A800B93798 /* SysInfo.h */; };
+		A1EA94B9201888A800B93798 /* SysInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = A1EA94B8201888A800B93798 /* SysInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
