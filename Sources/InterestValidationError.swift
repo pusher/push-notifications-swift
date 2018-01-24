@@ -1,7 +1,7 @@
 import Foundation
 
 /**
- Errors thrown by PushNotifications.
+ Error thrown by PushNotifications.
 
  *Values*
 
