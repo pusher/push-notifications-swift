@@ -1,13 +1,18 @@
+#if os(iOS)
 import UIKit
 import Foundation
 import UserNotifications
+#elseif os(OSX)
+import Cocoa
+import NotificationCenter
+#endif
 
 @objc public final class PushNotifications: NSObject {
     private var deviceId: String?
     private var instanceId: String?
     private var baseURL: String?
     private let session = URLSession.shared
-
+    
     //! Returns a shared singleton PushNotifications object.
     @objc public static let shared = PushNotifications()
 
@@ -20,11 +25,19 @@ import UserNotifications
      - Precondition: `instanceId` should not be nil.
      - Precondition: `application` should not be nil.
      */
+    #if os(iOS)
     @objc public func register(instanceId: String, application: UIApplication = UIApplication.shared) {
         self.instanceId = instanceId
         self.baseURL = "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances"
         self.registerForPushNotifications(application: application)
     }
+    #elseif os(OSX)
+    @objc public func register(instanceId: String, application: NSApplication = NSApplication.shared) {
+        self.instanceId = instanceId
+        self.baseURL = "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances"
+        self.registerForPushNotifications(application: application)
+    }
+    #endif
 
     /**
      Register device token with PushNotifications service.
@@ -178,6 +191,7 @@ import UserNotifications
         return persistenceService.getSubscriptions()
     }
 
+<<<<<<< HEAD
     private func validateInterestName(_ interest: String) -> Bool {
         let interestNameRegex = "^[a-zA-Z0-9_=@,.;]{1,164}$"
         let interestNamePredicate = NSPredicate(format:"SELF MATCHES %@", interestNameRegex)
@@ -188,6 +202,9 @@ import UserNotifications
         return interests.filter { !self.validateInterestName($0) }
     }
 
+=======
+    #if os(iOS)
+>>>>>>> Add support for macOS
     private func registerForPushNotifications(application: UIApplication) {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
             if (granted) {
@@ -195,10 +212,15 @@ import UserNotifications
                     application.registerForRemoteNotifications()
                 }
             }
-
+            
             if let error = error {
                 print(error.localizedDescription)
             }
         }
     }
+    #elseif os(OSX)
+    private func registerForPushNotifications(application: NSApplication) {
+        application.registerForRemoteNotifications(matching: [.alert, .sound, .badge])
+    }
+    #endif
 }

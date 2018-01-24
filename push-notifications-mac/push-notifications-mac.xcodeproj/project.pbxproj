@@ -13,6 +13,19 @@
 		A1EA94A920187CC600B93798 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1EA94A720187CC600B93798 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		A1EA94B72018834D00B93798 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		A1EA949E20187CC600B93798 /* push-notifications-mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "push-notifications-mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1EA94A120187CC600B93798 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -73,6 +86,7 @@
 				A1EA949A20187CC600B93798 /* Sources */,
 				A1EA949B20187CC600B93798 /* Frameworks */,
 				A1EA949C20187CC600B93798 /* Resources */,
+				A1EA94B72018834D00B93798 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -96,6 +110,11 @@
 					A1EA949D20187CC600B93798 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
