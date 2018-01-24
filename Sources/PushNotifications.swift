@@ -58,7 +58,7 @@ import UserNotifications
 
      - Precondition: `interest` should not be nil.
 
-     - Throws: An error of type `InterestValidationError`
+     - Throws: An error of type `InvalidInterestError`
      */
     @objc public func subscribe(interest: String, completion: @escaping () -> Void = {}) throws {
         guard self.validateInterestName(interest) else {
@@ -90,7 +90,7 @@ import UserNotifications
 
      - Precondition: `interests` should not be nil.
 
-     - Throws: An error of type `InterestValidationError`
+     - Throws: An error of type `MultipleInvalidInterestsError`
      */
     @objc public func setSubscriptions(interests: Array<String>, completion: @escaping () -> Void = {}) throws {
         if let invalidInterests = self.validateInterestNames(interests) {
@@ -121,7 +121,7 @@ import UserNotifications
 
      - Precondition: `interest` should not be nil.
 
-     - Throws: An error of type `InterestValidationError`
+     - Throws: An error of type `InvalidInterestError`
      */
     @objc public func unsubscribe(interest: String, completion: @escaping () -> Void = {}) throws {
         guard self.validateInterestName(interest) else {
