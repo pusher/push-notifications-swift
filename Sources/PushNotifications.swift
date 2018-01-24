@@ -1,11 +1,11 @@
 #if os(iOS)
 import UIKit
-import Foundation
 import UserNotifications
 #elseif os(OSX)
 import Cocoa
 import NotificationCenter
 #endif
+import Foundation
 
 @objc public final class PushNotifications: NSObject {
     private var deviceId: String?
