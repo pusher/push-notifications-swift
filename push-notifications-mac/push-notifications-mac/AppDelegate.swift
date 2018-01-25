@@ -15,9 +15,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             try? self.pushNotifications.subscribe(interest: "hello")
         }
     }
-    
+
     func application(_ application: NSApplication, didReceiveRemoteNotification userInfo: [String : Any]) {
-        print(userInfo)
+        self.pushNotifications.handleNotification(userInfo: userInfo)
     }
     
     func application(_ application: NSApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {

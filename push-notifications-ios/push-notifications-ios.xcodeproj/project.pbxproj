@@ -12,16 +12,18 @@
 		A17D4D062018947B00C01431 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A17D4D042018947B00C01431 /* Main.storyboard */; };
 		A17D4D082018947B00C01431 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A17D4D072018947B00C01431 /* Assets.xcassets */; };
 		A17D4D0B2018947B00C01431 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A17D4D092018947B00C01431 /* LaunchScreen.storyboard */; };
-		A1D794FD201895F400F44F01 /* PushNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1D794FE201895F400F44F01 /* PushNotifications.framework */; };
+		A1FAC874201A428B0087FECF /* PushNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1D794FE201895F400F44F01 /* PushNotifications.framework */; };
+		A1FAC875201A428B0087FECF /* PushNotifications.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A1D794FE201895F400F44F01 /* PushNotifications.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		A17D4D16201894E200C01431 /* Embed Frameworks */ = {
+		A1FAC876201A428B0087FECF /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				A1FAC875201A428B0087FECF /* PushNotifications.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -45,7 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1D794FD201895F400F44F01 /* PushNotifications.framework in Frameworks */,
+				A1FAC874201A428B0087FECF /* PushNotifications.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,7 +103,7 @@
 				A17D4CF92018947B00C01431 /* Sources */,
 				A17D4CFA2018947B00C01431 /* Frameworks */,
 				A17D4CFB2018947B00C01431 /* Resources */,
-				A17D4D16201894E200C01431 /* Embed Frameworks */,
+				A1FAC876201A428B0087FECF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -309,7 +311,6 @@
 		A17D4D102018947B00C01431 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "push-notifications-ios/push-notifications-ios.entitlements";
 				CODE_SIGN_STYLE = Automatic;
@@ -326,7 +327,6 @@
 		A17D4D112018947B00C01431 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "push-notifications-ios/push-notifications-ios.entitlements";
 				CODE_SIGN_STYLE = Automatic;

@@ -7,7 +7,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let pushNotifications = PushNotifications.shared
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        self.pushNotifications.register(instanceId: "e3c54800-e058-4e75-9e20-424f7dddce30")
+        self.pushNotifications.register(instanceId: "97c56dfe-58f5-408b-ab3a-158e51a860f2")
         
         return true
     }
@@ -16,5 +16,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.pushNotifications.registerDeviceToken(deviceToken) {
             try? self.pushNotifications.subscribe(interest: "hello")
         }
+    }
+
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        self.pushNotifications.handleNotification(userInfo: userInfo)
+    }
+
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("Remote notification support is unavailable due to error: \(error.localizedDescription)")
     }
 }

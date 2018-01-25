@@ -30,6 +30,9 @@
 		A19ECF891FCF09A500688DAF /* InterestPersistableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19ECF861FCF09A500688DAF /* InterestPersistableTests.swift */; };
 		A1B344432018BC0200481BDF /* InterestValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B344412018BC0100481BDF /* InterestValidationError.swift */; };
 		A1B344442018BC0200481BDF /* MultipleInvalidInterestsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B344422018BC0200481BDF /* MultipleInvalidInterestsError.swift */; };
+		A1E8000A201A213000467EB9 /* ReportEventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E80009201A213000467EB9 /* ReportEventType.swift */; };
+		A1E80015201A3DAC00467EB9 /* PublishId.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E80013201A3DAC00467EB9 /* PublishId.swift */; };
+		A1E80016201A3DAC00467EB9 /* Date+Milliseconds.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E80014201A3DAC00467EB9 /* Date+Milliseconds.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +70,9 @@
 		A19ECF871FCF09A500688DAF /* MockPushNotificationsNetworkable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockPushNotificationsNetworkable.swift; path = ../../Tests/MockPushNotificationsNetworkable.swift; sourceTree = "<group>"; };
 		A1B344412018BC0100481BDF /* InterestValidationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterestValidationError.swift; path = ../../Sources/InterestValidationError.swift; sourceTree = "<group>"; };
 		A1B344422018BC0200481BDF /* MultipleInvalidInterestsError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultipleInvalidInterestsError.swift; path = ../../Sources/MultipleInvalidInterestsError.swift; sourceTree = "<group>"; };
+		A1E80009201A213000467EB9 /* ReportEventType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportEventType.swift; path = ../../Sources/ReportEventType.swift; sourceTree = "<group>"; };
+		A1E80013201A3DAC00467EB9 /* PublishId.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PublishId.swift; path = ../../Sources/PublishId.swift; sourceTree = "<group>"; };
+		A1E80014201A3DAC00467EB9 /* Date+Milliseconds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Date+Milliseconds.swift"; path = "../../Sources/Date+Milliseconds.swift"; sourceTree = "<group>"; };
 		A1ED00141F9E392700A029F2 /* PushNotificationsTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PushNotificationsTests-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,6 +116,9 @@
 		A155BFB51F9E38040070A609 /* PushNotifications */ = {
 			isa = PBXGroup;
 			children = (
+				A1E80014201A3DAC00467EB9 /* Date+Milliseconds.swift */,
+				A1E80013201A3DAC00467EB9 /* PublishId.swift */,
+				A1E80009201A213000467EB9 /* ReportEventType.swift */,
 				A1B344412018BC0100481BDF /* InterestValidationError.swift */,
 				A1B344422018BC0200481BDF /* MultipleInvalidInterestsError.swift */,
 				A144AB471F9E3DA2009F0040 /* Device.swift */,
@@ -256,6 +265,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1E80016201A3DAC00467EB9 /* Date+Milliseconds.swift in Sources */,
 				A144AB4C1F9E3DA3009F0040 /* DeviceTokenHelper.swift in Sources */,
 				A182088D2014C6F4007D86C6 /* Array+ContainsSameElements.swift in Sources */,
 				A19ECF831FCF099200688DAF /* InterestPersistable.swift in Sources */,
@@ -269,6 +279,8 @@
 				A1B344442018BC0200481BDF /* MultipleInvalidInterestsError.swift in Sources */,
 				A144AB4E1F9E3DA3009F0040 /* PushNotificationsNetworkable.swift in Sources */,
 				A144AB4F1F9E3DA3009F0040 /* Device.swift in Sources */,
+				A1E8000A201A213000467EB9 /* ReportEventType.swift in Sources */,
+				A1E80015201A3DAC00467EB9 /* PublishId.swift in Sources */,
 				A16782551FA0EA2D00A193DF /* Reason.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
