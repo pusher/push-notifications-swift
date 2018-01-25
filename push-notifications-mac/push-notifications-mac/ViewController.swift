@@ -1,7 +1,6 @@
-import UIKit
-import Foundation
+import Cocoa
 
-class ViewController: UIViewController {
+class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
