@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:push-notifications-objc/push-notifications-objc.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:push-notifications-ios/push-notifications-ios.xcodeproj">
    </FileRef>
    <FileRef
