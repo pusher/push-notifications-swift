@@ -57,7 +57,7 @@ struct NetworkService: PushNotificationsNetworkable {
         self.setSubscriptions(interests: [])
     }
 
-    func track(userInfo: [AnyHashable : Any], completion: @escaping () -> Void = {}) {
+    func track(userInfo: [AnyHashable : Any]) {
         guard let publishId = PublishId(userInfo: userInfo).id else { return }
         let timestamp = Date().milliseconds()
 
@@ -65,9 +65,7 @@ struct NetworkService: PushNotificationsNetworkable {
         let body = Data(bodyString.utf8)
 
         let request = self.setRequest(url: self.url, httpMethod: .POST, body: body)
-        self.networkRequest(request, session: self.session) { (response) in
-            completion()
-        }
+        self.networkRequest(request, session: self.session) { (response) in }
     }
 
     // MARK: Networking Layer

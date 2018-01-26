@@ -207,7 +207,7 @@ import Foundation
         else { return }
 
         let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: session)
-        networkService.track(userInfo: userInfo) {}
+        networkService.track(userInfo: userInfo)
     }
 
     private func validateInterestName(_ interest: String) -> Bool {
