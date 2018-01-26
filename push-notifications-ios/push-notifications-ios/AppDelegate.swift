@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         self.pushNotifications.registerDeviceToken(deviceToken) {
-            self.pushNotifications.subscribe(interest: "hello")
+            try? self.pushNotifications.subscribe(interest: "hello")
         }
     }
 }
