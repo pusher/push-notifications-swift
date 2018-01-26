@@ -198,7 +198,7 @@ import Foundation
             let applicationState = UIApplication.shared.applicationState
             let eventType = (applicationState == .inactive) ? ReportEventType.Open.rawValue : ReportEventType.Delivery.rawValue
         #elseif os(OSX) //TODO: Needs more investigation.
-            let eventType = ReportEventType.Open.rawValue
+            let eventType = ReportEventType.Delivery.rawValue
         #endif
 
         guard
