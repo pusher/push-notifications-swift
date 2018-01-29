@@ -13,6 +13,7 @@ import Foundation
     private var baseURL: String?
     private let session = URLSession.shared
     //! Returns a shared singleton PushNotifications object.
+    /// - Tag: shared
     @objc public static let shared = PushNotifications()
 
     /**
@@ -25,12 +26,14 @@ import Foundation
      - Precondition: `application` should not be nil.
      */
     #if os(iOS)
+    /// - Tag: register
     @objc public func register(instanceId: String, application: UIApplication = UIApplication.shared) {
         self.instanceId = instanceId
         self.baseURL = "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances"
         self.registerForPushNotifications(application: application)
     }
     #elseif os(OSX)
+    /// - Tag: register
     @objc public func register(instanceId: String, application: NSApplication = NSApplication.shared) {
         self.instanceId = instanceId
         self.baseURL = "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances"
@@ -46,6 +49,7 @@ import Foundation
 
      - Precondition: `deviceToken` should not be nil.
      */
+    /// - Tag: registerDeviceToken
     @objc public func registerDeviceToken(_ deviceToken: Data, completion: @escaping () -> Void = {}) {
         guard
             let instanceId = self.instanceId,
@@ -72,6 +76,7 @@ import Foundation
 
      - Throws: An error of type `InvalidInterestError`
      */
+    /// - Tag: subscribe
     @objc public func subscribe(interest: String, completion: @escaping () -> Void = {}) throws {
         guard self.validateInterestName(interest) else {
             throw InvalidInterestError.invalidName(interest)
@@ -104,6 +109,7 @@ import Foundation
 
      - Throws: An error of type `MultipleInvalidInterestsError`
      */
+    /// - Tag: setSubscriptions
     @objc public func setSubscriptions(interests: Array<String>, completion: @escaping () -> Void = {}) throws {
         if let invalidInterests = self.validateInterestNames(interests) {
             throw MultipleInvalidInterestsError.invalidNames(invalidInterests)
@@ -135,6 +141,7 @@ import Foundation
 
      - Throws: An error of type `InvalidInterestError`
      */
+    /// - Tag: unsubscribe
     @objc public func unsubscribe(interest: String, completion: @escaping () -> Void = {}) throws {
         guard self.validateInterestName(interest) else {
             throw InvalidInterestError.invalidName(interest)
@@ -162,6 +169,7 @@ import Foundation
 
      - Parameter completion: The block to execute when all subscriptions to the interests are successfully cancelled.
      */
+    /// - Tag: unsubscribeAll
     @objc public func unsubscribeAll(completion: @escaping () -> Void = {}) {
         guard
             let deviceId = self.deviceId,
@@ -184,6 +192,7 @@ import Foundation
 
      - returns: Array of interests
      */
+    /// - Tag: getInterests
     @objc public func getInterests() -> Array<String>? {
         let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
 
