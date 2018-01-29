@@ -1,4 +1,4 @@
-# PushNotifications iOS SDK
+# PushNotifications iOS & macOS SDK
 
 [![Build Status](https://www.bitrise.io/app/2798096bb06e322f/status.svg?token=GHiO2KcqAY_UDS8g8M-f5g&branch=master)](https://www.bitrise.io/app/2798096bb06e322f)
 [![Documentation](https://pusher.github.io/push-notifications-swift/badge.svg)](https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html)
@@ -6,6 +6,13 @@
 [![CocoaPods](https://img.shields.io/cocoapods/v/PushNotifications.svg)](https://cocoapods.org/pods/PushNotifications)
 [![Carthage](https://img.shields.io/badge/carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Twitter](https://img.shields.io/badge/twitter-@Pusher-blue.svg?style=flat)](http://twitter.com/Pusher)
+
+## Example Code
+
+* [iOS with Swift](https://github.com/pusher/push-notifications-swift/blob/master/push-notifications-ios/push-notifications-ios/AppDelegate.swift)
+* [iOS with Objective-C](https://github.com/pusher/push-notifications-swift/blob/master/push-notifications-objc/push-notifications-objc/AppDelegate.m)
+* [macOS with Swift](https://github.com/pusher/push-notifications-swift/blob/master/push-notifications-mac/push-notifications-mac/AppDelegate.swift)
+* [macOS with Objective-C](https://github.com/pusher/push-notifications-swift/blob/master/push-notifications-mac-objc/push-notifications-mac-objc/AppDelegate.m)
 
 ## Building and Running
 

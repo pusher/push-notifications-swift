@@ -20,7 +20,6 @@ import Foundation
      Register with PushNotifications service.
 
      - Parameter instanceId: PushNotifications instance id.
-     - Parameter application: Your singleton app object.
 
      - Precondition: `instanceId` should not be nil.
      */

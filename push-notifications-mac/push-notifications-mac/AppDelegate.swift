@@ -12,7 +12,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func application(_ application: NSApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         self.pushNotifications.registerDeviceToken(deviceToken) {
-            try? self.pushNotifications.subscribe(interest: "hello")
+            try? self.pushNotifications.subscribe(interest: "hello", completion: {
+                print("Ready to receive notifications!")
+            })
         }
     }
 
