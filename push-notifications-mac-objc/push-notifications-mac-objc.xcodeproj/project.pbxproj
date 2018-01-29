@@ -7,13 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A1D997D2201F60230022BE62 /* PushNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1FEA5CB201B880900F79A35 /* PushNotifications.framework */; };
+		A1D997D3201F60230022BE62 /* PushNotifications.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A1FEA5CB201B880900F79A35 /* PushNotifications.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A1FEA5B6201B87C400F79A35 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A1FEA5B5201B87C400F79A35 /* AppDelegate.m */; };
 		A1FEA5B9201B87C400F79A35 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1FEA5B8201B87C400F79A35 /* ViewController.m */; };
 		A1FEA5BB201B87C400F79A35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1FEA5BA201B87C400F79A35 /* Assets.xcassets */; };
 		A1FEA5BE201B87C400F79A35 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1FEA5BC201B87C400F79A35 /* Main.storyboard */; };
 		A1FEA5C1201B87C500F79A35 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A1FEA5C0201B87C500F79A35 /* main.m */; };
-		A1FEA5CA201B880900F79A35 /* PushNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1FEA5CB201B880900F79A35 /* PushNotifications.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A1D997D4201F60230022BE62 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				A1D997D3201F60230022BE62 /* PushNotifications.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		A1FEA5B1201B87C400F79A35 /* push-notifications-mac-objc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "push-notifications-mac-objc.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -35,7 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1FEA5CA201B880900F79A35 /* PushNotifications.framework in Frameworks */,
+				A1D997D2201F60230022BE62 /* PushNotifications.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,6 +109,7 @@
 				A1FEA5AD201B87C400F79A35 /* Sources */,
 				A1FEA5AE201B87C400F79A35 /* Frameworks */,
 				A1FEA5AF201B87C400F79A35 /* Resources */,
+				A1D997D4201F60230022BE62 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

@@ -13,7 +13,8 @@
 		A13DF076201B82380042A3D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A13DF075201B82380042A3D6 /* Assets.xcassets */; };
 		A13DF079201B82380042A3D6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A13DF077201B82380042A3D6 /* LaunchScreen.storyboard */; };
 		A13DF07C201B82380042A3D6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A13DF07B201B82380042A3D6 /* main.m */; };
-		A13DF088201B82CB0042A3D6 /* PushNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A13DF089201B82CB0042A3D6 /* PushNotifications.framework */; };
+		A1D997D0201F5F700022BE62 /* PushNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A13DF089201B82CB0042A3D6 /* PushNotifications.framework */; };
+		A1D997D1201F5F700022BE62 /* PushNotifications.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A13DF089201B82CB0042A3D6 /* PushNotifications.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,6 +24,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				A1D997D1201F5F700022BE62 /* PushNotifications.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -49,7 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A13DF088201B82CB0042A3D6 /* PushNotifications.framework in Frameworks */,
+				A1D997D0201F5F700022BE62 /* PushNotifications.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
