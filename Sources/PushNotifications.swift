@@ -193,6 +193,7 @@ import Foundation
      - Parameter userInfo: Remote Notification payload.
      */
     @objc public func handleNotification(userInfo: [AnyHashable: Any]) {
+        guard FeatureFlags.DeliveryTrackingEnabled else { return }
         #if os(iOS)
             let applicationState = UIApplication.shared.applicationState
             let eventType = (applicationState == .inactive) ? ReportEventType.Open.rawValue : ReportEventType.Delivery.rawValue
