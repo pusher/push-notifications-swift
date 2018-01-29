@@ -20,26 +20,14 @@ import Foundation
      Register with PushNotifications service.
 
      - Parameter instanceId: PushNotifications instance id.
-     - Parameter application: Your singleton app object.
 
      - Precondition: `instanceId` should not be nil.
-     - Precondition: `application` should not be nil.
      */
-    #if os(iOS)
-    /// - Tag: register
-    @objc public func register(instanceId: String, application: UIApplication = UIApplication.shared) {
+    @objc public func register(instanceId: String) {
         self.instanceId = instanceId
         self.baseURL = "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances"
-        self.registerForPushNotifications(application: application)
+        self.registerForPushNotifications()
     }
-    #elseif os(OSX)
-    /// - Tag: register
-    @objc public func register(instanceId: String, application: NSApplication = NSApplication.shared) {
-        self.instanceId = instanceId
-        self.baseURL = "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances"
-        self.registerForPushNotifications(application: application)
-    }
-    #endif
 
     /**
      Register device token with PushNotifications service.
@@ -57,7 +45,7 @@ import Foundation
             let url = URL(string: "\(baseURL)/\(instanceId)/devices/apns")
         else { return }
 
-        let networkService: PushNotificationsRegisterable & PushNotificationsSubscribable = NetworkService(url: url, session: session)
+        let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: session)
 
         networkService.register(deviceToken: deviceToken) { [weak self] (deviceId) in
             guard let strongSelf = self else { return }
@@ -89,7 +77,7 @@ import Foundation
             let url = URL(string: "\(baseURL)/\(instanceId)/devices/apns/\(deviceId)/interests/\(interest)")
         else { return }
 
-        let networkService: PushNotificationsRegisterable & PushNotificationsSubscribable = NetworkService(url: url, session: session)
+        let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: session)
         let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
 
         if persistenceService.persist(interest: interest) {
@@ -122,7 +110,7 @@ import Foundation
             let url = URL(string: "\(baseURL)/\(instanceId)/devices/apns/\(deviceId)/interests")
         else { return }
 
-        let networkService: PushNotificationsRegisterable & PushNotificationsSubscribable = NetworkService(url: url, session: session)
+        let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: session)
         let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
 
         persistenceService.persist(interests: interests)
@@ -154,7 +142,7 @@ import Foundation
             let url = URL(string: "\(baseURL)/\(instanceId)/devices/apns/\(deviceId)/interests/\(interest)")
         else { return }
 
-        let networkService: PushNotificationsRegisterable & PushNotificationsSubscribable = NetworkService(url: url, session: session)
+        let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: session)
         let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
 
         if persistenceService.remove(interest: interest) {
@@ -178,7 +166,7 @@ import Foundation
             let url = URL(string: "\(baseURL)/\(instanceId)/devices/apns/\(deviceId)/interests")
         else { return }
 
-        let networkService: PushNotificationsRegisterable & PushNotificationsSubscribable = NetworkService(url: url, session: session)
+        let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: session)
         let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
 
         persistenceService.removeAll()
@@ -199,6 +187,29 @@ import Foundation
         return persistenceService.getSubscriptions()
     }
 
+    /**
+     Handle Remote Notification.
+
+     - Parameter userInfo: Remote Notification payload.
+     */
+    @objc public func handleNotification(userInfo: [AnyHashable: Any]) {
+        guard FeatureFlags.DeliveryTrackingEnabled else { return }
+        #if os(iOS)
+            let applicationState = UIApplication.shared.applicationState
+            let eventType = (applicationState == .inactive) ? ReportEventType.Open.rawValue : ReportEventType.Delivery.rawValue
+        #elseif os(OSX) //TODO: Needs more investigation.
+            let eventType = ReportEventType.Delivery.rawValue
+        #endif
+
+        guard
+            let instanceId = self.instanceId,
+            let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/reporting_api/v1/instances/\(instanceId)/event-type/\(eventType)")
+        else { return }
+
+        let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: session)
+        networkService.track(userInfo: userInfo)
+    }
+
     private func validateInterestName(_ interest: String) -> Bool {
         let interestNameRegex = "^[a-zA-Z0-9_=@,.;]{1,164}$"
         let interestNamePredicate = NSPredicate(format:"SELF MATCHES %@", interestNameRegex)
@@ -210,11 +221,11 @@ import Foundation
     }
 
     #if os(iOS)
-    private func registerForPushNotifications(application: UIApplication) {
+    private func registerForPushNotifications() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
             if (granted) {
                 DispatchQueue.main.async {
-                    application.registerForRemoteNotifications()
+                    UIApplication.shared.registerForRemoteNotifications()
                 }
             }
             if let error = error {
@@ -223,8 +234,8 @@ import Foundation
         }
     }
     #elseif os(OSX)
-    private func registerForPushNotifications(application: NSApplication) {
-        application.registerForRemoteNotifications(matching: [.alert, .sound, .badge])
+    private func registerForPushNotifications() {
+        NSApplication.shared.registerForRemoteNotifications(matching: [.alert, .sound, .badge])
     }
     #endif
 }
