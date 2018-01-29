@@ -65,7 +65,7 @@ github "pusher/push-notifications-swift"
 Run `carthage update` to build the framework and drag the built `PushNotifications.framework`into your Xcode project.
 
 ## PushNotifications Reference
-* [shared](https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html#/c:@M@PushNotifications@objc(cs)PushNotifications(cpy)shared) - [View in Source](x-source-tag://shared)
+* [shared](https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html#/c:@M@PushNotifications@objc(cs)PushNotifications(cpy)shared) - <a href="x-source-tag://shared" target="_blank">View in Source</a>
 * [register(instanceId:application:)](https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html#/c:@M@PushNotifications@objc(cs)PushNotifications(im)registerWithInstanceId:application:) - [View in Source](x-source-tag://register)
 * [registerDeviceToken(_:completion:)](https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html#/c:@M@PushNotifications@objc(cs)PushNotifications(im)registerDeviceToken:completion:) - [View in Source](x-source-tag://registerDeviceToken)
 * [subscribe(interest:completion:)](https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html#/c:@M@PushNotifications@objc(cs)PushNotifications(im)subscribeWithInterest:error:completion:) - [View in Source](x-source-tag://subscribe)
