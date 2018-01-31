@@ -9,5 +9,5 @@ protocol PushNotificationsNetworkable {
     func unsubscribe(completion: @escaping () -> Void)
     func unsubscribeAll(completion: @escaping () -> Void)
 
-    func track(userInfo: [AnyHashable : Any])
+    func track(userInfo: [AnyHashable: Any])
 }

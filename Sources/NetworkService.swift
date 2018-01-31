@@ -65,7 +65,7 @@ struct NetworkService: PushNotificationsNetworkable {
         self.setSubscriptions(interests: [])
     }
 
-    func track(userInfo: [AnyHashable : Any]) {
+    func track(userInfo: [AnyHashable: Any]) {
         guard let publishId = PublishId(userInfo: userInfo).id else { return }
         let timestampMs = Date().milliseconds()
         guard let body = try? Track(publishId: publishId, timestampMs: timestampMs).encode() else { return }

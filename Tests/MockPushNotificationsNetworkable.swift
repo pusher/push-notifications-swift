@@ -21,7 +21,7 @@ struct MockPushNotificationsNetworkable: PushNotificationsNetworkable {
         completion()
     }
 
-    func track(userInfo: [AnyHashable : Any]) {
+    func track(userInfo: [AnyHashable: Any]) {
 
     }
 }
