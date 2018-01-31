@@ -8,7 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		A1067109201F69B8001190F8 /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1067108201F69B8001190F8 /* FeatureFlags.swift */; };
-		A10E30B020164E2B00A0BD1C /* InterestNameValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10E30AF20164E2B00A0BD1C /* InterestNameValidationTests.swift */; };
+		A125B6492020DC46002E0809 /* TrackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A125B6482020DC46002E0809 /* TrackTests.swift */; };
+		A125B64B2020DCC3002E0809 /* SDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A125B64A2020DCC3002E0809 /* SDKTests.swift */; };
+		A125B64D2020DD5F002E0809 /* FeatureFlagsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A125B64C2020DD5F002E0809 /* FeatureFlagsTests.swift */; };
+		A12B36EA2020DAA10038E59F /* RegisterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B36E92020DAA10038E59F /* RegisterTests.swift */; };
+		A12B36EC2020DBA40038E59F /* ReasonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B36EB2020DBA40038E59F /* ReasonTests.swift */; };
+		A140FFD12020BE5700931AF6 /* Encodable+Encode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A140FFD02020BE5700931AF6 /* Encodable+Encode.swift */; };
+		A140FFD32020BECF00931AF6 /* Interests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A140FFD22020BECF00931AF6 /* Interests.swift */; };
+		A140FFD52020BF5200931AF6 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = A140FFD42020BF5200931AF6 /* Track.swift */; };
+		A140FFD72020C5E600931AF6 /* SDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = A140FFD62020C5E600931AF6 /* SDK.swift */; };
 		A144AB4C1F9E3DA3009F0040 /* DeviceTokenHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB441F9E3DA2009F0040 /* DeviceTokenHelper.swift */; };
 		A144AB4D1F9E3DA3009F0040 /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB451F9E3DA2009F0040 /* NetworkResponse.swift */; };
 		A144AB4E1F9E3DA3009F0040 /* PushNotificationsNetworkable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB461F9E3DA2009F0040 /* PushNotificationsNetworkable.swift */; };
@@ -24,13 +32,20 @@
 		A17F8B071FE14BE5003C9B3D /* MockPushNotificationsNetworkable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19ECF871FCF09A500688DAF /* MockPushNotificationsNetworkable.swift */; };
 		A182088D2014C6F4007D86C6 /* Array+ContainsSameElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = A182088C2014C6F4007D86C6 /* Array+ContainsSameElements.swift */; };
 		A182088E2014C736007D86C6 /* Array+ContainsSameElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = A182088C2014C6F4007D86C6 /* Array+ContainsSameElements.swift */; };
-		A18F96E12015F0A200FA35D0 /* Array+ContainsSameElementsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18F96E02015F0A200FA35D0 /* Array+ContainsSameElementsTests.swift */; };
+		A18F96E12015F0A200FA35D0 /* ArrayContainsSameElementsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18F96E02015F0A200FA35D0 /* ArrayContainsSameElementsTests.swift */; };
 		A19ECF831FCF099200688DAF /* InterestPersistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19ECF811FCF099100688DAF /* InterestPersistable.swift */; };
 		A19ECF841FCF099200688DAF /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19ECF821FCF099100688DAF /* PersistenceService.swift */; };
 		A19ECF881FCF09A500688DAF /* PushNotificationsNetworkableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19ECF851FCF09A500688DAF /* PushNotificationsNetworkableTests.swift */; };
 		A19ECF891FCF09A500688DAF /* InterestPersistableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19ECF861FCF09A500688DAF /* InterestPersistableTests.swift */; };
+		A1A9A54E2020D96E0006244C /* InterestsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A9A54D2020D96E0006244C /* InterestsTests.swift */; };
 		A1B344432018BC0200481BDF /* InterestValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B344412018BC0100481BDF /* InterestValidationError.swift */; };
 		A1B344442018BC0200481BDF /* MultipleInvalidInterestsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B344422018BC0200481BDF /* MultipleInvalidInterestsError.swift */; };
+		A1DAD62E2020CAE7001497B5 /* SystemVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DAD62D2020CAE7001497B5 /* SystemVersion.swift */; };
+		A1DAD6302020CEA6001497B5 /* PublishIdTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DAD62F2020CEA6001497B5 /* PublishIdTests.swift */; };
+		A1DAD6322020CED7001497B5 /* InterestNameValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DAD6312020CED7001497B5 /* InterestNameValidationTests.swift */; };
+		A1DAD6342020D2FE001497B5 /* DateMillisecondsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DAD6332020D2FE001497B5 /* DateMillisecondsTests.swift */; };
+		A1DAD6362020D4D1001497B5 /* SystemVersionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DAD6352020D4D1001497B5 /* SystemVersionTests.swift */; };
+		A1E78E312020AEF400DD94B2 /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E78E302020AEF400DD94B2 /* Register.swift */; };
 		A1E8000A201A213000467EB9 /* ReportEventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E80009201A213000467EB9 /* ReportEventType.swift */; };
 		A1E80015201A3DAC00467EB9 /* PublishId.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E80013201A3DAC00467EB9 /* PublishId.swift */; };
 		A1E80016201A3DAC00467EB9 /* Date+Milliseconds.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E80014201A3DAC00467EB9 /* Date+Milliseconds.swift */; };
@@ -48,7 +63,15 @@
 
 /* Begin PBXFileReference section */
 		A1067108201F69B8001190F8 /* FeatureFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FeatureFlags.swift; path = ../../Sources/FeatureFlags.swift; sourceTree = "<group>"; };
-		A10E30AF20164E2B00A0BD1C /* InterestNameValidationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestNameValidationTests.swift; sourceTree = "<group>"; };
+		A125B6482020DC46002E0809 /* TrackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TrackTests.swift; path = ../../Tests/TrackTests.swift; sourceTree = "<group>"; };
+		A125B64A2020DCC3002E0809 /* SDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SDKTests.swift; path = ../../Tests/SDKTests.swift; sourceTree = "<group>"; };
+		A125B64C2020DD5F002E0809 /* FeatureFlagsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FeatureFlagsTests.swift; path = ../../Tests/FeatureFlagsTests.swift; sourceTree = "<group>"; };
+		A12B36E92020DAA10038E59F /* RegisterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegisterTests.swift; path = ../../Tests/RegisterTests.swift; sourceTree = "<group>"; };
+		A12B36EB2020DBA40038E59F /* ReasonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReasonTests.swift; path = ../../Tests/ReasonTests.swift; sourceTree = "<group>"; };
+		A140FFD02020BE5700931AF6 /* Encodable+Encode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Encodable+Encode.swift"; path = "../../Sources/Encodable+Encode.swift"; sourceTree = "<group>"; };
+		A140FFD22020BECF00931AF6 /* Interests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Interests.swift; path = ../../Sources/Interests.swift; sourceTree = "<group>"; };
+		A140FFD42020BF5200931AF6 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Track.swift; path = ../../Sources/Track.swift; sourceTree = "<group>"; };
+		A140FFD62020C5E600931AF6 /* SDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SDK.swift; path = ../../Sources/SDK.swift; sourceTree = "<group>"; };
 		A144AB441F9E3DA2009F0040 /* DeviceTokenHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceTokenHelper.swift; path = ../../Sources/DeviceTokenHelper.swift; sourceTree = "<group>"; };
 		A144AB451F9E3DA2009F0040 /* NetworkResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkResponse.swift; path = ../../Sources/NetworkResponse.swift; sourceTree = "<group>"; };
 		A144AB461F9E3DA2009F0040 /* PushNotificationsNetworkable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PushNotificationsNetworkable.swift; path = ../../Sources/PushNotificationsNetworkable.swift; sourceTree = "<group>"; };
@@ -64,14 +87,21 @@
 		A155BFC31F9E38040070A609 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A16782541FA0EA2C00A193DF /* Reason.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reason.swift; path = ../../Sources/Reason.swift; sourceTree = "<group>"; };
 		A182088C2014C6F4007D86C6 /* Array+ContainsSameElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Array+ContainsSameElements.swift"; path = "../../Sources/Array+ContainsSameElements.swift"; sourceTree = "<group>"; };
-		A18F96E02015F0A200FA35D0 /* Array+ContainsSameElementsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Array+ContainsSameElementsTests.swift"; path = "../../Tests/Array+ContainsSameElementsTests.swift"; sourceTree = "<group>"; };
+		A18F96E02015F0A200FA35D0 /* ArrayContainsSameElementsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArrayContainsSameElementsTests.swift; path = ../../Tests/ArrayContainsSameElementsTests.swift; sourceTree = "<group>"; };
 		A19ECF811FCF099100688DAF /* InterestPersistable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterestPersistable.swift; path = ../../Sources/InterestPersistable.swift; sourceTree = "<group>"; };
 		A19ECF821FCF099100688DAF /* PersistenceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PersistenceService.swift; path = ../../Sources/PersistenceService.swift; sourceTree = "<group>"; };
 		A19ECF851FCF09A500688DAF /* PushNotificationsNetworkableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PushNotificationsNetworkableTests.swift; path = ../../Tests/PushNotificationsNetworkableTests.swift; sourceTree = "<group>"; };
 		A19ECF861FCF09A500688DAF /* InterestPersistableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterestPersistableTests.swift; path = ../../Tests/InterestPersistableTests.swift; sourceTree = "<group>"; };
 		A19ECF871FCF09A500688DAF /* MockPushNotificationsNetworkable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockPushNotificationsNetworkable.swift; path = ../../Tests/MockPushNotificationsNetworkable.swift; sourceTree = "<group>"; };
+		A1A9A54D2020D96E0006244C /* InterestsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InterestsTests.swift; path = ../../Tests/InterestsTests.swift; sourceTree = "<group>"; };
 		A1B344412018BC0100481BDF /* InterestValidationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterestValidationError.swift; path = ../../Sources/InterestValidationError.swift; sourceTree = "<group>"; };
 		A1B344422018BC0200481BDF /* MultipleInvalidInterestsError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultipleInvalidInterestsError.swift; path = ../../Sources/MultipleInvalidInterestsError.swift; sourceTree = "<group>"; };
+		A1DAD62D2020CAE7001497B5 /* SystemVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SystemVersion.swift; path = ../../Sources/SystemVersion.swift; sourceTree = "<group>"; };
+		A1DAD62F2020CEA6001497B5 /* PublishIdTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PublishIdTests.swift; path = ../../Tests/PublishIdTests.swift; sourceTree = "<group>"; };
+		A1DAD6312020CED7001497B5 /* InterestNameValidationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterestNameValidationTests.swift; path = ../../Tests/InterestNameValidationTests.swift; sourceTree = "<group>"; };
+		A1DAD6332020D2FE001497B5 /* DateMillisecondsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DateMillisecondsTests.swift; path = ../../Tests/DateMillisecondsTests.swift; sourceTree = "<group>"; };
+		A1DAD6352020D4D1001497B5 /* SystemVersionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SystemVersionTests.swift; path = ../../Tests/SystemVersionTests.swift; sourceTree = "<group>"; };
+		A1E78E302020AEF400DD94B2 /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Register.swift; path = ../../Sources/Register.swift; sourceTree = "<group>"; };
 		A1E80009201A213000467EB9 /* ReportEventType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportEventType.swift; path = ../../Sources/ReportEventType.swift; sourceTree = "<group>"; };
 		A1E80013201A3DAC00467EB9 /* PublishId.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PublishId.swift; path = ../../Sources/PublishId.swift; sourceTree = "<group>"; };
 		A1E80014201A3DAC00467EB9 /* Date+Milliseconds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Date+Milliseconds.swift"; path = "../../Sources/Date+Milliseconds.swift"; sourceTree = "<group>"; };
@@ -137,6 +167,12 @@
 				A16782541FA0EA2C00A193DF /* Reason.swift */,
 				A182088C2014C6F4007D86C6 /* Array+ContainsSameElements.swift */,
 				A1067108201F69B8001190F8 /* FeatureFlags.swift */,
+				A1E78E302020AEF400DD94B2 /* Register.swift */,
+				A140FFD02020BE5700931AF6 /* Encodable+Encode.swift */,
+				A140FFD22020BECF00931AF6 /* Interests.swift */,
+				A140FFD42020BF5200931AF6 /* Track.swift */,
+				A140FFD62020C5E600931AF6 /* SDK.swift */,
+				A1DAD62D2020CAE7001497B5 /* SystemVersion.swift */,
 			);
 			path = PushNotifications;
 			sourceTree = "<group>";
@@ -144,14 +180,23 @@
 		A155BFC01F9E38040070A609 /* PushNotificationsTests */ = {
 			isa = PBXGroup;
 			children = (
-				A18F96E02015F0A200FA35D0 /* Array+ContainsSameElementsTests.swift */,
+				A1DAD6312020CED7001497B5 /* InterestNameValidationTests.swift */,
+				A18F96E02015F0A200FA35D0 /* ArrayContainsSameElementsTests.swift */,
 				A144AB541F9E3DBF009F0040 /* DeviceTokenHelperTests.swift */,
 				A155BFC31F9E38040070A609 /* Info.plist */,
 				A19ECF861FCF09A500688DAF /* InterestPersistableTests.swift */,
 				A19ECF871FCF09A500688DAF /* MockPushNotificationsNetworkable.swift */,
 				A19ECF851FCF09A500688DAF /* PushNotificationsNetworkableTests.swift */,
 				A1ED00141F9E392700A029F2 /* PushNotificationsTests-Bridging-Header.h */,
-				A10E30AF20164E2B00A0BD1C /* InterestNameValidationTests.swift */,
+				A1DAD62F2020CEA6001497B5 /* PublishIdTests.swift */,
+				A1DAD6332020D2FE001497B5 /* DateMillisecondsTests.swift */,
+				A1DAD6352020D4D1001497B5 /* SystemVersionTests.swift */,
+				A1A9A54D2020D96E0006244C /* InterestsTests.swift */,
+				A12B36E92020DAA10038E59F /* RegisterTests.swift */,
+				A12B36EB2020DBA40038E59F /* ReasonTests.swift */,
+				A125B6482020DC46002E0809 /* TrackTests.swift */,
+				A125B64A2020DCC3002E0809 /* SDKTests.swift */,
+				A125B64C2020DD5F002E0809 /* FeatureFlagsTests.swift */,
 			);
 			path = PushNotificationsTests;
 			sourceTree = "<group>";
@@ -269,9 +314,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1E80016201A3DAC00467EB9 /* Date+Milliseconds.swift in Sources */,
+				A140FFD52020BF5200931AF6 /* Track.swift in Sources */,
+				A1E78E312020AEF400DD94B2 /* Register.swift in Sources */,
+				A140FFD72020C5E600931AF6 /* SDK.swift in Sources */,
 				A144AB4C1F9E3DA3009F0040 /* DeviceTokenHelper.swift in Sources */,
+				A140FFD12020BE5700931AF6 /* Encodable+Encode.swift in Sources */,
 				A182088D2014C6F4007D86C6 /* Array+ContainsSameElements.swift in Sources */,
+				A140FFD32020BECF00931AF6 /* Interests.swift in Sources */,
 				A19ECF831FCF099200688DAF /* InterestPersistable.swift in Sources */,
+				A1DAD62E2020CAE7001497B5 /* SystemVersion.swift in Sources */,
 				A17F8B071FE14BE5003C9B3D /* MockPushNotificationsNetworkable.swift in Sources */,
 				A19ECF841FCF099200688DAF /* PersistenceService.swift in Sources */,
 				A144AB521F9E3DA3009F0040 /* NetworkService.swift in Sources */,
@@ -293,13 +344,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A10E30B020164E2B00A0BD1C /* InterestNameValidationTests.swift in Sources */,
+				A1DAD6322020CED7001497B5 /* InterestNameValidationTests.swift in Sources */,
+				A12B36EC2020DBA40038E59F /* ReasonTests.swift in Sources */,
+				A1DAD6362020D4D1001497B5 /* SystemVersionTests.swift in Sources */,
+				A12B36EA2020DAA10038E59F /* RegisterTests.swift in Sources */,
 				A17277F62018ECA700E50E36 /* PushNotificationsNetworkable.swift in Sources */,
+				A125B64B2020DCC3002E0809 /* SDKTests.swift in Sources */,
 				A182088E2014C736007D86C6 /* Array+ContainsSameElements.swift in Sources */,
-				A18F96E12015F0A200FA35D0 /* Array+ContainsSameElementsTests.swift in Sources */,
+				A18F96E12015F0A200FA35D0 /* ArrayContainsSameElementsTests.swift in Sources */,
 				A19ECF891FCF09A500688DAF /* InterestPersistableTests.swift in Sources */,
 				A19ECF881FCF09A500688DAF /* PushNotificationsNetworkableTests.swift in Sources */,
+				A1DAD6302020CEA6001497B5 /* PublishIdTests.swift in Sources */,
 				A144AB571F9E3DBF009F0040 /* DeviceTokenHelperTests.swift in Sources */,
+				A1A9A54E2020D96E0006244C /* InterestsTests.swift in Sources */,
+				A1DAD6342020D2FE001497B5 /* DateMillisecondsTests.swift in Sources */,
+				A125B64D2020DD5F002E0809 /* FeatureFlagsTests.swift in Sources */,
+				A125B6492020DC46002E0809 /* TrackTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

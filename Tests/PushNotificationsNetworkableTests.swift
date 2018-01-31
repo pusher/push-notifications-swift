@@ -17,7 +17,7 @@ class PushNotificationsSubscribableTests: XCTestCase {
 
     func testRegistration() {
         let exp = expectation(description: "It should successfully register the device")
-        self.subscriptionService.register(deviceToken: Data()) { (deviceId) in
+        self.subscriptionService.register(deviceToken: Data(), instanceId: "123") { (deviceId) in
             XCTAssert(deviceId == "apns-876eeb5d-0dc8-4d74-9f59-b65412b2c742")
             XCTAssert(true)
             exp.fulfill()

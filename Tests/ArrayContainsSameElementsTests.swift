@@ -1,7 +1,7 @@
 import XCTest
 @testable import PushNotifications
 
-class ArraySortTests: XCTestCase {
+class ArrayContainsSameElementsTests: XCTestCase {
     func testArrayContainsSameElements1() {
         let a = ["a", "b", "c", "d", "e"]
         let b = ["b", "d", "a", "e", "c"]

@@ -8,11 +8,20 @@ struct NetworkService: PushNotificationsNetworkable {
     typealias NetworkCompletionHandler = (_ response: NetworkResponse) -> Void
 
     // MARK: PushNotificationsRegisterable
-    func register(deviceToken: Data, completion: @escaping (String) -> Void) {
+    func register(deviceToken: Data, instanceId: String, completion: @escaping (String) -> Void) {
         let deviceTokenString = deviceToken.hexadecimalRepresentation()
         let bundleIdentifier = Bundle.main.bundleIdentifier ?? ""
-        let bodyString = "{\"token\": \"\(deviceTokenString)\", \"bundleIdentifier\": \"\(bundleIdentifier)\"}"
-        let body = Data(bodyString.utf8)
+
+        let systemVersion = SystemVersion.version
+        let sdkVersion = SDK.version
+
+        #if os(iOS)
+        let metadata = Metadata(sdkVersion: sdkVersion, iosVersion: systemVersion, macosVersion: nil)
+        #elseif os(OSX)
+        let metadata = Metadata(sdkVersion: sdkVersion, iosVersion: nil, macosVersion: systemVersion)
+        #endif
+
+        guard let body = try? Register(token: deviceTokenString, instanceId: instanceId, bundleIdentifier: bundleIdentifier, metadata: metadata).encode() else { return }
         let request = self.setRequest(url: self.url, httpMethod: .POST, body: body)
 
         self.networkRequest(request, session: self.session) { (response) in
@@ -36,8 +45,7 @@ struct NetworkService: PushNotificationsNetworkable {
     }
 
     func setSubscriptions(interests: Array<String>, completion: @escaping () -> Void = {}) {
-        let bodyString = "{\"interests\": \(interests)}"
-        let body = Data(bodyString.utf8)
+        guard let body = try? Interests(interests: interests).encode() else { return }
         let request = self.setRequest(url: self.url, httpMethod: .PUT, body: body)
 
         self.networkRequest(request, session: self.session) { (response) in
@@ -59,10 +67,8 @@ struct NetworkService: PushNotificationsNetworkable {
 
     func track(userInfo: [AnyHashable : Any]) {
         guard let publishId = PublishId(userInfo: userInfo).id else { return }
-        let timestamp = Date().milliseconds()
-
-        let bodyString = "{\"publishId\": \"\(publishId)\", \"timestampMs\": \"\(timestamp)\"}"
-        let body = Data(bodyString.utf8)
+        let timestampMs = Date().milliseconds()
+        guard let body = try? Track(publishId: publishId, timestampMs: timestampMs).encode() else { return }
 
         let request = self.setRequest(url: self.url, httpMethod: .POST, body: body)
         self.networkRequest(request, session: self.session) { (response) in }
