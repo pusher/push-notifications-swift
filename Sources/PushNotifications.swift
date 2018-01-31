@@ -47,7 +47,7 @@ import Foundation
 
         let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: session)
 
-        networkService.register(deviceToken: deviceToken) { [weak self] (deviceId) in
+        networkService.register(deviceToken: deviceToken, instanceId: instanceId) { [weak self] (deviceId) in
             guard let strongSelf = self else { return }
             strongSelf.deviceId = deviceId
             completion()
