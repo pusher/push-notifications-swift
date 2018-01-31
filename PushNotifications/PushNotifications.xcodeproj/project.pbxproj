@@ -8,10 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		A1067109201F69B8001190F8 /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1067108201F69B8001190F8 /* FeatureFlags.swift */; };
+		A11E83352021D014009C09EF /* RegisterMacOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11E83342021D014009C09EF /* RegisterMacOSTests.swift */; };
 		A125B6492020DC46002E0809 /* TrackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A125B6482020DC46002E0809 /* TrackTests.swift */; };
 		A125B64B2020DCC3002E0809 /* SDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A125B64A2020DCC3002E0809 /* SDKTests.swift */; };
 		A125B64D2020DD5F002E0809 /* FeatureFlagsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A125B64C2020DD5F002E0809 /* FeatureFlagsTests.swift */; };
-		A12B36EA2020DAA10038E59F /* RegisterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B36E92020DAA10038E59F /* RegisterTests.swift */; };
+		A12B36EA2020DAA10038E59F /* RegisterIOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B36E92020DAA10038E59F /* RegisterIOSTests.swift */; };
 		A12B36EC2020DBA40038E59F /* ReasonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B36EB2020DBA40038E59F /* ReasonTests.swift */; };
 		A140FFD12020BE5700931AF6 /* Encodable+Encode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A140FFD02020BE5700931AF6 /* Encodable+Encode.swift */; };
 		A140FFD32020BECF00931AF6 /* Interests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A140FFD22020BECF00931AF6 /* Interests.swift */; };
@@ -63,10 +64,11 @@
 
 /* Begin PBXFileReference section */
 		A1067108201F69B8001190F8 /* FeatureFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FeatureFlags.swift; path = ../../Sources/FeatureFlags.swift; sourceTree = "<group>"; };
+		A11E83342021D014009C09EF /* RegisterMacOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegisterMacOSTests.swift; path = ../../Tests/RegisterMacOSTests.swift; sourceTree = "<group>"; };
 		A125B6482020DC46002E0809 /* TrackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TrackTests.swift; path = ../../Tests/TrackTests.swift; sourceTree = "<group>"; };
 		A125B64A2020DCC3002E0809 /* SDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SDKTests.swift; path = ../../Tests/SDKTests.swift; sourceTree = "<group>"; };
 		A125B64C2020DD5F002E0809 /* FeatureFlagsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FeatureFlagsTests.swift; path = ../../Tests/FeatureFlagsTests.swift; sourceTree = "<group>"; };
-		A12B36E92020DAA10038E59F /* RegisterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegisterTests.swift; path = ../../Tests/RegisterTests.swift; sourceTree = "<group>"; };
+		A12B36E92020DAA10038E59F /* RegisterIOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegisterIOSTests.swift; path = ../../Tests/RegisterIOSTests.swift; sourceTree = "<group>"; };
 		A12B36EB2020DBA40038E59F /* ReasonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReasonTests.swift; path = ../../Tests/ReasonTests.swift; sourceTree = "<group>"; };
 		A140FFD02020BE5700931AF6 /* Encodable+Encode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Encodable+Encode.swift"; path = "../../Sources/Encodable+Encode.swift"; sourceTree = "<group>"; };
 		A140FFD22020BECF00931AF6 /* Interests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Interests.swift; path = ../../Sources/Interests.swift; sourceTree = "<group>"; };
@@ -192,11 +194,12 @@
 				A1DAD6332020D2FE001497B5 /* DateMillisecondsTests.swift */,
 				A1DAD6352020D4D1001497B5 /* SystemVersionTests.swift */,
 				A1A9A54D2020D96E0006244C /* InterestsTests.swift */,
-				A12B36E92020DAA10038E59F /* RegisterTests.swift */,
+				A12B36E92020DAA10038E59F /* RegisterIOSTests.swift */,
 				A12B36EB2020DBA40038E59F /* ReasonTests.swift */,
 				A125B6482020DC46002E0809 /* TrackTests.swift */,
 				A125B64A2020DCC3002E0809 /* SDKTests.swift */,
 				A125B64C2020DD5F002E0809 /* FeatureFlagsTests.swift */,
+				A11E83342021D014009C09EF /* RegisterMacOSTests.swift */,
 			);
 			path = PushNotificationsTests;
 			sourceTree = "<group>";
@@ -345,9 +348,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1DAD6322020CED7001497B5 /* InterestNameValidationTests.swift in Sources */,
+				A11E83352021D014009C09EF /* RegisterMacOSTests.swift in Sources */,
 				A12B36EC2020DBA40038E59F /* ReasonTests.swift in Sources */,
 				A1DAD6362020D4D1001497B5 /* SystemVersionTests.swift in Sources */,
-				A12B36EA2020DAA10038E59F /* RegisterTests.swift in Sources */,
+				A12B36EA2020DAA10038E59F /* RegisterIOSTests.swift in Sources */,
 				A17277F62018ECA700E50E36 /* PushNotificationsNetworkable.swift in Sources */,
 				A125B64B2020DCC3002E0809 /* SDKTests.swift in Sources */,
 				A182088E2014C736007D86C6 /* Array+ContainsSameElements.swift in Sources */,
