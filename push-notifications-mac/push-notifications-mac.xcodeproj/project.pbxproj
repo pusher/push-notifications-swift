@@ -300,10 +300,10 @@
 				CODE_SIGN_ENTITLEMENTS = "push-notifications-mac/push_notifications_mac.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 7ZMER4V3FM;
+				DEVELOPMENT_TEAM = H7FL434D9W;
 				INFOPLIST_FILE = "push-notifications-mac/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.pusher.push-notifications-mac";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pusher.push-notifications-macos";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 			};
@@ -316,10 +316,10 @@
 				CODE_SIGN_ENTITLEMENTS = "push-notifications-mac/push_notifications_mac.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 7ZMER4V3FM;
+				DEVELOPMENT_TEAM = H7FL434D9W;
 				INFOPLIST_FILE = "push-notifications-mac/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.pusher.push-notifications-mac";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pusher.push-notifications-macos";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 			};
