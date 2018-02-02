@@ -202,12 +202,13 @@ import Foundation
         #endif
 
         guard
+            let deviceId = self.deviceId,
             let instanceId = self.instanceId,
-            let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/reporting_api/v1/instances/\(instanceId)/event-type/\(eventType)")
+            let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/reporting_api/v1/instances/\(instanceId)/events")
         else { return }
 
         let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: session)
-        networkService.track(userInfo: userInfo)
+        networkService.track(userInfo: userInfo, eventType: eventType, deviceId: deviceId)
     }
 
     private func validateInterestName(_ interest: String) -> Bool {

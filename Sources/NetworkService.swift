@@ -65,10 +65,10 @@ struct NetworkService: PushNotificationsNetworkable {
         self.setSubscriptions(interests: [])
     }
 
-    func track(userInfo: [AnyHashable: Any]) {
+    func track(userInfo: [AnyHashable: Any], eventType: String, deviceId: String) {
         guard let publishId = PublishId(userInfo: userInfo).id else { return }
         let timestampMs = Date().milliseconds()
-        guard let body = try? Track(publishId: publishId, timestampMs: timestampMs).encode() else { return }
+        guard let body = try? Track(publishId: publishId, timestampMs: timestampMs, eventType: eventType, deviceId: deviceId).encode() else { return }
 
         let request = self.setRequest(url: self.url, httpMethod: .POST, body: body)
         self.networkRequest(request, session: self.session) { (response) in }
