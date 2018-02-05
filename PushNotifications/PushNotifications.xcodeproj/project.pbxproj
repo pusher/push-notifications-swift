@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A10552ED2028A934001E45D1 /* Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10552EC2028A934001E45D1 /* Metadata.swift */; };
 		A1067109201F69B8001190F8 /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1067108201F69B8001190F8 /* FeatureFlags.swift */; };
 		A108811A20334D860091E8EB /* PusherAlreadyRegisteredError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108811820334D860091E8EB /* PusherAlreadyRegisteredError.swift */; };
 		A108811B20334D860091E8EB /* Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108811920334D860091E8EB /* Instance.swift */; };
@@ -65,6 +66,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A10552EC2028A934001E45D1 /* Metadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Metadata.swift; path = ../../Sources/Metadata.swift; sourceTree = "<group>"; };
 		A1067108201F69B8001190F8 /* FeatureFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FeatureFlags.swift; path = ../../Sources/FeatureFlags.swift; sourceTree = "<group>"; };
 		A108811820334D860091E8EB /* PusherAlreadyRegisteredError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PusherAlreadyRegisteredError.swift; path = ../../Sources/PusherAlreadyRegisteredError.swift; sourceTree = "<group>"; };
 		A108811920334D860091E8EB /* Instance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Instance.swift; path = ../../Sources/Instance.swift; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 				A140FFD42020BF5200931AF6 /* Track.swift */,
 				A140FFD62020C5E600931AF6 /* SDK.swift */,
 				A1DAD62D2020CAE7001497B5 /* SystemVersion.swift */,
+				A10552EC2028A934001E45D1 /* Metadata.swift */,
 			);
 			path = PushNotifications;
 			sourceTree = "<group>";
@@ -333,6 +336,7 @@
 				A1DAD62E2020CAE7001497B5 /* SystemVersion.swift in Sources */,
 				A17F8B071FE14BE5003C9B3D /* MockPushNotificationsNetworkable.swift in Sources */,
 				A19ECF841FCF099200688DAF /* PersistenceService.swift in Sources */,
+				A10552ED2028A934001E45D1 /* Metadata.swift in Sources */,
 				A144AB521F9E3DA3009F0040 /* NetworkService.swift in Sources */,
 				A144AB511F9E3DA3009F0040 /* HTTPMethod.swift in Sources */,
 				A144AB501F9E3DA3009F0040 /* PushNotifications.swift in Sources */,
