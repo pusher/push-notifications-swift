@@ -19,6 +19,24 @@ extension Metadata: PropertyListReadable {
         self.macosVersion = propertyListRepresentation["macosVersion"] as? String
     }
 
+    func isOutdated() -> Bool {
+        return self.sdkVersion != SDK.version
+    }
+
+    @discardableResult func update() -> Metadata {
+        let sdkVersion = SDK.version
+        let systemVersion = SystemVersion.version
+
+        #if os(iOS)
+            let metadata = Metadata(sdkVersion: sdkVersion, iosVersion: systemVersion, macosVersion: nil)
+        #elseif os(OSX)
+            let metadata = Metadata(sdkVersion: sdkVersion, iosVersion: nil, macosVersion: systemVersion)
+        #endif
+        metadata.save()
+
+        return metadata
+    }
+
     func save() {
         let userDefaults = UserDefaults(suiteName: "PushNotifications")
         userDefaults?.set(self.propertyListRepresentation(), forKey: "com.pusher.sdk.metadata")

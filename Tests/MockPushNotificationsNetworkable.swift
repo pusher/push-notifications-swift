@@ -24,4 +24,8 @@ struct MockPushNotificationsNetworkable: PushNotificationsNetworkable {
     func track(userInfo: [AnyHashable: Any], eventType: String, deviceId: String) {
 
     }
+
+    func sendMetadata() {
+
+    }
 }
