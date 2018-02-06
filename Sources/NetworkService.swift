@@ -7,7 +7,7 @@ struct NetworkService: PushNotificationsNetworkable {
 
     typealias NetworkCompletionHandler = (_ response: NetworkResponse) -> Void
 
-    // MARK: PushNotificationsRegisterable
+    // MARK: PushNotificationsNetworkable
     func register(deviceToken: Data, instanceId: String, completion: @escaping (String) -> Void) {
         let deviceTokenString = deviceToken.hexadecimalRepresentation()
         let bundleIdentifier = Bundle.main.bundleIdentifier ?? ""
@@ -35,7 +35,6 @@ struct NetworkService: PushNotificationsNetworkable {
         }
     }
 
-    // MARK: PushNotificationsSubscribable
     func subscribe(completion: @escaping () -> Void = {}) {
         let request = self.setRequest(url: self.url, httpMethod: .POST)
 
