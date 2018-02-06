@@ -35,7 +35,6 @@
 		A155BFBD1F9E38040070A609 /* PushNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A155BFB31F9E38040070A609 /* PushNotifications.framework */; };
 		A155BFC41F9E38040070A609 /* PushNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = A155BFB61F9E38040070A609 /* PushNotifications.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A15B55CF2029C06D009D6A1A /* MetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15B55CE2029C06D009D6A1A /* MetadataTests.swift */; };
-		A15B55D22029C0C9009D6A1A /* PropertyListReadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10552EE2028C017001E45D1 /* PropertyListReadable.swift */; };
 		A16782551FA0EA2D00A193DF /* Reason.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16782541FA0EA2C00A193DF /* Reason.swift */; };
 		A17277F62018ECA700E50E36 /* PushNotificationsNetworkable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB461F9E3DA2009F0040 /* PushNotificationsNetworkable.swift */; };
 		A17F8B071FE14BE5003C9B3D /* MockPushNotificationsNetworkable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19ECF871FCF09A500688DAF /* MockPushNotificationsNetworkable.swift */; };
