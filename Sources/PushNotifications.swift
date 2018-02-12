@@ -59,7 +59,10 @@ import Foundation
         guard
             let instanceId = Instance.getInstanceId(),
             let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")
-        else { return }
+        else {
+            print("Something went wrong. Please check your instance id: \(String(describing: Instance.getInstanceId()))")
+            return
+        }
 
         let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: session)
 
