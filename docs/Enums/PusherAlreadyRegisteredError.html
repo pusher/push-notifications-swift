@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>MultipleInvalidInterestsError Enumeration Reference</title>
+    <title>PusherAlreadyRegisteredError Enumeration Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Enum/MultipleInvalidInterestsError" class="dashAnchor"></a>
-    <a title="MultipleInvalidInterestsError Enumeration Reference"></a>
+    <a name="//apple_ref/swift/Enum/PusherAlreadyRegisteredError" class="dashAnchor"></a>
+    <a title="PusherAlreadyRegisteredError Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">PushNotifications Docs</a> (100% documented)</p>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">PushNotifications Reference</a>
         <img id="carat" src="../img/carat.png" />
-        MultipleInvalidInterestsError Enumeration Reference
+        PusherAlreadyRegisteredError Enumeration Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -55,10 +55,10 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>MultipleInvalidInterestsError</h1>
+            <h1>PusherAlreadyRegisteredError</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">MultipleInvalidInterestsError</span><span class="p">:</span> <span class="kt">Error</span></code></pre>
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">PusherAlreadyRegisteredError</span><span class="p">:</span> <span class="kt">Error</span></code></pre>
 
                 </div>
               </div>
@@ -66,7 +66,7 @@
 
 <p><em>Values</em></p>
 
-<p><code>invalidNames</code> The interest names are invalid.</p>
+<p><code>instanceId</code> The instance id was already registered.</p>
 
           </section>
           <section class="section task-group-section">
@@ -75,9 +75,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:17PushNotifications29MultipleInvalidInterestsErrorO12invalidNamesACSaySSGcACmF"></a>
-                    <a name="//apple_ref/swift/Element/invalidNames" class="dashAnchor"></a>
-                    <a class="token" href="#/s:17PushNotifications29MultipleInvalidInterestsErrorO12invalidNamesACSaySSGcACmF">invalidNames</a>
+                    <a name="/s:17PushNotifications28PusherAlreadyRegisteredErrorO10instanceIdACSScACmF"></a>
+                    <a name="//apple_ref/swift/Element/instanceId" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17PushNotifications28PusherAlreadyRegisteredErrorO10instanceIdACSScACmF">instanceId</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -85,14 +85,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Invalid interest names.</p>
+                        <p>Instance id was already registered with Pusher.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">case</span> <span class="nf">invalidNames</span><span class="p">(</span><span class="kt">Array</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="nf">instanceId</span><span class="p">(</span><span class="kt">String</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>

@@ -45,6 +45,9 @@
               <li class="nav-group-task">
                 <a href="../Enums/MultipleInvalidInterestsError.html">MultipleInvalidInterestsError</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Enums/PusherAlreadyRegisteredError.html">PusherAlreadyRegisteredError</a>
+              </li>
             </ul>
           </li>
         </ul>
@@ -72,6 +75,18 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         
+<ul>
+<li>Tag: shared</li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">shared</span> <span class="o">=</span> <span class="kt">PushNotifications</span><span class="p">()</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -79,9 +94,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)registerWithInstanceId:"></a>
-                    <a name="//apple_ref/swift/Method/register(instanceId:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)registerWithInstanceId:">register(instanceId:)</a>
+                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)startWithInstanceId:"></a>
+                    <a name="//apple_ref/swift/Method/start(instanceId:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)startWithInstanceId:">start(instanceId:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -89,7 +104,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Register with PushNotifications service.</p>
+                        <p>Start PushNotifications service.</p>
 <div class="aside aside-precondition">
     <p class="aside-title">Precondition</p>
     <p><code>instanceId</code> should not be nil.</p>
@@ -101,7 +116,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">register</span><span class="p">(</span><span class="nv">instanceId</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">start</span><span class="p">(</span><span class="nv">instanceId</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -123,6 +138,69 @@
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)registerForRemoteNotifications"></a>
+                    <a name="//apple_ref/swift/Method/registerForRemoteNotifications()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)registerForRemoteNotifications">registerForRemoteNotifications()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Register to receive remote notifications via Apple Push Notification service.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">registerForRemoteNotifications</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/registerForRemoteNotifications(options:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">registerForRemoteNotifications(options:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)registerForRemoteNotificationsWithOptions:"></a>
+                    <a name="//apple_ref/swift/Method/registerForRemoteNotifications(options:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)registerForRemoteNotificationsWithOptions:">registerForRemoteNotifications(options:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
                       </div>
                     </section>
                   </div>
@@ -522,7 +600,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="https://pusher.com" target="_blank" rel="external">Pusher</a>. All rights reserved. (Last updated: 2018-01-26)</p>
+          <p>&copy; 2018 <a class="link" href="https://pusher.com" target="_blank" rel="external">Pusher</a>. All rights reserved. (Last updated: 2018-02-12)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.4</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
