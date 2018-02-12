@@ -8,7 +8,8 @@
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    [[PushNotifications shared] registerWithInstanceId:@"97c56dfe-58f5-408b-ab3a-158e51a860f2"];
+    [[PushNotifications shared] startWithInstanceId:@"f918950d-476d-4649-b38e-6cc8d30e0827"];
+    [[PushNotifications shared] registerForRemoteNotifications];
 }
 
 - (void)application:(NSApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {

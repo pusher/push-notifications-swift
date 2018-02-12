@@ -1,5 +1,7 @@
 #import <Foundation/Foundation.h>
-
+#if TARGET_OS_IPHONE
+#import <UserNotifications/UserNotifications.h>
+#endif
 //! Project version number for PushNotifications.
 FOUNDATION_EXPORT double PushNotificationsVersionNumber;
 

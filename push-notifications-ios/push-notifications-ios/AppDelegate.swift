@@ -7,7 +7,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let pushNotifications = PushNotifications.shared
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        self.pushNotifications.register(instanceId: "97c56dfe-58f5-408b-ab3a-158e51a860f2")
+        self.pushNotifications.start(instanceId: "f918950d-476d-4649-b38e-6cc8d30e0827")
+        self.pushNotifications.registerForRemoteNotifications()
         
         return true
     }
