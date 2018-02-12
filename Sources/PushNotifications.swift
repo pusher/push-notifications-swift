@@ -23,11 +23,9 @@ import Foundation
     @objc public func start(instanceId: String) {
         do {
             try Instance.persist(instanceId)
-        }
-        catch PusherAlreadyRegisteredError.instanceId(let errorMessage) {
+        } catch PusherAlreadyRegisteredError.instanceId(let errorMessage) {
             print(errorMessage)
-        }
-        catch {
+        } catch {
             print("Unexpected error: \(error).")
         }
     }
