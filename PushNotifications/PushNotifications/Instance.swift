@@ -7,7 +7,7 @@ struct Instance {
             return
         }
 
-        if(instanceId != savedInstanceId) {
+        guard instanceId == savedInstanceId else {
             let errorMessage = """
             This device has already been registered with Pusher.
             Push Notifications application with instance id: \(savedInstanceId).
