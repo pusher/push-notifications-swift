@@ -12,6 +12,8 @@
 		A125B6492020DC46002E0809 /* TrackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A125B6482020DC46002E0809 /* TrackTests.swift */; };
 		A125B64B2020DCC3002E0809 /* SDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A125B64A2020DCC3002E0809 /* SDKTests.swift */; };
 		A125B64D2020DD5F002E0809 /* FeatureFlagsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A125B64C2020DD5F002E0809 /* FeatureFlagsTests.swift */; };
+		A12A2AB52031F5680029B828 /* DeviceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12A2AB42031F5680029B828 /* DeviceTests.swift */; };
+		A12A2AB62031F7C80029B828 /* Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19A229C2031A4D400B4E7F2 /* Instance.swift */; };
 		A12B36EA2020DAA10038E59F /* RegisterIOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B36E92020DAA10038E59F /* RegisterIOSTests.swift */; };
 		A12B36EC2020DBA40038E59F /* ReasonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B36EB2020DBA40038E59F /* ReasonTests.swift */; };
 		A140FFD12020BE5700931AF6 /* Encodable+Encode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A140FFD02020BE5700931AF6 /* Encodable+Encode.swift */; };
@@ -28,12 +30,16 @@
 		A144AB571F9E3DBF009F0040 /* DeviceTokenHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB541F9E3DBF009F0040 /* DeviceTokenHelperTests.swift */; };
 		A155BFBD1F9E38040070A609 /* PushNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A155BFB31F9E38040070A609 /* PushNotifications.framework */; };
 		A155BFC41F9E38040070A609 /* PushNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = A155BFB61F9E38040070A609 /* PushNotifications.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A1578FB42031F01E0098802D /* InstanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1578FB32031F01E0098802D /* InstanceTests.swift */; };
+		A1578FB62031F1300098802D /* PusherAlreadyRegisteredError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19A229E2031D72B00B4E7F2 /* PusherAlreadyRegisteredError.swift */; };
 		A16782551FA0EA2D00A193DF /* Reason.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16782541FA0EA2C00A193DF /* Reason.swift */; };
 		A17277F62018ECA700E50E36 /* PushNotificationsNetworkable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB461F9E3DA2009F0040 /* PushNotificationsNetworkable.swift */; };
 		A17F8B071FE14BE5003C9B3D /* MockPushNotificationsNetworkable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19ECF871FCF09A500688DAF /* MockPushNotificationsNetworkable.swift */; };
 		A182088D2014C6F4007D86C6 /* Array+ContainsSameElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = A182088C2014C6F4007D86C6 /* Array+ContainsSameElements.swift */; };
 		A182088E2014C736007D86C6 /* Array+ContainsSameElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = A182088C2014C6F4007D86C6 /* Array+ContainsSameElements.swift */; };
 		A18F96E12015F0A200FA35D0 /* ArrayContainsSameElementsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18F96E02015F0A200FA35D0 /* ArrayContainsSameElementsTests.swift */; };
+		A19A229D2031A4D400B4E7F2 /* Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19A229C2031A4D400B4E7F2 /* Instance.swift */; };
+		A19A229F2031D72B00B4E7F2 /* PusherAlreadyRegisteredError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19A229E2031D72B00B4E7F2 /* PusherAlreadyRegisteredError.swift */; };
 		A19ECF831FCF099200688DAF /* InterestPersistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19ECF811FCF099100688DAF /* InterestPersistable.swift */; };
 		A19ECF841FCF099200688DAF /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19ECF821FCF099100688DAF /* PersistenceService.swift */; };
 		A19ECF881FCF09A500688DAF /* PushNotificationsNetworkableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19ECF851FCF09A500688DAF /* PushNotificationsNetworkableTests.swift */; };
@@ -68,6 +74,7 @@
 		A125B6482020DC46002E0809 /* TrackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TrackTests.swift; path = ../../Tests/TrackTests.swift; sourceTree = "<group>"; };
 		A125B64A2020DCC3002E0809 /* SDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SDKTests.swift; path = ../../Tests/SDKTests.swift; sourceTree = "<group>"; };
 		A125B64C2020DD5F002E0809 /* FeatureFlagsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FeatureFlagsTests.swift; path = ../../Tests/FeatureFlagsTests.swift; sourceTree = "<group>"; };
+		A12A2AB42031F5680029B828 /* DeviceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceTests.swift; sourceTree = "<group>"; };
 		A12B36E92020DAA10038E59F /* RegisterIOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegisterIOSTests.swift; path = ../../Tests/RegisterIOSTests.swift; sourceTree = "<group>"; };
 		A12B36EB2020DBA40038E59F /* ReasonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReasonTests.swift; path = ../../Tests/ReasonTests.swift; sourceTree = "<group>"; };
 		A140FFD02020BE5700931AF6 /* Encodable+Encode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Encodable+Encode.swift"; path = "../../Sources/Encodable+Encode.swift"; sourceTree = "<group>"; };
@@ -87,9 +94,12 @@
 		A155BFB71F9E38040070A609 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A155BFBC1F9E38040070A609 /* PushNotificationsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PushNotificationsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A155BFC31F9E38040070A609 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A1578FB32031F01E0098802D /* InstanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstanceTests.swift; sourceTree = "<group>"; };
 		A16782541FA0EA2C00A193DF /* Reason.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reason.swift; path = ../../Sources/Reason.swift; sourceTree = "<group>"; };
 		A182088C2014C6F4007D86C6 /* Array+ContainsSameElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Array+ContainsSameElements.swift"; path = "../../Sources/Array+ContainsSameElements.swift"; sourceTree = "<group>"; };
 		A18F96E02015F0A200FA35D0 /* ArrayContainsSameElementsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArrayContainsSameElementsTests.swift; path = ../../Tests/ArrayContainsSameElementsTests.swift; sourceTree = "<group>"; };
+		A19A229C2031A4D400B4E7F2 /* Instance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instance.swift; sourceTree = "<group>"; };
+		A19A229E2031D72B00B4E7F2 /* PusherAlreadyRegisteredError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PusherAlreadyRegisteredError.swift; sourceTree = "<group>"; };
 		A19ECF811FCF099100688DAF /* InterestPersistable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterestPersistable.swift; path = ../../Sources/InterestPersistable.swift; sourceTree = "<group>"; };
 		A19ECF821FCF099100688DAF /* PersistenceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PersistenceService.swift; path = ../../Sources/PersistenceService.swift; sourceTree = "<group>"; };
 		A19ECF851FCF09A500688DAF /* PushNotificationsNetworkableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PushNotificationsNetworkableTests.swift; path = ../../Tests/PushNotificationsNetworkableTests.swift; sourceTree = "<group>"; };
@@ -175,6 +185,8 @@
 				A140FFD42020BF5200931AF6 /* Track.swift */,
 				A140FFD62020C5E600931AF6 /* SDK.swift */,
 				A1DAD62D2020CAE7001497B5 /* SystemVersion.swift */,
+				A19A229C2031A4D400B4E7F2 /* Instance.swift */,
+				A19A229E2031D72B00B4E7F2 /* PusherAlreadyRegisteredError.swift */,
 			);
 			path = PushNotifications;
 			sourceTree = "<group>";
@@ -200,6 +212,8 @@
 				A125B64A2020DCC3002E0809 /* SDKTests.swift */,
 				A125B64C2020DD5F002E0809 /* FeatureFlagsTests.swift */,
 				A11E83342021D014009C09EF /* RegisterMacOSTests.swift */,
+				A1578FB32031F01E0098802D /* InstanceTests.swift */,
+				A12A2AB42031F5680029B828 /* DeviceTests.swift */,
 			);
 			path = PushNotificationsTests;
 			sourceTree = "<group>";
@@ -321,10 +335,12 @@
 				A1E78E312020AEF400DD94B2 /* Register.swift in Sources */,
 				A140FFD72020C5E600931AF6 /* SDK.swift in Sources */,
 				A144AB4C1F9E3DA3009F0040 /* DeviceTokenHelper.swift in Sources */,
+				A19A229D2031A4D400B4E7F2 /* Instance.swift in Sources */,
 				A140FFD12020BE5700931AF6 /* Encodable+Encode.swift in Sources */,
 				A182088D2014C6F4007D86C6 /* Array+ContainsSameElements.swift in Sources */,
 				A140FFD32020BECF00931AF6 /* Interests.swift in Sources */,
 				A19ECF831FCF099200688DAF /* InterestPersistable.swift in Sources */,
+				A19A229F2031D72B00B4E7F2 /* PusherAlreadyRegisteredError.swift in Sources */,
 				A1DAD62E2020CAE7001497B5 /* SystemVersion.swift in Sources */,
 				A17F8B071FE14BE5003C9B3D /* MockPushNotificationsNetworkable.swift in Sources */,
 				A19ECF841FCF099200688DAF /* PersistenceService.swift in Sources */,
@@ -351,10 +367,14 @@
 				A11E83352021D014009C09EF /* RegisterMacOSTests.swift in Sources */,
 				A12B36EC2020DBA40038E59F /* ReasonTests.swift in Sources */,
 				A1DAD6362020D4D1001497B5 /* SystemVersionTests.swift in Sources */,
+				A12A2AB62031F7C80029B828 /* Instance.swift in Sources */,
 				A12B36EA2020DAA10038E59F /* RegisterIOSTests.swift in Sources */,
 				A17277F62018ECA700E50E36 /* PushNotificationsNetworkable.swift in Sources */,
+				A1578FB42031F01E0098802D /* InstanceTests.swift in Sources */,
 				A125B64B2020DCC3002E0809 /* SDKTests.swift in Sources */,
+				A12A2AB52031F5680029B828 /* DeviceTests.swift in Sources */,
 				A182088E2014C736007D86C6 /* Array+ContainsSameElements.swift in Sources */,
+				A1578FB62031F1300098802D /* PusherAlreadyRegisteredError.swift in Sources */,
 				A18F96E12015F0A200FA35D0 /* ArrayContainsSameElementsTests.swift in Sources */,
 				A19ECF891FCF09A500688DAF /* InterestPersistableTests.swift in Sources */,
 				A19ECF881FCF09A500688DAF /* PushNotificationsNetworkableTests.swift in Sources */,

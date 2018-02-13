@@ -1,6 +1,7 @@
 #!/bin/bash
 
 jazzy \
+--clean \
 --source-directory PushNotifications \
 --author Pusher \
 --author_url https://pusher.com \
