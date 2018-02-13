@@ -20,6 +20,7 @@ import Foundation
 
      - Precondition: `instanceId` should not be nil.
      */
+    /// - Tag: start
     @objc public func start(instanceId: String) {
         do {
             try Instance.persist(instanceId)
@@ -32,15 +33,31 @@ import Foundation
 
     /**
      Register to receive remote notifications via Apple Push Notification service.
+
+     Convenience method is using `.alert`, `.sound`, and `.badge` as default authorization options.
+
+     - SeeAlso:  `registerForRemoteNotifications(options:)`
      */
+    /// - Tag: register
     @objc public func registerForRemoteNotifications() {
         self.registerForPushNotifications(options: [.alert, .sound, .badge])
     }
     #if os(iOS)
+    /**
+     Register to receive remote notifications via Apple Push Notification service.
+
+     - Parameter options: The authorization options your app is requesting. You may combine the available constants to request authorization for multiple items. Request only the authorization options that you plan to use. For a list of possible values, see [UNAuthorizationOptions](https://developer.apple.com/documentation/usernotifications/unauthorizationoptions).
+     */
+    /// - Tag: registerOptions
     @objc public func registerForRemoteNotifications(options: UNAuthorizationOptions) {
         self.registerForPushNotifications(options: options)
     }
     #elseif os(OSX)
+    /**
+     Register to receive remote notifications via Apple Push Notification service.
+
+     - Parameter options: A bit mask specifying the types of notifications the app accepts. See [NSApplication.RemoteNotificationType](https://developer.apple.com/documentation/appkit/nsapplication.remotenotificationtype) for valid bit-mask values.
+     */
     @objc public func registerForRemoteNotifications(options: NSApplication.RemoteNotificationType) {
         self.registerForPushNotifications(options: options)
     }
