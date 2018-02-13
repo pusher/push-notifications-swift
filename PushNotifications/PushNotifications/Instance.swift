@@ -1,9 +1,12 @@
 import Foundation
 
 struct Instance {
+    private static let key = "com.pusher.sdk.instanceId"
+    private static let userDefaults = UserDefaults(suiteName: "PushNotifications")!
+
     static func persist(_ instanceId: String) throws {
         guard let savedInstanceId = Instance.getInstanceId() else {
-            UserDefaults(suiteName: "PushNotifications")?.set(instanceId, forKey: "com.pusher.sdk.instanceId")
+            self.userDefaults.set(instanceId, forKey: key)
             return
         }
 
@@ -19,6 +22,6 @@ struct Instance {
     }
 
     static func getInstanceId() -> String? {
-        return UserDefaults(suiteName: "PushNotifications")?.string(forKey: "com.pusher.sdk.instanceId")
+        return self.userDefaults.string(forKey: key)
     }
 }
