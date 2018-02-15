@@ -48,12 +48,10 @@
 		A1DAD62E2020CAE7001497B5 /* SystemVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DAD62D2020CAE7001497B5 /* SystemVersion.swift */; };
 		A1DAD6302020CEA6001497B5 /* PublishIdTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DAD62F2020CEA6001497B5 /* PublishIdTests.swift */; };
 		A1DAD6322020CED7001497B5 /* InterestNameValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DAD6312020CED7001497B5 /* InterestNameValidationTests.swift */; };
-		A1DAD6342020D2FE001497B5 /* DateMillisecondsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DAD6332020D2FE001497B5 /* DateMillisecondsTests.swift */; };
 		A1DAD6362020D4D1001497B5 /* SystemVersionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DAD6352020D4D1001497B5 /* SystemVersionTests.swift */; };
 		A1E78E312020AEF400DD94B2 /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E78E302020AEF400DD94B2 /* Register.swift */; };
 		A1E8000A201A213000467EB9 /* ReportEventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E80009201A213000467EB9 /* ReportEventType.swift */; };
 		A1E80015201A3DAC00467EB9 /* PublishId.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E80013201A3DAC00467EB9 /* PublishId.swift */; };
-		A1E80016201A3DAC00467EB9 /* Date+Milliseconds.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E80014201A3DAC00467EB9 /* Date+Milliseconds.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,12 +107,10 @@
 		A1DAD62D2020CAE7001497B5 /* SystemVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SystemVersion.swift; path = ../../Sources/SystemVersion.swift; sourceTree = "<group>"; };
 		A1DAD62F2020CEA6001497B5 /* PublishIdTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PublishIdTests.swift; path = ../../Tests/PublishIdTests.swift; sourceTree = "<group>"; };
 		A1DAD6312020CED7001497B5 /* InterestNameValidationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterestNameValidationTests.swift; path = ../../Tests/InterestNameValidationTests.swift; sourceTree = "<group>"; };
-		A1DAD6332020D2FE001497B5 /* DateMillisecondsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DateMillisecondsTests.swift; path = ../../Tests/DateMillisecondsTests.swift; sourceTree = "<group>"; };
 		A1DAD6352020D4D1001497B5 /* SystemVersionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SystemVersionTests.swift; path = ../../Tests/SystemVersionTests.swift; sourceTree = "<group>"; };
 		A1E78E302020AEF400DD94B2 /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Register.swift; path = ../../Sources/Register.swift; sourceTree = "<group>"; };
 		A1E80009201A213000467EB9 /* ReportEventType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportEventType.swift; path = ../../Sources/ReportEventType.swift; sourceTree = "<group>"; };
 		A1E80013201A3DAC00467EB9 /* PublishId.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PublishId.swift; path = ../../Sources/PublishId.swift; sourceTree = "<group>"; };
-		A1E80014201A3DAC00467EB9 /* Date+Milliseconds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Date+Milliseconds.swift"; path = "../../Sources/Date+Milliseconds.swift"; sourceTree = "<group>"; };
 		A1ED00141F9E392700A029F2 /* PushNotificationsTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PushNotificationsTests-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -160,7 +156,6 @@
 			children = (
 				A108811920334D860091E8EB /* Instance.swift */,
 				A108811820334D860091E8EB /* PusherAlreadyRegisteredError.swift */,
-				A1E80014201A3DAC00467EB9 /* Date+Milliseconds.swift */,
 				A1E80013201A3DAC00467EB9 /* PublishId.swift */,
 				A1E80009201A213000467EB9 /* ReportEventType.swift */,
 				A1B344412018BC0100481BDF /* InterestValidationError.swift */,
@@ -203,7 +198,6 @@
 				A19ECF851FCF09A500688DAF /* PushNotificationsNetworkableTests.swift */,
 				A1ED00141F9E392700A029F2 /* PushNotificationsTests-Bridging-Header.h */,
 				A1DAD62F2020CEA6001497B5 /* PublishIdTests.swift */,
-				A1DAD6332020D2FE001497B5 /* DateMillisecondsTests.swift */,
 				A1DAD6352020D4D1001497B5 /* SystemVersionTests.swift */,
 				A1A9A54D2020D96E0006244C /* InterestsTests.swift */,
 				A12B36E92020DAA10038E59F /* RegisterIOSTests.swift */,
@@ -328,7 +322,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1E80016201A3DAC00467EB9 /* Date+Milliseconds.swift in Sources */,
 				A140FFD52020BF5200931AF6 /* Track.swift in Sources */,
 				A1E78E312020AEF400DD94B2 /* Register.swift in Sources */,
 				A140FFD72020C5E600931AF6 /* SDK.swift in Sources */,
@@ -377,7 +370,6 @@
 				A1DAD6302020CEA6001497B5 /* PublishIdTests.swift in Sources */,
 				A144AB571F9E3DBF009F0040 /* DeviceTokenHelperTests.swift in Sources */,
 				A1A9A54E2020D96E0006244C /* InterestsTests.swift in Sources */,
-				A1DAD6342020D2FE001497B5 /* DateMillisecondsTests.swift in Sources */,
 				A125B64D2020DD5F002E0809 /* FeatureFlagsTests.swift in Sources */,
 				A125B6492020DC46002E0809 /* TrackTests.swift in Sources */,
 			);
