@@ -67,7 +67,7 @@ struct NetworkService: PushNotificationsNetworkable {
 
     func track(userInfo: [AnyHashable: Any], eventType: String, deviceId: String) {
         guard let publishId = PublishId(userInfo: userInfo).id else { return }
-        let timestampSecs = Date().timeIntervalSince1970
+        let timestampSecs = UInt(Date().timeIntervalSince1970)
         guard let body = try? Track(publishId: publishId, timestampSecs: timestampSecs, eventType: eventType, deviceId: deviceId).encode() else { return }
 
         let request = self.setRequest(url: self.url, httpMethod: .POST, body: body)
