@@ -27,6 +27,7 @@
 }
 
 - (void)application:(NSApplication *)application didReceiveRemoteNotification:(NSDictionary<NSString *,id> *)userInfo {
+    [[PushNotifications shared] handleNotificationWithUserInfo:userInfo];
     NSLog(@"%@", userInfo);
 }
 
