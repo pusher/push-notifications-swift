@@ -8,9 +8,7 @@ struct Metadata: Encodable {
 
 extension Metadata: PropertyListReadable {
     func propertyListRepresentation() -> Dictionary<String, Any> {
-        let representation = ["sdkVersion": self.sdkVersion, "iosVersion": self.iosVersion ?? "", "macosVersion": self.macosVersion ?? ""]
-
-        return representation
+        return ["sdkVersion": self.sdkVersion, "iosVersion": self.iosVersion ?? "", "macosVersion": self.macosVersion ?? ""]
     }
 
     init(propertyListRepresentation: Dictionary<String, Any>) {
