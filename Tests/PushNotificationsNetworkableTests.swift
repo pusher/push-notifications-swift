@@ -3,21 +3,21 @@ import XCTest
 
 class PushNotificationsSubscribableTests: XCTestCase {
 
-    var subscriptionService: MockPushNotificationsNetworkable!
+    var networkService: MockPushNotificationsNetworkable!
 
     override func setUp() {
-        self.subscriptionService = MockPushNotificationsNetworkable()
+        self.networkService = MockPushNotificationsNetworkable()
         super.setUp()
     }
 
     override func tearDown() {
-        self.subscriptionService = nil
+        self.networkService = nil
         super.tearDown()
     }
 
     func testRegistration() {
         let exp = expectation(description: "It should successfully register the device")
-        self.subscriptionService.register(deviceToken: Data(), instanceId: "123") { (deviceId) in
+        self.networkService.register(deviceToken: Data(), instanceId: "123") { (deviceId) in
             XCTAssert(deviceId == "apns-876eeb5d-0dc8-4d74-9f59-b65412b2c742")
             XCTAssert(true)
             exp.fulfill()
@@ -32,7 +32,7 @@ class PushNotificationsSubscribableTests: XCTestCase {
 
     func testSubscribe() {
         let exp = expectation(description: "It should successfully subscribe to an interest")
-        self.subscriptionService.subscribe {
+        self.networkService.subscribe {
             XCTAssert(true)
             exp.fulfill()
         }
@@ -46,7 +46,7 @@ class PushNotificationsSubscribableTests: XCTestCase {
 
     func testSetSubscriptions() {
         let exp = expectation(description: "It should successfully subscribe to many interests")
-        self.subscriptionService.setSubscriptions(interests: ["a", "b", "c"]) {
+        self.networkService.setSubscriptions(interests: ["a", "b", "c"]) {
             XCTAssert(true)
             exp.fulfill()
         }
@@ -60,7 +60,7 @@ class PushNotificationsSubscribableTests: XCTestCase {
 
     func testUnsubscribe() {
         let exp = expectation(description: "It should successfully unsubscribe from an interest")
-        self.subscriptionService.unsubscribe {
+        self.networkService.unsubscribe {
             XCTAssert(true)
             exp.fulfill()
         }
@@ -74,7 +74,7 @@ class PushNotificationsSubscribableTests: XCTestCase {
 
     func testUnsubscribeAll() {
         let exp = expectation(description: "It should successfully unsubscribe from all the interests")
-        self.subscriptionService.unsubscribeAll {
+        self.networkService.unsubscribeAll {
             XCTAssert(true)
             exp.fulfill()
         }
@@ -84,5 +84,16 @@ class PushNotificationsSubscribableTests: XCTestCase {
                 XCTFail("waitForExpectations errored: \(error)")
             }
         }
+    }
+
+    func testTrack() {
+        let userInfo = ["aps": ["alert": "hello"]]
+        self.networkService.track(userInfo: userInfo, eventType: ReportEventType.Delivery.rawValue, deviceId: "abc")
+        XCTAssert(true)
+    }
+
+    func testMetadata() {
+        self.networkService.sendMetadata()
+        XCTAssert(true)
     }
 }

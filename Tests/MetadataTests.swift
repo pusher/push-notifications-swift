@@ -47,4 +47,22 @@ class MetadataTests: XCTestCase {
         XCTAssert(metadata.iosVersion == "10.2")
         XCTAssert(metadata.macosVersion == "")
     }
+
+    func testMetadataIsOutdated() {
+        XCTAssertTrue(self.metadata.isOutdated())
+    }
+
+    func testMetadataUpdate() {
+        let updatedMetadata = Metadata.update()
+        XCTAssertNotNil(updatedMetadata)
+        XCTAssertFalse(updatedMetadata.isOutdated())
+
+        let metadata = Metadata(propertyListRepresentation: Metadata.load())
+        XCTAssertNotNil(metadata.sdkVersion)
+        XCTAssertNotNil(metadata.iosVersion)
+        XCTAssertNotNil(metadata.macosVersion)
+        XCTAssert(metadata.sdkVersion == "0.10.2")
+        XCTAssert(metadata.iosVersion == "11.2.0")
+        XCTAssert(metadata.macosVersion == "")
+    }
 }
