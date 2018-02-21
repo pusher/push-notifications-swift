@@ -70,7 +70,5 @@ class MetadataTests: XCTestCase {
         XCTAssertNotNil(metadata.iosVersion)
         XCTAssertNotNil(metadata.macosVersion)
         XCTAssert(metadata.sdkVersion == "0.10.2")
-        XCTAssert(metadata.iosVersion == "11.2.0")
-        XCTAssert(metadata.macosVersion == "")
     }
 }
