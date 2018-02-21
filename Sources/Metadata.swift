@@ -42,9 +42,9 @@ extension Metadata: PropertyListReadable {
         userDefaults?.set(self.propertyListRepresentation(), forKey: "com.pusher.sdk.metadata")
     }
 
-    static func load() -> Dictionary<String, Any> {
+    static func load() -> Dictionary<String, Any>? {
         let userDefaults = UserDefaults(suiteName: "PushNotifications")
-        let metadata = userDefaults?.object(forKey: "com.pusher.sdk.metadata") as! Dictionary<String, String>
+        let metadata = userDefaults?.object(forKey: "com.pusher.sdk.metadata") as? Dictionary<String, String>
 
         return metadata
     }

@@ -39,7 +39,11 @@ class MetadataTests: XCTestCase {
 
     func testSaveAndLoadFromUserDefaults() {
         self.metadata.save()
-        let metadata = Metadata(propertyListRepresentation: Metadata.load())
+        guard let metadataDictionary = Metadata.load() else {
+            XCTFail()
+            return
+        }
+        let metadata = Metadata(propertyListRepresentation: metadataDictionary)
         XCTAssertNotNil(metadata.sdkVersion)
         XCTAssertNotNil(metadata.iosVersion)
         XCTAssertNotNil(metadata.macosVersion)
@@ -57,7 +61,11 @@ class MetadataTests: XCTestCase {
         XCTAssertNotNil(updatedMetadata)
         XCTAssertFalse(updatedMetadata.isOutdated())
 
-        let metadata = Metadata(propertyListRepresentation: Metadata.load())
+        guard let metadataDictionary = Metadata.load() else {
+            XCTFail()
+            return
+        }
+        let metadata = Metadata(propertyListRepresentation: metadataDictionary)
         XCTAssertNotNil(metadata.sdkVersion)
         XCTAssertNotNil(metadata.iosVersion)
         XCTAssertNotNil(metadata.macosVersion)

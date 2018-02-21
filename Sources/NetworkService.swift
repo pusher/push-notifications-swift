@@ -67,7 +67,8 @@ struct NetworkService: PushNotificationsNetworkable {
     }
 
     func sendMetadata() {
-        let metadata = Metadata(propertyListRepresentation: Metadata.load())
+        guard let metadataDictionary = Metadata.load() else { return }
+        let metadata = Metadata(propertyListRepresentation: metadataDictionary)
         if metadata.isOutdated() {
             let updatedMetadataObject = Metadata.update()
             guard let body = try? updatedMetadataObject.encode() else { return }
