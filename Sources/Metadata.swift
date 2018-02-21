@@ -17,7 +17,7 @@ extension Metadata: PropertyListReadable {
         self.macosVersion = propertyListRepresentation["macosVersion"] as? String
     }
 
-    func isOutdated() -> Bool {
+    func hasChanged() -> Bool {
         return self.sdkVersion != SDK.version
     }
 

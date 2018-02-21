@@ -53,13 +53,13 @@ class MetadataTests: XCTestCase {
     }
 
     func testMetadataIsOutdated() {
-        XCTAssertTrue(self.metadata.isOutdated())
+        XCTAssertTrue(self.metadata.hasChanged())
     }
 
     func testMetadataUpdate() {
         let updatedMetadata = Metadata.update()
         XCTAssertNotNil(updatedMetadata)
-        XCTAssertFalse(updatedMetadata.isOutdated())
+        XCTAssertFalse(updatedMetadata.hasChanged())
 
         guard let metadataDictionary = Metadata.load() else {
             XCTFail()
