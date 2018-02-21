@@ -23,7 +23,7 @@ extension Metadata: PropertyListReadable {
         return self.sdkVersion != SDK.version
     }
 
-    @discardableResult func update() -> Metadata {
+    static func update() -> Metadata {
         let sdkVersion = SDK.version
         let systemVersion = SystemVersion.version
 

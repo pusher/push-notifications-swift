@@ -12,15 +12,7 @@ struct NetworkService: PushNotificationsNetworkable {
         let deviceTokenString = deviceToken.hexadecimalRepresentation()
         let bundleIdentifier = Bundle.main.bundleIdentifier ?? ""
 
-        let systemVersion = SystemVersion.version
-        let sdkVersion = SDK.version
-
-        #if os(iOS)
-        let metadata = Metadata(sdkVersion: sdkVersion, iosVersion: systemVersion, macosVersion: nil)
-        #elseif os(OSX)
-        let metadata = Metadata(sdkVersion: sdkVersion, iosVersion: nil, macosVersion: systemVersion)
-        #endif
-        metadata.update()
+        let metadata = Metadata.update()
 
         guard let body = try? Register(token: deviceTokenString, instanceId: instanceId, bundleIdentifier: bundleIdentifier, metadata: metadata).encode() else { return }
         let request = self.setRequest(url: self.url, httpMethod: .POST, body: body)
@@ -77,7 +69,7 @@ struct NetworkService: PushNotificationsNetworkable {
     func sendMetadata() {
         let metadata = Metadata(propertyListRepresentation: Metadata.load())
         if metadata.isOutdated() {
-            let updatedMetadataObject = metadata.update()
+            let updatedMetadataObject = Metadata.update()
             guard let body = try? updatedMetadataObject.encode() else { return }
             let request = self.setRequest(url: self.url, httpMethod: .PUT, body: body)
             self.networkRequest(request, session: self.session) { (response) in }
