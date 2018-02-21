@@ -38,7 +38,7 @@ import Foundation
             print("Unexpected error: \(error).")
         }
 
-        self.sendMetadata()
+        self.syncMetadata()
     }
 
     /**
@@ -262,7 +262,7 @@ import Foundation
         return interests.filter { !self.validateInterestName($0) }
     }
 
-    private func sendMetadata() {
+    private func syncMetadata() {
         guard
             let deviceId = Device.getDeviceId(),
             let instanceId = Instance.getInstanceId(),
@@ -270,7 +270,7 @@ import Foundation
         else { return }
 
         let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: session)
-        networkService.sendMetadata()
+        networkService.syncMetadata()
     }
 
     #if os(iOS)

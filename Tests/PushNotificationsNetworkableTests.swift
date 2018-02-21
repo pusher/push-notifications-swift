@@ -93,7 +93,7 @@ class PushNotificationsSubscribableTests: XCTestCase {
     }
 
     func testMetadata() {
-        self.networkService.sendMetadata()
+        self.networkService.syncMetadata()
         XCTAssert(true)
     }
 }
