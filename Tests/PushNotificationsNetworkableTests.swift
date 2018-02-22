@@ -3,7 +3,7 @@ import XCTest
 
 class PushNotificationsSubscribableTests: XCTestCase {
 
-    var networkService: MockPushNotificationsNetworkable!
+    var networkService: PushNotificationsNetworkable!
 
     override func setUp() {
         self.networkService = MockPushNotificationsNetworkable()

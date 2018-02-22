@@ -1,4 +1,5 @@
 import Foundation
+@testable import PushNotifications
 
 struct MockPushNotificationsNetworkable: PushNotificationsNetworkable {
     func register(deviceToken: Data, instanceId: String, completion: @escaping (String) -> Void) {
