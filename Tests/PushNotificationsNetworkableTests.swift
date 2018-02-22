@@ -1,7 +1,7 @@
 import XCTest
 @testable import PushNotifications
 
-class PushNotificationsSubscribableTests: XCTestCase {
+class PushNotificationsNetworkableTests: XCTestCase {
 
     var networkService: PushNotificationsNetworkable!
 
