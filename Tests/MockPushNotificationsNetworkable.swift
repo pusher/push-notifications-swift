@@ -1,4 +1,5 @@
 import Foundation
+@testable import PushNotifications
 
 struct MockPushNotificationsNetworkable: PushNotificationsNetworkable {
     func register(deviceToken: Data, instanceId: String, completion: @escaping (String) -> Void) {
@@ -21,7 +22,7 @@ struct MockPushNotificationsNetworkable: PushNotificationsNetworkable {
         completion()
     }
 
-    func track(userInfo: [AnyHashable: Any], eventType: String, deviceId: String) {
+    func track(userInfo: [AnyHashable: Any], eventType: String, deviceId: String) {}
 
-    }
+    func syncMetadata() {}
 }

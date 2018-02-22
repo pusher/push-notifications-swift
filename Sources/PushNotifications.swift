@@ -37,6 +37,8 @@ import Foundation
         } catch {
             print("Unexpected error: \(error).")
         }
+
+        self.syncMetadata()
     }
 
     /**
@@ -258,6 +260,17 @@ import Foundation
 
     private func validateInterestNames(_ interests: Array<String>) -> Array<String>? {
         return interests.filter { !self.validateInterestName($0) }
+    }
+
+    private func syncMetadata() {
+        guard
+            let deviceId = Device.getDeviceId(),
+            let instanceId = Instance.getInstanceId(),
+            let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/metadata")
+        else { return }
+
+        let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: session)
+        networkService.syncMetadata()
     }
 
     #if os(iOS)

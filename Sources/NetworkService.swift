@@ -7,19 +7,12 @@ struct NetworkService: PushNotificationsNetworkable {
 
     typealias NetworkCompletionHandler = (_ response: NetworkResponse) -> Void
 
-    // MARK: PushNotificationsRegisterable
+    // MARK: PushNotificationsNetworkable
     func register(deviceToken: Data, instanceId: String, completion: @escaping (String) -> Void) {
         let deviceTokenString = deviceToken.hexadecimalRepresentation()
         let bundleIdentifier = Bundle.main.bundleIdentifier ?? ""
 
-        let systemVersion = SystemVersion.version
-        let sdkVersion = SDK.version
-
-        #if os(iOS)
-        let metadata = Metadata(sdkVersion: sdkVersion, iosVersion: systemVersion, macosVersion: nil)
-        #elseif os(OSX)
-        let metadata = Metadata(sdkVersion: sdkVersion, iosVersion: nil, macosVersion: systemVersion)
-        #endif
+        let metadata = Metadata.update()
 
         guard let body = try? Register(token: deviceTokenString, instanceId: instanceId, bundleIdentifier: bundleIdentifier, metadata: metadata).encode() else { return }
         let request = self.setRequest(url: self.url, httpMethod: .POST, body: body)
@@ -35,7 +28,6 @@ struct NetworkService: PushNotificationsNetworkable {
         }
     }
 
-    // MARK: PushNotificationsSubscribable
     func subscribe(completion: @escaping () -> Void = {}) {
         let request = self.setRequest(url: self.url, httpMethod: .POST)
 
@@ -72,6 +64,17 @@ struct NetworkService: PushNotificationsNetworkable {
 
         let request = self.setRequest(url: self.url, httpMethod: .POST, body: body)
         self.networkRequest(request, session: self.session) { (response) in }
+    }
+
+    func syncMetadata() {
+        guard let metadataDictionary = Metadata.load() else { return }
+        let metadata = Metadata(propertyListRepresentation: metadataDictionary)
+        if metadata.hasChanged() {
+            let updatedMetadataObject = Metadata.update()
+            guard let body = try? updatedMetadataObject.encode() else { return }
+            let request = self.setRequest(url: self.url, httpMethod: .PUT, body: body)
+            self.networkRequest(request, session: self.session) { (response) in }
+        }
     }
 
     // MARK: Networking Layer
