@@ -275,7 +275,7 @@ import Foundation
     }
 
     private func syncInterests() {
-        // Sync saved interests on the app start.
+        // Sync saved interests when app starts.
         guard let interests = self.getInterests() else { return }
         try? self.setSubscriptions(interests: interests)
     }
