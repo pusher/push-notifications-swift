@@ -39,6 +39,7 @@ import Foundation
         }
 
         self.syncMetadata()
+        self.syncInterests()
     }
 
     /**
@@ -143,7 +144,7 @@ import Foundation
      */
     /// - Tag: setSubscriptions
     @objc public func setSubscriptions(interests: Array<String>, completion: @escaping () -> Void = {}) throws {
-        if let invalidInterests = self.validateInterestNames(interests) {
+        if let invalidInterests = self.validateInterestNames(interests), invalidInterests.count > 0 {
             throw MultipleInvalidInterestsError.invalidNames(invalidInterests)
         }
 
@@ -271,6 +272,12 @@ import Foundation
 
         let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: session)
         networkService.syncMetadata()
+    }
+
+    private func syncInterests() {
+        // Sync saved interests on the app start.
+        guard let interests = self.getInterests() else { return }
+        try? self.setSubscriptions(interests: interests)
     }
 
     #if os(iOS)
