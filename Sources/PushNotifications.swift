@@ -234,6 +234,7 @@ import Foundation
 
      - Parameter userInfo: Remote Notification payload.
      */
+    /// - Tag: handleNotification
     @objc public func handleNotification(userInfo: [AnyHashable: Any]) {
         guard FeatureFlags.DeliveryTrackingEnabled else { return }
         #if os(iOS)
