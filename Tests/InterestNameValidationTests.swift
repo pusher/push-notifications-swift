@@ -38,6 +38,11 @@ class InterestNameValidationTests: XCTestCase {
         }
     }
 
+    func testInterestsNameIsValid() {
+        let interests = ["hello"]
+        XCTAssertNoThrow(try PushNotifications.shared.setSubscriptions(interests: interests))
+    }
+
     func testSomeInterestNamesAreInvalid() {
         let interests = ["a", "¢123", "b", "#ssss#dds", "£"]
         XCTAssertThrowsError(try PushNotifications.shared.setSubscriptions(interests: interests)) { error in
