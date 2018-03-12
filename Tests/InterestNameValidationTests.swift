@@ -3,7 +3,7 @@ import XCTest
 
 class InterestNameValidationTests: XCTestCase {
 
-    // Interest names are limited to 164 characters and can only contain ASCII upper/lower-case letters, numbers or one of _=@,.:
+    // Interest names are limited to 164 characters and can only contain ASCII upper/lower-case letters, numbers or one of _-=@,.:
 
     func testInterestNameIsInvalid() {
         XCTAssertThrowsError(try PushNotifications.shared.subscribe(interest: "#∞¶")) { error in
