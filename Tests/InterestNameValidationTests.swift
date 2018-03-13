@@ -44,14 +44,14 @@ class InterestNameValidationTests: XCTestCase {
     }
 
     func testSomeInterestNamesAreInvalid() {
-        let interests = ["a", "¢123", "b", "#ssss#dds", "£"]
+        let interests = ["a", "¢123", "b", "#ssss#dds", "£", "hello|world"]
         XCTAssertThrowsError(try PushNotifications.shared.setSubscriptions(interests: interests)) { error in
             guard case MultipleInvalidInterestsError.invalidNames(let names) = error else {
                 return XCTFail()
             }
 
             XCTAssertNotNil(names)
-            XCTAssertEqual(names, ["¢123", "#ssss#dds", "£"])
+            XCTAssertEqual(names, ["¢123", "#ssss#dds", "£", "hello|world"])
         }
     }
 }
