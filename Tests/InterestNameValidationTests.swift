@@ -3,7 +3,7 @@ import XCTest
 
 class InterestNameValidationTests: XCTestCase {
 
-    // Interest names are limited to 164 characters and can only contain ASCII upper/lower-case letters, numbers or one of _=@,.:
+    // Interest names are limited to 164 characters and can only contain ASCII upper/lower-case letters, numbers or one of _-=@,.:
 
     func testInterestNameIsInvalid() {
         XCTAssertThrowsError(try PushNotifications.shared.subscribe(interest: "#∞¶")) { error in
@@ -39,19 +39,19 @@ class InterestNameValidationTests: XCTestCase {
     }
 
     func testInterestsNameIsValid() {
-        let interests = ["hello"]
-        XCTAssertNoThrow(try PushNotifications.shared.setSubscriptions(interests: interests))
+        XCTAssertNoThrow(try PushNotifications.shared.setSubscriptions(interests: ["hello"]))
+        XCTAssertNoThrow(try PushNotifications.shared.setSubscriptions(interests: ["hello-world", "donuts", "pizza"]))
     }
 
     func testSomeInterestNamesAreInvalid() {
-        let interests = ["a", "¢123", "b", "#ssss#dds", "£"]
+        let interests = ["a", "¢123", "b", "#ssss#dds", "£", "hello|world"]
         XCTAssertThrowsError(try PushNotifications.shared.setSubscriptions(interests: interests)) { error in
             guard case MultipleInvalidInterestsError.invalidNames(let names) = error else {
                 return XCTFail()
             }
 
             XCTAssertNotNil(names)
-            XCTAssertEqual(names, ["¢123", "#ssss#dds", "£"])
+            XCTAssertEqual(names, ["¢123", "#ssss#dds", "£", "hello|world"])
         }
     }
 }

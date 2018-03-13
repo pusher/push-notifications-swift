@@ -255,7 +255,7 @@ import Foundation
     }
 
     private func validateInterestName(_ interest: String) -> Bool {
-        let interestNameRegex = "^[a-zA-Z0-9_=@,.;]{1,164}$"
+        let interestNameRegex = "^[a-zA-Z0-9_\\-=@,.;]{1,164}$"
         let interestNamePredicate = NSPredicate(format:"SELF MATCHES %@", interestNameRegex)
         return interestNamePredicate.evaluate(with: interest)
     }

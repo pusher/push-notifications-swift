@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'PushNotifications'
-  s.version          = '0.10.3'
+  s.version          = '0.10.4'
   s.summary          = 'PushNotifications SDK'
   s.homepage         = 'https://github.com/pusher/push-notifications-swift'
   s.license          = 'MIT'
