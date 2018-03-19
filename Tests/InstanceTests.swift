@@ -13,6 +13,7 @@ class InstanceTests: XCTestCase {
     }
 
     func testInstanceIdWasSaved() {
+        XCTAssertNoThrow(try Instance.persist("abcd"))
         let instanceId = Instance.getInstanceId()
 
         XCTAssertNotNil(instanceId)
