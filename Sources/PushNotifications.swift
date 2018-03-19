@@ -9,7 +9,7 @@ import Foundation
 
 @objc public final class PushNotifications: NSObject {
     private let session = URLSession.shared
-    private let serialQueue = DispatchQueue(label: "com.pusher.push.notifications")
+    private let serialQueue = DispatchQueue(label: "com.pusher.pushnotifications.sdk")
     //! Returns a shared singleton PushNotifications object.
     /// - Tag: shared
     @objc public static let shared = PushNotifications()
