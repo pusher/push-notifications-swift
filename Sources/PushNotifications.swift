@@ -9,6 +9,7 @@ import Foundation
 
 @objc public final class PushNotifications: NSObject {
     private let session = URLSession.shared
+    private let serialQueue = DispatchQueue(label: "com.pusher.pushnotifications.sdk")
     //! Returns a shared singleton PushNotifications object.
     /// - Tag: shared
     @objc public static let shared = PushNotifications()
@@ -94,9 +95,11 @@ import Foundation
 
         let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: session)
 
-        networkService.register(deviceToken: deviceToken, instanceId: instanceId) { (deviceId) in
-            Device.persist(deviceId)
-            completion()
+        serialQueue.async {
+            networkService.register(deviceToken: deviceToken, instanceId: instanceId) { (deviceId) in
+                Device.persist(deviceId)
+                completion()
+            }
         }
     }
 
@@ -125,9 +128,11 @@ import Foundation
         let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: session)
         let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
 
-        if persistenceService.persist(interest: interest) {
-            networkService.subscribe {
-                completion()
+        serialQueue.async {
+            if persistenceService.persist(interest: interest) {
+                networkService.subscribe {
+                    completion()
+                }
             }
         }
     }
@@ -157,9 +162,11 @@ import Foundation
         let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: session)
         let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
 
-        persistenceService.persist(interests: interests)
-        networkService.setSubscriptions(interests: interests) {
-            completion()
+        serialQueue.async {
+            persistenceService.persist(interests: interests)
+            networkService.setSubscriptions(interests: interests) {
+                completion()
+            }
         }
     }
 
@@ -188,9 +195,11 @@ import Foundation
         let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: session)
         let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
 
-        if persistenceService.remove(interest: interest) {
-            networkService.unsubscribe {
-                completion()
+        serialQueue.async {
+            if persistenceService.remove(interest: interest) {
+                networkService.unsubscribe {
+                    completion()
+                }
             }
         }
     }
@@ -211,9 +220,11 @@ import Foundation
         let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: session)
         let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
 
-        persistenceService.removeAll()
-        networkService.unsubscribeAll {
-            completion()
+        serialQueue.async {
+            persistenceService.removeAll()
+            networkService.unsubscribeAll {
+                completion()
+            }
         }
     }
 
@@ -251,7 +262,10 @@ import Foundation
         else { return }
 
         let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: session)
-        networkService.track(userInfo: userInfo, eventType: eventType, deviceId: deviceId)
+        
+        serialQueue.async {
+            networkService.track(userInfo: userInfo, eventType: eventType, deviceId: deviceId)
+        }
     }
 
     private func validateInterestName(_ interest: String) -> Bool {
@@ -272,7 +286,10 @@ import Foundation
         else { return }
 
         let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: session)
-        networkService.syncMetadata()
+
+        serialQueue.async {
+            networkService.syncMetadata()
+        }
     }
 
     private func syncInterests() {
