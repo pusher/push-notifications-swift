@@ -20,11 +20,7 @@ class PushNotificationsNetworkableTests: XCTestCase {
             exp.fulfill()
         }
 
-        waitForExpectations(timeout: 1) { error in
-            if let error = error {
-                XCTFail("waitForExpectations errored: \(error)")
-            }
-        }
+        waitForExpectations(timeout: 1, handler: nil)
     }
 
     func testSubscribe() {
@@ -36,11 +32,7 @@ class PushNotificationsNetworkableTests: XCTestCase {
             exp.fulfill()
         }
 
-        waitForExpectations(timeout: 1) { error in
-            if let error = error {
-                XCTFail("waitForExpectations errored: \(error)")
-            }
-        }
+        waitForExpectations(timeout: 1, handler: nil)
     }
 
     func testSetSubscriptions() {
@@ -68,11 +60,7 @@ class PushNotificationsNetworkableTests: XCTestCase {
             exp.fulfill()
         }
 
-        waitForExpectations(timeout: 1) { error in
-            if let error = error {
-                XCTFail("waitForExpectations errored: \(error)")
-            }
-        }
+        waitForExpectations(timeout: 1, handler: nil)
     }
 
     func testUnsubscribeAll() {
@@ -93,11 +81,7 @@ class PushNotificationsNetworkableTests: XCTestCase {
             exp.fulfill()
         }
 
-        waitForExpectations(timeout: 1) { error in
-            if let error = error {
-                XCTFail("waitForExpectations errored: \(error)")
-            }
-        }
+        waitForExpectations(timeout: 1, handler: nil)
     }
 
     func testMetadata() {
@@ -109,10 +93,6 @@ class PushNotificationsNetworkableTests: XCTestCase {
             exp.fulfill()
         }
 
-        waitForExpectations(timeout: 1) { error in
-            if let error = error {
-                XCTFail("waitForExpectations errored: \(error)")
-            }
-        }
+        waitForExpectations(timeout: 1, handler: nil)
     }
 }
