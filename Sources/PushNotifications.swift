@@ -279,7 +279,7 @@ import Foundation
 
             let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: self.session)
 
-            networkService.track(userInfo: userInfo, eventType: eventType, deviceId: deviceId)
+            networkService.track(userInfo: userInfo, eventType: eventType, deviceId: deviceId, completion: {})
         }
     }
 
@@ -299,11 +299,11 @@ import Foundation
                 let deviceId = Device.getDeviceId(),
                 let instanceId = Instance.getInstanceId(),
                 let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/metadata")
-            else { return }
+                else { return }
 
             let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: self.session)
 
-            networkService.syncMetadata()
+            networkService.syncMetadata(completion: {})
         }
     }
 
