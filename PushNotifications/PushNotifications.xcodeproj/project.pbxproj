@@ -336,13 +336,13 @@
 			files = (
 			);
 			inputPaths = (
-				../Carthage/Build/iOS/OHHTTPStubs.framework,
+				OHHTTPStubs,
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
+			shellScript = "case \"$PLATFORM_NAME\" in\nmacosx) plat=Mac;;\niphone*) plat=iOS;;\nwatch*) plat=watchOS;;\ntv*) plat=tvOS;;\nappletv*) plat=tvOS;;\n*) echo \"error: Unknown PLATFORM_NAME: $PLATFORM_NAME\"; exit 1;;\nesac\nfor (( n = 0; n < SCRIPT_INPUT_FILE_COUNT; n++ )); do\nVAR=SCRIPT_INPUT_FILE_$n\nframework=$(basename \"${!VAR}\")\nexport SCRIPT_INPUT_FILE_$n=../Carthage/Build/$plat/\"$framework\".framework\ndone\n\n/usr/local/bin/carthage copy-frameworks || exit\n\nfor (( n = 0; n < SCRIPT_INPUT_FILE_COUNT; n++ )); do\nVAR=SCRIPT_INPUT_FILE_$n\nsource=${!VAR}.dSYM\ndest=${BUILT_PRODUCTS_DIR}/$(basename \"$source\")\nditto \"$source\" \"$dest\" || exit\ndone";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -593,8 +593,17 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H7FL434D9W;
-				FRAMEWORK_SEARCH_PATHS = (
-					../Carthage/Build/iOS,
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				"FRAMEWORK_SEARCH_PATHS[sdk=iphoneos*]" = (
+					"$(inherited)",
+					../Carthage/Build/iOS/,
+				);
+				"FRAMEWORK_SEARCH_PATHS[sdk=iphonesimulator*]" = (
+					"$(inherited)",
+					../Carthage/Build/iOS/,
+				);
+				"FRAMEWORK_SEARCH_PATHS[sdk=macosx*]" = (
+					../Carthage/Build/Mac/,
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = PushNotificationsTests/Info.plist;
@@ -622,8 +631,17 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H7FL434D9W;
-				FRAMEWORK_SEARCH_PATHS = (
-					../Carthage/Build/iOS,
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				"FRAMEWORK_SEARCH_PATHS[sdk=iphoneos*]" = (
+					"$(inherited)",
+					../Carthage/Build/iOS/,
+				);
+				"FRAMEWORK_SEARCH_PATHS[sdk=iphonesimulator*]" = (
+					"$(inherited)",
+					../Carthage/Build/iOS/,
+				);
+				"FRAMEWORK_SEARCH_PATHS[sdk=macosx*]" = (
+					../Carthage/Build/Mac/,
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = PushNotificationsTests/Info.plist;
