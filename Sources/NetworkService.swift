@@ -53,8 +53,8 @@ struct NetworkService: PushNotificationsNetworkable {
         }
     }
 
-    func unsubscribeAll(completion: @escaping () -> Void) {
-        self.setSubscriptions(interests: [])
+    func unsubscribeAll(completion: @escaping () -> Void = {}) {
+        self.setSubscriptions(interests: [], completion: completion)
     }
 
     func track(userInfo: [AnyHashable: Any], eventType: String, deviceId: String, completion: @escaping () -> Void = {}) {

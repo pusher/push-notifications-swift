@@ -100,10 +100,14 @@ class PushNotificationsNetworkableTests: XCTestCase {
             return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
         }
 
+        let exp = expectation(description: "It should successfully unsubscribe from all the interests")
         let networkService = NetworkService(url: url, session: URLSession.shared)
         networkService.unsubscribeAll {
             XCTAssert(true)
+            exp.fulfill()
         }
+
+        waitForExpectations(timeout: 1)
     }
 
     func testTrack() {
