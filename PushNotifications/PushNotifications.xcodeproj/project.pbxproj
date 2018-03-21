@@ -71,6 +71,7 @@
 		A108811920334D860091E8EB /* Instance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Instance.swift; path = ../../Sources/Instance.swift; sourceTree = "<group>"; };
 		A108811C20334DC20091E8EB /* InstanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InstanceTests.swift; path = ../../Tests/InstanceTests.swift; sourceTree = "<group>"; };
 		A108811D20334DC20091E8EB /* DeviceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceTests.swift; path = ../../Tests/DeviceTests.swift; sourceTree = "<group>"; };
+		A1197BD6206266D200FD7335 /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = ../Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
 		A11E83342021D014009C09EF /* RegisterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegisterTests.swift; path = ../../Tests/RegisterTests.swift; sourceTree = "<group>"; };
 		A125B6482020DC46002E0809 /* TrackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TrackTests.swift; path = ../../Tests/TrackTests.swift; sourceTree = "<group>"; };
 		A125B64A2020DCC3002E0809 /* SDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SDKTests.swift; path = ../../Tests/SDKTests.swift; sourceTree = "<group>"; };
@@ -133,12 +134,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A1197BD5206266D100FD7335 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A1197BD6206266D200FD7335 /* OHHTTPStubs.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A155BFA91F9E38040070A609 = {
 			isa = PBXGroup;
 			children = (
 				A155BFB51F9E38040070A609 /* PushNotifications */,
 				A155BFC01F9E38040070A609 /* PushNotificationsTests */,
 				A155BFB41F9E38040070A609 /* Products */,
+				A1197BD5206266D100FD7335 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -250,6 +260,7 @@
 				A155BFB81F9E38040070A609 /* Sources */,
 				A155BFB91F9E38040070A609 /* Frameworks */,
 				A155BFBA1F9E38040070A609 /* Resources */,
+				A1197BD920626ABC00FD7335 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -317,6 +328,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A1197BD920626ABC00FD7335 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				../Carthage/Build/iOS/OHHTTPStubs.framework,
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A155BFAE1F9E38040070A609 /* Sources */ = {
@@ -566,7 +594,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H7FL434D9W;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)",
+					../Carthage/Build/iOS,
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = PushNotificationsTests/Info.plist;
@@ -575,6 +603,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pusher.PushNotificationsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				REEXPORTED_FRAMEWORK_NAMES = "";
 				SDKROOT = "";
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
 				SWIFT_OBJC_BRIDGING_HEADER = "PushNotificationsTests/PushNotificationsTests-Bridging-Header.h";
@@ -594,7 +623,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H7FL434D9W;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)",
+					../Carthage/Build/iOS,
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = PushNotificationsTests/Info.plist;
@@ -603,6 +632,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pusher.PushNotificationsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				REEXPORTED_FRAMEWORK_NAMES = "";
 				SDKROOT = "";
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
 				SWIFT_OBJC_BRIDGING_HEADER = "PushNotificationsTests/PushNotificationsTests-Bridging-Header.h";
