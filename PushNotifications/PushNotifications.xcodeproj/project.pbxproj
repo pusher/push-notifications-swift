@@ -14,7 +14,6 @@
 		A108811B20334D860091E8EB /* Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108811920334D860091E8EB /* Instance.swift */; };
 		A108811E20334DC20091E8EB /* InstanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108811C20334DC20091E8EB /* InstanceTests.swift */; };
 		A108811F20334DC20091E8EB /* DeviceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108811D20334DC20091E8EB /* DeviceTests.swift */; };
-		A11C4445203ECF1900A76243 /* MockPushNotificationsNetworkable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19ECF871FCF09A500688DAF /* MockPushNotificationsNetworkable.swift */; };
 		A11E83352021D014009C09EF /* RegisterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11E83342021D014009C09EF /* RegisterTests.swift */; };
 		A125B6492020DC46002E0809 /* TrackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A125B6482020DC46002E0809 /* TrackTests.swift */; };
 		A125B64B2020DCC3002E0809 /* SDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A125B64A2020DCC3002E0809 /* SDKTests.swift */; };
@@ -72,6 +71,7 @@
 		A108811920334D860091E8EB /* Instance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Instance.swift; path = ../../Sources/Instance.swift; sourceTree = "<group>"; };
 		A108811C20334DC20091E8EB /* InstanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InstanceTests.swift; path = ../../Tests/InstanceTests.swift; sourceTree = "<group>"; };
 		A108811D20334DC20091E8EB /* DeviceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceTests.swift; path = ../../Tests/DeviceTests.swift; sourceTree = "<group>"; };
+		A1197BD6206266D200FD7335 /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = ../Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
 		A11E83342021D014009C09EF /* RegisterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegisterTests.swift; path = ../../Tests/RegisterTests.swift; sourceTree = "<group>"; };
 		A125B6482020DC46002E0809 /* TrackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TrackTests.swift; path = ../../Tests/TrackTests.swift; sourceTree = "<group>"; };
 		A125B64A2020DCC3002E0809 /* SDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SDKTests.swift; path = ../../Tests/SDKTests.swift; sourceTree = "<group>"; };
@@ -102,7 +102,6 @@
 		A19ECF821FCF099100688DAF /* PersistenceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PersistenceService.swift; path = ../../Sources/PersistenceService.swift; sourceTree = "<group>"; };
 		A19ECF851FCF09A500688DAF /* PushNotificationsNetworkableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PushNotificationsNetworkableTests.swift; path = ../../Tests/PushNotificationsNetworkableTests.swift; sourceTree = "<group>"; };
 		A19ECF861FCF09A500688DAF /* InterestPersistableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterestPersistableTests.swift; path = ../../Tests/InterestPersistableTests.swift; sourceTree = "<group>"; };
-		A19ECF871FCF09A500688DAF /* MockPushNotificationsNetworkable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockPushNotificationsNetworkable.swift; path = ../../Tests/MockPushNotificationsNetworkable.swift; sourceTree = "<group>"; };
 		A1A9A54D2020D96E0006244C /* InterestsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InterestsTests.swift; path = ../../Tests/InterestsTests.swift; sourceTree = "<group>"; };
 		A1B344412018BC0100481BDF /* InterestValidationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterestValidationError.swift; path = ../../Sources/InterestValidationError.swift; sourceTree = "<group>"; };
 		A1B344422018BC0200481BDF /* MultipleInvalidInterestsError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultipleInvalidInterestsError.swift; path = ../../Sources/MultipleInvalidInterestsError.swift; sourceTree = "<group>"; };
@@ -135,12 +134,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A1197BD5206266D100FD7335 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A1197BD6206266D200FD7335 /* OHHTTPStubs.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A155BFA91F9E38040070A609 = {
 			isa = PBXGroup;
 			children = (
 				A155BFB51F9E38040070A609 /* PushNotifications */,
 				A155BFC01F9E38040070A609 /* PushNotificationsTests */,
 				A155BFB41F9E38040070A609 /* Products */,
+				A1197BD5206266D100FD7335 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -198,7 +206,6 @@
 				A144AB541F9E3DBF009F0040 /* DeviceTokenHelperTests.swift */,
 				A155BFC31F9E38040070A609 /* Info.plist */,
 				A19ECF861FCF09A500688DAF /* InterestPersistableTests.swift */,
-				A19ECF871FCF09A500688DAF /* MockPushNotificationsNetworkable.swift */,
 				A19ECF851FCF09A500688DAF /* PushNotificationsNetworkableTests.swift */,
 				A1ED00141F9E392700A029F2 /* PushNotificationsTests-Bridging-Header.h */,
 				A1DAD62F2020CEA6001497B5 /* PublishIdTests.swift */,
@@ -253,6 +260,7 @@
 				A155BFB81F9E38040070A609 /* Sources */,
 				A155BFB91F9E38040070A609 /* Frameworks */,
 				A155BFBA1F9E38040070A609 /* Resources */,
+				A1197BD920626ABC00FD7335 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -321,6 +329,23 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		A1197BD920626ABC00FD7335 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				OHHTTPStubs,
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "case \"$PLATFORM_NAME\" in\nmacosx) plat=Mac;;\niphone*) plat=iOS;;\nwatch*) plat=watchOS;;\ntv*) plat=tvOS;;\nappletv*) plat=tvOS;;\n*) echo \"error: Unknown PLATFORM_NAME: $PLATFORM_NAME\"; exit 1;;\nesac\nfor (( n = 0; n < SCRIPT_INPUT_FILE_COUNT; n++ )); do\nVAR=SCRIPT_INPUT_FILE_$n\nframework=$(basename \"${!VAR}\")\nexport SCRIPT_INPUT_FILE_$n=../Carthage/Build/$plat/\"$framework\".framework\ndone\n\n/usr/local/bin/carthage copy-frameworks || exit\n\nfor (( n = 0; n < SCRIPT_INPUT_FILE_COUNT; n++ )); do\nVAR=SCRIPT_INPUT_FILE_$n\nsource=${!VAR}.dSYM\ndest=${BUILT_PRODUCTS_DIR}/$(basename \"$source\")\nditto \"$source\" \"$dest\" || exit\ndone";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		A155BFAE1F9E38040070A609 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -360,7 +385,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1DAD6322020CED7001497B5 /* InterestNameValidationTests.swift in Sources */,
-				A11C4445203ECF1900A76243 /* MockPushNotificationsNetworkable.swift in Sources */,
 				A11E83352021D014009C09EF /* RegisterTests.swift in Sources */,
 				A12B36EC2020DBA40038E59F /* ReasonTests.swift in Sources */,
 				A1DAD6362020D4D1001497B5 /* SystemVersionTests.swift in Sources */,
@@ -569,8 +593,17 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H7FL434D9W;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)",
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				"FRAMEWORK_SEARCH_PATHS[sdk=iphoneos*]" = (
+					"$(inherited)",
+					../Carthage/Build/iOS/,
+				);
+				"FRAMEWORK_SEARCH_PATHS[sdk=iphonesimulator*]" = (
+					"$(inherited)",
+					../Carthage/Build/iOS/,
+				);
+				"FRAMEWORK_SEARCH_PATHS[sdk=macosx*]" = (
+					../Carthage/Build/Mac/,
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = PushNotificationsTests/Info.plist;
@@ -579,6 +612,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pusher.PushNotificationsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				REEXPORTED_FRAMEWORK_NAMES = "";
 				SDKROOT = "";
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
 				SWIFT_OBJC_BRIDGING_HEADER = "PushNotificationsTests/PushNotificationsTests-Bridging-Header.h";
@@ -597,8 +631,17 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H7FL434D9W;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)",
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				"FRAMEWORK_SEARCH_PATHS[sdk=iphoneos*]" = (
+					"$(inherited)",
+					../Carthage/Build/iOS/,
+				);
+				"FRAMEWORK_SEARCH_PATHS[sdk=iphonesimulator*]" = (
+					"$(inherited)",
+					../Carthage/Build/iOS/,
+				);
+				"FRAMEWORK_SEARCH_PATHS[sdk=macosx*]" = (
+					../Carthage/Build/Mac/,
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = PushNotificationsTests/Info.plist;
@@ -607,6 +650,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pusher.PushNotificationsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				REEXPORTED_FRAMEWORK_NAMES = "";
 				SDKROOT = "";
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
 				SWIFT_OBJC_BRIDGING_HEADER = "PushNotificationsTests/PushNotificationsTests-Bridging-Header.h";

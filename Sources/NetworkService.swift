@@ -54,26 +54,30 @@ struct NetworkService: PushNotificationsNetworkable {
     }
 
     func unsubscribeAll(completion: @escaping () -> Void = {}) {
-        self.setSubscriptions(interests: [])
+        self.setSubscriptions(interests: [], completion: completion)
     }
 
-    func track(userInfo: [AnyHashable: Any], eventType: String, deviceId: String) {
+    func track(userInfo: [AnyHashable: Any], eventType: String, deviceId: String, completion: @escaping () -> Void = {}) {
         guard let publishId = PublishId(userInfo: userInfo).id else { return }
         let timestampSecs = UInt(Date().timeIntervalSince1970)
         guard let body = try? Track(publishId: publishId, timestampSecs: timestampSecs, eventType: eventType, deviceId: deviceId).encode() else { return }
 
         let request = self.setRequest(url: self.url, httpMethod: .POST, body: body)
-        self.networkRequest(request, session: self.session) { (response) in }
+        self.networkRequest(request, session: self.session) { (response) in
+            completion()
+        }
     }
 
-    func syncMetadata() {
+    func syncMetadata(completion: @escaping () -> Void = {}) {
         guard let metadataDictionary = Metadata.load() else { return }
         let metadata = Metadata(propertyListRepresentation: metadataDictionary)
         if metadata.hasChanged() {
             let updatedMetadataObject = Metadata.update()
             guard let body = try? updatedMetadataObject.encode() else { return }
             let request = self.setRequest(url: self.url, httpMethod: .PUT, body: body)
-            self.networkRequest(request, session: self.session) { (response) in }
+            self.networkRequest(request, session: self.session) { (response) in
+                completion()
+            }
         }
     }
 
