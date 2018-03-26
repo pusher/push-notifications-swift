@@ -106,8 +106,8 @@ import Foundation
         }
 
         let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: session)
-
-        networkService.register(deviceToken: deviceToken, instanceId: instanceId) { [weak self] (deviceId) in
+        networkService.register(deviceToken: deviceToken, instanceId: instanceId) { [weak self] (result, _) in
+            guard let deviceId = result else { return }
             Device.persist(deviceId)
             completion()
 
@@ -144,10 +144,10 @@ import Foundation
                     else { return }
 
                 let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: self.session)
-
-                networkService.subscribe {
+                networkService.subscribe(completion: { (_, httpURLResponse) in
+                    guard let responseCode = httpURLResponse?.statusCode, responseCode == 200 else { return }
                     completion()
-                }
+                })
             }
         }
     }
@@ -178,10 +178,10 @@ import Foundation
             else { return }
 
             let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: self.session)
-
-            networkService.setSubscriptions(interests: interests) {
+            networkService.setSubscriptions(interests: interests, completion: { (_, httpURLResponse) in
+                guard let responseCode = httpURLResponse?.statusCode, responseCode == 200 else { return }
                 completion()
-            }
+            })
         }
     }
 
@@ -211,10 +211,10 @@ import Foundation
                 else { return }
 
                 let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: self.session)
-
-                networkService.unsubscribe {
+                networkService.unsubscribe(completion: { (_, httpURLResponse) in
+                    guard let responseCode = httpURLResponse?.statusCode, responseCode == 200 else { return }
                     completion()
-                }
+                })
             }
         }
     }
@@ -237,10 +237,9 @@ import Foundation
             else { return }
 
             let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: self.session)
-
-            networkService.unsubscribeAll {
+            networkService.unsubscribeAll(completion: { (_, _) in
                 completion()
-            }
+            })
         }
     }
 
@@ -279,8 +278,7 @@ import Foundation
             else { return }
 
             let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: self.session)
-
-            networkService.track(userInfo: userInfo, eventType: eventType, deviceId: deviceId, completion: {})
+            networkService.track(userInfo: userInfo, eventType: eventType, deviceId: deviceId, completion: { (_, _) in })
         }
     }
 
@@ -303,8 +301,8 @@ import Foundation
                 else { return }
 
             let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: self.session)
+            networkService.syncMetadata(completion: { (_, _) in })
 
-            networkService.syncMetadata(completion: {})
         }
     }
 

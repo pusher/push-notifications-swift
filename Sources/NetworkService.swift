@@ -8,7 +8,7 @@ struct NetworkService: PushNotificationsNetworkable {
     typealias NetworkCompletionHandler = (_ response: NetworkResponse) -> Void
 
     // MARK: PushNotificationsNetworkable
-    func register(deviceToken: Data, instanceId: String, completion: @escaping (String) -> Void) {
+    func register(deviceToken: Data, instanceId: String, completion: @escaping CompletionHandler) {
         let deviceTokenString = deviceToken.hexadecimalRepresentation()
         let bundleIdentifier = Bundle.main.bundleIdentifier ?? ""
 
@@ -19,56 +19,79 @@ struct NetworkService: PushNotificationsNetworkable {
 
         self.networkRequest(request, session: self.session) { (response) in
             switch response {
-            case .Success(let data):
+            case .Success(let data, let httpURLResponse):
                 guard let device = try? JSONDecoder().decode(Device.self, from: data) else { return }
-                completion(device.id)
-            case .Failure(let data):
-                print(data)
+                completion(device.id, httpURLResponse)
+            case .Failure(let data, let httpURLResponse):
+                guard let reason = try? JSONDecoder().decode(Reason.self, from: data) else { return }
+
+                print(reason.description)
+                completion(nil, httpURLResponse)
             }
         }
     }
 
-    func subscribe(completion: @escaping () -> Void = {}) {
+    func subscribe(completion: @escaping CompletionHandler) {
         let request = self.setRequest(url: self.url, httpMethod: .POST)
 
         self.networkRequest(request, session: self.session) { (response) in
-            completion()
+            switch response {
+            case .Success(_, let httpURLResponse):
+                completion(nil, httpURLResponse)
+            case .Failure(_, let httpURLResponse):
+                completion(nil, httpURLResponse)
+            }
         }
     }
 
-    func setSubscriptions(interests: Array<String>, completion: @escaping () -> Void = {}) {
+    func setSubscriptions(interests: Array<String>, completion: @escaping CompletionHandler) {
         guard let body = try? Interests(interests: interests).encode() else { return }
         let request = self.setRequest(url: self.url, httpMethod: .PUT, body: body)
 
         self.networkRequest(request, session: self.session) { (response) in
-            completion()
+            switch response {
+            case .Success(_, let httpURLResponse):
+                completion(nil, httpURLResponse)
+            case .Failure(_, let httpURLResponse):
+                completion(nil, httpURLResponse)
+            }
         }
     }
 
-    func unsubscribe(completion: @escaping () -> Void = {}) {
+    func unsubscribe(completion: @escaping CompletionHandler) {
         let request = self.setRequest(url: self.url, httpMethod: .DELETE)
 
         self.networkRequest(request, session: self.session) { (response) in
-            completion()
+            switch response {
+            case .Success(_, let httpURLResponse):
+                completion(nil, httpURLResponse)
+            case .Failure(_, let httpURLResponse):
+                completion(nil, httpURLResponse)
+            }
         }
     }
 
-    func unsubscribeAll(completion: @escaping () -> Void = {}) {
+    func unsubscribeAll(completion: @escaping CompletionHandler) {
         self.setSubscriptions(interests: [], completion: completion)
     }
 
-    func track(userInfo: [AnyHashable: Any], eventType: String, deviceId: String, completion: @escaping () -> Void = {}) {
+    func track(userInfo: [AnyHashable: Any], eventType: String, deviceId: String, completion: @escaping CompletionHandler) {
         guard let publishId = PublishId(userInfo: userInfo).id else { return }
         let timestampSecs = UInt(Date().timeIntervalSince1970)
         guard let body = try? Track(publishId: publishId, timestampSecs: timestampSecs, eventType: eventType, deviceId: deviceId).encode() else { return }
 
         let request = self.setRequest(url: self.url, httpMethod: .POST, body: body)
         self.networkRequest(request, session: self.session) { (response) in
-            completion()
+            switch response {
+            case .Success(_, let httpURLResponse):
+                completion(nil, httpURLResponse)
+            case .Failure(_, let httpURLResponse):
+                completion(nil, httpURLResponse)
+            }
         }
     }
 
-    func syncMetadata(completion: @escaping () -> Void = {}) {
+    func syncMetadata(completion: @escaping CompletionHandler) {
         guard let metadataDictionary = Metadata.load() else { return }
         let metadata = Metadata(propertyListRepresentation: metadataDictionary)
         if metadata.hasChanged() {
@@ -76,7 +99,12 @@ struct NetworkService: PushNotificationsNetworkable {
             guard let body = try? updatedMetadataObject.encode() else { return }
             let request = self.setRequest(url: self.url, httpMethod: .PUT, body: body)
             self.networkRequest(request, session: self.session) { (response) in
-                completion()
+                switch response {
+                case .Success(_, let httpURLResponse):
+                    completion(nil, httpURLResponse)
+                case .Failure(_, let httpURLResponse):
+                    completion(nil, httpURLResponse)
+                }
             }
         }
     }
@@ -84,15 +112,16 @@ struct NetworkService: PushNotificationsNetworkable {
     // MARK: Networking Layer
     private func networkRequest(_ request: URLRequest, session: URLSession, completion: @escaping NetworkCompletionHandler) {
         session.dataTask(with: request, completionHandler: { (data, response, error) in
-            guard let data = data else { return }
             guard
-                let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200, error == nil
-            else {
-                guard let reason = try? JSONDecoder().decode(Reason.self, from: data) else { return }
-                return completion(NetworkResponse.Failure(description: reason.description))
+                let data = data,
+                let httpURLResponse = response as? HTTPURLResponse
+            else { return }
+
+            guard httpURLResponse.statusCode == 200, error == nil else {
+                return completion(NetworkResponse.Failure(data: data, response: httpURLResponse))
             }
 
-            completion(NetworkResponse.Success(data: data))
+            completion(NetworkResponse.Success(data: data, response: httpURLResponse))
 
         }).resume()
     }

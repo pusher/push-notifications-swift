@@ -33,9 +33,35 @@ class PushNotificationsNetworkableTests: XCTestCase {
         let networkService = NetworkService(url: url, session: URLSession.shared)
         let exp = expectation(description: "It should successfully register the device")
         let deviceTokenData = "e4cea6a8b2419499c8c716bec80b705d7a5d8864adb2c69400bab9b7abe43ff1".toData()!
-        networkService.register(deviceToken: deviceTokenData, instanceId: instanceId) { (deviceId) in
+        networkService.register(deviceToken: deviceTokenData, instanceId: instanceId) { (deviceId, httpURLResponse) in
+            guard let statusCode = httpURLResponse?.statusCode else { return }
+            XCTAssertNotNil(deviceId)
+            XCTAssert(statusCode == 200)
             XCTAssert(deviceId == "apns-8792dc3f-45ce-4fd9-ab6d-3bf731f813c6")
-            XCTAssert(true)
+            exp.fulfill()
+        }
+
+        waitForExpectations(timeout: 1)
+    }
+
+    func testRegistrationWithError() {
+        let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")!
+
+        stub(condition: isAbsoluteURLString(url.absoluteString)) { _ in
+            let jsonObject: [String : Any] = [
+                "description": "Something went terribly wrong"
+            ]
+
+            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 500, headers: nil)
+        }
+
+        let networkService = NetworkService(url: url, session: URLSession.shared)
+        let exp = expectation(description: "It should fail to register the device")
+        let deviceTokenData = "e4cea6a8b2419499c8c716bec80b705d7a5d8864adb2c69400bab9b7abe43ff1".toData()!
+        networkService.register(deviceToken: deviceTokenData, instanceId: instanceId) { (deviceId, httpURLResponse) in
+            XCTAssertNil(deviceId)
+            guard let statusCode = httpURLResponse?.statusCode else { return }
+            XCTAssert(statusCode == 500)
             exp.fulfill()
         }
 
@@ -51,8 +77,28 @@ class PushNotificationsNetworkableTests: XCTestCase {
 
         let networkService = NetworkService(url: url, session: URLSession.shared)
         let exp = expectation(description: "It should successfully subscribe to an interest")
-        networkService.subscribe {
-            XCTAssert(true)
+        networkService.subscribe { (_, httpURLResponse) in
+            XCTAssertNotNil(httpURLResponse)
+            guard let statusCode = httpURLResponse?.statusCode else { return }
+            XCTAssert(statusCode == 200)
+            exp.fulfill()
+        }
+
+        waitForExpectations(timeout: 1)
+    }
+
+    func testSubscribeWithError() {
+        let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/interests/\(interest)")!
+
+        stub(condition: isAbsoluteURLString(url.absoluteString)) { _ in
+            return OHHTTPStubsResponse(jsonObject: [], statusCode: 500, headers: nil)
+        }
+
+        let networkService = NetworkService(url: url, session: URLSession.shared)
+        let exp = expectation(description: "It should fail to subscribe to an interest")
+        networkService.subscribe { (_, httpURLResponse) in
+            guard let statusCode = httpURLResponse?.statusCode else { return }
+            XCTAssert(statusCode == 500)
             exp.fulfill()
         }
 
@@ -68,8 +114,27 @@ class PushNotificationsNetworkableTests: XCTestCase {
 
         let networkService = NetworkService(url: url, session: URLSession.shared)
         let exp = expectation(description: "It should successfully subscribe to many interests")
-        networkService.setSubscriptions(interests: ["a", "b", "c"]) {
-            XCTAssert(true)
+        networkService.setSubscriptions(interests: ["a", "b", "c"]) { (_, httpURLResponse) in
+            guard let statusCode = httpURLResponse?.statusCode else { return }
+            XCTAssert(statusCode == 200)
+            exp.fulfill()
+        }
+
+        waitForExpectations(timeout: 1)
+    }
+
+    func testSetSubscriptionsWithError() {
+        let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/interests")!
+
+        stub(condition: isAbsoluteURLString(url.absoluteString)) { _ in
+            return OHHTTPStubsResponse(jsonObject: [], statusCode: 500, headers: nil)
+        }
+
+        let networkService = NetworkService(url: url, session: URLSession.shared)
+        let exp = expectation(description: "It should fail to subscribe to many interests")
+        networkService.setSubscriptions(interests: ["a", "b", "c"]) { (_, httpURLResponse) in
+            guard let statusCode = httpURLResponse?.statusCode else { return }
+            XCTAssert(statusCode == 500)
             exp.fulfill()
         }
 
@@ -85,8 +150,27 @@ class PushNotificationsNetworkableTests: XCTestCase {
 
         let networkService = NetworkService(url: url, session: URLSession.shared)
         let exp = expectation(description: "It should successfully unsubscribe from an interest")
-        networkService.unsubscribe {
-            XCTAssert(true)
+        networkService.unsubscribe { (_, httpURLResponse) in
+            guard let statusCode = httpURLResponse?.statusCode else { return }
+            XCTAssert(statusCode == 200)
+            exp.fulfill()
+        }
+
+        waitForExpectations(timeout: 1)
+    }
+
+    func testUnsubscribeWithError() {
+        let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/interests/\(interest)")!
+
+        stub(condition: isAbsoluteURLString(url.absoluteString)) { _ in
+            return OHHTTPStubsResponse(jsonObject: [], statusCode: 500, headers: nil)
+        }
+
+        let networkService = NetworkService(url: url, session: URLSession.shared)
+        let exp = expectation(description: "It should fail to unsubscribe from an interest")
+        networkService.unsubscribe { (_, httpURLResponse) in
+            guard let statusCode = httpURLResponse?.statusCode else { return }
+            XCTAssert(statusCode == 500)
             exp.fulfill()
         }
 
@@ -102,8 +186,27 @@ class PushNotificationsNetworkableTests: XCTestCase {
 
         let exp = expectation(description: "It should successfully unsubscribe from all the interests")
         let networkService = NetworkService(url: url, session: URLSession.shared)
-        networkService.unsubscribeAll {
-            XCTAssert(true)
+        networkService.unsubscribeAll { (_, httpURLResponse) in
+            guard let statusCode = httpURLResponse?.statusCode else { return }
+            XCTAssert(statusCode == 200)
+            exp.fulfill()
+        }
+
+        waitForExpectations(timeout: 1)
+    }
+
+    func testUnsubscribeAllWithError() {
+        let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/interests")!
+
+        stub(condition: isAbsoluteURLString(url.absoluteString)) { _ in
+            return OHHTTPStubsResponse(jsonObject: [], statusCode: 500, headers: nil)
+        }
+
+        let exp = expectation(description: "It should fail to unsubscribe from all the interests")
+        let networkService = NetworkService(url: url, session: URLSession.shared)
+        networkService.unsubscribeAll { (_, httpURLResponse) in
+            guard let statusCode = httpURLResponse?.statusCode else { return }
+            XCTAssert(statusCode == 500)
             exp.fulfill()
         }
 
@@ -120,8 +223,28 @@ class PushNotificationsNetworkableTests: XCTestCase {
         let networkService = NetworkService(url: url, session: URLSession.shared)
         let userInfo = ["data": ["pusher": ["publishId": "1"]]]
         let exp = expectation(description: "It should successfully track notification")
-        networkService.track(userInfo: userInfo, eventType: ReportEventType.Delivery.rawValue, deviceId: "abc") {
-            XCTAssert(true)
+        networkService.track(userInfo: userInfo, eventType: ReportEventType.Delivery.rawValue, deviceId: "abc") { (_, httpURLResponse) in
+            guard let statusCode = httpURLResponse?.statusCode else { return }
+            XCTAssert(statusCode == 200)
+            exp.fulfill()
+        }
+
+        waitForExpectations(timeout: 1)
+    }
+
+    func testTrackWithError() {
+        let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/reporting_api/v1/instances/\(instanceId)/events")!
+
+        stub(condition: isAbsoluteURLString(url.absoluteString)) { _ in
+            return OHHTTPStubsResponse(jsonObject: [], statusCode: 500, headers: nil)
+        }
+
+        let networkService = NetworkService(url: url, session: URLSession.shared)
+        let userInfo = ["data": ["pusher": ["publishId": "1"]]]
+        let exp = expectation(description: "It should successfully track notification")
+        networkService.track(userInfo: userInfo, eventType: ReportEventType.Delivery.rawValue, deviceId: "abc") { (_, httpURLResponse) in
+            guard let statusCode = httpURLResponse?.statusCode else { return }
+            XCTAssert(statusCode == 500)
             exp.fulfill()
         }
 
@@ -137,8 +260,30 @@ class PushNotificationsNetworkableTests: XCTestCase {
 
         let networkService = NetworkService(url: url, session: URLSession.shared)
         let exp = expectation(description: "It should successfully sync outdated metadata")
-        networkService.syncMetadata {
-            XCTAssert(true)
+        networkService.syncMetadata { (_, httpURLResponse) in
+            guard let statusCode = httpURLResponse?.statusCode else { return }
+            XCTAssert(statusCode == 200)
+            exp.fulfill()
+        }
+
+        waitForExpectations(timeout: 1)
+    }
+
+    func testMetadataWithError() {
+        let metadata = Metadata(sdkVersion: "0.0.1", iosVersion: "9.0", macosVersion: nil)
+        metadata.save()
+        
+        let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/metadata")!
+
+        stub(condition: isAbsoluteURLString(url.absoluteString)) { _ in
+            return OHHTTPStubsResponse(jsonObject: [], statusCode: 500, headers: nil)
+        }
+
+        let networkService = NetworkService(url: url, session: URLSession.shared)
+        let exp = expectation(description: "It should fail to sync outdated metadata")
+        networkService.syncMetadata { (_, httpURLResponse) in
+            guard let statusCode = httpURLResponse?.statusCode else { return }
+            XCTAssert(statusCode == 500)
             exp.fulfill()
         }
 
