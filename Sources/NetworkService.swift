@@ -19,10 +19,10 @@ struct NetworkService: PushNotificationsNetworkable {
 
         self.networkRequest(request, session: self.session) { (response) in
             switch response {
-            case .Success(let data, _):
+            case .Success(let data):
                 guard let device = try? JSONDecoder().decode(Device.self, from: data) else { return }
                 completion(device.id, true)
-            case .Failure(let data, _):
+            case .Failure(let data):
                 guard let reason = try? JSONDecoder().decode(Reason.self, from: data) else { return }
 
                 print(reason.description)
@@ -36,9 +36,9 @@ struct NetworkService: PushNotificationsNetworkable {
 
         self.networkRequest(request, session: self.session) { (response) in
             switch response {
-            case .Success(_, _):
+            case .Success(_):
                 completion(nil, true)
-            case .Failure(_, _):
+            case .Failure(_):
                 completion(nil, false)
             }
         }
@@ -50,9 +50,9 @@ struct NetworkService: PushNotificationsNetworkable {
 
         self.networkRequest(request, session: self.session) { (response) in
             switch response {
-            case .Success(_, _):
+            case .Success(_):
                 completion(nil, true)
-            case .Failure(_, _):
+            case .Failure(_):
                 completion(nil, false)
             }
         }
@@ -63,9 +63,9 @@ struct NetworkService: PushNotificationsNetworkable {
 
         self.networkRequest(request, session: self.session) { (response) in
             switch response {
-            case .Success(_, _):
+            case .Success(_):
                 completion(nil, true)
-            case .Failure(_, _):
+            case .Failure(_):
                 completion(nil, false)
             }
         }
@@ -83,9 +83,9 @@ struct NetworkService: PushNotificationsNetworkable {
         let request = self.setRequest(url: self.url, httpMethod: .POST, body: body)
         self.networkRequest(request, session: self.session) { (response) in
             switch response {
-            case .Success(_, _):
+            case .Success(_):
                 completion(nil, true)
-            case .Failure(_, _):
+            case .Failure(_):
                 completion(nil, false)
             }
         }
@@ -100,9 +100,9 @@ struct NetworkService: PushNotificationsNetworkable {
             let request = self.setRequest(url: self.url, httpMethod: .PUT, body: body)
             self.networkRequest(request, session: self.session) { (response) in
                 switch response {
-                case .Success(_, _):
+                case .Success(_):
                     completion(nil, true)
-                case .Failure(_, _):
+                case .Failure(_):
                     completion(nil, false)
                 }
             }
@@ -119,10 +119,10 @@ struct NetworkService: PushNotificationsNetworkable {
 
             let statusCode = httpURLResponse.statusCode
             guard statusCode >= 200 && statusCode < 300, error == nil else {
-                return completion(NetworkResponse.Failure(data: data, response: httpURLResponse))
+                return completion(NetworkResponse.Failure(data: data))
             }
 
-            completion(NetworkResponse.Success(data: data, response: httpURLResponse))
+            completion(NetworkResponse.Success(data: data))
 
         }).resume()
     }
