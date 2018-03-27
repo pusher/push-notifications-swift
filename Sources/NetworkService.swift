@@ -117,7 +117,8 @@ struct NetworkService: PushNotificationsNetworkable {
                 let httpURLResponse = response as? HTTPURLResponse
             else { return }
 
-            guard httpURLResponse.statusCode == 200, error == nil else {
+            let statusCode = httpURLResponse.statusCode
+            guard statusCode >= 200 && statusCode < 300, error == nil else {
                 return completion(NetworkResponse.Failure(data: data, response: httpURLResponse))
             }
 
