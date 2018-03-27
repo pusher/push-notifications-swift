@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased](https://github.com/pusher/push-notifications-swift/compare/0.10.5...HEAD)
 
+### Added
+
+- `X-Pusher-Library` HTTP header field.
+
 ## [0.10.5](https://github.com/pusher/push-notifications-swift/compare/0.10.4...0.10.5) - 2018-03-20
 
 ### Added

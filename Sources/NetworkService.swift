@@ -130,6 +130,7 @@ struct NetworkService: PushNotificationsNetworkable {
     private func setRequest(url: URL, httpMethod: HTTPMethod, body: Data? = nil) -> URLRequest {
         var request = URLRequest(url: url)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("push-notifications-swift \(SDK.version)", forHTTPHeaderField: "X-Pusher-Library")
         request.httpMethod = httpMethod.rawValue
         request.httpBody = body
 
