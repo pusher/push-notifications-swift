@@ -144,8 +144,7 @@ import Foundation
                     else { return }
 
                 let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: self.session)
-                networkService.subscribe(completion: { (_, httpURLResponse) in
-                    guard let responseCode = httpURLResponse?.statusCode, responseCode == 200 else { return }
+                networkService.subscribe(completion: { (_, _) in
                     completion()
                 })
             }
@@ -178,8 +177,7 @@ import Foundation
             else { return }
 
             let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: self.session)
-            networkService.setSubscriptions(interests: interests, completion: { (_, httpURLResponse) in
-                guard let responseCode = httpURLResponse?.statusCode, responseCode == 200 else { return }
+            networkService.setSubscriptions(interests: interests, completion: { (_, _) in
                 completion()
             })
         }
@@ -211,8 +209,7 @@ import Foundation
                 else { return }
 
                 let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: self.session)
-                networkService.unsubscribe(completion: { (_, httpURLResponse) in
-                    guard let responseCode = httpURLResponse?.statusCode, responseCode == 200 else { return }
+                networkService.unsubscribe(completion: { (_, _) in
                     completion()
                 })
             }

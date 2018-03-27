@@ -33,10 +33,9 @@ class PushNotificationsNetworkableTests: XCTestCase {
         let networkService = NetworkService(url: url, session: URLSession.shared)
         let exp = expectation(description: "It should successfully register the device")
         let deviceTokenData = "e4cea6a8b2419499c8c716bec80b705d7a5d8864adb2c69400bab9b7abe43ff1".toData()!
-        networkService.register(deviceToken: deviceTokenData, instanceId: instanceId) { (deviceId, httpURLResponse) in
-            guard let statusCode = httpURLResponse?.statusCode else { return }
+        networkService.register(deviceToken: deviceTokenData, instanceId: instanceId) { (deviceId, wasSuccessful) in
             XCTAssertNotNil(deviceId)
-            XCTAssert(statusCode == 200)
+            XCTAssertTrue(wasSuccessful)
             XCTAssert(deviceId == "apns-8792dc3f-45ce-4fd9-ab6d-3bf731f813c6")
             exp.fulfill()
         }
@@ -58,10 +57,9 @@ class PushNotificationsNetworkableTests: XCTestCase {
         let networkService = NetworkService(url: url, session: URLSession.shared)
         let exp = expectation(description: "It should fail to register the device")
         let deviceTokenData = "e4cea6a8b2419499c8c716bec80b705d7a5d8864adb2c69400bab9b7abe43ff1".toData()!
-        networkService.register(deviceToken: deviceTokenData, instanceId: instanceId) { (deviceId, httpURLResponse) in
+        networkService.register(deviceToken: deviceTokenData, instanceId: instanceId) { (deviceId, wasSuccessful) in
             XCTAssertNil(deviceId)
-            guard let statusCode = httpURLResponse?.statusCode else { return }
-            XCTAssert(statusCode == 500)
+            XCTAssertFalse(wasSuccessful)
             exp.fulfill()
         }
 
@@ -77,10 +75,8 @@ class PushNotificationsNetworkableTests: XCTestCase {
 
         let networkService = NetworkService(url: url, session: URLSession.shared)
         let exp = expectation(description: "It should successfully subscribe to an interest")
-        networkService.subscribe { (_, httpURLResponse) in
-            XCTAssertNotNil(httpURLResponse)
-            guard let statusCode = httpURLResponse?.statusCode else { return }
-            XCTAssert(statusCode == 200)
+        networkService.subscribe { (_, wasSuccessful) in
+            XCTAssertTrue(wasSuccessful)
             exp.fulfill()
         }
 
@@ -96,9 +92,8 @@ class PushNotificationsNetworkableTests: XCTestCase {
 
         let networkService = NetworkService(url: url, session: URLSession.shared)
         let exp = expectation(description: "It should fail to subscribe to an interest")
-        networkService.subscribe { (_, httpURLResponse) in
-            guard let statusCode = httpURLResponse?.statusCode else { return }
-            XCTAssert(statusCode == 500)
+        networkService.subscribe { (_, wasSuccessful) in
+            XCTAssertFalse(wasSuccessful)
             exp.fulfill()
         }
 
@@ -114,9 +109,8 @@ class PushNotificationsNetworkableTests: XCTestCase {
 
         let networkService = NetworkService(url: url, session: URLSession.shared)
         let exp = expectation(description: "It should successfully subscribe to many interests")
-        networkService.setSubscriptions(interests: ["a", "b", "c"]) { (_, httpURLResponse) in
-            guard let statusCode = httpURLResponse?.statusCode else { return }
-            XCTAssert(statusCode == 200)
+        networkService.setSubscriptions(interests: ["a", "b", "c"]) { (_, wasSuccessful) in
+            XCTAssertTrue(wasSuccessful)
             exp.fulfill()
         }
 
@@ -132,9 +126,8 @@ class PushNotificationsNetworkableTests: XCTestCase {
 
         let networkService = NetworkService(url: url, session: URLSession.shared)
         let exp = expectation(description: "It should fail to subscribe to many interests")
-        networkService.setSubscriptions(interests: ["a", "b", "c"]) { (_, httpURLResponse) in
-            guard let statusCode = httpURLResponse?.statusCode else { return }
-            XCTAssert(statusCode == 500)
+        networkService.setSubscriptions(interests: ["a", "b", "c"]) { (_, wasSuccessful) in
+            XCTAssertFalse(wasSuccessful)
             exp.fulfill()
         }
 
@@ -150,9 +143,8 @@ class PushNotificationsNetworkableTests: XCTestCase {
 
         let networkService = NetworkService(url: url, session: URLSession.shared)
         let exp = expectation(description: "It should successfully unsubscribe from an interest")
-        networkService.unsubscribe { (_, httpURLResponse) in
-            guard let statusCode = httpURLResponse?.statusCode else { return }
-            XCTAssert(statusCode == 200)
+        networkService.unsubscribe { (_, wasSuccessful) in
+            XCTAssertTrue(wasSuccessful)
             exp.fulfill()
         }
 
@@ -168,9 +160,8 @@ class PushNotificationsNetworkableTests: XCTestCase {
 
         let networkService = NetworkService(url: url, session: URLSession.shared)
         let exp = expectation(description: "It should fail to unsubscribe from an interest")
-        networkService.unsubscribe { (_, httpURLResponse) in
-            guard let statusCode = httpURLResponse?.statusCode else { return }
-            XCTAssert(statusCode == 500)
+        networkService.unsubscribe { (_, wasSuccessful) in
+            XCTAssertFalse(wasSuccessful)
             exp.fulfill()
         }
 
@@ -186,9 +177,8 @@ class PushNotificationsNetworkableTests: XCTestCase {
 
         let exp = expectation(description: "It should successfully unsubscribe from all the interests")
         let networkService = NetworkService(url: url, session: URLSession.shared)
-        networkService.unsubscribeAll { (_, httpURLResponse) in
-            guard let statusCode = httpURLResponse?.statusCode else { return }
-            XCTAssert(statusCode == 200)
+        networkService.unsubscribeAll { (_, wasSuccessful) in
+            XCTAssertTrue(wasSuccessful)
             exp.fulfill()
         }
 
@@ -204,9 +194,8 @@ class PushNotificationsNetworkableTests: XCTestCase {
 
         let exp = expectation(description: "It should fail to unsubscribe from all the interests")
         let networkService = NetworkService(url: url, session: URLSession.shared)
-        networkService.unsubscribeAll { (_, httpURLResponse) in
-            guard let statusCode = httpURLResponse?.statusCode else { return }
-            XCTAssert(statusCode == 500)
+        networkService.unsubscribeAll { (_, wasSuccessful) in
+            XCTAssertFalse(wasSuccessful)
             exp.fulfill()
         }
 
@@ -223,9 +212,8 @@ class PushNotificationsNetworkableTests: XCTestCase {
         let networkService = NetworkService(url: url, session: URLSession.shared)
         let userInfo = ["data": ["pusher": ["publishId": "1"]]]
         let exp = expectation(description: "It should successfully track notification")
-        networkService.track(userInfo: userInfo, eventType: ReportEventType.Delivery.rawValue, deviceId: "abc") { (_, httpURLResponse) in
-            guard let statusCode = httpURLResponse?.statusCode else { return }
-            XCTAssert(statusCode == 200)
+        networkService.track(userInfo: userInfo, eventType: ReportEventType.Delivery.rawValue, deviceId: "abc") { (_, wasSuccessful) in
+            XCTAssertTrue(wasSuccessful)
             exp.fulfill()
         }
 
@@ -242,9 +230,8 @@ class PushNotificationsNetworkableTests: XCTestCase {
         let networkService = NetworkService(url: url, session: URLSession.shared)
         let userInfo = ["data": ["pusher": ["publishId": "1"]]]
         let exp = expectation(description: "It should successfully track notification")
-        networkService.track(userInfo: userInfo, eventType: ReportEventType.Delivery.rawValue, deviceId: "abc") { (_, httpURLResponse) in
-            guard let statusCode = httpURLResponse?.statusCode else { return }
-            XCTAssert(statusCode == 500)
+        networkService.track(userInfo: userInfo, eventType: ReportEventType.Delivery.rawValue, deviceId: "abc") { (_, wasSuccessful) in
+            XCTAssertFalse(wasSuccessful)
             exp.fulfill()
         }
 
@@ -260,9 +247,8 @@ class PushNotificationsNetworkableTests: XCTestCase {
 
         let networkService = NetworkService(url: url, session: URLSession.shared)
         let exp = expectation(description: "It should successfully sync outdated metadata")
-        networkService.syncMetadata { (_, httpURLResponse) in
-            guard let statusCode = httpURLResponse?.statusCode else { return }
-            XCTAssert(statusCode == 200)
+        networkService.syncMetadata { (_, wasSuccessful) in
+            XCTAssertTrue(wasSuccessful)
             exp.fulfill()
         }
 
@@ -281,9 +267,8 @@ class PushNotificationsNetworkableTests: XCTestCase {
 
         let networkService = NetworkService(url: url, session: URLSession.shared)
         let exp = expectation(description: "It should fail to sync outdated metadata")
-        networkService.syncMetadata { (_, httpURLResponse) in
-            guard let statusCode = httpURLResponse?.statusCode else { return }
-            XCTAssert(statusCode == 500)
+        networkService.syncMetadata { (_, wasSuccessful) in
+            XCTAssertFalse(wasSuccessful)
             exp.fulfill()
         }
 

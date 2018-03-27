@@ -1,6 +1,6 @@
 import Foundation
 
-typealias CompletionHandler = (_ result: String?, _ httpURLResponse: HTTPURLResponse?) -> Void
+typealias CompletionHandler = (_ result: String?, _ wasSuccessful: Bool) -> Void
 
 protocol PushNotificationsNetworkable {
     func register(deviceToken: Data, instanceId: String, completion: @escaping CompletionHandler)
