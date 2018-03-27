@@ -8,7 +8,7 @@ struct NetworkService: PushNotificationsNetworkable {
     typealias NetworkCompletionHandler = (_ response: NetworkResponse) -> Void
 
     // MARK: PushNotificationsNetworkable
-    func register(deviceToken: Data, instanceId: String, completion: @escaping (String) -> Void) {
+    func register(deviceToken: Data, instanceId: String, completion: @escaping CompletionHandler) {
         let deviceTokenString = deviceToken.hexadecimalRepresentation()
         let bundleIdentifier = Bundle.main.bundleIdentifier ?? ""
 
@@ -21,54 +21,77 @@ struct NetworkService: PushNotificationsNetworkable {
             switch response {
             case .Success(let data):
                 guard let device = try? JSONDecoder().decode(Device.self, from: data) else { return }
-                completion(device.id)
+                completion(device.id, true)
             case .Failure(let data):
-                print(data)
+                guard let reason = try? JSONDecoder().decode(Reason.self, from: data) else { return }
+
+                print(reason.description)
+                completion(nil, false)
             }
         }
     }
 
-    func subscribe(completion: @escaping () -> Void = {}) {
+    func subscribe(completion: @escaping CompletionHandler) {
         let request = self.setRequest(url: self.url, httpMethod: .POST)
 
         self.networkRequest(request, session: self.session) { (response) in
-            completion()
+            switch response {
+            case .Success(_):
+                completion(nil, true)
+            case .Failure(_):
+                completion(nil, false)
+            }
         }
     }
 
-    func setSubscriptions(interests: Array<String>, completion: @escaping () -> Void = {}) {
+    func setSubscriptions(interests: Array<String>, completion: @escaping CompletionHandler) {
         guard let body = try? Interests(interests: interests).encode() else { return }
         let request = self.setRequest(url: self.url, httpMethod: .PUT, body: body)
 
         self.networkRequest(request, session: self.session) { (response) in
-            completion()
+            switch response {
+            case .Success(_):
+                completion(nil, true)
+            case .Failure(_):
+                completion(nil, false)
+            }
         }
     }
 
-    func unsubscribe(completion: @escaping () -> Void = {}) {
+    func unsubscribe(completion: @escaping CompletionHandler) {
         let request = self.setRequest(url: self.url, httpMethod: .DELETE)
 
         self.networkRequest(request, session: self.session) { (response) in
-            completion()
+            switch response {
+            case .Success(_):
+                completion(nil, true)
+            case .Failure(_):
+                completion(nil, false)
+            }
         }
     }
 
-    func unsubscribeAll(completion: @escaping () -> Void = {}) {
+    func unsubscribeAll(completion: @escaping CompletionHandler) {
         self.setSubscriptions(interests: [], completion: completion)
     }
 
-    func track(userInfo: [AnyHashable: Any], eventType: String, deviceId: String, completion: @escaping () -> Void = {}) {
+    func track(userInfo: [AnyHashable: Any], eventType: String, deviceId: String, completion: @escaping CompletionHandler) {
         guard let publishId = PublishId(userInfo: userInfo).id else { return }
         let timestampSecs = UInt(Date().timeIntervalSince1970)
         guard let body = try? Track(publishId: publishId, timestampSecs: timestampSecs, eventType: eventType, deviceId: deviceId).encode() else { return }
 
         let request = self.setRequest(url: self.url, httpMethod: .POST, body: body)
         self.networkRequest(request, session: self.session) { (response) in
-            completion()
+            switch response {
+            case .Success(_):
+                completion(nil, true)
+            case .Failure(_):
+                completion(nil, false)
+            }
         }
     }
 
-    func syncMetadata(completion: @escaping () -> Void = {}) {
+    func syncMetadata(completion: @escaping CompletionHandler) {
         guard let metadataDictionary = Metadata.load() else { return }
         let metadata = Metadata(propertyListRepresentation: metadataDictionary)
         if metadata.hasChanged() {
@@ -76,7 +99,12 @@ struct NetworkService: PushNotificationsNetworkable {
             guard let body = try? updatedMetadataObject.encode() else { return }
             let request = self.setRequest(url: self.url, httpMethod: .PUT, body: body)
             self.networkRequest(request, session: self.session) { (response) in
-                completion()
+                switch response {
+                case .Success(_):
+                    completion(nil, true)
+                case .Failure(_):
+                    completion(nil, false)
+                }
             }
         }
     }
@@ -84,12 +112,14 @@ struct NetworkService: PushNotificationsNetworkable {
     // MARK: Networking Layer
     private func networkRequest(_ request: URLRequest, session: URLSession, completion: @escaping NetworkCompletionHandler) {
         session.dataTask(with: request, completionHandler: { (data, response, error) in
-            guard let data = data else { return }
             guard
-                let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200, error == nil
-            else {
-                guard let reason = try? JSONDecoder().decode(Reason.self, from: data) else { return }
-                return completion(NetworkResponse.Failure(description: reason.description))
+                let data = data,
+                let httpURLResponse = response as? HTTPURLResponse
+            else { return }
+
+            let statusCode = httpURLResponse.statusCode
+            guard statusCode >= 200 && statusCode < 300, error == nil else {
+                return completion(NetworkResponse.Failure(data: data))
             }
 
             completion(NetworkResponse.Success(data: data))
