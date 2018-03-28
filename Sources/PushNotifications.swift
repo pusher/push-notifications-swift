@@ -271,7 +271,7 @@ import Foundation
             guard
                 let deviceId = Device.getDeviceId(),
                 let instanceId = Instance.getInstanceId(),
-                let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/reporting_api/v1/instances/\(instanceId)/events")
+                let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/reporting_api/v2/instances/\(instanceId)/events")
             else { return }
 
             let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: self.session)
