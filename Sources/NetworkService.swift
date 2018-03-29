@@ -75,10 +75,8 @@ struct NetworkService: PushNotificationsNetworkable {
         self.setSubscriptions(interests: [], completion: completion)
     }
 
-    func track(userInfo: [AnyHashable: Any], eventType: String, deviceId: String, completion: @escaping CompletionHandler) {
-        guard let publishId = PublishId(userInfo: userInfo).id else { return }
-        let timestampSecs = UInt(Date().timeIntervalSince1970)
-        guard let body = try? Track(publishId: publishId, timestampSecs: timestampSecs, eventType: eventType, deviceId: deviceId).encode() else { return }
+    func track(eventType: ReportEventType, completion: @escaping CompletionHandler) {
+        guard let body = try? eventType.encode() else { return }
 
         let request = self.setRequest(url: self.url, httpMethod: .POST, body: body)
         self.networkRequest(request, session: self.session) { (response) in

@@ -260,22 +260,22 @@ import Foundation
     /// - Tag: handleNotification
     @objc public func handleNotification(userInfo: [AnyHashable: Any]) {
         guard FeatureFlags.DeliveryTrackingEnabled else { return }
+        let applicationState = UIApplication.shared.applicationState
+
         serialQueue.async {
             #if os(iOS)
-                let applicationState = UIApplication.shared.applicationState
-                let eventType = (applicationState == .inactive) ? ReportEventType.Open.rawValue : ReportEventType.Delivery.rawValue
+                guard let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo, applicationState: applicationState) else { return }
             #elseif os(OSX)
                 let eventType = ReportEventType.Delivery.rawValue
             #endif
 
             guard
-                let deviceId = Device.getDeviceId(),
                 let instanceId = Instance.getInstanceId(),
                 let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/reporting_api/v2/instances/\(instanceId)/events")
             else { return }
 
             let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: self.session)
-            networkService.track(userInfo: userInfo, eventType: eventType, deviceId: deviceId, completion: { (_, _) in })
+            networkService.track(eventType: eventType, completion: { (_, _) in })
         }
     }
 
