@@ -1,8 +1,8 @@
-#if os(iOS)
 import XCTest
 @testable import PushNotifications
 
 class EventTypeHandlerTests: XCTestCase {
+    #if os(iOS)
     func testEventTypeActive() {
         let userInfo = ["aps": ["content-available": 1], "data": ["pusher": ["publishId": "pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df"]]]
         let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo, applicationState: .active) as! DeliveryEventType
@@ -69,5 +69,14 @@ class EventTypeHandlerTests: XCTestCase {
 
         XCTAssertTrue(eventType.eventId == "Open")
     }
+    #elseif os(OSX)
+    func testEventTypeOpen() {
+        let userInfo = ["aps": ["alert": ["title": "Hello", "body": "Hello, world!"], "content-available": 1], "data": ["pusher": ["publishId": "pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df"]]]
+        guard let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo) else {
+            return XCTFail()
+        }
+
+        XCTAssertTrue(eventType.eventId == "Open")
+    }
+    #endif
 }
-#endif

@@ -28,7 +28,7 @@ struct EventTypeHandler {
         return eventType
     }
     #elseif os(OSX)
-    static func getNotificationEventType(userInfo: [AnyHashable: Any]) -> ReportEventType? {
+    static func getNotificationEventType(userInfo: [AnyHashable: Any]) -> OpenEventType? {
         let timestampSecs = UInt(Date().timeIntervalSince1970)
         guard
             let publishId = PublishId(userInfo: userInfo).id,
