@@ -45,9 +45,26 @@ struct EventTypeHandler {
         return aps["alert"] != nil
     }
 
+    // Example APNs payload:
+    //
+    //  aps: {
+    //    alert: {
+    //      title: 'Hello',
+    //      body: 'Hello, world!'
+    //    },
+    //    "content-available" : 1
+    //  },
+    //  data: {
+    //    pusher: {
+    //      publishId: 'pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df'
+    //    }
+    //  }
+    //
     static func hasData(_ userInfo: [AnyHashable: Any]) -> Bool {
         guard let data = userInfo["data"] as? Dictionary<String, Any> else { return false }
 
+        // `data` will always contain at least `pusher` object.
+        // Returns `true` if there is any additional information provided.
         return data.count > 1
     }
 }
