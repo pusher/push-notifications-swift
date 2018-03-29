@@ -1,3 +1,4 @@
+#if os(iOS)
 import XCTest
 @testable import PushNotifications
 
@@ -69,3 +70,4 @@ class EventTypeHandlerTests: XCTestCase {
         XCTAssertTrue(eventType.eventId == "Open")
     }
 }
+#endif

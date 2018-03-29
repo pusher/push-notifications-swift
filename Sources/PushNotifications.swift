@@ -260,13 +260,16 @@ import Foundation
     /// - Tag: handleNotification
     @objc public func handleNotification(userInfo: [AnyHashable: Any]) {
         guard FeatureFlags.DeliveryTrackingEnabled else { return }
-        let applicationState = UIApplication.shared.applicationState
+
+        #if os(iOS)
+            let applicationState = UIApplication.shared.applicationState
+        #endif
 
         serialQueue.async {
             #if os(iOS)
                 guard let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo, applicationState: applicationState) else { return }
             #elseif os(OSX)
-                let eventType = ReportEventType.Delivery.rawValue
+                guard let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo) else { return }
             #endif
 
             guard

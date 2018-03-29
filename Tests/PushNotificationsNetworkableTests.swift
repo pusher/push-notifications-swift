@@ -202,6 +202,7 @@ class PushNotificationsNetworkableTests: XCTestCase {
         waitForExpectations(timeout: 1)
     }
 
+    #if os(iOS)
     func testTrack() {
         let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/reporting_api/v1/instances/\(instanceId)/events")!
 
@@ -239,6 +240,7 @@ class PushNotificationsNetworkableTests: XCTestCase {
 
         waitForExpectations(timeout: 1)
     }
+    #endif
 
     func testMetadata() {
         let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/metadata")!
