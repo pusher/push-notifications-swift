@@ -262,7 +262,7 @@ class PushNotificationsNetworkableTests: XCTestCase {
     func testMetadataWithError() {
         let metadata = Metadata(sdkVersion: "0.0.1", iosVersion: "9.0", macosVersion: nil)
         metadata.save()
-        
+
         let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/metadata")!
 
         stub(condition: isAbsoluteURLString(url.absoluteString)) { _ in

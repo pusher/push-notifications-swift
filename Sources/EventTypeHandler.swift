@@ -10,7 +10,7 @@ struct EventTypeHandler {
         let timestampSecs = UInt(Date().timeIntervalSince1970)
         let hasDisplayableContent = EventTypeHandler.hasDisplayableContent(userInfo)
         let hasData = EventTypeHandler.hasData(userInfo)
-        
+
         guard
             let publishId = PublishId(userInfo: userInfo).id,
             let deviceId = Device.getDeviceId()

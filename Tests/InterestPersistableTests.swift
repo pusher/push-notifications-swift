@@ -52,7 +52,7 @@ class InterestPersistableTests: XCTestCase {
         let interests = self.persistenceService.getSubscriptions()
         XCTAssertEqual(interests!, [])
     }
-    
+
     func testPersistInterestAndBatchSaveInterests() {
         let persistenceOperation = self.persistenceService.persist(interest: "interest")
         XCTAssertTrue(persistenceOperation)
@@ -63,7 +63,7 @@ class InterestPersistableTests: XCTestCase {
         XCTAssert(storedInterests?.count == 5)
         XCTAssertTrue(interests.containsSameElements(as: storedInterests!))
     }
-    
+
     func testBatchSaveInterestsAndPersistAnotherInterest() {
         let interests = ["a", "b", "c", "d", "e"]
         self.persistenceService.persist(interests: interests)
