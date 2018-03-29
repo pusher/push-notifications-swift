@@ -23,7 +23,7 @@ class PushNotificationsNetworkableTests: XCTestCase {
         let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")!
 
         stub(condition: isAbsoluteURLString(url.absoluteString)) { _ in
-            let jsonObject: [String : Any] = [
+            let jsonObject: [String: Any] = [
                 "id": self.deviceId
             ]
 
@@ -47,7 +47,7 @@ class PushNotificationsNetworkableTests: XCTestCase {
         let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")!
 
         stub(condition: isAbsoluteURLString(url.absoluteString)) { _ in
-            let jsonObject: [String : Any] = [
+            let jsonObject: [String: Any] = [
                 "description": "Something went terribly wrong"
             ]
 
