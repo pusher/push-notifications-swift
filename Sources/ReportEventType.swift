@@ -8,8 +8,8 @@ struct OpenEventType: ReportEventType {
     let deviceId: String
     let timestampSecs: UInt
 
-    init(eventId: String = "Open", publishId: String, deviceId: String, timestampSecs: UInt) {
-        self.event = eventId
+    init(event: String = "Open", publishId: String, deviceId: String, timestampSecs: UInt) {
+        self.event = event
         self.publishId = publishId
         self.deviceId = deviceId
         self.timestampSecs = timestampSecs
@@ -25,8 +25,8 @@ struct DeliveryEventType: ReportEventType {
     let hasDisplayableContent: Bool
     let hasData: Bool
 
-    init(eventId: String = "Delivery", publishId: String, deviceId: String, timestampSecs: UInt, appInBackground: Bool, hasDisplayableContent: Bool, hasData: Bool) {
-        self.event = eventId
+    init(event: String = "Delivery", publishId: String, deviceId: String, timestampSecs: UInt, appInBackground: Bool, hasDisplayableContent: Bool, hasData: Bool) {
+        self.event = event
         self.publishId = publishId
         self.deviceId = deviceId
         self.timestampSecs = timestampSecs
