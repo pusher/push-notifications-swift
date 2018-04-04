@@ -18,7 +18,6 @@ class MetadataTests: XCTestCase {
         super.tearDown()
     }
 
-
     #if os(iOS)
     func testMetadataModel() {
         XCTAssertNotNil(self.metadata)

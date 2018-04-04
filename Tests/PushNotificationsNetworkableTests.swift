@@ -23,7 +23,7 @@ class PushNotificationsNetworkableTests: XCTestCase {
         let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")!
 
         stub(condition: isAbsoluteURLString(url.absoluteString)) { _ in
-            let jsonObject: [String : Any] = [
+            let jsonObject: [String: Any] = [
                 "id": self.deviceId
             ]
 
@@ -47,7 +47,7 @@ class PushNotificationsNetworkableTests: XCTestCase {
         let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")!
 
         stub(condition: isAbsoluteURLString(url.absoluteString)) { _ in
-            let jsonObject: [String : Any] = [
+            let jsonObject: [String: Any] = [
                 "description": "Something went terribly wrong"
             ]
 
@@ -202,6 +202,7 @@ class PushNotificationsNetworkableTests: XCTestCase {
         waitForExpectations(timeout: 1)
     }
 
+    #if os(iOS)
     func testTrack() {
         let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/reporting_api/v1/instances/\(instanceId)/events")!
 
@@ -211,8 +212,9 @@ class PushNotificationsNetworkableTests: XCTestCase {
 
         let networkService = NetworkService(url: url, session: URLSession.shared)
         let userInfo = ["data": ["pusher": ["publishId": "1"]]]
+        let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo, applicationState: .active)!
         let exp = expectation(description: "It should successfully track notification")
-        networkService.track(userInfo: userInfo, eventType: ReportEventType.Delivery.rawValue, deviceId: "abc") { (_, wasSuccessful) in
+        networkService.track(eventType: eventType) { (_, wasSuccessful) in
             XCTAssertTrue(wasSuccessful)
             exp.fulfill()
         }
@@ -229,14 +231,54 @@ class PushNotificationsNetworkableTests: XCTestCase {
 
         let networkService = NetworkService(url: url, session: URLSession.shared)
         let userInfo = ["data": ["pusher": ["publishId": "1"]]]
+        let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo, applicationState: .active)!
         let exp = expectation(description: "It should successfully track notification")
-        networkService.track(userInfo: userInfo, eventType: ReportEventType.Delivery.rawValue, deviceId: "abc") { (_, wasSuccessful) in
+        networkService.track(eventType: eventType) { (_, wasSuccessful) in
             XCTAssertFalse(wasSuccessful)
             exp.fulfill()
         }
 
         waitForExpectations(timeout: 1)
     }
+    #elseif os(OSX)
+    func testTrack() {
+        let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/reporting_api/v1/instances/\(instanceId)/events")!
+
+        stub(condition: isAbsoluteURLString(url.absoluteString)) { _ in
+            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+        }
+
+        let networkService = NetworkService(url: url, session: URLSession.shared)
+        let userInfo = ["data": ["pusher": ["publishId": "1"]]]
+        let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo)!
+        let exp = expectation(description: "It should successfully track notification")
+        networkService.track(eventType: eventType) { (_, wasSuccessful) in
+            XCTAssertTrue(wasSuccessful)
+            exp.fulfill()
+        }
+
+        waitForExpectations(timeout: 1)
+    }
+
+    func testTrackWithError() {
+        let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/reporting_api/v1/instances/\(instanceId)/events")!
+
+        stub(condition: isAbsoluteURLString(url.absoluteString)) { _ in
+            return OHHTTPStubsResponse(jsonObject: [], statusCode: 500, headers: nil)
+        }
+
+        let networkService = NetworkService(url: url, session: URLSession.shared)
+        let userInfo = ["data": ["pusher": ["publishId": "1"]]]
+        let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo)!
+        let exp = expectation(description: "It should successfully track notification")
+        networkService.track(eventType: eventType) { (_, wasSuccessful) in
+            XCTAssertFalse(wasSuccessful)
+            exp.fulfill()
+        }
+
+        waitForExpectations(timeout: 1)
+    }
+    #endif
 
     func testMetadata() {
         let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/metadata")!
@@ -258,7 +300,7 @@ class PushNotificationsNetworkableTests: XCTestCase {
     func testMetadataWithError() {
         let metadata = Metadata(sdkVersion: "0.0.1", iosVersion: "9.0", macosVersion: nil)
         metadata.save()
-        
+
         let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/metadata")!
 
         stub(condition: isAbsoluteURLString(url.absoluteString)) { _ in

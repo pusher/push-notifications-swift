@@ -5,14 +5,14 @@ import PushNotifications
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     let pushNotifications = PushNotifications.shared
-    
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         self.pushNotifications.start(instanceId: "f918950d-476d-4649-b38e-6cc8d30e0827")
         self.pushNotifications.registerForRemoteNotifications()
-        
+
         return true
     }
-    
+
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         self.pushNotifications.registerDeviceToken(deviceToken) {
             try? self.pushNotifications.subscribe(interest: "hello", completion: {
