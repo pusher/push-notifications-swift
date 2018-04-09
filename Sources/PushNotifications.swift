@@ -258,8 +258,8 @@ import Foundation
      - Parameter userInfo: Remote Notification payload.
      */
     /// - Tag: handleNotification
-    @objc public func handleNotification(userInfo: [AnyHashable: Any]) {
-        guard FeatureFlags.DeliveryTrackingEnabled else { return }
+    @objc public func handleNotification(userInfo: [AnyHashable: Any]) -> RemoteNotificationType {
+        guard FeatureFlags.DeliveryTrackingEnabled else { return .Other }
 
         #if os(iOS)
             let applicationState = UIApplication.shared.applicationState
@@ -280,6 +280,8 @@ import Foundation
             let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: self.session)
             networkService.track(eventType: eventType, completion: { (_, _) in })
         }
+
+        return EventTypeHandler.isInternalNotification(userInfo)
     }
 
     private func validateInterestName(_ interest: String) -> Bool {
