@@ -259,7 +259,7 @@ import Foundation
      */
     /// - Tag: handleNotification
     @objc public func handleNotification(userInfo: [AnyHashable: Any]) -> RemoteNotificationType {
-        guard FeatureFlags.DeliveryTrackingEnabled else { return .Other }
+        guard FeatureFlags.DeliveryTrackingEnabled else { return .ShouldProcess }
 
         #if os(iOS)
             let applicationState = UIApplication.shared.applicationState

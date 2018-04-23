@@ -72,8 +72,8 @@ struct EventTypeHandler {
         guard
             let data = userInfo["data"] as? Dictionary<String, Any>,
             let pusher = data["pusher"] as? Dictionary<String, Any>
-        else { return .Other }
+        else { return .ShouldProcess }
 
-        return pusher["isInternalOnly"] != nil ? .Internal : .Other
+        return pusher["isInternalOnly"] != nil ? .ShouldIgnore : .ShouldProcess
     }
 }

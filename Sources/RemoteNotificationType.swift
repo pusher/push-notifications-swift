@@ -1,6 +1,6 @@
 import Foundation
 
 @objc public enum RemoteNotificationType: Int {
-    case Internal
-    case Other
+    case ShouldIgnore
+    case ShouldProcess
 }

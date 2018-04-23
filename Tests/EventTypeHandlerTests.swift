@@ -84,13 +84,13 @@ class EventTypeHandlerTests: XCTestCase {
         let userInfo = ["aps" : ["alert": ["title": "Hello", "body": "Hello, world!"], "content-available": 1], "data": ["pusher": ["publishId": "pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df", "isInternalOnly": true]]]
 
         let remoteNotificationType = EventTypeHandler.isInternalNotification(userInfo)
-        XCTAssertTrue(remoteNotificationType == .Internal)
+        XCTAssertTrue(remoteNotificationType == .ShouldIgnore)
     }
 
     func testItIsNotInternalNotification() {
         let userInfo = ["aps" : ["alert": ["title": "Hello", "body": "Hello, world!"], "content-available": 1], "data": ["pusher": ["publishId": "pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df"]]]
 
         let remoteNotificationType = EventTypeHandler.isInternalNotification(userInfo)
-        XCTAssertTrue(remoteNotificationType == .Other)
+        XCTAssertTrue(remoteNotificationType == .ShouldProcess)
     }
 }
