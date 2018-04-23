@@ -281,7 +281,7 @@ import Foundation
             networkService.track(eventType: eventType, completion: { (_, _) in })
         }
 
-        return EventTypeHandler.isInternalNotification(userInfo)
+        return EventTypeHandler.getRemoteNotificationType(userInfo)
     }
 
     private func validateInterestName(_ interest: String) -> Bool {

@@ -68,7 +68,7 @@ struct EventTypeHandler {
         return data.count > 1
     }
 
-    static func isInternalNotification(_ userInfo: [AnyHashable: Any]) -> RemoteNotificationType {
+    static func getRemoteNotificationType(_ userInfo: [AnyHashable: Any]) -> RemoteNotificationType {
         guard
             let data = userInfo["data"] as? Dictionary<String, Any>,
             let pusher = data["pusher"] as? Dictionary<String, Any>
