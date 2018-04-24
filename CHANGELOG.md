@@ -5,11 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/pusher/push-notifications-swift/compare/0.10.6...HEAD)
+## [Unreleased](https://github.com/pusher/push-notifications-swift/compare/0.10.7...HEAD)
+
+## [0.10.7](https://github.com/pusher/push-notifications-swift/compare/0.10.5...0.10.6) - 2018-04-24
 
 ### Added
 
 - Applied recommended settings by Xcode 9.3 to the example projects.
+- Ability to ignore Pusher related remote notifications. PR: [#60](https://github.com/pusher/push-notifications-swift/pull/60)
 
 ## [0.10.6](https://github.com/pusher/push-notifications-swift/compare/0.10.5...0.10.6) - 2018-04-04
 
