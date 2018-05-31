@@ -21,7 +21,7 @@ struct NetworkService: PushNotificationsNetworkable {
             switch response {
             case .Success(let data):
                 guard let device = try? JSONDecoder().decode(Device.self, from: data) else { return }
-                completion(device.id, true)
+                completion(device, true)
             case .Failure(let data):
                 guard let reason = try? JSONDecoder().decode(Reason.self, from: data) else { return }
 
