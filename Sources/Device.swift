@@ -11,4 +11,8 @@ struct Device: Decodable {
     static func getDeviceId() -> String? {
         return UserDefaults(suiteName: "PushNotifications")?.string(forKey: "com.pusher.sdk.deviceId")
     }
+
+    static func idAlreadyPresent() -> Bool {
+        return self.getDeviceId() != nil
+    }
 }
