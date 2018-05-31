@@ -163,6 +163,7 @@ import Foundation
                 persistenceService.persist(interest: interest)
                 localStorageQueue.async {
                     persistenceService.persist(interest: interest)
+                    completion()
                 }
             }
         }
@@ -205,6 +206,7 @@ import Foundation
             persistenceService.persist(interests: interests)
             localStorageQueue.async {
                 persistenceService.persist(interests: interests)
+                completion()
             }
         }
     }
@@ -245,6 +247,7 @@ import Foundation
             persistenceService.remove(interest: interest)
             localStorageQueue.async {
                 persistenceService.remove(interest: interest)
+                completion()
             }
         }
     }
@@ -278,6 +281,7 @@ import Foundation
             persistenceService.removeAll()
             localStorageQueue.async {
                 persistenceService.removeAll()
+                completion()
             }
         }
     }
