@@ -33,10 +33,10 @@ class PushNotificationsNetworkableTests: XCTestCase {
         let networkService = NetworkService(url: url, session: URLSession.shared)
         let exp = expectation(description: "It should successfully register the device")
         let deviceTokenData = "e4cea6a8b2419499c8c716bec80b705d7a5d8864adb2c69400bab9b7abe43ff1".toData()!
-        networkService.register(deviceToken: deviceTokenData, instanceId: instanceId) { (deviceId, wasSuccessful) in
-            XCTAssertNotNil(deviceId)
+        networkService.register(deviceToken: deviceTokenData, instanceId: instanceId) { (device, wasSuccessful) in
+            XCTAssertNotNil(device)
             XCTAssertTrue(wasSuccessful)
-            XCTAssert(deviceId == "apns-8792dc3f-45ce-4fd9-ab6d-3bf731f813c6")
+            XCTAssert(device?.id == "apns-8792dc3f-45ce-4fd9-ab6d-3bf731f813c6")
             exp.fulfill()
         }
 
