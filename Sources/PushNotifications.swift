@@ -114,7 +114,7 @@ import Foundation
 
             guard let strongSelf = self else { return }
             if !strongSelf.deviceIdAlreadyPresent {
-                if let initialInterestSet = device.initialInterestSet {
+                if let initialInterestSet = device.initialInterestSet, initialInterestSet.count > 0 {
                     let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
                     persistenceService.persist(interests: initialInterestSet)
                 }
