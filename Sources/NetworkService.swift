@@ -5,8 +5,6 @@ struct NetworkService: PushNotificationsNetworkable {
     let url: URL
     let session: URLSession
 
-    typealias NetworkCompletionHandler = (_ response: NetworkResponse) -> Void
-
     // MARK: PushNotificationsNetworkable
     func register(deviceToken: Data, instanceId: String, completion: @escaping CompletionHandler<Device>) {
         let deviceTokenString = deviceToken.hexadecimalRepresentation()
@@ -108,7 +106,7 @@ struct NetworkService: PushNotificationsNetworkable {
     }
 
     // MARK: Networking Layer
-    private func networkRequest(_ request: URLRequest, session: URLSession, completion: @escaping NetworkCompletionHandler) {
+    private func networkRequest(_ request: URLRequest, session: URLSession, completion: @escaping (_ response: NetworkResponse) -> Void) {
         session.dataTask(with: request, completionHandler: { (data, response, error) in
             guard
                 let data = data,
