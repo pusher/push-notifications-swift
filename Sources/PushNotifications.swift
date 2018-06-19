@@ -159,12 +159,13 @@ import Foundation
                         completion()
                     })
                 }
-        } else {
+            }
+        }
+        else {
+            persistenceService.persist(interest: interest)
+            localStorageQueue.async {
                 persistenceService.persist(interest: interest)
-                localStorageQueue.async {
-                    persistenceService.persist(interest: interest)
-                    completion()
-                }
+                completion()
             }
         }
     }
