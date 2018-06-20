@@ -389,6 +389,7 @@ import Foundation
 }
 
 // The delegate of a push notifications object must adopt the InterestsChangedDelegate protocol.
+// Method of the protocol allow the delegate to be informed when interests set changes.
 @objc public protocol InterestsChangedDelegate: class {
     /**
      Tells the delegate that the interests list has changed.
