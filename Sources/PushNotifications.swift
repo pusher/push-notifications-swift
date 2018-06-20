@@ -394,7 +394,7 @@ import Foundation
     /**
      Tells the delegate that the interests list has changed.
 
-     - Parameter interests: List of interests.
+     - Parameter interests: The new list of interests.
      */
     /// - Tag: interestsSetChanged
     func interestsSetChanged(interests: Array<String>)
