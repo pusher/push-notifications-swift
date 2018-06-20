@@ -395,6 +395,6 @@ import Foundation
 
      - Parameter interests: List of interests.
      */
-    /// - Tag: unsubscribe
+    /// - Tag: interestsSetChanged
     func interestsSetChanged(interests: Array<String>)
 }
