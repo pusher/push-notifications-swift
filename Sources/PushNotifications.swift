@@ -165,8 +165,7 @@ import Foundation
                     })
                 }
             }
-        }
-        else {
+        } else {
             persistenceService.persist(interest: interest)
             localStorageQueue.async {
                 persistenceService.persist(interest: interest)
@@ -214,8 +213,7 @@ import Foundation
                     })
                 }
             }
-        }
-        else {
+        } else {
             persistenceService.persist(interests: interests)
             localStorageQueue.async {
                 persistenceService.persist(interests: interests)
@@ -383,7 +381,7 @@ import Foundation
             }
         }
     }
-    #elseif os(OSX) 
+    #elseif os(OSX)
     private func registerForPushNotifications(options: NSApplication.RemoteNotificationType) {
         NSApplication.shared.registerForRemoteNotifications(matching: options)
     }
