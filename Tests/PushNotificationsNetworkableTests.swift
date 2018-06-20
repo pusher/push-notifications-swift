@@ -177,7 +177,7 @@ class PushNotificationsNetworkableTests: XCTestCase {
 
         let exp = expectation(description: "It should successfully unsubscribe from all the interests")
         let networkService = NetworkService(url: url, session: URLSession.shared)
-        networkService.unsubscribeAll { (_, wasSuccessful) in
+        networkService.setSubscriptions(interests: []) { (_, wasSuccessful) in
             XCTAssertTrue(wasSuccessful)
             exp.fulfill()
         }
@@ -194,7 +194,7 @@ class PushNotificationsNetworkableTests: XCTestCase {
 
         let exp = expectation(description: "It should fail to unsubscribe from all the interests")
         let networkService = NetworkService(url: url, session: URLSession.shared)
-        networkService.unsubscribeAll { (_, wasSuccessful) in
+        networkService.setSubscriptions(interests: []) { (_, wasSuccessful) in
             XCTAssertFalse(wasSuccessful)
             exp.fulfill()
         }

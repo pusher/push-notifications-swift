@@ -69,10 +69,6 @@ struct NetworkService: PushNotificationsNetworkable {
         }
     }
 
-    func unsubscribeAll(completion: @escaping CompletionHandler<String>) {
-        self.setSubscriptions(interests: [], completion: completion)
-    }
-
     func track(eventType: ReportEventType, completion: @escaping CompletionHandler<String>) {
         guard let body = try? eventType.encode() else { return }
 

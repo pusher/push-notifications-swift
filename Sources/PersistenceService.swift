@@ -12,11 +12,20 @@ struct PersistenceService: InterestPersistable {
         return true
     }
 
-    func persist(interests: Array<String>) {
-        self.removeAll()
-        for interest in interests {
-            _ = self.persist(interest: interest)
+    func persist(interests: Array<String>) -> Bool {
+        guard
+            let persistedInterests = self.getSubscriptions(),
+            persistedInterests.sorted().elementsEqual(interests.sorted())
+        else {
+            self.removeAll()
+            for interest in interests {
+                _ = self.persist(interest: interest)
+            }
+
+            return true
         }
+
+        return false
     }
 
     func remove(interest: String) -> Bool {
