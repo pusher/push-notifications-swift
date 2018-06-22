@@ -148,10 +148,10 @@ import Foundation
 
         let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
 
-        let interestPersisted = persistenceService.persist(interest: interest)
+        let interestAdded = persistenceService.persist(interest: interest)
 
         if Device.idAlreadyPresent() {
-            if interestPersisted {
+            if interestAdded {
                 networkQueue.async {
                     guard
                         let deviceId = Device.getDeviceId(),
@@ -173,8 +173,8 @@ import Foundation
             }
         }
 
-        if interestPersisted {
-            self.interestsSetChanged()
+        if interestAdded {
+            self.interestsSetDidChange()
         }
     }
 
@@ -196,10 +196,10 @@ import Foundation
 
         let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
 
-        let interestsPersisted = persistenceService.persist(interests: interests)
+        let interestsChanged = persistenceService.persist(interests: interests)
 
         if Device.idAlreadyPresent() {
-            if interestsPersisted {
+            if interestsChanged {
                 networkQueue.async {
                     guard
                         let deviceId = Device.getDeviceId(),
@@ -221,8 +221,8 @@ import Foundation
             }
         }
 
-        if interestsPersisted {
-            self.interestsSetChanged()
+        if interestsChanged {
+            self.interestsSetDidChange()
         }
     }
 
@@ -270,7 +270,7 @@ import Foundation
         }
 
         if interestRemoved {
-            self.interestsSetChanged()
+            self.interestsSetDidChange()
         }
     }
 
@@ -296,13 +296,13 @@ import Foundation
         return persistenceService.getSubscriptions()
     }
 
-    @objc public func interestsSetChanged() {
+    @objc public func interestsSetDidChange() {
         guard
             let delegate = delegate,
             let interests = self.getInterests()
         else { return }
 
-        return delegate.interestsSetChanged(interests: interests)
+        return delegate.interestsSetDidChange(interests: interests)
     }
 
     /**
@@ -396,6 +396,6 @@ import Foundation
 
      - Parameter interests: The new list of interests.
      */
-    /// - Tag: interestsSetChanged
-    func interestsSetChanged(interests: Array<String>)
+    /// - Tag: interestsSetDidChange
+    func interestsSetDidChange(interests: Array<String>)
 }
