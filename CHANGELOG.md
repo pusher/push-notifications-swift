@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased](https://github.com/pusher/push-notifications-swift/compare/0.10.9...HEAD)
 
+## Added
+
+- `interestsSetDidChange(interests:)` will be called when interests set changes.
+
 ## [0.10.9](https://github.com/pusher/push-notifications-swift/compare/0.10.8...0.10.9) - 2018-06-18
 
 ### Fixed

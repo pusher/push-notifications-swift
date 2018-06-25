@@ -9,7 +9,6 @@ protocol PushNotificationsNetworkable {
     func setSubscriptions(interests: Array<String>, completion: @escaping CompletionHandler<String>)
 
     func unsubscribe(completion: @escaping CompletionHandler<String>)
-    func unsubscribeAll(completion: @escaping CompletionHandler<String>)
 
     func track(eventType: ReportEventType, completion: @escaping CompletionHandler<String>)
 
