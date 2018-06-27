@@ -1,6 +1,6 @@
 import Foundation
 
 protocol PropertyListReadable {
-    func propertyListRepresentation() -> Dictionary<String, Any>
-    init(propertyListRepresentation: Dictionary<String, Any>)
+    func propertyListRepresentation() -> [String: Any]
+    init(propertyListRepresentation: [String: Any])
 }

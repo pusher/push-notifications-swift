@@ -34,23 +34,23 @@ struct NetworkService: PushNotificationsNetworkable {
 
         self.networkRequest(request, session: self.session) { (response) in
             switch response {
-            case .Success(_):
+            case .Success:
                 completion(nil, true)
-            case .Failure(_):
+            case .Failure:
                 completion(nil, false)
             }
         }
     }
 
-    func setSubscriptions(interests: Array<String>, completion: @escaping CompletionHandler<String>) {
+    func setSubscriptions(interests: [String], completion: @escaping CompletionHandler<String>) {
         guard let body = try? Interests(interests: interests).encode() else { return }
         let request = self.setRequest(url: self.url, httpMethod: .PUT, body: body)
 
         self.networkRequest(request, session: self.session) { (response) in
             switch response {
-            case .Success(_):
+            case .Success:
                 completion(nil, true)
-            case .Failure(_):
+            case .Failure:
                 completion(nil, false)
             }
         }
@@ -61,9 +61,9 @@ struct NetworkService: PushNotificationsNetworkable {
 
         self.networkRequest(request, session: self.session) { (response) in
             switch response {
-            case .Success(_):
+            case .Success:
                 completion(nil, true)
-            case .Failure(_):
+            case .Failure:
                 completion(nil, false)
             }
         }
@@ -75,9 +75,9 @@ struct NetworkService: PushNotificationsNetworkable {
         let request = self.setRequest(url: self.url, httpMethod: .POST, body: body)
         self.networkRequest(request, session: self.session) { (response) in
             switch response {
-            case .Success(_):
+            case .Success:
                 completion(nil, true)
-            case .Failure(_):
+            case .Failure:
                 completion(nil, false)
             }
         }
@@ -92,9 +92,9 @@ struct NetworkService: PushNotificationsNetworkable {
             let request = self.setRequest(url: self.url, httpMethod: .PUT, body: body)
             self.networkRequest(request, session: self.session) { (response) in
                 switch response {
-                case .Success(_):
+                case .Success:
                     completion(nil, true)
-                case .Failure(_):
+                case .Failure:
                     completion(nil, false)
                 }
             }

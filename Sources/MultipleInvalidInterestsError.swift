@@ -13,5 +13,5 @@ public enum MultipleInvalidInterestsError: Error {
 
      - Parameter: interests
      */
-    case invalidNames(Array<String>)
+    case invalidNames([String])
 }
