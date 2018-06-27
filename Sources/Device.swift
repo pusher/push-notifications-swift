@@ -2,7 +2,7 @@ import Foundation
 
 struct Device: Decodable {
     var id: String
-    var initialInterestSet: Array<String>?
+    var initialInterestSet: [String]?
 
     static func persist(_ deviceId: String) {
         UserDefaults(suiteName: "PushNotifications")?.set(deviceId, forKey: "com.pusher.sdk.deviceId")

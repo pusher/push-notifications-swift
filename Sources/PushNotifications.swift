@@ -44,7 +44,7 @@ import Foundation
         let wasCalledFromCorrectLocation = Thread.callStackSymbols.contains { stack in
             return stack.contains("didFinishLaunchingWith") || stack.contains("applicationDidFinishLaunching")
         }
-        if (!wasCalledFromCorrectLocation) {
+        if !wasCalledFromCorrectLocation {
             print("Warning: You should call `pushNotifications.start` from the `AppDelegate.didFinishLaunchingWith`")
         }
 
@@ -189,7 +189,7 @@ import Foundation
      - Throws: An error of type `MultipleInvalidInterestsError`
      */
     /// - Tag: setSubscriptions
-    @objc public func setSubscriptions(interests: Array<String>, completion: @escaping () -> Void = {}) throws {
+    @objc public func setSubscriptions(interests: [String], completion: @escaping () -> Void = {}) throws {
         if let invalidInterests = self.validateInterestNames(interests), invalidInterests.count > 0 {
             throw MultipleInvalidInterestsError.invalidNames(invalidInterests)
         }
@@ -290,7 +290,7 @@ import Foundation
      - returns: Array of interests
      */
     /// - Tag: getInterests
-    @objc public func getInterests() -> Array<String>? {
+    @objc public func getInterests() -> [String]? {
         let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
 
         return persistenceService.getSubscriptions()
@@ -340,11 +340,11 @@ import Foundation
 
     private func validateInterestName(_ interest: String) -> Bool {
         let interestNameRegex = "^[a-zA-Z0-9_\\-=@,.;]{1,164}$"
-        let interestNamePredicate = NSPredicate(format:"SELF MATCHES %@", interestNameRegex)
+        let interestNamePredicate = NSPredicate(format: "SELF MATCHES %@", interestNameRegex)
         return interestNamePredicate.evaluate(with: interest)
     }
 
-    private func validateInterestNames(_ interests: Array<String>) -> Array<String>? {
+    private func validateInterestNames(_ interests: [String]) -> [String]? {
         return interests.filter { !self.validateInterestName($0) }
     }
 
@@ -371,7 +371,7 @@ import Foundation
     #if os(iOS)
     private func registerForPushNotifications(options: UNAuthorizationOptions) {
         UNUserNotificationCenter.current().requestAuthorization(options: options) { (granted, error) in
-            if (granted) {
+            if granted {
                 DispatchQueue.main.async {
                     UIApplication.shared.registerForRemoteNotifications()
                 }
@@ -399,5 +399,5 @@ import Foundation
      - Parameter interests: The new list of interests.
      */
     /// - Tag: interestsSetDidChange
-    func interestsSetDidChange(interests: Array<String>)
+    func interestsSetDidChange(interests: [String])
 }
