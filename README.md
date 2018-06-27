@@ -84,6 +84,7 @@ Run `carthage update` to build the framework and drag the built `PushNotificatio
 * [unsubscribeAll(completion:)](https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html#/c:@M@PushNotifications@objc(cs)PushNotifications(im)unsubscribeAllWithCompletion:) - [View in Source](x-source-tag://unsubscribeAll)
 * [getInterests()](https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html#/c:@M@PushNotifications@objc(cs)PushNotifications(im)getInterests) - [View in Source](x-source-tag://getInterests)
 * [handleNotification(userInfo:)](https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html#/c:@M@PushNotifications@objc(cs)PushNotifications(im)handleNotificationWithUserInfo:) - [View in Source](x-source-tag://handleNotification)
+* [interestsSetDidChange(interests:)](https://pusher.github.io/push-notifications-swift/Protocols/InterestsChangedDelegate.html#/c:@M@PushNotifications@objc(pl)InterestsChangedDelegate(im)interestsSetDidChangeWithInterests:) - [View in Source](x-source-tag://interestsSetDidChange)
 
 ## Communication
 
