@@ -2,7 +2,6 @@ included:
   - Sources
 disabled_rules:
   - line_length
-  - force_cast
   - identifier_name
 file_length:
   warning: 450
