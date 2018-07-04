@@ -5,11 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/pusher/push-notifications-swift/compare/0.10.10...HEAD)
+## [Unreleased](https://github.com/pusher/push-notifications-swift/compare/0.10.11...HEAD)
+
+## [0.10.11](https://github.com/pusher/push-notifications-swift/compare/0.10.10...0.10.11) - 2018-07-04
 
 ### Added
 
 - Retry strategy with exponential backoff - if the HTTP request fails, SDK will retry that request.
+- Improved thread safeness.
 
 ## [0.10.10](https://github.com/pusher/push-notifications-swift/compare/0.10.9...0.10.10) - 2018-06-25
 
