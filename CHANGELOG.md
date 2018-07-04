@@ -7,9 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased](https://github.com/pusher/push-notifications-swift/compare/0.10.10...HEAD)
 
+### Added
+
+- Retry strategy with exponential backoff - if the HTTP request fails, SDK will retry that request.
+
 ## [0.10.10](https://github.com/pusher/push-notifications-swift/compare/0.10.9...0.10.10) - 2018-06-25
 
-## Added
+### Added
 
 - `interestsSetDidChange(interests:)` will be called when interests set changes.
 
