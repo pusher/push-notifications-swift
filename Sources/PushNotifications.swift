@@ -8,7 +8,7 @@ import NotificationCenter
 import Foundation
 
 @objc public final class PushNotifications: NSObject {
-    private let session = URLSession.shared
+    private let session = URLSession(configuration: .default)
     private let localStorageQueue = DispatchQueue(label: "com.pusher.pushnotifications.local.storage.queue")
     private let networkService: PushNotificationsNetworkable
 
