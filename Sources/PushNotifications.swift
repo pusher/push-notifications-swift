@@ -9,13 +9,13 @@ import Foundation
 
 @objc public final class PushNotifications: NSObject {
     private let session = URLSession.shared
-    private let networkQueue = DispatchQueue(label: "com.pusher.pushnotifications.sdk.network.queue")
     private let localStorageQueue = DispatchQueue(label: "com.pusher.pushnotifications.local.storage.queue")
+    private let networkService: PushNotificationsNetworkable
 
     // The object that acts as the delegate of push notifications.
     public weak var delegate: InterestsChangedDelegate?
 
-    // Used to suspend/resume the `networkQueue` and `localStorageQueue`.
+    // Used to suspend/resume the `localStorageQueue`.
     private let deviceIdAlreadyPresent: Bool
 
     //! Returns a shared singleton PushNotifications object.
@@ -24,9 +24,9 @@ import Foundation
 
     public override init() {
         self.deviceIdAlreadyPresent = Device.idAlreadyPresent()
+        self.networkService = NetworkService(session: self.session)
 
         if !self.deviceIdAlreadyPresent {
-            networkQueue.suspend()
             localStorageQueue.suspend()
         }
     }
@@ -110,8 +110,7 @@ import Foundation
             return
         }
 
-        let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: session)
-        networkService.register(deviceToken: deviceToken, instanceId: instanceId) { [weak self] (device, _) in
+        networkService.register(url: url, deviceToken: deviceToken, instanceId: instanceId) { [weak self] (device) in
             guard let device = device else { return }
             Device.persist(device.id)
 
@@ -123,7 +122,6 @@ import Foundation
                 }
 
                 strongSelf.localStorageQueue.resume()
-                strongSelf.networkQueue.resume()
             }
 
             completion()
@@ -152,21 +150,18 @@ import Foundation
 
         if Device.idAlreadyPresent() {
             if interestAdded {
-                networkQueue.async {
-                    guard
-                        let deviceId = Device.getDeviceId(),
-                        let instanceId = Instance.getInstanceId(),
-                        let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/interests/\(interest)")
-                        else { return }
+                guard
+                    let deviceId = Device.getDeviceId(),
+                    let instanceId = Instance.getInstanceId(),
+                    let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/interests/\(interest)")
+                    else { return }
 
-                    let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: self.session)
-                    networkService.subscribe(completion: { (_, _) in
-                        completion()
-                    })
-                }
+                let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
+                networkService.subscribe(url: url, completion: { _ in
+                    completion()
+                })
             }
         } else {
-            persistenceService.persist(interest: interest)
             localStorageQueue.async {
                 persistenceService.persist(interest: interest)
                 completion()
@@ -200,21 +195,18 @@ import Foundation
 
         if Device.idAlreadyPresent() {
             if interestsChanged {
-                networkQueue.async {
-                    guard
-                        let deviceId = Device.getDeviceId(),
-                        let instanceId = Instance.getInstanceId(),
-                        let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/interests")
-                        else { return }
+                guard
+                    let deviceId = Device.getDeviceId(),
+                    let instanceId = Instance.getInstanceId(),
+                    let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/interests")
+                    else { return }
 
-                    let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: self.session)
-                    networkService.setSubscriptions(interests: interests, completion: { (_, _) in
-                        completion()
-                    })
-                }
+                let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
+                networkService.setSubscriptions(url: url, interests: interests, completion: { _ in
+                    completion()
+                })
             }
         } else {
-            persistenceService.persist(interests: interests)
             localStorageQueue.async {
                 persistenceService.persist(interests: interests)
                 completion()
@@ -248,21 +240,18 @@ import Foundation
 
         if Device.idAlreadyPresent() {
             if interestRemoved {
-                networkQueue.async {
-                    guard
-                        let deviceId = Device.getDeviceId(),
-                        let instanceId = Instance.getInstanceId(),
-                        let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/interests/\(interest)")
-                    else { return }
+                guard
+                    let deviceId = Device.getDeviceId(),
+                    let instanceId = Instance.getInstanceId(),
+                    let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/interests/\(interest)")
+                else { return }
 
-                    let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: self.session)
-                    networkService.unsubscribe(completion: { (_, _) in
-                        completion()
-                    })
-                }
+                let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
+                networkService.unsubscribe(url: url, completion: { _ in
+                    completion()
+                })
             }
         } else {
-            persistenceService.remove(interest: interest)
             localStorageQueue.async {
                 persistenceService.remove(interest: interest)
                 completion()
@@ -319,21 +308,19 @@ import Foundation
             let applicationState = UIApplication.shared.applicationState
         #endif
 
-        networkQueue.async {
-            #if os(iOS)
-                guard let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo, applicationState: applicationState) else { return }
-            #elseif os(OSX)
-                guard let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo) else { return }
-            #endif
+        #if os(iOS)
+            guard let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo, applicationState: applicationState) else { return .ShouldProcess }
+        #elseif os(OSX)
+            guard let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo) else { return .ShouldProcess }
+        #endif
 
-            guard
-                let instanceId = Instance.getInstanceId(),
-                let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/reporting_api/v2/instances/\(instanceId)/events")
-            else { return }
+        guard
+            let instanceId = Instance.getInstanceId(),
+            let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/reporting_api/v2/instances/\(instanceId)/events")
+        else { return EventTypeHandler.getRemoteNotificationType(userInfo) }
 
-            let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: self.session)
-            networkService.track(eventType: eventType, completion: { (_, _) in })
-        }
+        let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
+        networkService.track(url: url, eventType: eventType, completion: { _ in })
 
         return EventTypeHandler.getRemoteNotificationType(userInfo)
     }
@@ -349,17 +336,14 @@ import Foundation
     }
 
     private func syncMetadata() {
-        networkQueue.async {
-            guard
-                let deviceId = Device.getDeviceId(),
-                let instanceId = Instance.getInstanceId(),
-                let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/metadata")
-                else { return }
+        guard
+            let deviceId = Device.getDeviceId(),
+            let instanceId = Instance.getInstanceId(),
+            let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/metadata")
+            else { return }
 
-            let networkService: PushNotificationsNetworkable = NetworkService(url: url, session: self.session)
-            networkService.syncMetadata(completion: { (_, _) in })
-
-        }
+        let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
+        networkService.syncMetadata(url: url, completion: { _ in })
     }
 
     private func syncInterests() {

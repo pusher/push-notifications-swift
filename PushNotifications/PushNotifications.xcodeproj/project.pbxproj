@@ -22,7 +22,6 @@
 		A140FFD32020BECF00931AF6 /* Interests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A140FFD22020BECF00931AF6 /* Interests.swift */; };
 		A140FFD72020C5E600931AF6 /* SDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = A140FFD62020C5E600931AF6 /* SDK.swift */; };
 		A144AB4C1F9E3DA3009F0040 /* DeviceTokenHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB441F9E3DA2009F0040 /* DeviceTokenHelper.swift */; };
-		A144AB4D1F9E3DA3009F0040 /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB451F9E3DA2009F0040 /* NetworkResponse.swift */; };
 		A144AB4E1F9E3DA3009F0040 /* PushNotificationsNetworkable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB461F9E3DA2009F0040 /* PushNotificationsNetworkable.swift */; };
 		A144AB4F1F9E3DA3009F0040 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB471F9E3DA2009F0040 /* Device.swift */; };
 		A144AB501F9E3DA3009F0040 /* PushNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB481F9E3DA2009F0040 /* PushNotifications.swift */; };
@@ -81,7 +80,6 @@
 		A140FFD22020BECF00931AF6 /* Interests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Interests.swift; path = ../../Sources/Interests.swift; sourceTree = "<group>"; };
 		A140FFD62020C5E600931AF6 /* SDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SDK.swift; path = ../../Sources/SDK.swift; sourceTree = "<group>"; };
 		A144AB441F9E3DA2009F0040 /* DeviceTokenHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceTokenHelper.swift; path = ../../Sources/DeviceTokenHelper.swift; sourceTree = "<group>"; };
-		A144AB451F9E3DA2009F0040 /* NetworkResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkResponse.swift; path = ../../Sources/NetworkResponse.swift; sourceTree = "<group>"; };
 		A144AB461F9E3DA2009F0040 /* PushNotificationsNetworkable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PushNotificationsNetworkable.swift; path = ../../Sources/PushNotificationsNetworkable.swift; sourceTree = "<group>"; };
 		A144AB471F9E3DA2009F0040 /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Device.swift; path = ../../Sources/Device.swift; sourceTree = "<group>"; };
 		A144AB481F9E3DA2009F0040 /* PushNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PushNotifications.swift; path = ../../Sources/PushNotifications.swift; sourceTree = "<group>"; };
@@ -180,7 +178,6 @@
 				A1B344412018BC0100481BDF /* InterestValidationError.swift */,
 				A10552EC2028A934001E45D1 /* Metadata.swift */,
 				A1B344422018BC0200481BDF /* MultipleInvalidInterestsError.swift */,
-				A144AB451F9E3DA2009F0040 /* NetworkResponse.swift */,
 				A144AB4A1F9E3DA3009F0040 /* NetworkService.swift */,
 				A19ECF821FCF099100688DAF /* PersistenceService.swift */,
 				A10552EE2028C017001E45D1 /* PropertyListReadable.swift */,
@@ -369,7 +366,6 @@
 				A144AB511F9E3DA3009F0040 /* HTTPMethod.swift in Sources */,
 				A144AB501F9E3DA3009F0040 /* PushNotifications.swift in Sources */,
 				A1B344432018BC0200481BDF /* InterestValidationError.swift in Sources */,
-				A144AB4D1F9E3DA3009F0040 /* NetworkResponse.swift in Sources */,
 				A1504E17206B9D98002D1E74 /* EventTypeHandler.swift in Sources */,
 				A1B344442018BC0200481BDF /* MultipleInvalidInterestsError.swift in Sources */,
 				A1067109201F69B8001190F8 /* FeatureFlags.swift in Sources */,
