@@ -42,15 +42,15 @@ import Foundation
             return stack.contains("didFinishLaunchingWith") || stack.contains("applicationDidFinishLaunching")
         }
         if !wasCalledFromCorrectLocation {
-            print("Warning: You should call `pushNotifications.start` from the `AppDelegate.didFinishLaunchingWith`")
+            print("[Push Notifications] - Warning: You should call `pushNotifications.start` from the `AppDelegate.didFinishLaunchingWith`")
         }
 
         do {
             try Instance.persist(instanceId)
         } catch PusherAlreadyRegisteredError.instanceId(let errorMessage) {
-            print(errorMessage)
+            print("[Push Notifications] - \(errorMessage)")
         } catch {
-            print("Unexpected error: \(error).")
+            print("[Push Notifications] - Unexpected error: \(error).")
         }
 
         self.syncMetadata()
@@ -103,13 +103,14 @@ import Foundation
             let instanceId = Instance.getInstanceId(),
             let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")
         else {
-            print("Something went wrong. Please check your instance id: \(String(describing: Instance.getInstanceId()))")
+            print("[Push Notifications] - Something went wrong. Please check your instance id: \(String(describing: Instance.getInstanceId()))")
             return
         }
 
         if Device.idAlreadyPresent() {
             // If we have the device id that means that the token has already been registered.
             // Therefore we don't need to call `networkService.register` again.
+            print("[Push Notifications] - Warning: Avoid multiple calls of `registerDeviceToken`")
             return
         }
 
@@ -118,7 +119,9 @@ import Foundation
             guard let strongSelf = self else { return }
 
             strongSelf.persistenceStorageOperationQueue.async {
-                if !Device.idAlreadyPresent() {
+                if Device.idAlreadyPresent() {
+                    print("[Push Notifications] - Warning: Avoid multiple calls of `registerDeviceToken`")
+                } else {
                     Device.persist(device.id)
 
                     if let initialInterestSet = device.initialInterestSet, initialInterestSet.count > 0 {
@@ -375,7 +378,7 @@ import Foundation
                 }
             }
             if let error = error {
-                print(error.localizedDescription)
+                print("[Push Notifications] - \(error.localizedDescription)")
             }
         }
     }
