@@ -41,6 +41,7 @@ class InterestNameValidationTests: XCTestCase {
     func testInterestsNameIsValid() {
         XCTAssertNoThrow(try PushNotifications.shared.setSubscriptions(interests: ["hello"]))
         XCTAssertNoThrow(try PushNotifications.shared.setSubscriptions(interests: ["hello-world", "donuts", "pizza"]))
+        XCTAssertNoThrow(try PushNotifications.shared.setSubscriptions(interests: []))
     }
 
     func testSomeInterestNamesAreInvalid() {

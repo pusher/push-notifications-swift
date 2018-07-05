@@ -31,7 +31,6 @@ class PushNotificationsNetworkableTests: XCTestCase {
         }
 
         waitForExpectations(timeout: 10)
-
     }
 
     func testRegistrationWithInitialInterestsSet() {
