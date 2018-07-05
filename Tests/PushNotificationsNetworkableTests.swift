@@ -63,6 +63,35 @@ class PushNotificationsNetworkableTests: XCTestCase {
 
     }
 
+    func testRegistrationWithIncorrectDeviceToken() {
+        let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")!
+        let exp = expectation(description: "It should fail to register the device")
+        let expRetry = expectation(description: "It should retry to register the device")
+
+        var numberOfAttempts = 0
+        stub(condition: isAbsoluteURLString(url.absoluteString)) { _ in
+            let jsonObject: [String: Any] = [
+                "description": "[PushNotifications]: Please supply your device APNS token"
+            ]
+
+            numberOfAttempts += 1
+            if numberOfAttempts == 1 {
+                exp.fulfill()
+            }
+            if numberOfAttempts == 3 {
+                expRetry.fulfill()
+            }
+
+            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 500, headers: nil)
+        }
+
+        let deviceTokenData = Data()
+        let networkService = NetworkService(session: URLSession(configuration: .ephemeral))
+        networkService.register(url: url, deviceToken: deviceTokenData, instanceId: instanceId) { (deviceId) in }
+
+        waitForExpectations(timeout: 10)
+    }
+
     func testSubscribe() {
         let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/interests/\(interest)")!
 
