@@ -26,6 +26,7 @@ class PushNotificationsNetworkableTests: XCTestCase {
         networkService.register(url: url, deviceToken: deviceTokenData, instanceId: instanceId) { (device) in
             XCTAssertNotNil(device)
             XCTAssert(device?.id == "apns-8792dc3f-45ce-4fd9-ab6d-3bf731f813c6")
+            XCTAssertEqual(device?.initialInterestSet?.count, nil)
             exp.fulfill()
         }
 
