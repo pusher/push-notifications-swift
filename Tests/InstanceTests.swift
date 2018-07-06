@@ -2,6 +2,10 @@ import XCTest
 @testable import PushNotifications
 
 class InstanceTests: XCTestCase {
+    override func setUp() {
+        super.setUp()
+        UserDefaults(suiteName: "PushNotifications")?.removeObject(forKey: "com.pusher.sdk.instanceId")
+    }
     func testInstanceIdWasSaved() {
         XCTAssertNoThrow(try Instance.persist("abcd"))
         let instanceId = Instance.getInstanceId()
