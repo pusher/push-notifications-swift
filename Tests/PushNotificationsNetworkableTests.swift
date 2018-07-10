@@ -26,6 +26,33 @@ class PushNotificationsNetworkableTests: XCTestCase {
         networkService.register(url: url, deviceToken: deviceTokenData, instanceId: instanceId) { (device) in
             XCTAssertNotNil(device)
             XCTAssert(device?.id == "apns-8792dc3f-45ce-4fd9-ab6d-3bf731f813c6")
+            XCTAssertEqual(device?.initialInterestSet?.count, nil)
+            exp.fulfill()
+        }
+
+        waitForExpectations(timeout: 10)
+    }
+
+    func testRegistrationWithInitialInterestsSet() {
+        let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")!
+
+        stub(condition: isAbsoluteURLString(url.absoluteString)) { _ in
+            let jsonObject: [String: Any] = [
+                "id": self.deviceId,
+                "initialInterestSet": ["a", "b", "c", "d"]
+            ]
+
+            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+        }
+
+        let exp = expectation(description: "It should successfully register the device")
+        let deviceTokenData = "e4cea6a8b2419499c8c716bec80b705d7a5d8864adb2c69400bab9b7abe43ff1".toData()!
+        let networkService = NetworkService(session: URLSession(configuration: .ephemeral))
+        networkService.register(url: url, deviceToken: deviceTokenData, instanceId: instanceId) { (device) in
+            XCTAssertNotNil(device)
+            XCTAssert(device?.id == "apns-8792dc3f-45ce-4fd9-ab6d-3bf731f813c6")
+            XCTAssertNotNil(device?.initialInterestSet)
+            XCTAssertEqual(device?.initialInterestSet?.count, 4)
             exp.fulfill()
         }
 
@@ -61,6 +88,35 @@ class PushNotificationsNetworkableTests: XCTestCase {
 
         waitForExpectations(timeout: 10)
 
+    }
+
+    func testRegistrationWithIncorrectDeviceToken() {
+        let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")!
+        let exp = expectation(description: "It should fail to register the device")
+        let expRetry = expectation(description: "It should retry to register the device")
+
+        var numberOfAttempts = 0
+        stub(condition: isAbsoluteURLString(url.absoluteString)) { _ in
+            let jsonObject: [String: Any] = [
+                "description": "[PushNotifications]: Please supply your device APNS token"
+            ]
+
+            numberOfAttempts += 1
+            if numberOfAttempts == 1 {
+                exp.fulfill()
+            }
+            if numberOfAttempts == 3 {
+                expRetry.fulfill()
+            }
+
+            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 500, headers: nil)
+        }
+
+        let deviceTokenData = Data()
+        let networkService = NetworkService(session: URLSession(configuration: .ephemeral))
+        networkService.register(url: url, deviceToken: deviceTokenData, instanceId: instanceId) { (deviceId) in }
+
+        waitForExpectations(timeout: 10)
     }
 
     func testSubscribe() {

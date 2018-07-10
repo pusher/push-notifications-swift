@@ -85,6 +85,14 @@ class InterestPersistableTests: XCTestCase {
         XCTAssertTrue(storedInterests!.containsSameElements(as: interests))
     }
 
+    func testBatchSaveSameInterestsTwice() {
+        let interests = ["a", "b", "c"]
+        let persistenceOperation = self.persistenceService.persist(interests: interests)
+        XCTAssertTrue(persistenceOperation)
+        let persistSameInterestSetAgain = self.persistenceService.persist(interests: interests)
+        XCTAssertFalse(persistSameInterestSetAgain)
+    }
+
     func testPersistInterestWithALongName() {
         let interestWithALongName = "cs3pbizT,UjWwYXfguIm@y=l730QOOJvPfWV@W0_h2_IO8mkEzeS1JXwC@nHJDuZwbrgtsCVXAA3=9CIkQW69,.4d6Cs5Ny_gRALxAj3YlXEk674SGiqWgX:T74M6yQAqWfSGSJT.unKgg3J0ZqiQng__2V8ladmfVNw"
         let persistenceOperation = self.persistenceService.persist(interest: interestWithALongName)
