@@ -364,9 +364,21 @@ import Foundation
     }
 
     private func syncInterests() {
-        // Sync saved interests when app starts.
-        guard let interests = self.getInterests() else { return }
-        try? self.setSubscriptions(interests: interests)
+        // Sync saved interests when app starts, if necessary.
+        guard
+            let interests = self.getInterests(),
+            let interestsHash = interests.calculateMD5Hash(),
+            let deviceId = Device.getDeviceId(),
+            let instanceId = Instance.getInstanceId(),
+            let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/interests")
+            else { return }
+
+        if interestsHash != InterestsHash().serverConfirmedInterestsHash() {
+            let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
+            networkService.setSubscriptions(url: url, interests: interests, completion: { _ in
+                InterestsHash().persist(interestsHash)
+            })
+        }
     }
 
     #if os(iOS)
