@@ -367,14 +367,18 @@ import Foundation
         // Sync saved interests when app starts, if necessary.
         guard
             let interests = self.getInterests(),
-            let interestsHash = interests.calculateMD5Hash(),
             let deviceId = Device.getDeviceId(),
             let instanceId = Instance.getInstanceId(),
             let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/interests")
             else { return }
 
+        let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
+        guard let interestsHash = interests.calculateMD5Hash() else {
+            networkService.setSubscriptions(url: url, interests: interests, completion: { _ in })
+            return
+        }
+
         if interestsHash != InterestsHash().serverConfirmedInterestsHash() {
-            let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
             networkService.setSubscriptions(url: url, interests: interests, completion: { _ in
                 InterestsHash().persist(interestsHash)
             })
