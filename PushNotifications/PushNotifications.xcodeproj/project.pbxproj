@@ -172,6 +172,7 @@
 		A155BFB51F9E38040070A609 /* PushNotifications */ = {
 			isa = PBXGroup;
 			children = (
+				A104B3A020F75C9000587100 /* Array+CalculateMD5Hash.swift */,
 				A182088C2014C6F4007D86C6 /* Array+ContainsSameElements.swift */,
 				A144AB471F9E3DA2009F0040 /* Device.swift */,
 				A144AB441F9E3DA2009F0040 /* DeviceTokenHelper.swift */,
@@ -183,6 +184,7 @@
 				A108811920334D860091E8EB /* Instance.swift */,
 				A19ECF811FCF099100688DAF /* InterestPersistable.swift */,
 				A140FFD22020BECF00931AF6 /* Interests.swift */,
+				A104B3A220F7651C00587100 /* InterestsHash.swift */,
 				A1B344412018BC0100481BDF /* InterestValidationError.swift */,
 				A10552EC2028A934001E45D1 /* Metadata.swift */,
 				A1B344422018BC0200481BDF /* MultipleInvalidInterestsError.swift */,
@@ -196,12 +198,10 @@
 				A144AB461F9E3DA2009F0040 /* PushNotificationsNetworkable.swift */,
 				A16782541FA0EA2C00A193DF /* Reason.swift */,
 				A1E78E302020AEF400DD94B2 /* Register.swift */,
+				A1EFF5C8207B7E78006C3004 /* RemoteNotificationType.swift */,
 				A1E80009201A213000467EB9 /* ReportEventType.swift */,
 				A140FFD62020C5E600931AF6 /* SDK.swift */,
 				A1DAD62D2020CAE7001497B5 /* SystemVersion.swift */,
-				A1EFF5C8207B7E78006C3004 /* RemoteNotificationType.swift */,
-				A104B3A020F75C9000587100 /* Array+CalculateMD5Hash.swift */,
-				A104B3A220F7651C00587100 /* InterestsHash.swift */,
 			);
 			path = PushNotifications;
 			sourceTree = "<group>";
@@ -209,26 +209,26 @@
 		A155BFC01F9E38040070A609 /* PushNotificationsTests */ = {
 			isa = PBXGroup;
 			children = (
-				A104B3A820F769BB00587100 /* InterestsHashTests.swift */,
+				A18F96E02015F0A200FA35D0 /* ArrayContainsSameElementsTests.swift */,
 				A108811D20334DC20091E8EB /* DeviceTests.swift */,
+				A144AB541F9E3DBF009F0040 /* DeviceTokenHelperTests.swift */,
+				A16870E3206CE7D8000E841F /* EventTypeHandlerTests.swift */,
+				A125B64C2020DD5F002E0809 /* FeatureFlagsTests.swift */,
+				A155BFC31F9E38040070A609 /* Info.plist */,
 				A108811C20334DC20091E8EB /* InstanceTests.swift */,
 				A1DAD6312020CED7001497B5 /* InterestNameValidationTests.swift */,
-				A18F96E02015F0A200FA35D0 /* ArrayContainsSameElementsTests.swift */,
-				A144AB541F9E3DBF009F0040 /* DeviceTokenHelperTests.swift */,
-				A155BFC31F9E38040070A609 /* Info.plist */,
 				A19ECF861FCF09A500688DAF /* InterestPersistableTests.swift */,
+				A104B3A820F769BB00587100 /* InterestsHashTests.swift */,
+				A104B3A420F7678D00587100 /* InterestsMD5HashTests.swift */,
+				A1A9A54D2020D96E0006244C /* InterestsTests.swift */,
+				A15B55CE2029C06D009D6A1A /* MetadataTests.swift */,
+				A1DAD62F2020CEA6001497B5 /* PublishIdTests.swift */,
 				A19ECF851FCF09A500688DAF /* PushNotificationsNetworkableTests.swift */,
 				A1ED00141F9E392700A029F2 /* PushNotificationsTests-Bridging-Header.h */,
-				A1DAD62F2020CEA6001497B5 /* PublishIdTests.swift */,
-				A1DAD6352020D4D1001497B5 /* SystemVersionTests.swift */,
-				A1A9A54D2020D96E0006244C /* InterestsTests.swift */,
 				A12B36EB2020DBA40038E59F /* ReasonTests.swift */,
-				A125B64A2020DCC3002E0809 /* SDKTests.swift */,
-				A125B64C2020DD5F002E0809 /* FeatureFlagsTests.swift */,
 				A11E83342021D014009C09EF /* RegisterTests.swift */,
-				A15B55CE2029C06D009D6A1A /* MetadataTests.swift */,
-				A16870E3206CE7D8000E841F /* EventTypeHandlerTests.swift */,
-				A104B3A420F7678D00587100 /* InterestsMD5HashTests.swift */,
+				A125B64A2020DCC3002E0809 /* SDKTests.swift */,
+				A1DAD6352020D4D1001497B5 /* SystemVersionTests.swift */,
 			);
 			path = PushNotificationsTests;
 			sourceTree = "<group>";
