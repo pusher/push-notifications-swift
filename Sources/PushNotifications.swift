@@ -374,6 +374,7 @@ import Foundation
 
         let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
         guard let interestsHash = interests.calculateMD5Hash() else {
+            // If for some reason, we fail to generate the interest hash, we still want to send the request anyway, just in case.
             networkService.setSubscriptions(url: url, interests: interests, completion: { _ in })
             return
         }
