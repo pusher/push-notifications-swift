@@ -6,6 +6,20 @@
 	objectVersion = 48;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		A1F5228F20FCCFC700B38BC3 /* CommonCryptoModuleMap */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = A1F5229220FCCFC700B38BC3 /* Build configuration list for PBXAggregateTarget "CommonCryptoModuleMap" */;
+			buildPhases = (
+				A1F5229320FCCFF400B38BC3 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = CommonCryptoModuleMap;
+			productName = CommonCryptoModuleMap;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		A104B3A120F75C9000587100 /* Array+CalculateMD5Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = A104B3A020F75C9000587100 /* Array+CalculateMD5Hash.swift */; };
 		A104B3A520F7678D00587100 /* InterestsMD5HashTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A104B3A420F7678D00587100 /* InterestsMD5HashTests.swift */; };
@@ -62,6 +76,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = A155BFB21F9E38040070A609;
 			remoteInfo = PushNotifications;
+		};
+		A1F5229420FCD01100B38BC3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A155BFAA1F9E38040070A609 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A1F5228F20FCCFC700B38BC3;
+			remoteInfo = CommonCryptoModuleMap;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -253,6 +274,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				A1F5229520FCD01100B38BC3 /* PBXTargetDependency */,
 			);
 			name = PushNotifications;
 			productName = PushNotifications;
@@ -298,6 +320,10 @@
 						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
 					};
+					A1F5228F20FCCFC700B38BC3 = {
+						CreatedOnToolsVersion = 9.4.1;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = A155BFAD1F9E38040070A609 /* Build configuration list for PBXProject "PushNotifications" */;
@@ -314,6 +340,7 @@
 			targets = (
 				A155BFB21F9E38040070A609 /* PushNotifications */,
 				A155BFBB1F9E38040070A609 /* PushNotificationsTests */,
+				A1F5228F20FCCFC700B38BC3 /* CommonCryptoModuleMap */,
 			);
 		};
 /* End PBXProject section */
@@ -349,6 +376,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "case \"$PLATFORM_NAME\" in\nmacosx) plat=Mac;;\niphone*) plat=iOS;;\nwatch*) plat=watchOS;;\ntv*) plat=tvOS;;\nappletv*) plat=tvOS;;\n*) echo \"error: Unknown PLATFORM_NAME: $PLATFORM_NAME\"; exit 1;;\nesac\nfor (( n = 0; n < SCRIPT_INPUT_FILE_COUNT; n++ )); do\nVAR=SCRIPT_INPUT_FILE_$n\nframework=$(basename \"${!VAR}\")\nexport SCRIPT_INPUT_FILE_$n=../Carthage/Build/$plat/\"$framework\".framework\ndone\n\n/usr/local/bin/carthage copy-frameworks || exit\n\nfor (( n = 0; n < SCRIPT_INPUT_FILE_COUNT; n++ )); do\nVAR=SCRIPT_INPUT_FILE_$n\nsource=${!VAR}.dSYM\ndest=${BUILT_PRODUCTS_DIR}/$(basename \"$source\")\nditto \"$source\" \"$dest\" || exit\ndone";
+		};
+		A1F5229320FCCFF400B38BC3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "COMMON_CRYPTO_DIR=\"${SDKROOT}/usr/include/CommonCrypto\"\nif [ -f \"${COMMON_CRYPTO_DIR}/module.modulemap\" ]\nthen\necho \"CommonCrypto already exists, skipping\"\nelse\n# This if-statement means we'll only run the main script if the CommonCryptoModuleMap directory doesn't exist\n# Because otherwise the rest of the script causes a full recompile for anything where CommonCrypto is a dependency\n# Do a \"Clean Build Folder\" to remove this directory and trigger the rest of the script to run\nif [ -d \"${BUILT_PRODUCTS_DIR}/CommonCryptoModuleMap\" ]; then\necho \"${BUILT_PRODUCTS_DIR}/CommonCryptoModuleMap directory already exists, so skipping the rest of the script.\"\nexit 0\nfi\n\nmkdir -p \"${BUILT_PRODUCTS_DIR}/CommonCryptoModuleMap\"\ncat <<EOF > \"${BUILT_PRODUCTS_DIR}/CommonCryptoModuleMap/module.modulemap\"\nmodule CommonCrypto [system] {\n    header \"${SDKROOT}/usr/include/CommonCrypto/CommonCrypto.h\"\n    export *\n}\nEOF\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -418,6 +458,11 @@
 			isa = PBXTargetDependency;
 			target = A155BFB21F9E38040070A609 /* PushNotifications */;
 			targetProxy = A155BFBE1F9E38040070A609 /* PBXContainerItemProxy */;
+		};
+		A1F5229520FCD01100B38BC3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A1F5228F20FCCFC700B38BC3 /* CommonCryptoModuleMap */;
+			targetProxy = A1F5229420FCD01100B38BC3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -563,6 +608,7 @@
 				SDKROOT = "";
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
+				SWIFT_INCLUDE_PATHS = "${BUILT_PRODUCTS_DIR}/CommonCryptoModuleMap";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -591,6 +637,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
 				SWIFT_VERSION = 4.0;
+				SWIFT_INCLUDE_PATHS = "${BUILT_PRODUCTS_DIR}/CommonCryptoModuleMap";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7 armv7s x86_64 i386";
 			};
@@ -671,6 +718,24 @@
 			};
 			name = Release;
 		};
+		A1F5229020FCCFC700B38BC3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H7FL434D9W;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A1F5229120FCCFC700B38BC3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H7FL434D9W;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -697,6 +762,15 @@
 			buildConfigurations = (
 				A155BFCB1F9E38040070A609 /* Debug */,
 				A155BFCC1F9E38040070A609 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A1F5229220FCCFC700B38BC3 /* Build configuration list for PBXAggregateTarget "CommonCryptoModuleMap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1F5229020FCCFC700B38BC3 /* Debug */,
+				A1F5229120FCCFC700B38BC3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
