@@ -8,9 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A104B3A120F75C9000587100 /* Array+CalculateMD5Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = A104B3A020F75C9000587100 /* Array+CalculateMD5Hash.swift */; };
-		A104B3A320F7651C00587100 /* InterestsHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = A104B3A220F7651C00587100 /* InterestsHash.swift */; };
 		A104B3A520F7678D00587100 /* InterestsMD5HashTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A104B3A420F7678D00587100 /* InterestsMD5HashTests.swift */; };
-		A104B3A920F769BB00587100 /* InterestsHashTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A104B3A820F769BB00587100 /* InterestsHashTests.swift */; };
 		A10552ED2028A934001E45D1 /* Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10552EC2028A934001E45D1 /* Metadata.swift */; };
 		A10552EF2028C017001E45D1 /* PropertyListReadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10552EE2028C017001E45D1 /* PropertyListReadable.swift */; };
 		A1067109201F69B8001190F8 /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1067108201F69B8001190F8 /* FeatureFlags.swift */; };
@@ -69,9 +67,7 @@
 
 /* Begin PBXFileReference section */
 		A104B3A020F75C9000587100 /* Array+CalculateMD5Hash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Array+CalculateMD5Hash.swift"; path = "../../Sources/Array+CalculateMD5Hash.swift"; sourceTree = "<group>"; };
-		A104B3A220F7651C00587100 /* InterestsHash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InterestsHash.swift; path = ../../Sources/InterestsHash.swift; sourceTree = "<group>"; };
 		A104B3A420F7678D00587100 /* InterestsMD5HashTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InterestsMD5HashTests.swift; path = ../../Tests/InterestsMD5HashTests.swift; sourceTree = "<group>"; };
-		A104B3A820F769BB00587100 /* InterestsHashTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterestsHashTests.swift; path = ../../Tests/InterestsHashTests.swift; sourceTree = "<group>"; };
 		A10552EC2028A934001E45D1 /* Metadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Metadata.swift; path = ../../Sources/Metadata.swift; sourceTree = "<group>"; };
 		A10552EE2028C017001E45D1 /* PropertyListReadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PropertyListReadable.swift; path = ../../Sources/PropertyListReadable.swift; sourceTree = "<group>"; };
 		A1067108201F69B8001190F8 /* FeatureFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FeatureFlags.swift; path = ../../Sources/FeatureFlags.swift; sourceTree = "<group>"; };
@@ -184,7 +180,6 @@
 				A108811920334D860091E8EB /* Instance.swift */,
 				A19ECF811FCF099100688DAF /* InterestPersistable.swift */,
 				A140FFD22020BECF00931AF6 /* Interests.swift */,
-				A104B3A220F7651C00587100 /* InterestsHash.swift */,
 				A1B344412018BC0100481BDF /* InterestValidationError.swift */,
 				A10552EC2028A934001E45D1 /* Metadata.swift */,
 				A1B344422018BC0200481BDF /* MultipleInvalidInterestsError.swift */,
@@ -218,7 +213,6 @@
 				A108811C20334DC20091E8EB /* InstanceTests.swift */,
 				A1DAD6312020CED7001497B5 /* InterestNameValidationTests.swift */,
 				A19ECF861FCF09A500688DAF /* InterestPersistableTests.swift */,
-				A104B3A820F769BB00587100 /* InterestsHashTests.swift */,
 				A104B3A420F7678D00587100 /* InterestsMD5HashTests.swift */,
 				A1A9A54D2020D96E0006244C /* InterestsTests.swift */,
 				A15B55CE2029C06D009D6A1A /* MetadataTests.swift */,
@@ -386,7 +380,6 @@
 				A144AB4E1F9E3DA3009F0040 /* PushNotificationsNetworkable.swift in Sources */,
 				A108811A20334D860091E8EB /* PusherAlreadyRegisteredError.swift in Sources */,
 				A144AB4F1F9E3DA3009F0040 /* Device.swift in Sources */,
-				A104B3A320F7651C00587100 /* InterestsHash.swift in Sources */,
 				A1E8000A201A213000467EB9 /* ReportEventType.swift in Sources */,
 				A1E80015201A3DAC00467EB9 /* PublishId.swift in Sources */,
 				A108811B20334D860091E8EB /* Instance.swift in Sources */,
@@ -405,7 +398,6 @@
 				A108811E20334DC20091E8EB /* InstanceTests.swift in Sources */,
 				A108811F20334DC20091E8EB /* DeviceTests.swift in Sources */,
 				A125B64B2020DCC3002E0809 /* SDKTests.swift in Sources */,
-				A104B3A920F769BB00587100 /* InterestsHashTests.swift in Sources */,
 				A18F96E12015F0A200FA35D0 /* ArrayContainsSameElementsTests.swift in Sources */,
 				A19ECF891FCF09A500688DAF /* InterestPersistableTests.swift in Sources */,
 				A19ECF881FCF09A500688DAF /* PushNotificationsNetworkableTests.swift in Sources */,
