@@ -364,9 +364,27 @@ import Foundation
     }
 
     private func syncInterests() {
-        // Sync saved interests when app starts.
-        guard let interests = self.getInterests() else { return }
-        try? self.setSubscriptions(interests: interests)
+        // Sync saved interests when app starts, if necessary.
+        guard
+            let interests = self.getInterests(),
+            let deviceId = Device.getDeviceId(),
+            let instanceId = Instance.getInstanceId(),
+            let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/interests")
+            else { return }
+
+        let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
+        guard let interestsHash = interests.calculateMD5Hash() else {
+            // If for some reason, we fail to generate the interest hash, we still want to send the request anyway, just in case.
+            networkService.setSubscriptions(url: url, interests: interests, completion: { _ in })
+            return
+        }
+
+        let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
+        if interestsHash != persistenceService.getServerConfirmedInterestsHash() {
+            networkService.setSubscriptions(url: url, interests: interests, completion: { _ in
+                persistenceService.persistServerConfirmedInterestsHash(interestsHash)
+            })
+        }
     }
 
     #if os(iOS)

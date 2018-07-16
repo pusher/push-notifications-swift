@@ -47,6 +47,14 @@ struct PersistenceService: InterestPersistable {
         return service.dictionaryRepresentation().filter { $0.key.hasPrefix(prefix) }.map { String(describing: ($0.value)) }
     }
 
+    func persistServerConfirmedInterestsHash(_ hash: String) {
+        service.set(hash, forKey: "interestsHash")
+    }
+
+    func getServerConfirmedInterestsHash() -> String {
+        return service.value(forKey: "interestsHash") as? String ?? ""
+    }
+
     private func interestExists(interest: String) -> Bool {
         return service.object(forKey: self.prefixInterest(interest)) != nil
     }
