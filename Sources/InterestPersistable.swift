@@ -6,4 +6,7 @@ protocol InterestPersistable {
     @discardableResult func remove(interest: String) -> Bool
     func removeAll()
     func getSubscriptions() -> [String]?
+
+    func persistServerConfirmedInterestsHash(_ hash: String)
+    func getServerConfirmedInterestsHash() -> String
 }

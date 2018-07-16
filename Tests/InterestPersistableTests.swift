@@ -102,4 +102,14 @@ class InterestPersistableTests: XCTestCase {
         XCTAssertTrue(storedInterests?.count == 1)
         XCTAssertTrue(storedInterests!.containsSameElements(as: [interestWithALongName]))
     }
+
+    func testInterestsHash() {
+        self.persistenceService.persistServerConfirmedInterestsHash("749e2830366ba863f796cdf5e281662f")
+
+        XCTAssertEqual(self.persistenceService.getServerConfirmedInterestsHash(), "749e2830366ba863f796cdf5e281662f")
+    }
+
+    func testNilInterestsHash() {
+        XCTAssertEqual(self.persistenceService.getServerConfirmedInterestsHash(), "")
+    }
 }

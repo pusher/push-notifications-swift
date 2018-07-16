@@ -378,9 +378,10 @@ import Foundation
             return
         }
 
-        if interestsHash != InterestsHash().serverConfirmedInterestsHash() {
+        let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
+        if interestsHash != persistenceService.getServerConfirmedInterestsHash() {
             networkService.setSubscriptions(url: url, interests: interests, completion: { _ in
-                InterestsHash().persist(interestsHash)
+                persistenceService.persistServerConfirmedInterestsHash(interestsHash)
             })
         }
     }
