@@ -170,7 +170,6 @@
 		A155BFB51F9E38040070A609 /* PushNotifications */ = {
 			isa = PBXGroup;
 			children = (
-				A1AC401420FDFF1E002E6128 /* MD5.swift */,
 				A104B3A020F75C9000587100 /* Array+CalculateMD5Hash.swift */,
 				A182088C2014C6F4007D86C6 /* Array+ContainsSameElements.swift */,
 				A144AB471F9E3DA2009F0040 /* Device.swift */,
@@ -184,6 +183,7 @@
 				A19ECF811FCF099100688DAF /* InterestPersistable.swift */,
 				A140FFD22020BECF00931AF6 /* Interests.swift */,
 				A1B344412018BC0100481BDF /* InterestValidationError.swift */,
+				A1AC401420FDFF1E002E6128 /* MD5.swift */,
 				A10552EC2028A934001E45D1 /* Metadata.swift */,
 				A1B344422018BC0200481BDF /* MultipleInvalidInterestsError.swift */,
 				A144AB4A1F9E3DA3009F0040 /* NetworkService.swift */,
