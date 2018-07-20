@@ -5,7 +5,7 @@ import Foundation
 
 struct EventTypeHandler {
     #if os(iOS)
-    static func getNotificationEventType(userInfo: [AnyHashable: Any], applicationState: UIApplicationState) -> ReportEventType? {
+    static func getNotificationEventType(userInfo: [AnyHashable: Any], applicationState: UIApplication.State) -> ReportEventType? {
         var eventType: ReportEventType
         let timestampSecs = UInt(Date().timeIntervalSince1970)
         let hasDisplayableContent = EventTypeHandler.hasDisplayableContent(userInfo)
