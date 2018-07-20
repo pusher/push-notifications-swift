@@ -1,4 +1,8 @@
 /*
+ ⚠️⚠️⚠️ As soon as adoption of Xcode 10 will be bigger we will eventually remove this file and use Apple's very own CommonCrypto. ⚠️⚠️⚠️
+ */
+
+/*
  * A JavaScript implementation of the RSA Data Security, Inc. MD5 Message
  * Digest Algorithm, as defined in RFC 1321.
  * Version 2.2 Copyright (C) Paul Johnston 1999 - 2009
