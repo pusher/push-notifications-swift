@@ -373,13 +373,8 @@ import Foundation
             else { return }
 
         let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
-        guard let interestsHash = interests.calculateMD5Hash() else {
-            // If for some reason, we fail to generate the interest hash, we still want to send the request anyway, just in case.
-            networkService.setSubscriptions(url: url, interests: interests, completion: { _ in })
-            return
-        }
-
         let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
+        let interestsHash = interests.calculateMD5Hash()
         if interestsHash != persistenceService.getServerConfirmedInterestsHash() {
             networkService.setSubscriptions(url: url, interests: interests, completion: { _ in
                 persistenceService.persistServerConfirmedInterestsHash(interestsHash)
