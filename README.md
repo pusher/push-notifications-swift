@@ -41,14 +41,14 @@ use_frameworks!
 
 # Replace `<Your Target Name>` with your app's target name.
 target '<Your Target Name>' do
-    pod 'PushNotifications'
+    pod 'PushNotifications', '~> 1.0.0'
 end
 ```
 
 Then, run the following command:
 
 ```bash
-$ pod install --repo-update
+$ pod install
 ```
 
 ### Carthage
