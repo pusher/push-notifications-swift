@@ -1,4 +1,4 @@
-# PushNotifications iOS & macOS SDK
+# Pusher Beams iOS & macOS SDK
 
 [![Build Status](https://www.bitrise.io/app/2798096bb06e322f/status.svg?token=GHiO2KcqAY_UDS8g8M-f5g&branch=master)](https://www.bitrise.io/app/2798096bb06e322f)
 [![codecov](https://codecov.io/gh/pusher/push-notifications-swift/branch/master/graph/badge.svg)](https://codecov.io/gh/pusher/push-notifications-swift)
@@ -10,15 +10,16 @@
 
 ## Example Code
 
-* [iOS with Swift](https://github.com/pusher/push-notifications-swift/blob/master/push-notifications-ios/push-notifications-ios/AppDelegate.swift)
-* [iOS with Objective-C](https://github.com/pusher/push-notifications-swift/blob/master/push-notifications-objc/push-notifications-objc/AppDelegate.m)
-* [macOS with Swift](https://github.com/pusher/push-notifications-swift/blob/master/push-notifications-mac/push-notifications-mac/AppDelegate.swift)
-* [macOS with Objective-C](https://github.com/pusher/push-notifications-swift/blob/master/push-notifications-mac-objc/push-notifications-mac-objc/AppDelegate.m)
+- [iOS with Swift](https://github.com/pusher/push-notifications-swift/blob/master/push-notifications-ios/push-notifications-ios/AppDelegate.swift)
+- [iOS with Objective-C](https://github.com/pusher/push-notifications-swift/blob/master/push-notifications-objc/push-notifications-objc/AppDelegate.m)
+- [macOS with Swift](https://github.com/pusher/push-notifications-swift/blob/master/push-notifications-mac/push-notifications-mac/AppDelegate.swift)
+- [macOS with Objective-C](https://github.com/pusher/push-notifications-swift/blob/master/push-notifications-mac-objc/push-notifications-mac-objc/AppDelegate.m)
 
 ## Building and Running
 
 ### Minimum Requirements
-* [Xcode](https://itunes.apple.com/us/app/xcode/id497799835) - The easiest way to get Xcode is from the [App Store](https://itunes.apple.com/us/app/xcode/id497799835?mt=12), but you can also download it from [developer.apple.com](https://developer.apple.com/) if you have an AppleID registered with an Apple Developer account.
+
+- [Xcode](https://itunes.apple.com/us/app/xcode/id497799835) - The easiest way to get Xcode is from the [App Store](https://itunes.apple.com/us/app/xcode/id497799835?mt=12), but you can also download it from [developer.apple.com](https://developer.apple.com/) if you have an AppleID registered with an Apple Developer account.
 
 ## Installation
 
@@ -30,9 +31,9 @@
 $ gem install cocoapods
 ```
 
-> CocoaPods version 1.3.1 or newer is recommended to build PushNotifications.
+> CocoaPods version 1.3.1 or newer is recommended to build Pusher Beams.
 
-To integrate PushNotifications into your Xcode project using CocoaPods, specify it in your `Podfile`:
+To integrate Pusher Beams into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
@@ -55,7 +56,7 @@ $ pod install
 
 [Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
 
-> Carthage version 0.26.2 or newer is recommended to build PushNotifications.
+> Carthage version 0.26.2 or newer is recommended to build Pusher Beams.
 
 You can install Carthage with [Homebrew](http://brew.sh/) using the following command:
 
@@ -64,7 +65,7 @@ $ brew update
 $ brew install carthage
 ```
 
-To integrate PushNotifications into your Xcode project using Carthage, specify it in your `Cartfile`:
+To integrate Pusher Beams into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
 github "pusher/push-notifications-swift"
@@ -72,19 +73,20 @@ github "pusher/push-notifications-swift"
 
 Run `carthage update` to build the framework and drag the built `PushNotifications.framework`into your Xcode project.
 
-## PushNotifications Reference
-* [shared](https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html#/c:@M@PushNotifications@objc(cs)PushNotifications(cpy)shared) - [View in Source](x-source-tag://shared)
-* [start(instanceId:)](https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html#/c:@M@PushNotifications@objc(cs)PushNotifications(im)startWithInstanceId:) - [View in Source](x-source-tag://start)
-* [registerForRemoteNotifications](https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html#/c:@M@PushNotifications@objc(cs)PushNotifications(im)registerForRemoteNotifications) - [View in Source](x-source-tag://register)
-* [registerForRemoteNotifications(options:)](https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html#/) - [View in Source](x-source-tag://registerOptions) 
-* [registerDeviceToken(_:completion:)](https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html#/c:@M@PushNotifications@objc(cs)PushNotifications(im)registerDeviceToken:completion:) - [View in Source](x-source-tag://registerDeviceToken)
-* [subscribe(interest:completion:)](https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html#/c:@M@PushNotifications@objc(cs)PushNotifications(im)subscribeWithInterest:error:completion:) - [View in Source](x-source-tag://subscribe)
-* [setSubscriptions(interests:completion:)](https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html#/c:@M@PushNotifications@objc(cs)PushNotifications(im)setSubscriptionsWithInterests:error:completion:) - [View in Source](x-source-tag://setSubscriptions)
-* [unsubscribe(interest:completion:)](https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html#/c:@M@PushNotifications@objc(cs)PushNotifications(im)unsubscribeWithInterest:error:completion:) - [View in Source](x-source-tag://unsubscribe)
-* [unsubscribeAll(completion:)](https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html#/c:@M@PushNotifications@objc(cs)PushNotifications(im)unsubscribeAllWithCompletion:) - [View in Source](x-source-tag://unsubscribeAll)
-* [getInterests()](https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html#/c:@M@PushNotifications@objc(cs)PushNotifications(im)getInterests) - [View in Source](x-source-tag://getInterests)
-* [handleNotification(userInfo:)](https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html#/c:@M@PushNotifications@objc(cs)PushNotifications(im)handleNotificationWithUserInfo:) - [View in Source](x-source-tag://handleNotification)
-* [interestsSetDidChange(interests:)](https://pusher.github.io/push-notifications-swift/Protocols/InterestsChangedDelegate.html#/c:@M@PushNotifications@objc(pl)InterestsChangedDelegate(im)interestsSetDidChangeWithInterests:) - [View in Source](x-source-tag://interestsSetDidChange)
+## Pusher Beams Reference
+
+- [shared](<https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html#/c:@M@PushNotifications@objc(cs)PushNotifications(cpy)shared>) - [View in Source](x-source-tag://shared)
+- [start(instanceId:)](<https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html#/c:@M@PushNotifications@objc(cs)PushNotifications(im)startWithInstanceId:>) - [View in Source](x-source-tag://start)
+- [registerForRemoteNotifications](<https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html#/c:@M@PushNotifications@objc(cs)PushNotifications(im)registerForRemoteNotifications>) - [View in Source](x-source-tag://register)
+- [registerForRemoteNotifications(options:)](https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html#/) - [View in Source](x-source-tag://registerOptions)
+- [registerDeviceToken(\_:completion:)](<https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html#/c:@M@PushNotifications@objc(cs)PushNotifications(im)registerDeviceToken:completion:>) - [View in Source](x-source-tag://registerDeviceToken)
+- [subscribe(interest:completion:)](<https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html#/c:@M@PushNotifications@objc(cs)PushNotifications(im)subscribeWithInterest:error:completion:>) - [View in Source](x-source-tag://subscribe)
+- [setSubscriptions(interests:completion:)](<https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html#/c:@M@PushNotifications@objc(cs)PushNotifications(im)setSubscriptionsWithInterests:error:completion:>) - [View in Source](x-source-tag://setSubscriptions)
+- [unsubscribe(interest:completion:)](<https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html#/c:@M@PushNotifications@objc(cs)PushNotifications(im)unsubscribeWithInterest:error:completion:>) - [View in Source](x-source-tag://unsubscribe)
+- [unsubscribeAll(completion:)](<https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html#/c:@M@PushNotifications@objc(cs)PushNotifications(im)unsubscribeAllWithCompletion:>) - [View in Source](x-source-tag://unsubscribeAll)
+- [getInterests()](<https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html#/c:@M@PushNotifications@objc(cs)PushNotifications(im)getInterests>) - [View in Source](x-source-tag://getInterests)
+- [handleNotification(userInfo:)](<https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html#/c:@M@PushNotifications@objc(cs)PushNotifications(im)handleNotificationWithUserInfo:>) - [View in Source](x-source-tag://handleNotification)
+- [interestsSetDidChange(interests:)](<https://pusher.github.io/push-notifications-swift/Protocols/InterestsChangedDelegate.html#/c:@M@PushNotifications@objc(pl)InterestsChangedDelegate(im)interestsSetDidChangeWithInterests:>) - [View in Source](x-source-tag://interestsSetDidChange)
 
 ## Communication
 
@@ -92,12 +94,10 @@ Run `carthage update` to build the framework and drag the built `PushNotificatio
 - Have a feature request. Please open an [issue](https://github.com/pusher/push-notifications-swift/issues).
 - If you want to contribute, please submit a [pull request](https://github.com/pusher/push-notifications-swift/pulls) (preferrably with some tests).
 
-
 ## Credits
 
-PushNotifications is owned and maintained by [Pusher](https://pusher.com).
-
+Pusher Beams is owned and maintained by [Pusher](https://pusher.com).
 
 ## License
 
-PushNotifications is released under the MIT license. See [LICENSE](https://github.com/pusher/push-notifications-swift/blob/master/LICENSE) for details.
+Pusher Beams is released under the MIT license. See [LICENSE](https://github.com/pusher/push-notifications-swift/blob/master/LICENSE) for details.
