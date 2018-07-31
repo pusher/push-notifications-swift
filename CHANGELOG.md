@@ -5,7 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/pusher/push-notifications-swift/compare/0.10.12...HEAD)
+## [Unreleased](https://github.com/pusher/push-notifications-swift/compare/1.0.0...HEAD)
+
+## [1.0.0](https://github.com/pusher/push-notifications-swift/compare/0.10.11...1.0.0) - 2018-07-31
+
+- General availability (GA) release.
 
 ## [0.10.12](https://github.com/pusher/push-notifications-swift/compare/0.10.11...0.10.12) - 2018-07-17
 
