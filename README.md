@@ -1,6 +1,6 @@
 # Pusher Beams iOS & macOS SDK
 
-[![Build Status](https://www.bitrise.io/app/2798096bb06e322f/status.svg?token=GHiO2KcqAY_UDS8g8M-f5g&branch=master)](https://www.bitrise.io/app/2798096bb06e322f)
+![Build Status](https://app.bitrise.io/app/2798096bb06e322f/status.svg?token=GHiO2KcqAY_UDS8g8M-f5g)
 [![codecov](https://codecov.io/gh/pusher/push-notifications-swift/branch/master/graph/badge.svg)](https://codecov.io/gh/pusher/push-notifications-swift)
 [![Documentation](https://pusher.github.io/push-notifications-swift/badge.svg)](https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html)
 ![](https://img.shields.io/badge/Swift-4.0-orange.svg)
