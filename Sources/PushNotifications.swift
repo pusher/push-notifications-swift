@@ -323,9 +323,6 @@ import Foundation
 
         #if os(iOS)
             let applicationState = UIApplication.shared.applicationState
-        #endif
-
-        #if os(iOS)
             guard let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo, applicationState: applicationState) else { return .ShouldProcess }
         #elseif os(OSX)
             guard let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo) else { return .ShouldProcess }
