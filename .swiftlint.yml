@@ -1,8 +1,12 @@
 included:
   - Sources
+excluded:
+  - Sources/MD5.swift
 disabled_rules:
   - line_length
   - identifier_name
+opt_in_rules:
+  - conditional_returns_on_newline
 file_length:
   warning: 450
 identifier_name:
