@@ -3,7 +3,7 @@ import Foundation
 struct PersistenceService: InterestPersistable {
 
     let service: UserDefaults
-    private let prefix = "com.pusher.sdk.interests"
+    private let prefix = Constants.PersistanceService.prefix
 
     func persist(interest: String) -> Bool {
         guard !self.interestExists(interest: interest) else {
@@ -52,11 +52,11 @@ struct PersistenceService: InterestPersistable {
     }
 
     func persistServerConfirmedInterestsHash(_ hash: String) {
-        service.set(hash, forKey: "interestsHash")
+        service.set(hash, forKey: Constants.PersistanceService.hashKey)
     }
 
     func getServerConfirmedInterestsHash() -> String {
-        return service.value(forKey: "interestsHash") as? String ?? ""
+        return service.value(forKey: Constants.PersistanceService.hashKey) as? String ?? ""
     }
 
     private func interestExists(interest: String) -> Bool {

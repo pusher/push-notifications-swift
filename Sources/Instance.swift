@@ -1,8 +1,8 @@
 import Foundation
 
 struct Instance {
-    private static let key = "com.pusher.sdk.instanceId"
-    private static let userDefaults = UserDefaults(suiteName: "PushNotifications")!
+    private static let key = Constants.UserDefaults.instanceId
+    private static let userDefaults = UserDefaults(suiteName: Constants.UserDefaults.suiteName)!
 
     static func persist(_ instanceId: String) throws {
         guard let savedInstanceId = Instance.getInstanceId() else {

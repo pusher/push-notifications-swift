@@ -7,7 +7,7 @@ class EventTypeHandlerTests: XCTestCase {
         let userInfo = ["aps": ["content-available": 1], "data": ["pusher": ["publishId": "pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df"]]]
         let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo, applicationState: .active) as! DeliveryEventType
 
-        XCTAssertTrue(eventType.event == "Delivery")
+        XCTAssertTrue(eventType.event == Constants.ReportEventType.delivery)
         XCTAssertFalse(eventType.appInBackground)
         XCTAssertFalse(eventType.hasDisplayableContent)
         XCTAssertFalse(eventType.hasData)
@@ -17,7 +17,7 @@ class EventTypeHandlerTests: XCTestCase {
         let userInfo = ["aps": ["alert": ["title": "Hello", "body": "Hello, world!"], "content-available": 1], "data": ["pusher": ["publishId": "pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df"]]]
         let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo, applicationState: .active) as! DeliveryEventType
 
-        XCTAssertTrue(eventType.event == "Delivery")
+        XCTAssertTrue(eventType.event == Constants.ReportEventType.delivery)
         XCTAssertFalse(eventType.appInBackground)
         XCTAssertTrue(eventType.hasDisplayableContent)
         XCTAssertFalse(eventType.hasData)
@@ -27,7 +27,7 @@ class EventTypeHandlerTests: XCTestCase {
         let userInfo = ["aps": ["alert": ["title": "Hello", "body": "Hello, world!"], "content-available": 1], "data": ["pusher": ["publishId": "pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df"], "acme2": [ "bang", "whiz"]]]
         let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo, applicationState: .active) as! DeliveryEventType
 
-        XCTAssertTrue(eventType.event == "Delivery")
+        XCTAssertTrue(eventType.event == Constants.ReportEventType.delivery)
         XCTAssertFalse(eventType.appInBackground)
         XCTAssertTrue(eventType.hasDisplayableContent)
         XCTAssertTrue(eventType.hasData)
@@ -37,7 +37,7 @@ class EventTypeHandlerTests: XCTestCase {
         let userInfo = ["aps": ["content-available": 1], "data": ["pusher": ["publishId": "pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df"]]]
         let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo, applicationState: .background) as! DeliveryEventType
 
-        XCTAssertTrue(eventType.event == "Delivery")
+        XCTAssertTrue(eventType.event == Constants.ReportEventType.delivery)
         XCTAssertTrue(eventType.appInBackground)
         XCTAssertFalse(eventType.hasDisplayableContent)
         XCTAssertFalse(eventType.hasData)
@@ -47,7 +47,7 @@ class EventTypeHandlerTests: XCTestCase {
         let userInfo = ["aps": ["alert": ["title": "Hello", "body": "Hello, world!"], "content-available": 1], "data": ["pusher": ["publishId": "pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df"]]]
         let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo, applicationState: .background) as! DeliveryEventType
 
-        XCTAssertTrue(eventType.event == "Delivery")
+        XCTAssertTrue(eventType.event == Constants.ReportEventType.delivery)
         XCTAssertTrue(eventType.appInBackground)
         XCTAssertTrue(eventType.hasDisplayableContent)
         XCTAssertFalse(eventType.hasData)
@@ -57,7 +57,7 @@ class EventTypeHandlerTests: XCTestCase {
         let userInfo = ["aps": ["alert": ["title": "Hello", "body": "Hello, world!"], "content-available": 1], "data": ["pusher": ["publishId": "pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df"], "acme2": [ "bang", "whiz"]]]
         let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo, applicationState: .background) as! DeliveryEventType
 
-        XCTAssertTrue(eventType.event == "Delivery")
+        XCTAssertTrue(eventType.event == Constants.ReportEventType.delivery)
         XCTAssertTrue(eventType.appInBackground)
         XCTAssertTrue(eventType.hasDisplayableContent)
         XCTAssertTrue(eventType.hasData)
@@ -67,7 +67,7 @@ class EventTypeHandlerTests: XCTestCase {
         let userInfo = ["aps": ["alert": ["title": "Hello", "body": "Hello, world!"], "content-available": 1], "data": ["pusher": ["publishId": "pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df"]]]
         let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo, applicationState: .inactive) as! OpenEventType
 
-        XCTAssertTrue(eventType.event == "Open")
+        XCTAssertTrue(eventType.event == Constants.ReportEventType.open)
     }
     #elseif os(OSX)
     func testEventTypeOpen() {
@@ -76,7 +76,7 @@ class EventTypeHandlerTests: XCTestCase {
             return XCTFail()
         }
 
-        XCTAssertTrue(eventType.event == "Open")
+        XCTAssertTrue(eventType.event == Constants.ReportEventType.open)
     }
     #endif
 

@@ -3,7 +3,7 @@ import Foundation
 class NetworkService: PushNotificationsNetworkable {
 
     let session: URLSession
-    let queue = DispatchQueue(label: "com.pusher.pushnotifications.sdk.network.queue")
+    let queue = DispatchQueue(label: Constants.DispatchQueue.networkQueue)
 
     init(session: URLSession) {
         self.session = session

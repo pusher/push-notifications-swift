@@ -20,6 +20,8 @@
 		A125B64B2020DCC3002E0809 /* SDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A125B64A2020DCC3002E0809 /* SDKTests.swift */; };
 		A125B64D2020DD5F002E0809 /* FeatureFlagsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A125B64C2020DD5F002E0809 /* FeatureFlagsTests.swift */; };
 		A12B36EC2020DBA40038E59F /* ReasonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B36EB2020DBA40038E59F /* ReasonTests.swift */; };
+		A138645B212C5057009FE29D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A138645A212C5057009FE29D /* Constants.swift */; };
+		A138645D212C54E7009FE29D /* ConstantsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A138645C212C54E7009FE29D /* ConstantsTests.swift */; };
 		A140FFD12020BE5700931AF6 /* Encodable+Encode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A140FFD02020BE5700931AF6 /* Encodable+Encode.swift */; };
 		A140FFD32020BECF00931AF6 /* Interests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A140FFD22020BECF00931AF6 /* Interests.swift */; };
 		A140FFD72020C5E600931AF6 /* SDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = A140FFD62020C5E600931AF6 /* SDK.swift */; };
@@ -81,6 +83,8 @@
 		A125B64A2020DCC3002E0809 /* SDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SDKTests.swift; path = ../../Tests/SDKTests.swift; sourceTree = "<group>"; };
 		A125B64C2020DD5F002E0809 /* FeatureFlagsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FeatureFlagsTests.swift; path = ../../Tests/FeatureFlagsTests.swift; sourceTree = "<group>"; };
 		A12B36EB2020DBA40038E59F /* ReasonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReasonTests.swift; path = ../../Tests/ReasonTests.swift; sourceTree = "<group>"; };
+		A138645A212C5057009FE29D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = ../../Sources/Constants.swift; sourceTree = "<group>"; };
+		A138645C212C54E7009FE29D /* ConstantsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ConstantsTests.swift; path = ../../Tests/ConstantsTests.swift; sourceTree = "<group>"; };
 		A140FFD02020BE5700931AF6 /* Encodable+Encode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Encodable+Encode.swift"; path = "../../Sources/Encodable+Encode.swift"; sourceTree = "<group>"; };
 		A140FFD22020BECF00931AF6 /* Interests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Interests.swift; path = ../../Sources/Interests.swift; sourceTree = "<group>"; };
 		A140FFD62020C5E600931AF6 /* SDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SDK.swift; path = ../../Sources/SDK.swift; sourceTree = "<group>"; };
@@ -200,6 +204,7 @@
 				A1E80009201A213000467EB9 /* ReportEventType.swift */,
 				A140FFD62020C5E600931AF6 /* SDK.swift */,
 				A1DAD62D2020CAE7001497B5 /* SystemVersion.swift */,
+				A138645A212C5057009FE29D /* Constants.swift */,
 			);
 			path = PushNotifications;
 			sourceTree = "<group>";
@@ -226,6 +231,7 @@
 				A11E83342021D014009C09EF /* RegisterTests.swift */,
 				A125B64A2020DCC3002E0809 /* SDKTests.swift */,
 				A1DAD6352020D4D1001497B5 /* SystemVersionTests.swift */,
+				A138645C212C54E7009FE29D /* ConstantsTests.swift */,
 			);
 			path = PushNotificationsTests;
 			sourceTree = "<group>";
@@ -365,6 +371,7 @@
 				A144AB4C1F9E3DA3009F0040 /* DeviceTokenHelper.swift in Sources */,
 				A140FFD12020BE5700931AF6 /* Encodable+Encode.swift in Sources */,
 				A182088D2014C6F4007D86C6 /* Array+ContainsSameElements.swift in Sources */,
+				A138645B212C5057009FE29D /* Constants.swift in Sources */,
 				A140FFD32020BECF00931AF6 /* Interests.swift in Sources */,
 				A19ECF831FCF099200688DAF /* InterestPersistable.swift in Sources */,
 				A1DAD62E2020CAE7001497B5 /* SystemVersion.swift in Sources */,
@@ -408,6 +415,7 @@
 				A1DAD6302020CEA6001497B5 /* PublishIdTests.swift in Sources */,
 				A16870E4206CE7D8000E841F /* EventTypeHandlerTests.swift in Sources */,
 				A144AB571F9E3DBF009F0040 /* DeviceTokenHelperTests.swift in Sources */,
+				A138645D212C54E7009FE29D /* ConstantsTests.swift in Sources */,
 				A104B3A520F7678D00587100 /* InterestsMD5HashTests.swift in Sources */,
 				A1A9A54E2020D96E0006244C /* InterestsTests.swift in Sources */,
 				A15B55CF2029C06D009D6A1A /* MetadataTests.swift in Sources */,
