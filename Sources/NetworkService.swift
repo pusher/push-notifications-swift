@@ -16,11 +16,15 @@ class NetworkService: PushNotificationsNetworkable {
 
         let metadata = Metadata.update()
 
-        guard let body = try? Register(token: deviceTokenString, instanceId: instanceId, bundleIdentifier: bundleIdentifier, metadata: metadata).encode() else { return }
+        guard let body = try? Register(token: deviceTokenString, instanceId: instanceId, bundleIdentifier: bundleIdentifier, metadata: metadata).encode() else {
+            return
+        }
         let request = self.setRequest(url: url, httpMethod: .POST, body: body)
 
         self.networkRequest(request, session: self.session) { (response) in
-            guard let device = try? JSONDecoder().decode(Device.self, from: response) else { return }
+            guard let device = try? JSONDecoder().decode(Device.self, from: response) else {
+                return
+            }
             completion(device)
         }
     }
@@ -34,7 +38,9 @@ class NetworkService: PushNotificationsNetworkable {
     }
 
     func setSubscriptions(url: URL, interests: [String], completion: @escaping CompletionHandler<String>) {
-        guard let body = try? Interests(interests: interests).encode() else { return }
+        guard let body = try? Interests(interests: interests).encode() else {
+            return
+        }
         let request = self.setRequest(url: url, httpMethod: .PUT, body: body)
 
         self.networkRequest(request, session: self.session) { _ in
@@ -51,7 +57,9 @@ class NetworkService: PushNotificationsNetworkable {
     }
 
     func track(url: URL, eventType: ReportEventType, completion: @escaping CompletionHandler<String>) {
-        guard let body = try? eventType.encode() else { return }
+        guard let body = try? eventType.encode() else {
+            return
+        }
 
         let request = self.setRequest(url: url, httpMethod: .POST, body: body)
         self.networkRequest(request, session: self.session) { _ in
@@ -60,11 +68,15 @@ class NetworkService: PushNotificationsNetworkable {
     }
 
     func syncMetadata(url: URL, completion: @escaping CompletionHandler<String>) {
-        guard let metadataDictionary = Metadata.load() else { return }
+        guard let metadataDictionary = Metadata.load() else {
+            return
+        }
         let metadata = Metadata(propertyListRepresentation: metadataDictionary)
         if metadata.hasChanged() {
             let updatedMetadataObject = Metadata.update()
-            guard let body = try? updatedMetadataObject.encode() else { return }
+            guard let body = try? updatedMetadataObject.encode() else {
+                return
+            }
             let request = self.setRequest(url: url, httpMethod: .PUT, body: body)
             self.networkRequest(request, session: self.session) { _ in
                 completion(nil)

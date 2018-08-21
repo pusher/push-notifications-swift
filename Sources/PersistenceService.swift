@@ -6,7 +6,9 @@ struct PersistenceService: InterestPersistable {
     private let prefix = "com.pusher.sdk.interests"
 
     func persist(interest: String) -> Bool {
-        guard !self.interestExists(interest: interest) else { return false }
+        guard !self.interestExists(interest: interest) else {
+            return false
+        }
 
         service.set(interest, forKey: self.prefixInterest(interest))
         return true
@@ -29,7 +31,9 @@ struct PersistenceService: InterestPersistable {
     }
 
     func remove(interest: String) -> Bool {
-        guard self.interestExists(interest: interest) else { return false }
+        guard self.interestExists(interest: interest) else {
+            return false
+        }
 
         service.removeObject(forKey: self.prefixInterest(interest))
         return true

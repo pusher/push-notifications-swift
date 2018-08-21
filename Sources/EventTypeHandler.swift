@@ -40,7 +40,9 @@ struct EventTypeHandler {
     #endif
 
     static func hasDisplayableContent(_ userInfo: [AnyHashable: Any]) -> Bool {
-        guard let aps = userInfo["aps"] as? [String: Any] else { return false }
+        guard let aps = userInfo["aps"] as? [String: Any] else {
+            return false
+        }
 
         return aps["alert"] != nil
     }
@@ -61,7 +63,9 @@ struct EventTypeHandler {
     //  }
     //
     static func hasData(_ userInfo: [AnyHashable: Any]) -> Bool {
-        guard let data = userInfo["data"] as? [String: Any] else { return false }
+        guard let data = userInfo["data"] as? [String: Any] else {
+            return false
+        }
 
         // `data` will always contain at least `pusher` object.
         // Returns `true` if there is any additional information provided.
@@ -72,7 +76,9 @@ struct EventTypeHandler {
         guard
             let data = userInfo["data"] as? [String: Any],
             let pusher = data["pusher"] as? [String: Any]
-        else { return .ShouldProcess }
+        else {
+            return .ShouldProcess
+        }
 
         return pusher["userShouldIgnore"] != nil ? .ShouldIgnore : .ShouldProcess
     }
