@@ -36,13 +36,13 @@ extension Metadata: PropertyListReadable {
     }
 
     func save() {
-        let userDefaults = UserDefaults(suiteName: "PushNotifications")
-        userDefaults?.set(self.propertyListRepresentation(), forKey: "com.pusher.sdk.metadata")
+        let userDefaults = UserDefaults(suiteName: Constants.UserDefaults.suiteName)
+        userDefaults?.set(self.propertyListRepresentation(), forKey: Constants.UserDefaults.metadata)
     }
 
     static func load() -> [String: Any]? {
-        let userDefaults = UserDefaults(suiteName: "PushNotifications")
-        let metadata = userDefaults?.object(forKey: "com.pusher.sdk.metadata") as? [String: String]
+        let userDefaults = UserDefaults(suiteName: Constants.UserDefaults.suiteName)
+        let metadata = userDefaults?.object(forKey: Constants.UserDefaults.metadata) as? [String: String]
 
         return metadata
     }

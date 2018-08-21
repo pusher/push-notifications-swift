@@ -4,7 +4,7 @@ import XCTest
 class InstanceTests: XCTestCase {
     override func setUp() {
         super.setUp()
-        UserDefaults(suiteName: "PushNotifications")?.removeObject(forKey: "com.pusher.sdk.instanceId")
+        UserDefaults(suiteName: Constants.UserDefaults.suiteName)?.removeObject(forKey: Constants.UserDefaults.instanceId)
     }
     func testInstanceIdWasSaved() {
         XCTAssertNoThrow(try Instance.persist("abcd"))

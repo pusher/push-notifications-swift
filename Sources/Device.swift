@@ -5,11 +5,11 @@ struct Device: Decodable {
     var initialInterestSet: [String]?
 
     static func persist(_ deviceId: String) {
-        UserDefaults(suiteName: "PushNotifications")?.set(deviceId, forKey: "com.pusher.sdk.deviceId")
+        UserDefaults(suiteName: Constants.UserDefaults.suiteName)?.set(deviceId, forKey: Constants.UserDefaults.deviceId)
     }
 
     static func getDeviceId() -> String? {
-        return UserDefaults(suiteName: "PushNotifications")?.string(forKey: "com.pusher.sdk.deviceId")
+        return UserDefaults(suiteName: Constants.UserDefaults.suiteName)?.string(forKey: Constants.UserDefaults.deviceId)
     }
 
     static func idAlreadyPresent() -> Bool {
