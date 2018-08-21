@@ -1,7 +1,7 @@
 included:
   - Sources
 excluded:
-  - Sources/MD5.swift
+  - Sources/MD5.swift # this dependency will be removed in the future version of the SDK
 disabled_rules:
   - line_length
   - identifier_name
