@@ -4,7 +4,7 @@ struct Device: Decodable {
     var id: String
     var initialInterestSet: [String]?
 
-    static func persist(_ deviceId: String) {
+    static func persist(deviceId: String) {
         UserDefaults(suiteName: Constants.UserDefaults.suiteName)?.set(deviceId, forKey: Constants.UserDefaults.deviceId)
     }
 
