@@ -6,6 +6,7 @@ struct Constants {
         static let metadata = "com.pusher.sdk.metadata"
         static let deviceId = "com.pusher.sdk.deviceId"
         static let instanceId = "com.pusher.sdk.instanceId"
+        static let deviceToken = "com.pusher.sdk.deviceToken"
     }
 
     struct PersistanceService {
