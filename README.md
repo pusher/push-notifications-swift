@@ -73,6 +73,26 @@ github "pusher/push-notifications-swift"
 
 Run `carthage update` to build the framework and drag the built `PushNotifications.framework`into your Xcode project.
 
+## Running Tests
+
+### Generating Test Coverage Reports
+
+We're using [Slather](https://github.com/SlatherOrg/slather) for generating test coverage reports locally and [Codecov](https://codecov.io/) when pull requests are submitted.
+
+### Using Slather
+
+Create a report as static html pages by running:
+
+```bash
+slather coverage --html --scheme PushNotifications --workspace PushNotifications.xcworkspace/ PushNotifications/PushNotifications.xcodeproj/
+```
+
+Open the html reports:
+
+```bash
+open 'html/index.html'
+```
+
 ## Pusher Beams Reference
 
 - [shared](<https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html#/c:@M@PushNotifications@objc(cs)PushNotifications(cpy)shared>) - [View in Source](x-source-tag://shared)
