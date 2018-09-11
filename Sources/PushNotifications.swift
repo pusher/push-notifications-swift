@@ -107,9 +107,9 @@ import Foundation
             return
         }
 
-        if Device.idAlreadyPresent() {
-            // If we have the device id that means that the token has already been registered.
-            // Therefore we don't need to call `networkService.register` again.
+        // If we have the device id that means that the token has already been registered.
+        // We need to call `networkService.register` again just in case if the `deviceToken` changes.
+        if Device.idAlreadyPresent() && !Device.tokenHasChanged(deviceToken: deviceToken.hexadecimalRepresentation()) {
             print("[Push Notifications] - Warning: Avoid multiple calls of `registerDeviceToken`")
             return
         }
@@ -126,7 +126,8 @@ import Foundation
                 if Device.idAlreadyPresent() {
                     print("[Push Notifications] - Warning: Avoid multiple calls of `registerDeviceToken`")
                 } else {
-                    Device.persist(device.id)
+                    Device.persist(deviceId: device.id)
+                    Device.persist(deviceToken: deviceToken.hexadecimalRepresentation())
 
                     let initialInterestSet = device.initialInterestSet ?? []
                     let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
