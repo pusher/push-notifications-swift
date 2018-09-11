@@ -3,7 +3,7 @@ import XCTest
 
 class DeviceTests: XCTestCase {
     func testPersist() {
-        Device.persist("abcd")
+        Device.persist(deviceId: "abcd")
         let deviceId = Device.getDeviceId()
 
         XCTAssertNotNil(deviceId)
