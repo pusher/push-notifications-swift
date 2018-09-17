@@ -11,21 +11,21 @@
     [[PushNotifications shared] startWithInstanceId:@"f918950d-476d-4649-b38e-6cc8d30e0827"];
     [[PushNotifications shared] registerForRemoteNotifications];
 
+    NSError *anyError;
+    [[PushNotifications shared] subscribeWithInterest:@"hello" error:&anyError completion:^{
+        if (anyError) {
+            NSLog(@"Error: %@", anyError);
+        }
+        else {
+            NSLog(@"Subscribed to interest hello.");
+        }
+    }];
+
     return YES;
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    [[PushNotifications shared] registerDeviceToken:deviceToken completion:^{
-        NSError *anyError;
-        [[PushNotifications shared] subscribeWithInterest:@"hello" error:&anyError completion:^{
-            if (anyError) {
-                NSLog(@"Error: %@", anyError);
-            }
-            else {
-                NSLog(@"Subscribed to interest hello.");
-            }
-        }];
-    }];
+    [[PushNotifications shared] registerDeviceToken:deviceToken completion:^{}];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
