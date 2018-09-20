@@ -8,7 +8,7 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [[PushNotifications shared] startWithInstanceId:@"f918950d-476d-4649-b38e-6cc8d30e0827"];
+    [[PushNotifications shared] startWithInstanceId:@"YOUR_INSTANCE_ID"]; // Can be found here: https://dash.pusher.com
     [[PushNotifications shared] registerForRemoteNotifications];
 
     NSError *anyError;
