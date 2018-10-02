@@ -4,7 +4,31 @@ import UIKit
 import Foundation
 
 struct EventTypeHandler {
-    #if os(iOS)
+    // We have intentionally duplicated the code of the `getNotificationEventType` method in order to support Xcode 9 and Xcode 10.
+    #if os(iOS) && swift(>=4.2)
+    static func getNotificationEventType(userInfo: [AnyHashable: Any], applicationState: UIApplication.State) -> ReportEventType? {
+        var eventType: ReportEventType
+        let timestampSecs = UInt(Date().timeIntervalSince1970)
+        let hasDisplayableContent = EventTypeHandler.hasDisplayableContent(userInfo)
+        let hasData = EventTypeHandler.hasData(userInfo)
+
+        guard
+            let publishId = PublishId(userInfo: userInfo).id,
+            let deviceId = Device.getDeviceId()
+            else { return nil }
+
+        switch applicationState {
+        case .active:
+            eventType = DeliveryEventType(publishId: publishId, deviceId: deviceId, timestampSecs: timestampSecs, appInBackground: false, hasDisplayableContent: hasDisplayableContent, hasData: hasData)
+        case .background:
+            eventType = DeliveryEventType(publishId: publishId, deviceId: deviceId, timestampSecs: timestampSecs, appInBackground: true, hasDisplayableContent: hasDisplayableContent, hasData: hasData)
+        case .inactive:
+            eventType = OpenEventType(publishId: publishId, deviceId: deviceId, timestampSecs: timestampSecs)
+        }
+
+        return eventType
+    }
+    #elseif os(iOS) && (swift(>=4.0) && !swift(>=4.2))
     static func getNotificationEventType(userInfo: [AnyHashable: Any], applicationState: UIApplicationState) -> ReportEventType? {
         var eventType: ReportEventType
         let timestampSecs = UInt(Date().timeIntervalSince1970)
@@ -27,7 +51,8 @@ struct EventTypeHandler {
 
         return eventType
     }
-    #elseif os(OSX)
+    #endif
+    #if os(OSX)
     static func getNotificationEventType(userInfo: [AnyHashable: Any]) -> OpenEventType? {
         let timestampSecs = UInt(Date().timeIntervalSince1970)
         guard
