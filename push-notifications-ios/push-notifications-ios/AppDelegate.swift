@@ -7,18 +7,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let pushNotifications = PushNotifications.shared
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        self.pushNotifications.start(instanceId: "f918950d-476d-4649-b38e-6cc8d30e0827")
+        self.pushNotifications.start(instanceId: "YOUR_INSTANCE_ID") // Can be found here: https://dash.pusher.com
         self.pushNotifications.registerForRemoteNotifications()
+        try? self.pushNotifications.subscribe(interest: "hello")
 
         return true
     }
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        self.pushNotifications.registerDeviceToken(deviceToken) {
-            print("Ready to receive notifications!")
-        }
-
-        try? self.pushNotifications.subscribe(interest: "hello")
+        self.pushNotifications.registerDeviceToken(deviceToken)
     }
 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
