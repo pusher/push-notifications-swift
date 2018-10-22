@@ -30,6 +30,23 @@ struct PersistenceService: InterestPersistable {
         return false
     }
 
+    func setUserId(userId: String) -> Bool {
+        guard !self.userIdExists(userId: userId) else {
+            return false
+        }
+
+        service.set(userId, forKey: Constants.PersistanceService.userId)
+        return true
+    }
+
+    func getUserId() -> String? {
+        return service.object(forKey: Constants.PersistanceService.userId) as? String ?? nil
+    }
+
+    func removeUserId() {
+        service.removeObject(forKey: Constants.PersistanceService.userId)
+    }
+
     func remove(interest: String) -> Bool {
         guard self.interestExists(interest: interest) else {
             return false
@@ -61,6 +78,10 @@ struct PersistenceService: InterestPersistable {
 
     private func interestExists(interest: String) -> Bool {
         return service.object(forKey: self.prefixInterest(interest)) != nil
+    }
+
+    private func userIdExists(userId: String) -> Bool {
+        return service.object(forKey: Constants.PersistanceService.userId) != nil
     }
 
     private func prefixInterest(_ interest: String) -> String {

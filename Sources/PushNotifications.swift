@@ -36,7 +36,12 @@ import Foundation
      - Precondition: `instanceId` should not be nil.
      */
     /// - Tag: start
-    @objc public func start(instanceId: String) {
+    @objc public func start(instanceId: String, beamsTokenProvider: BeamsTokenProvider?) {
+        // https://github.com/pusher/push-notifications-android/compare/master..users-api-spike
+        beamsTokenProvider?.fetchToken(completion: { (data) in
+            print(String(data: data, encoding: .utf8))
+        })
+
         // Detect from where the function is being called
         let wasCalledFromCorrectLocation = Thread.callStackSymbols.contains { stack in
             return stack.contains("didFinishLaunchingWith") || stack.contains("applicationDidFinishLaunching")
@@ -88,6 +93,16 @@ import Foundation
         self.registerForPushNotifications(options: options)
     }
     #endif
+
+    @objc public func setUserId(_ userId: Int) {
+        let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
+        persistenceService.setUserId(userId: "123")
+    }
+
+    @objc public func clearAllState() {
+        let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
+        persistenceService.removeUserId()
+    }
 
     /**
      Register device token with PushNotifications service.

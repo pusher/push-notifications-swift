@@ -20,6 +20,9 @@
 		A125B64B2020DCC3002E0809 /* SDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A125B64A2020DCC3002E0809 /* SDKTests.swift */; };
 		A125B64D2020DD5F002E0809 /* FeatureFlagsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A125B64C2020DD5F002E0809 /* FeatureFlagsTests.swift */; };
 		A12B36EC2020DBA40038E59F /* ReasonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B36EB2020DBA40038E59F /* ReasonTests.swift */; };
+		A1327BDF2178EB62001483E1 /* BeamsTokenProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1327BDC2178EB61001483E1 /* BeamsTokenProvider.swift */; };
+		A1327BE02178EB62001483E1 /* AuthData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1327BDD2178EB62001483E1 /* AuthData.swift */; };
+		A1327BE12178EB62001483E1 /* TokenProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1327BDE2178EB62001483E1 /* TokenProvider.swift */; };
 		A138645B212C5057009FE29D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A138645A212C5057009FE29D /* Constants.swift */; };
 		A138645D212C54E7009FE29D /* ConstantsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A138645C212C54E7009FE29D /* ConstantsTests.swift */; };
 		A140FFD12020BE5700931AF6 /* Encodable+Encode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A140FFD02020BE5700931AF6 /* Encodable+Encode.swift */; };
@@ -83,6 +86,9 @@
 		A125B64A2020DCC3002E0809 /* SDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SDKTests.swift; path = ../../Tests/SDKTests.swift; sourceTree = "<group>"; };
 		A125B64C2020DD5F002E0809 /* FeatureFlagsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FeatureFlagsTests.swift; path = ../../Tests/FeatureFlagsTests.swift; sourceTree = "<group>"; };
 		A12B36EB2020DBA40038E59F /* ReasonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReasonTests.swift; path = ../../Tests/ReasonTests.swift; sourceTree = "<group>"; };
+		A1327BDC2178EB61001483E1 /* BeamsTokenProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BeamsTokenProvider.swift; path = ../../Sources/BeamsTokenProvider.swift; sourceTree = "<group>"; };
+		A1327BDD2178EB62001483E1 /* AuthData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthData.swift; path = ../../Sources/AuthData.swift; sourceTree = "<group>"; };
+		A1327BDE2178EB62001483E1 /* TokenProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TokenProvider.swift; path = ../../Sources/TokenProvider.swift; sourceTree = "<group>"; };
 		A138645A212C5057009FE29D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = ../../Sources/Constants.swift; sourceTree = "<group>"; };
 		A138645C212C54E7009FE29D /* ConstantsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ConstantsTests.swift; path = ../../Tests/ConstantsTests.swift; sourceTree = "<group>"; };
 		A140FFD02020BE5700931AF6 /* Encodable+Encode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Encodable+Encode.swift"; path = "../../Sources/Encodable+Encode.swift"; sourceTree = "<group>"; };
@@ -174,6 +180,9 @@
 		A155BFB51F9E38040070A609 /* PushNotifications */ = {
 			isa = PBXGroup;
 			children = (
+				A1327BDD2178EB62001483E1 /* AuthData.swift */,
+				A1327BDC2178EB61001483E1 /* BeamsTokenProvider.swift */,
+				A1327BDE2178EB62001483E1 /* TokenProvider.swift */,
 				A104B3A020F75C9000587100 /* Array+CalculateMD5Hash.swift */,
 				A182088C2014C6F4007D86C6 /* Array+ContainsSameElements.swift */,
 				A144AB471F9E3DA2009F0040 /* Device.swift */,
@@ -373,6 +382,8 @@
 				A182088D2014C6F4007D86C6 /* Array+ContainsSameElements.swift in Sources */,
 				A138645B212C5057009FE29D /* Constants.swift in Sources */,
 				A140FFD32020BECF00931AF6 /* Interests.swift in Sources */,
+				A1327BDF2178EB62001483E1 /* BeamsTokenProvider.swift in Sources */,
+				A1327BE02178EB62001483E1 /* AuthData.swift in Sources */,
 				A19ECF831FCF099200688DAF /* InterestPersistable.swift in Sources */,
 				A1DAD62E2020CAE7001497B5 /* SystemVersion.swift in Sources */,
 				A104B3A120F75C9000587100 /* Array+CalculateMD5Hash.swift in Sources */,
@@ -390,6 +401,7 @@
 				A10552EF2028C017001E45D1 /* PropertyListReadable.swift in Sources */,
 				A144AB4E1F9E3DA3009F0040 /* PushNotificationsNetworkable.swift in Sources */,
 				A108811A20334D860091E8EB /* PusherAlreadyRegisteredError.swift in Sources */,
+				A1327BE12178EB62001483E1 /* TokenProvider.swift in Sources */,
 				A144AB4F1F9E3DA3009F0040 /* Device.swift in Sources */,
 				A1E8000A201A213000467EB9 /* ReportEventType.swift in Sources */,
 				A1E80015201A3DAC00467EB9 /* PublishId.swift in Sources */,

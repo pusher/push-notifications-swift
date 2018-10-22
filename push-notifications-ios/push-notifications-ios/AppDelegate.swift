@@ -7,7 +7,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let pushNotifications = PushNotifications.shared
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        self.pushNotifications.start(instanceId: "YOUR_INSTANCE_ID") // Can be found here: https://dash.pusher.com
+
+        let tokenProvider = BeamsTokenProvider(authURL: "https://httpbin.org/anything") { () -> AuthData in
+            let sessionToken = "123"
+            return AuthData(headers: ["Authorization": "Bearer \(sessionToken)"], urlParams: [:])
+        }
+
+        self.pushNotifications.start(instanceId: "123", beamsTokenProvider: tokenProvider)
+
         self.pushNotifications.registerForRemoteNotifications()
         try? self.pushNotifications.subscribe(interest: "hello")
 

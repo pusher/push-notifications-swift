@@ -10,6 +10,7 @@ struct Constants {
 
     struct PersistanceService {
         static let prefix = "com.pusher.sdk.interests"
+        static let userId = "com.pusher.sdk.user.id"
         static let hashKey = "interestsHash"
     }
 
