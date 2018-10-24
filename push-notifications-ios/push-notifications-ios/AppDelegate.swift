@@ -8,12 +8,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        let tokenProvider = BeamsTokenProvider(authURL: "your-token-provider-url") { () -> AuthData in
-            let sessionToken = "session-token"
+        let tokenProvider = BeamsTokenProvider(authURL: "YOUR-TOKEN-PROVIDER-URL") { () -> AuthData in
+            let sessionToken = "SESSION-TOKEN"
             return AuthData(headers: ["Authorization": "Bearer \(sessionToken)"], urlParams: [:])
         }
 
-        self.pushNotifications.start(instanceId: "your-instance-id", beamsTokenProvider: tokenProvider)
+        self.pushNotifications.start(instanceId: "YOUR_INSTANCE_ID", beamsTokenProvider: tokenProvider) // Can be found here: https://dash.pusher.com
         try? self.pushNotifications.setUserId("Johnny Cash")
         self.pushNotifications.registerForRemoteNotifications()
         try? self.pushNotifications.subscribe(interest: "hello")

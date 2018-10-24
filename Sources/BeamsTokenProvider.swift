@@ -26,11 +26,13 @@ import Foundation
                 let token = data,
                 let httpURLResponse = response as? HTTPURLResponse
                 else {
-                    return
+                    print("[PushNotifications] - BeamsTokenProvider: Something went wrong ...")
+                    return completion("")
             }
             let statusCode = httpURLResponse.statusCode
             guard statusCode >= 200 && statusCode < 300, error == nil else {
-                    return
+                print("[PushNotifications] - BeamsTokenProvider: Received HTTP Status Code: \(statusCode)")
+                return completion("")
             }
 
             return completion(String(data: token, encoding: .utf8) ?? "Something went wrong ...")
