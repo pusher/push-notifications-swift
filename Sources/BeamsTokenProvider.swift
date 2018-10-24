@@ -9,13 +9,13 @@ import Foundation
         self.getAuthData = getAuthData
     }
 
-    func fetchToken(completion: @escaping (_ response: Data) -> Void) {
+    func fetchToken(userId: String, completion: @escaping (_ response: String) -> Void) {
         let authData = getAuthData()
         let headers = authData.headers
 
         let urlSession = URLSession(configuration: .ephemeral)
 
-        var urlRequest = URLRequest(url: URL(string: self.authURL)!)
+        var urlRequest = URLRequest(url: URL(string: "\(self.authURL)?user_id=\(userId)")!)
         urlRequest.httpMethod = "POST"
         for header in headers {
             urlRequest.addValue(header.value, forHTTPHeaderField: header.key)
@@ -23,7 +23,7 @@ import Foundation
 
         urlSession.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
             guard
-                let data = data,
+                let token = data,
                 let httpURLResponse = response as? HTTPURLResponse
                 else {
                     return
@@ -33,7 +33,7 @@ import Foundation
                     return
             }
 
-            return completion(data)
+            return completion(String(data: token, encoding: .utf8) ?? "Something went wrong ...")
         }).resume()
     }
 }
