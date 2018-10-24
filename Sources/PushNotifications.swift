@@ -13,6 +13,8 @@ import Foundation
     private let persistenceStorageOperationQueue = DispatchQueue(label: Constants.DispatchQueue.persistenceStorageOperationQueue)
     private let networkService: PushNotificationsNetworkable
 
+    private var beamsTokenProvider: BeamsTokenProvider?
+
     // The object that acts as the delegate of push notifications.
     public weak var delegate: InterestsChangedDelegate?
 
@@ -37,10 +39,10 @@ import Foundation
      */
     /// - Tag: start
     @objc public func start(instanceId: String, beamsTokenProvider: BeamsTokenProvider?) {
-        // https://github.com/pusher/push-notifications-android/compare/master..users-api-spike
-        beamsTokenProvider?.fetchToken(completion: { (data) in
-            print(String(data: data, encoding: .utf8))
-        })
+
+        if let beamsTokenProvider = beamsTokenProvider {
+            self.beamsTokenProvider = beamsTokenProvider
+        }
 
         // Detect from where the function is being called
         let wasCalledFromCorrectLocation = Thread.callStackSymbols.contains { stack in
@@ -94,14 +96,37 @@ import Foundation
     }
     #endif
 
-    @objc public func setUserId(_ userId: Int) {
-        let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
-        persistenceService.setUserId(userId: "123")
+    @objc public func setUserId(_ userId: String) throws {
+        guard let beamsTokenProvider = self.beamsTokenProvider else {
+            throw UserValidationtError.beamsTokenProviderException
+        }
+
+        let persistenceService: UserPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
+        guard persistenceService.getUserId() == nil else {
+            throw UserValidationtError.userExists
+        }
+
+        beamsTokenProvider.fetchToken(userId: userId, completion: { (token) in
+
+            guard
+                let deviceId = Device.getDeviceId(),
+                let instanceId = Instance.getInstanceId(),
+                let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/user")
+                else {
+                    return
+            }
+
+            let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
+            networkService.setUserId(url: url, token: token, completion: { _ in
+                persistenceService.setUserId(userId: userId)
+            })
+        })
     }
 
     @objc public func clearAllState() {
-        let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
+        let persistenceService: UserPersistable & InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
         persistenceService.removeUserId()
+        persistenceService.removeAll()
     }
 
     /**

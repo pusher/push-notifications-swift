@@ -13,4 +13,6 @@ protocol PushNotificationsNetworkable {
     func track(url: URL, eventType: ReportEventType, completion: @escaping CompletionHandler<String>)
 
     func syncMetadata(url: URL, completion: @escaping CompletionHandler<String>)
+
+    func setUserId(url: URL, token: String, completion: @escaping CompletionHandler<String>)
 }

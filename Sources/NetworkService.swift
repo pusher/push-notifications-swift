@@ -84,6 +84,14 @@ class NetworkService: PushNotificationsNetworkable {
         }
     }
 
+    func setUserId(url: URL, token: String, completion: @escaping CompletionHandler<String>) {
+        var request = self.setRequest(url: url, httpMethod: .PUT)
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        self.networkRequest(request, session: self.session) { _ in
+            completion(nil)
+        }
+    }
+
     // MARK: Networking Layer
     private func networkRequest(_ request: URLRequest, session: URLSession, completion: @escaping (_ response: Data) -> Void) {
         self.queue.async {
