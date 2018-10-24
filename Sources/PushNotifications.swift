@@ -96,6 +96,14 @@ import Foundation
     }
     #endif
 
+    /**
+     Set user id.
+
+     - Parameter userId: User id.
+
+     - Precondition: You need to first authenticate the user by providing `beamsTokenProvider` in `start(instanceId:, beamsTokenProvider:)` method. `beamsTokenProvider` should not be nil.
+    */
+    /// - Tag: setUserId
     @objc public func setUserId(_ userId: String) throws {
         guard let beamsTokenProvider = self.beamsTokenProvider else {
             throw UserValidationtError.beamsTokenProviderException
@@ -123,6 +131,13 @@ import Foundation
         })
     }
 
+    /**
+     Log out user and remove all subscriptions.
+
+     Remove user and all subscriptions set from both client and server.
+     Device is now in a fresh state, ready for new subscriptions or user being set.
+     */
+    /// - Tag: clearAllState
     @objc public func clearAllState() {
         let persistenceService: UserPersistable & InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
         persistenceService.removeUserId()
