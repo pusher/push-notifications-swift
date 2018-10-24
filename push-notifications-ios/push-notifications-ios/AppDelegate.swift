@@ -8,13 +8,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        let tokenProvider = BeamsTokenProvider(authURL: "https://httpbin.org/anything") { () -> AuthData in
-            let sessionToken = "123"
+        let tokenProvider = BeamsTokenProvider(authURL: "your-token-provider-url") { () -> AuthData in
+            let sessionToken = "session-token"
             return AuthData(headers: ["Authorization": "Bearer \(sessionToken)"], urlParams: [:])
         }
 
-        self.pushNotifications.start(instanceId: "123", beamsTokenProvider: tokenProvider)
-
+        self.pushNotifications.start(instanceId: "your-instance-id", beamsTokenProvider: tokenProvider)
+        try? self.pushNotifications.setUserId("Johnny Cash")
         self.pushNotifications.registerForRemoteNotifications()
         try? self.pushNotifications.subscribe(interest: "hello")
 
