@@ -3,9 +3,6 @@ import Foundation
 protocol InterestPersistable {
     @discardableResult func persist(interest: String) -> Bool
     @discardableResult func persist(interests: [String]) -> Bool
-    @discardableResult func setUserId(userId: String) -> Bool
-    func getUserId() -> String?
-    func removeUserId()
     @discardableResult func remove(interest: String) -> Bool
     func removeAll()
     func getSubscriptions() -> [String]?

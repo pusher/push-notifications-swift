@@ -1,6 +1,6 @@
 import Foundation
 
-struct PersistenceService: InterestPersistable {
+struct PersistenceService: InterestPersistable, UserPersistable {
 
     let service: UserDefaults
     private let prefix = Constants.PersistanceService.prefix
