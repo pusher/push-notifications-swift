@@ -40,7 +40,7 @@ struct PersistenceService: InterestPersistable, UserPersistable {
     }
 
     func getUserId() -> String? {
-        return service.object(forKey: Constants.PersistanceService.userId) as? String ?? nil
+        return service.object(forKey: Constants.PersistanceService.userId) as? String
     }
 
     func removeUserId() {
