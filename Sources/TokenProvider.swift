@@ -1,5 +1,5 @@
 import Foundation
 
 protocol TokenProvider {
-    func fetchToken(userId: String, completion: @escaping (_ response: String) -> Void)
+    func fetchToken(userId: String, completion: @escaping (Result<String>) -> Void)
 }

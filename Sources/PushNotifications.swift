@@ -104,7 +104,7 @@ import Foundation
      - Precondition: You need to first authenticate the user by providing `beamsTokenProvider` in `start(instanceId:, beamsTokenProvider:)` method. `beamsTokenProvider` should not be nil.
     */
     /// - Tag: setUserId
-    @objc public func setUserId(_ userId: String) throws {
+    @objc public func setUserId(_ userId: String, completion: @escaping (Error?) -> Void) throws {
         guard let beamsTokenProvider = self.beamsTokenProvider else {
             throw UserValidationtError.beamsTokenProviderNotSetException
         }
@@ -114,19 +114,30 @@ import Foundation
             throw UserValidationtError.userAlreadyExists
         }
 
-        beamsTokenProvider.fetchToken(userId: userId, completion: { (token) in
-            guard
-                let deviceId = Device.getDeviceId(),
-                let instanceId = Instance.getInstanceId(),
-                let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/user")
-                else {
-                    return
+        beamsTokenProvider.fetchToken(userId: userId, completion: { (result) in
+            guard let deviceId = Device.getDeviceId() else {
+                print("[PushNotifications] - Device id is nil.")
+                return
+            }
+            guard let instanceId = Instance.getInstanceId() else {
+                print("[PushNotifications] - Instance id is nil.")
+                return
+            }
+            guard let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/user") else {
+                print("[PushNotifications] - Error while constructing URL from a string.")
+                return
             }
 
-            let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
-            networkService.setUserId(url: url, token: token, completion: { _ in
-                persistenceService.setUserId(userId: userId)
-            })
+            switch result {
+            case .success(let token):
+                let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
+                networkService.setUserId(url: url, token: token, completion: { _ in
+                    persistenceService.setUserId(userId: userId)
+                    completion(nil)
+                })
+            case .failure(let error):
+                completion(error)
+            }
         })
     }
 

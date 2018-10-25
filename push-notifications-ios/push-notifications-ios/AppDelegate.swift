@@ -14,7 +14,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         self.pushNotifications.start(instanceId: "YOUR_INSTANCE_ID", beamsTokenProvider: tokenProvider) // Can be found here: https://dash.pusher.com
-        try? self.pushNotifications.setUserId("Johnny Cash")
+        try? self.pushNotifications.setUserId("Johnny Cash", completion: { (error) in
+            guard error == nil else {
+                print(error.debugDescription)
+                return
+            }
+        })
         self.pushNotifications.registerForRemoteNotifications()
         try? self.pushNotifications.subscribe(interest: "hello")
 

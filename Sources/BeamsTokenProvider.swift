@@ -1,5 +1,9 @@
 import Foundation
 
+enum BeamsTokenProviderError: Error {
+    case error(String)
+}
+
 @objc public class BeamsTokenProvider: NSObject, TokenProvider {
     public let authURL: String
     public let getAuthData: () -> AuthData
@@ -9,22 +13,20 @@ import Foundation
         self.getAuthData = getAuthData
     }
 
-    func fetchToken(userId: String, completion: @escaping (_ response: String) -> Void) {
+    func fetchToken(userId: String, completion: @escaping (Result<String>) -> Void) {
         let authData = getAuthData()
         let headers = authData.headers
 
         let urlSession = URLSession(configuration: .ephemeral)
 
         guard var components = URLComponents(string: authURL) else {
-            print("URL string from the `authURL` is malformed.")
-            return
+            return completion(.failure(BeamsTokenProviderError.error("URL string from the `authURL` is malformed.")))
         }
 
         let userIdQueryItem = URLQueryItem(name: "user_id", value: userId)
         components.queryItems = [userIdQueryItem]
         guard let url = components.url else {
-            print("There was a problem constructing URL from the `authURL`.")
-            return
+            return completion(.failure(BeamsTokenProviderError.error("There was a problem constructing URL from the `authURL`.")))
         }
 
         var urlRequest = URLRequest(url: url)
@@ -35,24 +37,24 @@ import Foundation
 
         urlSession.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
             guard let token = data else {
-                print("[PushNotifications] - BeamsTokenProvider: `Data` object that contains token is nil")
-                return completion("")
+                return completion(.failure(BeamsTokenProviderError.error("[PushNotifications] - BeamsTokenProvider: Token is nil")))
             }
             guard let httpURLResponse = response as? HTTPURLResponse else {
-                print("[PushNotifications] - BeamsTokenProvider: Error while casting response object to `HTTPURLResponse`")
-                return completion("")
+                return completion(.failure(BeamsTokenProviderError.error("[PushNotifications] - BeamsTokenProvider: Error while casting response object to `HTTPURLResponse`")))
             }
             let statusCode = httpURLResponse.statusCode
             guard statusCode >= 200 && statusCode < 300 else {
-                print("[PushNotifications] - BeamsTokenProvider: Received HTTP Status Code: \(statusCode)")
-                return completion("")
+                return completion(.failure(BeamsTokenProviderError.error("[PushNotifications] - BeamsTokenProvider: Received HTTP Status Code: \(statusCode)")))
             }
             guard error == nil else {
-                print("[PushNotifications] - BeamsTokenProvider: Received an error: \(error.debugDescription)")
-                return completion("")
+                return completion(.failure(BeamsTokenProviderError.error("[PushNotifications] - BeamsTokenProvider: \(error.debugDescription)")))
             }
 
-            return completion(String(data: token, encoding: .utf8) ?? "Something went wrong ...")
+            guard let tokenString = String(data: token, encoding: .utf8) else {
+                return completion(.failure(BeamsTokenProviderError.error("[PushNotifications] - BeamsTokenProvider: Error while converting token to string.")))
+            }
+
+            return completion(.success(tokenString))
         }).resume()
     }
 }
