@@ -109,7 +109,7 @@ import Foundation
             throw UserValidationtError.beamsTokenProviderNotSetException
         }
 
-        let persistenceService: UserPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
+        let persistenceService: UserPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
         guard persistenceService.getUserId() == nil else {
             throw UserValidationtError.userAlreadyExists
         }
@@ -139,7 +139,7 @@ import Foundation
     /// - Tag: clearAllState
     @objc public func clearAllState() {
         // TODO: Missing API call!
-        let persistenceService: UserPersistable & InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
+        let persistenceService: UserPersistable & InterestPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
         persistenceService.removeUserId()
         persistenceService.removeAllSubscriptions()
     }
@@ -184,7 +184,7 @@ import Foundation
                     Device.persist(device.id)
 
                     let initialInterestSet = device.initialInterestSet ?? []
-                    let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
+                    let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
                     if initialInterestSet.count > 0 {
                         persistenceService.persist(interests: initialInterestSet)
                     }
