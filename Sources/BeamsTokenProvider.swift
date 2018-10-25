@@ -15,7 +15,19 @@ import Foundation
 
         let urlSession = URLSession(configuration: .ephemeral)
 
-        var urlRequest = URLRequest(url: URL(string: "\(self.authURL)?user_id=\(userId)")!)
+        guard var components = URLComponents(string: authURL) else {
+            print("URL string from the `authURL` is malformed.")
+            return
+        }
+
+        let userIdQueryItem = URLQueryItem(name: "user_id", value: userId)
+        components.queryItems = [userIdQueryItem]
+        guard let url = components.url else {
+            print("There was a problem constructing URL from the `authURL`.")
+            return
+        }
+
+        var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
         for header in headers {
             urlRequest.addValue(header.value, forHTTPHeaderField: header.key)
