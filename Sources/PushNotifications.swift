@@ -111,11 +111,10 @@ import Foundation
 
         let persistenceService: UserPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
         guard persistenceService.getUserId() == nil else {
-            throw UserValidationtError.userExists
+            throw UserValidationtError.userAlreadyExists
         }
 
         beamsTokenProvider.fetchToken(userId: userId, completion: { (token) in
-
             guard
                 let deviceId = Device.getDeviceId(),
                 let instanceId = Instance.getInstanceId(),

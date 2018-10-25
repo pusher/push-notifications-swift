@@ -5,12 +5,12 @@ import Foundation
 
  *Values*
 
- `userExists` User already exists.
+ `userAlreadyExists` User already exists.
  `beamsTokenProviderException` Beams Token Provider not set.
  */
 public enum UserValidationtError: Error {
      // User already exists.
-    case userExists
+    case userAlreadyExists
     // Beams Token Provider not set.
     case beamsTokenProviderException
 }
