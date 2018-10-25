@@ -138,9 +138,10 @@ import Foundation
      */
     /// - Tag: clearAllState
     @objc public func clearAllState() {
+        // TODO: Missing API call!
         let persistenceService: UserPersistable & InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
         persistenceService.removeUserId()
-        persistenceService.removeAll()
+        persistenceService.removeAllSubscriptions()
     }
 
     /**

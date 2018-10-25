@@ -19,7 +19,7 @@ struct PersistenceService: InterestPersistable, UserPersistable {
             let persistedInterests = self.getSubscriptions(),
             persistedInterests.sorted().elementsEqual(interests.sorted())
         else {
-            self.removeAll()
+            self.removeAllSubscriptions()
             for interest in interests {
                 _ = self.persist(interest: interest)
             }
@@ -56,7 +56,7 @@ struct PersistenceService: InterestPersistable, UserPersistable {
         return true
     }
 
-    func removeAll() {
+    func removeAllSubscriptions() {
         for element in service.dictionaryRepresentation() {
             if element.key.hasPrefix(prefix) {
                 service.removeObject(forKey: element.key)
