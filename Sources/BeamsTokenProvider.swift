@@ -42,8 +42,12 @@ import Foundation
                     return completion("")
             }
             let statusCode = httpURLResponse.statusCode
-            guard statusCode >= 200 && statusCode < 300, error == nil else {
+            guard statusCode >= 200 && statusCode < 300 else {
                 print("[PushNotifications] - BeamsTokenProvider: Received HTTP Status Code: \(statusCode)")
+                return completion("")
+            }
+            guard error == nil else {
+                print("[PushNotifications] - BeamsTokenProvider: Received an error: \(error.debugDescription)")
                 return completion("")
             }
 
