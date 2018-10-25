@@ -34,12 +34,13 @@ import Foundation
         }
 
         urlSession.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
-            guard
-                let token = data,
-                let httpURLResponse = response as? HTTPURLResponse
-                else {
-                    print("[PushNotifications] - BeamsTokenProvider: Something went wrong ...")
-                    return completion("")
+            guard let token = data else {
+                print("[PushNotifications] - BeamsTokenProvider: `Data` object that contains token is nil")
+                return completion("")
+            }
+            guard let httpURLResponse = response as? HTTPURLResponse else {
+                print("[PushNotifications] - BeamsTokenProvider: Error while casting response object to `HTTPURLResponse`")
+                return completion("")
             }
             let statusCode = httpURLResponse.statusCode
             guard statusCode >= 200 && statusCode < 300 else {
