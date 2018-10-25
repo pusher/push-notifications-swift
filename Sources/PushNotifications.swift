@@ -106,7 +106,7 @@ import Foundation
     /// - Tag: setUserId
     @objc public func setUserId(_ userId: String) throws {
         guard let beamsTokenProvider = self.beamsTokenProvider else {
-            throw UserValidationtError.beamsTokenProviderException
+            throw UserValidationtError.beamsTokenProviderNotSetException
         }
 
         let persistenceService: UserPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
