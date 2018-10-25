@@ -110,6 +110,10 @@ import Foundation
         }
 
         let persistenceService: UserPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
+        if let persistedUserId = persistenceService.getUserId(), persistedUserId == userId {
+            return completion(nil)
+        }
+
         guard persistenceService.getUserId() == nil else {
             throw UserValidationtError.userAlreadyExists
         }
