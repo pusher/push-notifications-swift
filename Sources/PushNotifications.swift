@@ -118,31 +118,30 @@ import Foundation
             throw UserValidationtError.userAlreadyExists
         }
 
-        beamsTokenProvider.fetchToken(userId: userId, completion: { (result) in
-            guard let deviceId = Device.getDeviceId() else {
-                print("[PushNotifications] - Device id is nil.")
-                return
-            }
-            guard let instanceId = Instance.getInstanceId() else {
-                print("[PushNotifications] - Instance id is nil.")
-                return
-            }
-            guard let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/user") else {
-                print("[PushNotifications] - Error while constructing URL from a string.")
-                return
-            }
+        self.preIISOperationQueue.async {
+            beamsTokenProvider.fetchToken(userId: userId, completion: { (result) in
+                guard let deviceId = Device.getDeviceId() else {
+                    return completion(BeamsTokenProviderError.error("[PushNotifications] - Device id is nil."))
+                }
+                guard let instanceId = Instance.getInstanceId() else {
+                    return completion(BeamsTokenProviderError.error("[PushNotifications] - Instance id is nil."))
+                }
+                guard let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/user") else {
+                    return completion(BeamsTokenProviderError.error("[PushNotifications] - Error while constructing URL from a string."))
+                }
 
-            switch result {
-            case .success(let token):
-                let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
-                networkService.setUserId(url: url, token: token, completion: { _ in
-                    persistenceService.setUserId(userId: userId)
-                    completion(nil)
-                })
-            case .failure(let error):
-                completion(error)
-            }
-        })
+                switch result {
+                case .success(let token):
+                    let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
+                    networkService.setUserId(url: url, token: token, completion: { _ in
+                        persistenceService.setUserId(userId: userId)
+                        completion(nil)
+                    })
+                case .failure(let error):
+                    completion(error)
+                }
+            })
+        }
     }
 
     /**
