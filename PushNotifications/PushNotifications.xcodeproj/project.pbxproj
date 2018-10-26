@@ -38,6 +38,9 @@
 		A1482A542180A47900F19A4E /* UserPersistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1482A532180A47900F19A4E /* UserPersistable.swift */; };
 		A1482A562180A59800F19A4E /* UserValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1482A552180A59800F19A4E /* UserValidationError.swift */; };
 		A1482A582181F3CD00F19A4E /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1482A572181F3CD00F19A4E /* Result.swift */; };
+		A1482A5A218326AE00F19A4E /* UserPersistableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1482A59218326AE00F19A4E /* UserPersistableTests.swift */; };
+		A1482A5C218328C300F19A4E /* AuthDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1482A5B218328C300F19A4E /* AuthDataTests.swift */; };
+		A1482A5E218329B900F19A4E /* BeamsTokenProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1482A5D218329B900F19A4E /* BeamsTokenProviderTests.swift */; };
 		A1504E17206B9D98002D1E74 /* EventTypeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1504E16206B9D98002D1E74 /* EventTypeHandler.swift */; };
 		A155BFBD1F9E38040070A609 /* PushNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A155BFB31F9E38040070A609 /* PushNotifications.framework */; };
 		A155BFC41F9E38040070A609 /* PushNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = A155BFB61F9E38040070A609 /* PushNotifications.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -107,6 +110,9 @@
 		A1482A532180A47900F19A4E /* UserPersistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserPersistable.swift; path = ../../Sources/UserPersistable.swift; sourceTree = "<group>"; };
 		A1482A552180A59800F19A4E /* UserValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserValidationError.swift; path = ../../Sources/UserValidationError.swift; sourceTree = "<group>"; };
 		A1482A572181F3CD00F19A4E /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Result.swift; path = ../../Sources/Result.swift; sourceTree = "<group>"; };
+		A1482A59218326AE00F19A4E /* UserPersistableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserPersistableTests.swift; path = ../../Tests/UserPersistableTests.swift; sourceTree = "<group>"; };
+		A1482A5B218328C300F19A4E /* AuthDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AuthDataTests.swift; path = ../../Tests/AuthDataTests.swift; sourceTree = "<group>"; };
+		A1482A5D218329B900F19A4E /* BeamsTokenProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BeamsTokenProviderTests.swift; path = ../../Tests/BeamsTokenProviderTests.swift; sourceTree = "<group>"; };
 		A1504E16206B9D98002D1E74 /* EventTypeHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventTypeHandler.swift; path = ../../Sources/EventTypeHandler.swift; sourceTree = "<group>"; };
 		A155BFB31F9E38040070A609 /* PushNotifications.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PushNotifications.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A155BFB61F9E38040070A609 /* PushNotifications.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PushNotifications.h; sourceTree = "<group>"; };
@@ -231,6 +237,9 @@
 			isa = PBXGroup;
 			children = (
 				A18F96E02015F0A200FA35D0 /* ArrayContainsSameElementsTests.swift */,
+				A1482A5B218328C300F19A4E /* AuthDataTests.swift */,
+				A1482A5D218329B900F19A4E /* BeamsTokenProviderTests.swift */,
+				A138645C212C54E7009FE29D /* ConstantsTests.swift */,
 				A108811D20334DC20091E8EB /* DeviceTests.swift */,
 				A144AB541F9E3DBF009F0040 /* DeviceTokenHelperTests.swift */,
 				A16870E3206CE7D8000E841F /* EventTypeHandlerTests.swift */,
@@ -249,7 +258,7 @@
 				A11E83342021D014009C09EF /* RegisterTests.swift */,
 				A125B64A2020DCC3002E0809 /* SDKTests.swift */,
 				A1DAD6352020D4D1001497B5 /* SystemVersionTests.swift */,
-				A138645C212C54E7009FE29D /* ConstantsTests.swift */,
+				A1482A59218326AE00F19A4E /* UserPersistableTests.swift */,
 			);
 			path = PushNotificationsTests;
 			sourceTree = "<group>";
@@ -426,10 +435,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1482A5A218326AE00F19A4E /* UserPersistableTests.swift in Sources */,
 				A1DAD6322020CED7001497B5 /* InterestNameValidationTests.swift in Sources */,
 				A11E83352021D014009C09EF /* RegisterTests.swift in Sources */,
 				A12B36EC2020DBA40038E59F /* ReasonTests.swift in Sources */,
+				A1482A5E218329B900F19A4E /* BeamsTokenProviderTests.swift in Sources */,
 				A1DAD6362020D4D1001497B5 /* SystemVersionTests.swift in Sources */,
+				A1482A5C218328C300F19A4E /* AuthDataTests.swift in Sources */,
 				A108811E20334DC20091E8EB /* InstanceTests.swift in Sources */,
 				A108811F20334DC20091E8EB /* DeviceTests.swift in Sources */,
 				A125B64B2020DCC3002E0809 /* SDKTests.swift in Sources */,
