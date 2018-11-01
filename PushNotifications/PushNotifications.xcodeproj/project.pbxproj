@@ -49,6 +49,7 @@
 		A16870E4206CE7D8000E841F /* EventTypeHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16870E3206CE7D8000E841F /* EventTypeHandlerTests.swift */; };
 		A182088D2014C6F4007D86C6 /* Array+ContainsSameElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = A182088C2014C6F4007D86C6 /* Array+ContainsSameElements.swift */; };
 		A18F96E12015F0A200FA35D0 /* ArrayContainsSameElementsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18F96E02015F0A200FA35D0 /* ArrayContainsSameElementsTests.swift */; };
+		A19B15D32189E4FC008E6DB5 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19B15D22189E4FC008E6DB5 /* Token.swift */; };
 		A19ECF831FCF099200688DAF /* InterestPersistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19ECF811FCF099100688DAF /* InterestPersistable.swift */; };
 		A19ECF841FCF099200688DAF /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19ECF821FCF099100688DAF /* PersistenceService.swift */; };
 		A19ECF881FCF09A500688DAF /* PushNotificationsNetworkableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19ECF851FCF09A500688DAF /* PushNotificationsNetworkableTests.swift */; };
@@ -124,6 +125,7 @@
 		A16870E3206CE7D8000E841F /* EventTypeHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventTypeHandlerTests.swift; path = ../../Tests/EventTypeHandlerTests.swift; sourceTree = "<group>"; };
 		A182088C2014C6F4007D86C6 /* Array+ContainsSameElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Array+ContainsSameElements.swift"; path = "../../Sources/Array+ContainsSameElements.swift"; sourceTree = "<group>"; };
 		A18F96E02015F0A200FA35D0 /* ArrayContainsSameElementsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArrayContainsSameElementsTests.swift; path = ../../Tests/ArrayContainsSameElementsTests.swift; sourceTree = "<group>"; };
+		A19B15D22189E4FC008E6DB5 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Token.swift; path = ../../Sources/Token.swift; sourceTree = "<group>"; };
 		A19ECF811FCF099100688DAF /* InterestPersistable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterestPersistable.swift; path = ../../Sources/InterestPersistable.swift; sourceTree = "<group>"; };
 		A19ECF821FCF099100688DAF /* PersistenceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PersistenceService.swift; path = ../../Sources/PersistenceService.swift; sourceTree = "<group>"; };
 		A19ECF851FCF09A500688DAF /* PushNotificationsNetworkableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PushNotificationsNetworkableTests.swift; path = ../../Tests/PushNotificationsNetworkableTests.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				A1327BDE2178EB62001483E1 /* TokenProvider.swift */,
 				A1482A532180A47900F19A4E /* UserPersistable.swift */,
 				A1482A552180A59800F19A4E /* UserValidationError.swift */,
+				A19B15D22189E4FC008E6DB5 /* Token.swift */,
 			);
 			path = PushNotifications;
 			sourceTree = "<group>";
@@ -420,6 +423,7 @@
 				A1B344442018BC0200481BDF /* MultipleInvalidInterestsError.swift in Sources */,
 				A1067109201F69B8001190F8 /* FeatureFlags.swift in Sources */,
 				A10552EF2028C017001E45D1 /* PropertyListReadable.swift in Sources */,
+				A19B15D32189E4FC008E6DB5 /* Token.swift in Sources */,
 				A144AB4E1F9E3DA3009F0040 /* PushNotificationsNetworkable.swift in Sources */,
 				A108811A20334D860091E8EB /* PusherAlreadyRegisteredError.swift in Sources */,
 				A1327BE12178EB62001483E1 /* TokenProvider.swift in Sources */,

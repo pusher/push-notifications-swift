@@ -36,7 +36,7 @@ enum BeamsTokenProviderError: Error {
         }
 
         urlSession.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
-            guard let token = data else {
+            guard let data = data else {
                 return completion(.failure(BeamsTokenProviderError.error("[PushNotifications] - BeamsTokenProvider: Token is nil")))
             }
             guard let httpURLResponse = response as? HTTPURLResponse else {
@@ -50,11 +50,11 @@ enum BeamsTokenProviderError: Error {
                 return completion(.failure(BeamsTokenProviderError.error("[PushNotifications] - BeamsTokenProvider: \(error.debugDescription)")))
             }
 
-            guard let tokenString = String(data: token, encoding: .utf8) else {
-                return completion(.failure(BeamsTokenProviderError.error("[PushNotifications] - BeamsTokenProvider: Error while converting token to string.")))
+            guard let token = try? JSONDecoder().decode(Token.self, from: data).token else {
+                return completion(.failure(BeamsTokenProviderError.error("[PushNotifications] - BeamsTokenProvider: Error while parsing the token.")))
             }
 
-            return completion(.success(tokenString))
+            return completion(.success(token))
         }).resume()
     }
 }

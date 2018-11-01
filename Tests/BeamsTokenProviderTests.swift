@@ -27,10 +27,11 @@ class BeamsTokenProviderTests: XCTestCase {
         XCTAssertEqual(self.beamsTokenProvider.authURL, "localhost:8080")
 
         let url = self.authURL()
-        let responseToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NDA1NjA"
-        let stubData = responseToken.data(using: .utf8)
+        let jsonObject: [String: Any] = [
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NDA1NjA"
+        ]
         stub(condition: isAbsoluteURLString(url.absoluteString)) { _ in
-            return OHHTTPStubsResponse(data: stubData!, statusCode: 200, headers: nil)
+            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
         }
 
         let exp = expectation(description: "It should successfully fetch the token")
