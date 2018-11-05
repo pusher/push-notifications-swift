@@ -30,7 +30,7 @@ enum BeamsTokenProviderError: Error {
         }
 
         var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = "POST"
+        urlRequest.httpMethod = "GET"
         for header in headers {
             urlRequest.addValue(header.value, forHTTPHeaderField: header.key)
         }
