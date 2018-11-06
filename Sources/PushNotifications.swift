@@ -13,7 +13,7 @@ import Foundation
     private let persistenceStorageOperationQueue = DispatchQueue(label: Constants.DispatchQueue.persistenceStorageOperationQueue)
     private let networkService: PushNotificationsNetworkable
 
-    private var beamsTokenProvider: BeamsTokenProvider?
+    private var tokenProvider: TokenProvider?
 
     // The object that acts as the delegate of push notifications.
     public weak var delegate: InterestsChangedDelegate?
@@ -38,10 +38,10 @@ import Foundation
      - Precondition: `instanceId` should not be nil.
      */
     /// - Tag: start
-    @objc public func start(instanceId: String, beamsTokenProvider: BeamsTokenProvider?) {
+    @objc public func start(instanceId: String, tokenProvider: TokenProvider? = nil) {
 
-        if let beamsTokenProvider = beamsTokenProvider {
-            self.beamsTokenProvider = beamsTokenProvider
+        if let tokenProvider = tokenProvider {
+            self.tokenProvider = tokenProvider
         }
 
         // Detect from where the function is being called
@@ -105,7 +105,7 @@ import Foundation
     */
     /// - Tag: setUserId
     @objc public func setUserId(_ userId: String, completion: @escaping (Error?) -> Void) throws {
-        guard let beamsTokenProvider = self.beamsTokenProvider else {
+        guard let tokenProvider = self.tokenProvider else {
             throw UserValidationtError.beamsTokenProviderNotSetException
         }
 
@@ -119,27 +119,26 @@ import Foundation
         }
 
         self.preIISOperationQueue.async {
-            beamsTokenProvider.fetchToken(userId: userId, completion: { (result) in
-                guard let deviceId = Device.getDeviceId() else {
-                    return completion(BeamsTokenProviderError.error("[PushNotifications] - Device id is nil."))
-                }
-                guard let instanceId = Instance.getInstanceId() else {
-                    return completion(BeamsTokenProviderError.error("[PushNotifications] - Instance id is nil."))
-                }
-                guard let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/user") else {
-                    return completion(BeamsTokenProviderError.error("[PushNotifications] - Error while constructing URL from a string."))
+            guard let deviceId = Device.getDeviceId() else {
+                return completion(BeamsTokenProviderError.error("[PushNotifications] - Device id is nil."))
+            }
+            guard let instanceId = Instance.getInstanceId() else {
+                return completion(BeamsTokenProviderError.error("[PushNotifications] - Instance id is nil."))
+            }
+            guard let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/user") else {
+                return completion(BeamsTokenProviderError.error("[PushNotifications] - Error while constructing URL from a string."))
+            }
+
+            tokenProvider.fetchToken(userId: userId, completionHandler: { (token, error) in
+                guard error == nil else {
+                    return completion(error)
                 }
 
-                switch result {
-                case .success(let token):
-                    let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
-                    networkService.setUserId(url: url, token: token, completion: { _ in
-                        persistenceService.setUserId(userId: userId)
-                        completion(nil)
-                    })
-                case .failure(let error):
-                    completion(error)
-                }
+                let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
+                networkService.setUserId(url: url, token: token, completion: { _ in
+                    persistenceService.setUserId(userId: userId)
+                    completion(nil)
+                })
             })
         }
     }

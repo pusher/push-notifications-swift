@@ -36,16 +36,15 @@ class BeamsTokenProviderTests: XCTestCase {
 
         let exp = expectation(description: "It should successfully fetch the token")
 
-        self.beamsTokenProvider.fetchToken(userId: "Johnny Cash") { (result) in
-            switch result {
-            case .success(let token):
-                XCTAssertNotNil(token)
-                XCTAssertEqual(token, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NDA1NjA")
-                exp.fulfill()
-            case .failure:
+        self.beamsTokenProvider.fetchToken(userId: "Johnny Cash") { (token, error) in
+            guard error == nil else {
                 XCTFail()
-                exp.fulfill()
+                return exp.fulfill()
             }
+
+            XCTAssertNotNil(token)
+            XCTAssertEqual(token, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NDA1NjA")
+            exp.fulfill()
         }
 
         waitForExpectations(timeout: 10)
@@ -61,15 +60,14 @@ class BeamsTokenProviderTests: XCTestCase {
 
         let exp = expectation(description: "It should return an error.")
 
-        self.beamsTokenProvider.fetchToken(userId: "Johnny Cash") { (result) in
-            switch result {
-            case .success:
-                XCTFail()
-                exp.fulfill()
-            case .failure(let error):
+        self.beamsTokenProvider.fetchToken(userId: "Johnny Cash") { (token, error) in
+            guard error == nil else {
                 XCTAssertNotNil(error)
-                exp.fulfill()
+                return exp.fulfill()
             }
+
+            XCTFail()
+            exp.fulfill()
         }
 
         waitForExpectations(timeout: 10)
