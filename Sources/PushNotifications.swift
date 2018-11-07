@@ -120,13 +120,13 @@ import Foundation
 
         self.preIISOperationQueue.async {
             guard let deviceId = Device.getDeviceId() else {
-                return completion(BeamsTokenProviderError.error("[PushNotifications] - Device id is nil."))
+                return completion(TokenProviderError.error("[PushNotifications] - Device id is nil."))
             }
             guard let instanceId = Instance.getInstanceId() else {
-                return completion(BeamsTokenProviderError.error("[PushNotifications] - Instance id is nil."))
+                return completion(TokenProviderError.error("[PushNotifications] - Instance id is nil."))
             }
             guard let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/user") else {
-                return completion(BeamsTokenProviderError.error("[PushNotifications] - Error while constructing URL from a string."))
+                return completion(TokenProviderError.error("[PushNotifications] - Error while constructing URL from a string."))
             }
 
             tokenProvider.fetchToken(userId: userId, completionHandler: { (token, error) in
