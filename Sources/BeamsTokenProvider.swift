@@ -12,6 +12,7 @@ import Foundation
     public func fetchToken(userId: String, completionHandler completion: @escaping (String, Error?) -> Void) {
         let authData = getAuthData()
         let headers = authData.headers
+        let urlParams = authData.urlParams
 
         let urlSession = URLSession(configuration: .ephemeral)
 
@@ -19,8 +20,9 @@ import Foundation
             return completion("", TokenProviderError.error("URL string from the `authURL` is malformed."))
         }
 
-        let userIdQueryItem = URLQueryItem(name: "user_id", value: userId)
-        components.queryItems = [userIdQueryItem]
+        var queryItems = urlParams.map { URLQueryItem(name: $0.key, value: $0.value) }
+        queryItems.append(URLQueryItem(name: "user_id", value: userId))
+        components.queryItems = queryItems
         guard let url = components.url else {
             return completion("", TokenProviderError.error("There was a problem constructing URL from the `authURL`."))
         }
