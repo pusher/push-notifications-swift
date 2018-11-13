@@ -71,7 +71,9 @@ To integrate Pusher Beams into your Xcode project using Carthage, specify it in 
 github "pusher/push-notifications-swift"
 ```
 
-Run `carthage update` to build the framework and drag the built `PushNotifications.framework`into your Xcode project.
+Continue following the steps below depending on the platform that you're building the dependency for:
+- If you're building for OS X, follow [this](https://github.com/Carthage/Carthage#if-youre-building-for-os-x) guide.
+- If you're building for iOS, tvOS, or watchOS, follow [this](https://github.com/Carthage/Carthage#if-youre-building-for-ios-tvos-or-watchos) guide.
 
 ## Running Tests
 
