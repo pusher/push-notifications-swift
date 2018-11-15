@@ -57,11 +57,11 @@ struct PersistenceService: InterestPersistable, UserPersistable {
     }
 
     func removeAllSubscriptions() {
-        for element in service.dictionaryRepresentation() {
-            if element.key.hasPrefix(prefix) {
-                service.removeObject(forKey: element.key)
-            }
-        }
+        self.removeFromPersistanceStore(prefix: prefix)
+    }
+
+    func removeAll() {
+        self.removeFromPersistanceStore(prefix: "com.pusher.sdk")
     }
 
     func getSubscriptions() -> [String]? {
@@ -86,5 +86,13 @@ struct PersistenceService: InterestPersistable, UserPersistable {
 
     private func prefixInterest(_ interest: String) -> String {
         return "\(prefix):\(interest)"
+    }
+
+    private func removeFromPersistanceStore(prefix: String) {
+        for element in service.dictionaryRepresentation() {
+            if element.key.hasPrefix(prefix) {
+                service.removeObject(forKey: element.key)
+            }
+        }
     }
 }

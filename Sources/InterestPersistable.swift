@@ -9,4 +9,6 @@ protocol InterestPersistable {
 
     func persistServerConfirmedInterestsHash(_ hash: String)
     func getServerConfirmedInterestsHash() -> String
+
+    func removeAll()
 }

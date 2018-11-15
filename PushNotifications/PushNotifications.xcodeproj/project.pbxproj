@@ -66,6 +66,7 @@
 		A1E8000A201A213000467EB9 /* ReportEventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E80009201A213000467EB9 /* ReportEventType.swift */; };
 		A1E80015201A3DAC00467EB9 /* PublishId.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E80013201A3DAC00467EB9 /* PublishId.swift */; };
 		A1EFF5C9207B7E78006C3004 /* RemoteNotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EFF5C8207B7E78006C3004 /* RemoteNotificationType.swift */; };
+		A1F0E942219B18B800D32363 /* PushNotificationsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F0E941219B18B800D32363 /* PushNotificationsError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,6 +144,7 @@
 		A1E80013201A3DAC00467EB9 /* PublishId.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PublishId.swift; path = ../../Sources/PublishId.swift; sourceTree = "<group>"; };
 		A1ED00141F9E392700A029F2 /* PushNotificationsTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PushNotificationsTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		A1EFF5C8207B7E78006C3004 /* RemoteNotificationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RemoteNotificationType.swift; path = ../../Sources/RemoteNotificationType.swift; sourceTree = "<group>"; };
+		A1F0E941219B18B800D32363 /* PushNotificationsError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PushNotificationsError.swift; path = ../../Sources/PushNotificationsError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,6 +222,7 @@
 				A108811820334D860091E8EB /* PusherAlreadyRegisteredError.swift */,
 				A155BFB61F9E38040070A609 /* PushNotifications.h */,
 				A144AB481F9E3DA2009F0040 /* PushNotifications.swift */,
+				A1F0E941219B18B800D32363 /* PushNotificationsError.swift */,
 				A144AB461F9E3DA2009F0040 /* PushNotificationsNetworkable.swift */,
 				A16782541FA0EA2C00A193DF /* Reason.swift */,
 				A1E78E302020AEF400DD94B2 /* Register.swift */,
@@ -228,10 +231,10 @@
 				A1482A572181F3CD00F19A4E /* Result.swift */,
 				A140FFD62020C5E600931AF6 /* SDK.swift */,
 				A1DAD62D2020CAE7001497B5 /* SystemVersion.swift */,
+				A19B15D22189E4FC008E6DB5 /* Token.swift */,
 				A1327BDE2178EB62001483E1 /* TokenProvider.swift */,
 				A1482A532180A47900F19A4E /* UserPersistable.swift */,
 				A1482A552180A59800F19A4E /* UserValidationError.swift */,
-				A19B15D22189E4FC008E6DB5 /* Token.swift */,
 			);
 			path = PushNotifications;
 			sourceTree = "<group>";
@@ -404,6 +407,7 @@
 				A138645B212C5057009FE29D /* Constants.swift in Sources */,
 				A140FFD32020BECF00931AF6 /* Interests.swift in Sources */,
 				A1327BDF2178EB62001483E1 /* BeamsTokenProvider.swift in Sources */,
+				A1F0E942219B18B800D32363 /* PushNotificationsError.swift in Sources */,
 				A1482A562180A59800F19A4E /* UserValidationError.swift in Sources */,
 				A1327BE02178EB62001483E1 /* AuthData.swift in Sources */,
 				A19ECF831FCF099200688DAF /* InterestPersistable.swift in Sources */,

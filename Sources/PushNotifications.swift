@@ -8,6 +8,8 @@ import NotificationCenter
 import Foundation
 
 @objc public final class PushNotifications: NSObject {
+    private var instanceId: String?
+    private var deviceToken: Data?
     private let session = URLSession(configuration: .default)
     private let preIISOperationQueue = DispatchQueue(label: Constants.DispatchQueue.preIISOperationQueue)
     private let persistenceStorageOperationQueue = DispatchQueue(label: Constants.DispatchQueue.persistenceStorageOperationQueue)
@@ -40,16 +42,10 @@ import Foundation
     /// - Tag: start
     @objc public func start(instanceId: String, tokenProvider: TokenProvider? = nil) {
 
+        self.instanceId = instanceId
+
         if let tokenProvider = tokenProvider {
             self.tokenProvider = tokenProvider
-        }
-
-        // Detect from where the function is being called
-        let wasCalledFromCorrectLocation = Thread.callStackSymbols.contains { stack in
-            return stack.contains("didFinishLaunchingWith") || stack.contains("applicationDidFinishLaunching")
-        }
-        if !wasCalledFromCorrectLocation {
-            print("[Push Notifications] - Warning: You should call `pushNotifications.start` from the `AppDelegate.didFinishLaunchingWith`")
         }
 
         do {
@@ -105,20 +101,22 @@ import Foundation
     */
     /// - Tag: setUserId
     @objc public func setUserId(_ userId: String, completion: @escaping (Error?) -> Void) throws {
-        guard let tokenProvider = self.tokenProvider else {
-            throw UserValidationtError.beamsTokenProviderNotSetException
-        }
-
-        let persistenceService: UserPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
-        if let persistedUserId = persistenceService.getUserId(), persistedUserId == userId {
-            return completion(nil)
-        }
-
-        guard persistenceService.getUserId() == nil else {
-            throw UserValidationtError.userAlreadyExists
-        }
-
         self.preIISOperationQueue.async {
+            guard let tokenProvider = self.tokenProvider else {
+                return completion(TokenProviderError.error("[PushNotifications] - Token provider is nil."))
+            }
+
+            let persistenceService: UserPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
+            if let persistedUserId = persistenceService.getUserId(), persistedUserId == userId {
+                return completion(nil)
+            }
+
+            guard persistenceService.getUserId() == nil else {
+                return completion(TokenProviderError.error("[PushNotifications] - User id is nil."))
+            }
+
+            #warning("TODO: Changing user ids is an error!")
+
             guard let deviceId = Device.getDeviceId() else {
                 return completion(TokenProviderError.error("[PushNotifications] - Device id is nil."))
             }
@@ -150,11 +148,41 @@ import Foundation
      Device is now in a fresh state, ready for new subscriptions or user being set.
      */
     /// - Tag: clearAllState
-    @objc public func clearAllState() {
-        // TODO: Missing API call!
-        let persistenceService: UserPersistable & InterestPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
-        persistenceService.removeUserId()
-        persistenceService.removeAllSubscriptions()
+    @objc public func clearAllState(completion: @escaping (Error?) -> Void) {
+        self.preIISOperationQueue.async {
+            guard let deviceId = Device.getDeviceId() else {
+                return completion(PushNotificationsError.error("[PushNotifications] - Device id is nil."))
+            }
+
+            guard let instanceId = Instance.getInstanceId() else {
+                return completion(PushNotificationsError.error("[PushNotifications] - Instance id is nil."))
+            }
+
+            guard let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)") else {
+                return completion(PushNotificationsError.error("[PushNotifications] - Error while constructing the URL."))
+            }
+
+            let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
+            networkService.deleteDevice(url: url, completion: { _ in
+
+                let persistenceService: UserPersistable & InterestPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
+                persistenceService.removeAll()
+
+                guard let instanceId = self.instanceId else {
+                    return completion(PushNotificationsError.error("[PushNotifications] - Instance id is nil."))
+                }
+
+                guard let deviceToken = self.deviceToken else {
+                    return completion(PushNotificationsError.error("[PushNotifications] - Device token is nil."))
+                }
+
+                self.start(instanceId: instanceId, tokenProvider: self.tokenProvider)
+                self.preIISOperationQueue.suspend()
+                self.registerDeviceToken(deviceToken, completion: {
+                    completion(nil)
+                })
+            })
+        }
     }
 
     /**
@@ -168,12 +196,14 @@ import Foundation
     /// - Tag: registerDeviceToken
     @objc public func registerDeviceToken(_ deviceToken: Data, completion: @escaping () -> Void = {}) {
         guard
-            let instanceId = Instance.getInstanceId(),
+            let instanceId = self.instanceId,
             let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")
         else {
             print("[Push Notifications] - Something went wrong. Please check your instance id: \(String(describing: Instance.getInstanceId()))")
             return
         }
+
+        self.deviceToken = deviceToken
 
         if Device.idAlreadyPresent() {
             // If we have the device id that means that the token has already been registered.

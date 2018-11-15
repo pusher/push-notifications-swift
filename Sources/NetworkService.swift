@@ -92,6 +92,13 @@ class NetworkService: PushNotificationsNetworkable {
         }
     }
 
+    func deleteDevice(url: URL, completion: @escaping CompletionHandler<String>) {
+        let request = self.setRequest(url: url, httpMethod: .DELETE)
+        self.networkRequest(request, session: self.session) { _ in
+            completion(nil)
+        }
+    }
+
     // MARK: Networking Layer
     private func networkRequest(_ request: URLRequest, session: URLSession, completion: @escaping (_ response: Data) -> Void) {
         self.queue.async {

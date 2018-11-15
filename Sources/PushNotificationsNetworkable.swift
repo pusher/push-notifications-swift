@@ -15,4 +15,5 @@ protocol PushNotificationsNetworkable {
     func syncMetadata(url: URL, completion: @escaping CompletionHandler<String>)
 
     func setUserId(url: URL, token: String, completion: @escaping CompletionHandler<String>)
+    func deleteDevice(url: URL, completion: @escaping CompletionHandler<String>)
 }

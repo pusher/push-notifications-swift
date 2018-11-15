@@ -57,7 +57,6 @@ class PushNotificationsNetworkableTests: XCTestCase {
         }
 
         waitForExpectations(timeout: 10)
-
     }
 
     func testRegistrationWithError() {
@@ -87,7 +86,6 @@ class PushNotificationsNetworkableTests: XCTestCase {
         networkService.register(url: url, deviceToken: deviceTokenData, instanceId: instanceId) { (deviceId) in }
 
         waitForExpectations(timeout: 10)
-
     }
 
     func testRegistrationWithIncorrectDeviceToken() {
@@ -133,7 +131,6 @@ class PushNotificationsNetworkableTests: XCTestCase {
         }
 
         waitForExpectations(timeout: 10)
-
     }
 
     func testSubscribeWithError() {
@@ -158,7 +155,6 @@ class PushNotificationsNetworkableTests: XCTestCase {
         networkService.subscribe(url: url) { _ in }
 
         waitForExpectations(timeout: 10)
-
     }
 
     func testSetSubscriptions() {
@@ -175,7 +171,6 @@ class PushNotificationsNetworkableTests: XCTestCase {
         }
 
         waitForExpectations(timeout: 10)
-
     }
 
     func testSetSubscriptionsWithError() {
@@ -200,7 +195,6 @@ class PushNotificationsNetworkableTests: XCTestCase {
         networkService.setSubscriptions(url: url, interests: ["a", "b", "c"]) { _ in }
 
         waitForExpectations(timeout: 10)
-
     }
 
     func testUnsubscribe() {
@@ -217,7 +211,6 @@ class PushNotificationsNetworkableTests: XCTestCase {
         }
 
         waitForExpectations(timeout: 10)
-
     }
 
     func testUnsubscribeWithError() {
@@ -258,7 +251,6 @@ class PushNotificationsNetworkableTests: XCTestCase {
         }
 
         waitForExpectations(timeout: 10)
-
     }
 
     func testUnsubscribeAllWithError() {
@@ -283,7 +275,6 @@ class PushNotificationsNetworkableTests: XCTestCase {
         networkService.setSubscriptions(url: url, interests: []) { _ in }
 
         waitForExpectations(timeout: 10)
-
     }
 
     #if os(iOS)
@@ -303,7 +294,6 @@ class PushNotificationsNetworkableTests: XCTestCase {
         }
 
         waitForExpectations(timeout: 10)
-
     }
 
     func testTrackWithError() {
@@ -331,7 +321,6 @@ class PushNotificationsNetworkableTests: XCTestCase {
         networkService.track(url: url, eventType: eventType) { _ in }
 
         waitForExpectations(timeout: 10)
-
     }
     #elseif os(OSX)
     func testTrack() {
@@ -350,7 +339,6 @@ class PushNotificationsNetworkableTests: XCTestCase {
         }
 
         waitForExpectations(timeout: 10)
-
     }
 
     func testTrackWithError() {
@@ -378,7 +366,6 @@ class PushNotificationsNetworkableTests: XCTestCase {
         networkService.track(url: url, eventType: eventType) { _ in }
 
         waitForExpectations(timeout: 10)
-
     }
     #endif
 
@@ -396,7 +383,6 @@ class PushNotificationsNetworkableTests: XCTestCase {
         }
 
         waitForExpectations(timeout: 10)
-
     }
 
     func testMetadataWithError() {
@@ -424,6 +410,84 @@ class PushNotificationsNetworkableTests: XCTestCase {
         networkService.syncMetadata(url: url) { _ in }
 
         waitForExpectations(timeout: 10)
+    }
 
+    func testSetUserId() {
+        let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/user")!
+
+        stub(condition: isAbsoluteURLString(url.absoluteString)) { _ in
+            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+        }
+
+        let exp = expectation(description: "It should successfully set the user id")
+        let networkService = NetworkService(session: URLSession(configuration: .ephemeral))
+        networkService.setUserId(url: url, token: "123") { _ in
+            exp.fulfill()
+        }
+
+        waitForExpectations(timeout: 10)
+    }
+
+    func testSetUserIdWithError() {
+        let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/user")!
+        let exp = expectation(description: "It should fail to set the user id")
+        let expRetry = expectation(description: "It should retry to set the user id")
+
+        var numberOfAttempts = 0
+        stub(condition: isAbsoluteURLString(url.absoluteString)) { _ in
+            numberOfAttempts += 1
+            if numberOfAttempts == 1 {
+                exp.fulfill()
+            }
+            if numberOfAttempts == 3 {
+                expRetry.fulfill()
+            }
+
+            return OHHTTPStubsResponse(jsonObject: [], statusCode: 500, headers: nil)
+        }
+
+        let networkService = NetworkService(session: URLSession(configuration: .ephemeral))
+        networkService.setUserId(url: url, token: "") { _ in }
+
+        waitForExpectations(timeout: 10)
+    }
+
+    func testDeleteDevice() {
+        let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)")!
+
+        stub(condition: isAbsoluteURLString(url.absoluteString)) { _ in
+            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+        }
+
+        let exp = expectation(description: "It should successfully delete the device")
+        let networkService = NetworkService(session: URLSession(configuration: .ephemeral))
+        networkService.deleteDevice(url: url) { _ in
+            exp.fulfill()
+        }
+
+        waitForExpectations(timeout: 10)
+    }
+
+    func testDeleteDeviceWithError() {
+        let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)")!
+        let exp = expectation(description: "It should fail to delete the device")
+        let expRetry = expectation(description: "It should retry to delete the device")
+
+        var numberOfAttempts = 0
+        stub(condition: isAbsoluteURLString(url.absoluteString)) { _ in
+            numberOfAttempts += 1
+            if numberOfAttempts == 1 {
+                exp.fulfill()
+            }
+            if numberOfAttempts == 3 {
+                expRetry.fulfill()
+            }
+
+            return OHHTTPStubsResponse(jsonObject: [], statusCode: 500, headers: nil)
+        }
+
+        let networkService = NetworkService(session: URLSession(configuration: .ephemeral))
+        networkService.deleteDevice(url: url) { _ in }
+        waitForExpectations(timeout: 10)
     }
 }

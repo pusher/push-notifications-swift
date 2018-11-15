@@ -61,13 +61,40 @@ class BeamsTokenProviderTests: XCTestCase {
         let exp = expectation(description: "It should return an error.")
 
         self.beamsTokenProvider.fetchToken(userId: "Johnny Cash") { (token, error) in
-            guard error == nil else {
-                XCTAssertNotNil(error)
-                return exp.fulfill()
+            guard case TokenProviderError.error(let errorMessage) = error! else {
+                exp.fulfill()
+                return XCTFail()
             }
 
-            XCTFail()
-            exp.fulfill()
+            let expectedErrorMessage = "[PushNotifications] - BeamsTokenProvider: Received HTTP Status Code: 500"
+
+            XCTAssertNotNil(errorMessage)
+            XCTAssertEqual(errorMessage, expectedErrorMessage)
+            return exp.fulfill()
+        }
+
+        waitForExpectations(timeout: 10)
+    }
+
+    func testBeamsTokenIsNil() {
+        let url = self.authURL()
+        stub(condition: isAbsoluteURLString(url.absoluteString)) { _ in
+            return OHHTTPStubsResponse(error: PushNotificationsError.error("[PushNotifications] - BeamsTokenProvider: Token is nil"))
+        }
+
+        let exp = expectation(description: "It should return an error.")
+
+        self.beamsTokenProvider.fetchToken(userId: "Johnny Cash") { (token, error) in
+            guard case TokenProviderError.error(let errorMessage) = error! else {
+                exp.fulfill()
+                return XCTFail()
+            }
+
+            let expectedErrorMessage = "[PushNotifications] - BeamsTokenProvider: Token is nil"
+
+            XCTAssertNotNil(errorMessage)
+            XCTAssertEqual(errorMessage, expectedErrorMessage)
+            return exp.fulfill()
         }
 
         waitForExpectations(timeout: 10)
