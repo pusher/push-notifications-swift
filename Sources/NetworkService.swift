@@ -10,97 +10,149 @@ class NetworkService: PushNotificationsNetworkable {
     }
 
     // MARK: PushNotificationsNetworkable
-    func register(url: URL, deviceToken: Data, instanceId: String, completion: @escaping CompletionHandler<Device>) {
+    func register(url: URL, deviceToken: Data, instanceId: String, completion: @escaping CompletionHandler<Result<Device, Error>>) {
         let deviceTokenString = deviceToken.hexadecimalRepresentation()
         let bundleIdentifier = Bundle.main.bundleIdentifier ?? ""
 
         let metadata = Metadata.update()
 
         guard let body = try? Register(token: deviceTokenString, instanceId: instanceId, bundleIdentifier: bundleIdentifier, metadata: metadata).encode() else {
-            return
+            return completion(.error(PushNotificationsError.error("[PushNotifications] - Error while encoding register payload.")))
         }
         let request = self.setRequest(url: url, httpMethod: .POST, body: body)
 
-        self.networkRequest(request, session: self.session) { (response) in
-            guard let device = try? JSONDecoder().decode(Device.self, from: response) else {
-                return
+        self.networkRequest(request, session: self.session) { result in
+            switch result {
+            case .value(let response):
+                guard let device = try? JSONDecoder().decode(Device.self, from: response) else {
+                    return completion(.error(PushNotificationsError.error("[PushNotifications] - Error while encoding device payload.")))
+                }
+                completion(.value(device))
+            case .error(let error):
+                completion(.error(error))
             }
-            completion(device)
         }
     }
 
-    func subscribe(url: URL, completion: @escaping CompletionHandler<String>) {
+    func subscribe(url: URL, completion: @escaping CompletionHandler<Result<Void, Error>>) {
         let request = self.setRequest(url: url, httpMethod: .POST)
 
-        self.networkRequest(request, session: self.session) { _ in
-            completion(nil)
+        self.networkRequest(request, session: self.session) { result in
+            switch result {
+            case .value:
+                completion(.value(()))
+            case .error(let error):
+                completion(.error(error))
+            }
         }
     }
 
-    func setSubscriptions(url: URL, interests: [String], completion: @escaping CompletionHandler<String>) {
+    func setSubscriptions(url: URL, interests: [String], completion: @escaping CompletionHandler<Result<Void, Error>>) {
         guard let body = try? Interests(interests: interests).encode() else {
-            return
+            return completion(.error(PushNotificationsError.error("[PushNotifications] - Error while encoding the interests payload.")))
         }
         let request = self.setRequest(url: url, httpMethod: .PUT, body: body)
 
-        self.networkRequest(request, session: self.session) { _ in
-            completion(nil)
+        self.networkRequest(request, session: self.session) { result in
+            switch result {
+            case .value:
+                completion(.value(()))
+            case .error(let error):
+                completion(.error(error))
+            }
         }
     }
 
-    func unsubscribe(url: URL, completion: @escaping CompletionHandler<String>) {
+    func unsubscribe(url: URL, completion: @escaping CompletionHandler<Result<Void, Error>>) {
         let request = self.setRequest(url: url, httpMethod: .DELETE)
 
-        self.networkRequest(request, session: self.session) { _ in
-            completion(nil)
+        self.networkRequest(request, session: self.session) { result in
+            switch result {
+            case .value:
+                completion(.value(()))
+            case .error(let error):
+                completion(.error(error))
+            }
         }
     }
 
-    func track(url: URL, eventType: ReportEventType, completion: @escaping CompletionHandler<String>) {
+    func track(url: URL, eventType: ReportEventType, completion: @escaping CompletionHandler<Result<Void, Error>>) {
         guard let body = try? eventType.encode() else {
-            return
+            return completion(.error(PushNotificationsError.error("[PushNotifications] - Error while encoding the event type payload.")))
         }
 
         let request = self.setRequest(url: url, httpMethod: .POST, body: body)
-        self.networkRequest(request, session: self.session) { _ in
-            completion(nil)
+        self.networkRequest(request, session: self.session) { result in
+            switch result {
+            case .value:
+                completion(.value(()))
+            case .error(let error):
+                completion(.error(error))
+            }
         }
     }
 
-    func syncMetadata(url: URL, completion: @escaping CompletionHandler<String>) {
+    func syncMetadata(url: URL, completion: @escaping CompletionHandler<Result<Void, Error>>) {
         guard let metadataDictionary = Metadata.load() else {
-            return
+            return completion(.error(PushNotificationsError.error("[PushNotifications] - Error while loading the metadata.")))
         }
         let metadata = Metadata(propertyListRepresentation: metadataDictionary)
         if metadata.hasChanged() {
             let updatedMetadataObject = Metadata.update()
             guard let body = try? updatedMetadataObject.encode() else {
-                return
+                return completion(.error(PushNotificationsError.error("[PushNotifications] - Error while encoding the metadata payload.")))
             }
             let request = self.setRequest(url: url, httpMethod: .PUT, body: body)
-            self.networkRequest(request, session: self.session) { _ in
-                completion(nil)
+            self.networkRequest(request, session: self.session) { result in
+                switch result {
+                case .value:
+                    completion(.value(()))
+                case .error(let error):
+                    completion(.error(error))
+                }
             }
         }
     }
 
-    func setUserId(url: URL, token: String, completion: @escaping CompletionHandler<String>) {
+    func setUserId(url: URL, token: String, completion: @escaping CompletionHandler<Result<Void, Error>>) {
         var request = self.setRequest(url: url, httpMethod: .PUT)
         request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        self.networkRequest(request, session: self.session) { _ in
-            completion(nil)
+        self.networkRequest(request, session: self.session) { result in
+            switch result {
+            case .value:
+                completion(.value(()))
+            case .error(let error):
+                completion(.error(error))
+            }
         }
     }
 
-    func deleteDevice(url: URL, completion: @escaping CompletionHandler<String>) {
+    func deleteDevice(url: URL, completion: @escaping CompletionHandler<Result<Void, Error>>) {
         let request = self.setRequest(url: url, httpMethod: .DELETE)
-        self.networkRequest(request, session: self.session) { _ in
-            completion(nil)
+        self.networkRequest(request, session: self.session) { result in
+            switch result {
+            case .value:
+                completion(.value(()))
+            case .error(let error):
+                completion(.error(error))
+            }
+        }
+    }
+
+    func getDevice(url: URL, completion: @escaping CompletionHandler<Result<Data, Error>>) {
+        let request = self.setRequest(url: url, httpMethod: .GET)
+        self.networkRequest(request, session: self.session) { result in
+            switch result {
+            case .value(let value):
+                completion(.value(value))
+            case .error(let error):
+                completion(.error(error))
+            }
         }
     }
 
     // MARK: Networking Layer
-    private func networkRequest(_ request: URLRequest, session: URLSession, completion: @escaping (_ response: Data) -> Void) {
+    private func networkRequest(_ request: URLRequest, session: URLSession, completion: @escaping (_ result: Result<Data, Error>) -> Void) {
         self.queue.async {
             self.queue.suspend()
 
@@ -125,7 +177,7 @@ class NetworkService: PushNotificationsNetworkable {
 
                     self.queue.resume()
 
-                    completion(data)
+                    completion(.value(data))
 
                 }).resume()
             }

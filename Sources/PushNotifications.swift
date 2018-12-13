@@ -212,11 +212,8 @@ import Foundation
             return
         }
 
-        networkService.register(url: url, deviceToken: deviceToken, instanceId: instanceId) { [weak self] (device) in
-            guard
-                let device = device,
-                let strongSelf = self
-            else {
+        networkService.register(url: url, deviceToken: deviceToken, instanceId: instanceId) { [weak self] result in
+            guard let strongSelf = self else {
                 return
             }
 
@@ -224,24 +221,29 @@ import Foundation
                 if Device.idAlreadyPresent() {
                     print("[Push Notifications] - Warning: Avoid multiple calls of `registerDeviceToken`")
                 } else {
-                    Device.persist(device.id)
+                    switch result {
+                    case .value(let device):
+                        Device.persist(device.id)
 
-                    let initialInterestSet = device.initialInterestSet ?? []
-                    let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
-                    if initialInterestSet.count > 0 {
-                        persistenceService.persist(interests: initialInterestSet)
-                    }
-
-                    strongSelf.preIISOperationQueue.async {
-                        let interests = persistenceService.getSubscriptions() ?? []
-                        if !initialInterestSet.containsSameElements(as: interests) {
-                            strongSelf.syncInterests()
+                        let initialInterestSet = device.initialInterestSet ?? []
+                        let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
+                        if initialInterestSet.count > 0 {
+                            persistenceService.persist(interests: initialInterestSet)
                         }
 
-                        completion()
-                    }
+                        strongSelf.preIISOperationQueue.async {
+                            let interests = persistenceService.getSubscriptions() ?? []
+                            if !initialInterestSet.containsSameElements(as: interests) {
+                                strongSelf.syncInterests()
+                            }
 
-                    strongSelf.preIISOperationQueue.resume()
+                            completion()
+                        }
+
+                        strongSelf.preIISOperationQueue.resume()
+                    case .error(let error):
+                        print("\(error)")
+                    }
                 }
             }
         }
@@ -372,7 +374,9 @@ import Foundation
                         let deviceId = Device.getDeviceId(),
                         let instanceId = Instance.getInstanceId(),
                         let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/interests/\(interest)")
-                        else { return }
+                    else {
+                        return
+                    }
 
                     let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
                     networkService.unsubscribe(url: url, completion: { _ in
@@ -523,6 +527,26 @@ import Foundation
         NSApplication.shared.registerForRemoteNotifications(matching: options)
     }
     #endif
+
+    private func getDevice() {
+        guard
+            let deviceId = Device.getDeviceId(),
+            let instanceId = Instance.getInstanceId(),
+            let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)")
+        else {
+            return
+        }
+
+        let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
+        networkService.getDevice(url: url) { result in
+            switch result {
+            case .value(let value):
+                print("\(value)")
+            case .error(let error):
+                print("\(error)")
+            }
+        }
+    }
 }
 
 /**

@@ -15,7 +15,9 @@ struct EventTypeHandler {
         guard
             let publishId = PublishId(userInfo: userInfo).id,
             let deviceId = Device.getDeviceId()
-            else { return nil }
+        else {
+            return nil
+        }
 
         switch applicationState {
         case .active:
@@ -38,7 +40,9 @@ struct EventTypeHandler {
         guard
             let publishId = PublishId(userInfo: userInfo).id,
             let deviceId = Device.getDeviceId()
-        else { return nil }
+        else {
+            return nil
+        }
 
         switch applicationState {
         case .active:
@@ -58,7 +62,9 @@ struct EventTypeHandler {
         guard
             let publishId = PublishId(userInfo: userInfo).id,
             let deviceId = Device.getDeviceId()
-        else { return nil }
+        else {
+            return nil
+        }
 
         return OpenEventType(publishId: publishId, deviceId: deviceId, timestampSecs: timestampSecs)
     }

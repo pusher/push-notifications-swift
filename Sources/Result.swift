@@ -1,6 +1,6 @@
 import Foundation
 
-enum Result<Value> {
-    case success(Value)
-    case failure(Error)
+public enum Result<Value, Error> {
+    case value(Value)
+    case error(Error)
 }
