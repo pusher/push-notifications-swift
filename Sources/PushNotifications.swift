@@ -8,7 +8,6 @@ import NotificationCenter
 import Foundation
 
 @objc public final class PushNotifications: NSObject {
-    private var instanceId: String?
     private var deviceToken: Data?
     private let session = URLSession(configuration: .default)
     private let preIISOperationQueue = DispatchQueue(label: Constants.DispatchQueue.preIISOperationQueue)
@@ -41,8 +40,6 @@ import Foundation
      */
     /// - Tag: start
     @objc public func start(instanceId: String, tokenProvider: TokenProvider? = nil) {
-
-        self.instanceId = instanceId
 
         if let tokenProvider = tokenProvider {
             self.tokenProvider = tokenProvider
@@ -168,7 +165,7 @@ import Foundation
                 let persistenceService: UserPersistable & InterestPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
                 persistenceService.removeAll()
 
-                guard let instanceId = self.instanceId else {
+                guard let instanceId = Instance.getInstanceId() else {
                     return completion(PushNotificationsError.error("[PushNotifications] - Instance id is nil."))
                 }
 
@@ -196,7 +193,7 @@ import Foundation
     /// - Tag: registerDeviceToken
     @objc public func registerDeviceToken(_ deviceToken: Data, completion: @escaping () -> Void = {}) {
         guard
-            let instanceId = self.instanceId,
+            let instanceId = Instance.getInstanceId(),
             let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")
         else {
             print("[Push Notifications] - Something went wrong. Please check your instance id: \(String(describing: Instance.getInstanceId()))")
