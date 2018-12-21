@@ -124,17 +124,22 @@ import Foundation
                 return completion(TokenProviderError.error("[PushNotifications] - Error while constructing URL from a string."))
             }
 
-            tokenProvider.fetchToken(userId: userId, completionHandler: { (token, error) in
-                guard error == nil else {
-                    return completion(error)
-                }
+            do {
+                try tokenProvider.fetchToken(userId: userId, completionHandler: { (token, error) in
+                    guard error == nil else {
+                        return completion(error)
+                    }
 
-                let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
-                networkService.setUserId(url: url, token: token, completion: { _ in
-                    persistenceService.setUserId(userId: userId)
-                    completion(nil)
+                    let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
+                    networkService.setUserId(url: url, token: token, completion: { _ in
+                        persistenceService.setUserId(userId: userId)
+                        completion(nil)
+                    })
                 })
-            })
+            }
+            catch {
+                completion(error)
+            }
         }
     }
 

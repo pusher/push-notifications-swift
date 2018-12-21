@@ -9,7 +9,7 @@ import Foundation
         self.getAuthData = getAuthData
     }
 
-    public func fetchToken(userId: String, completionHandler completion: @escaping (String, Error?) -> Void) {
+    public func fetchToken(userId: String, completionHandler completion: @escaping (String, Error?) -> Void) throws {
         let authData = getAuthData()
         let headers = authData.headers
         let urlParams = authData.urlParams

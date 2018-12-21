@@ -30,5 +30,5 @@ public enum TokenProviderError: Error {
 
      - Precondition: `userId` should not be nil.
      */
-    func fetchToken(userId: String, completionHandler completion: @escaping (String, Error?) -> Void)
+    func fetchToken(userId: String, completionHandler completion: @escaping (String, Error?) -> Void) throws
 }
