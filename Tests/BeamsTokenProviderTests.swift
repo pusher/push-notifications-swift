@@ -36,14 +36,20 @@ class BeamsTokenProviderTests: XCTestCase {
 
         let exp = expectation(description: "It should successfully fetch the token")
 
-        self.beamsTokenProvider.fetchToken(userId: "Johnny Cash") { (token, error) in
-            guard error == nil else {
-                XCTFail()
-                return exp.fulfill()
-            }
+        do {
+            try self.beamsTokenProvider.fetchToken(userId: "Johnny Cash") { (token, error) in
+                guard error == nil else {
+                    XCTFail()
+                    return exp.fulfill()
+                }
 
-            XCTAssertNotNil(token)
-            XCTAssertEqual(token, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NDA1NjA")
+                XCTAssertNotNil(token)
+                XCTAssertEqual(token, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NDA1NjA")
+                exp.fulfill()
+            }
+        }
+        catch {
+            XCTFail()
             exp.fulfill()
         }
 
@@ -60,17 +66,23 @@ class BeamsTokenProviderTests: XCTestCase {
 
         let exp = expectation(description: "It should return an error.")
 
-        self.beamsTokenProvider.fetchToken(userId: "Johnny Cash") { (token, error) in
-            guard case TokenProviderError.error(let errorMessage) = error! else {
+        do {
+            try self.beamsTokenProvider.fetchToken(userId: "Johnny Cash") { (token, error) in
+                guard case TokenProviderError.error(let errorMessage) = error! else {
+                    XCTFail()
+                    return exp.fulfill()
+                }
+
+                let expectedErrorMessage = "[PushNotifications] - BeamsTokenProvider: Received HTTP Status Code: 500"
+
+                XCTAssertNotNil(errorMessage)
+                XCTAssertEqual(errorMessage, expectedErrorMessage)
                 exp.fulfill()
-                return XCTFail()
             }
-
-            let expectedErrorMessage = "[PushNotifications] - BeamsTokenProvider: Received HTTP Status Code: 500"
-
-            XCTAssertNotNil(errorMessage)
-            XCTAssertEqual(errorMessage, expectedErrorMessage)
-            return exp.fulfill()
+        }
+        catch {
+            XCTFail()
+            exp.fulfill()
         }
 
         waitForExpectations(timeout: 10)
@@ -84,17 +96,23 @@ class BeamsTokenProviderTests: XCTestCase {
 
         let exp = expectation(description: "It should return an error.")
 
-        self.beamsTokenProvider.fetchToken(userId: "Johnny Cash") { (token, error) in
-            guard case TokenProviderError.error(let errorMessage) = error! else {
+        do {
+            try self.beamsTokenProvider.fetchToken(userId: "Johnny Cash") { (token, error) in
+                guard case TokenProviderError.error(let errorMessage) = error! else {
+                    XCTFail()
+                    return exp.fulfill()
+                }
+
+                let expectedErrorMessage = "[PushNotifications] - BeamsTokenProvider: Token is nil"
+
+                XCTAssertNotNil(errorMessage)
+                XCTAssertEqual(errorMessage, expectedErrorMessage)
                 exp.fulfill()
-                return XCTFail()
             }
-
-            let expectedErrorMessage = "[PushNotifications] - BeamsTokenProvider: Token is nil"
-
-            XCTAssertNotNil(errorMessage)
-            XCTAssertEqual(errorMessage, expectedErrorMessage)
-            return exp.fulfill()
+        }
+        catch {
+            XCTFail()
+            exp.fulfill()
         }
 
         waitForExpectations(timeout: 10)
