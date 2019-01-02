@@ -97,7 +97,7 @@ import Foundation
      - Precondition: You need to first authenticate the user by providing `beamsTokenProvider` in `start(instanceId:, beamsTokenProvider:)` method. `beamsTokenProvider` should not be nil.
     */
     /// - Tag: setUserId
-    @objc public func setUserId(_ userId: String, completion: @escaping (Error?) -> Void) throws {
+    @objc public func setUserId(_ userId: String, completion: @escaping (Error?) -> Void) {
         self.preIISOperationQueue.async {
             guard let tokenProvider = self.tokenProvider else {
                 return completion(TokenProviderError.error("[PushNotifications] - Token provider is nil."))
@@ -245,6 +245,7 @@ import Foundation
                         strongSelf.preIISOperationQueue.resume()
                     case .error(let error):
                         print("\(error)")
+                        completion()
                     }
                 }
             }
@@ -530,22 +531,26 @@ import Foundation
     }
     #endif
 
-    private func getDevice() {
-        guard
-            let deviceId = Device.getDeviceId(),
-            let instanceId = Instance.getInstanceId(),
-            let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)")
-        else {
-            return
+    private func getDevice(completion: @escaping CompletionHandler<Result<Void, Error>>) {
+        guard let deviceId = Device.getDeviceId() else {
+            return completion(.error(PushNotificationsError.error("[PushNotifications] - Device id is nil.")))
+        }
+
+        guard let instanceId = Instance.getInstanceId() else {
+            return completion(.error(PushNotificationsError.error("[PushNotifications] - Instance id is nil.")))
+        }
+
+        guard let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)") else {
+            return completion(.error(PushNotificationsError.error("[PushNotifications] - Error while constructing the getDevice URL.")))
         }
 
         let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
         networkService.getDevice(url: url) { result in
             switch result {
-            case .value(let value):
-                print("\(value)")
+            case .value:
+                completion(.value(()))
             case .error(let error):
-                print("\(error)")
+                completion(.error(error))
             }
         }
     }

@@ -17,5 +17,5 @@ protocol PushNotificationsNetworkable {
     func setUserId(url: URL, token: String, completion: @escaping CompletionHandler<Result<Void, Error>>)
     func deleteDevice(url: URL, completion: @escaping CompletionHandler<Result<Void, Error>>)
 
-    func getDevice(url: URL, completion: @escaping CompletionHandler<Result<Data, Error>>)
+    func getDevice(url: URL, completion: @escaping CompletionHandler<Result<Void, Error>>)
 }

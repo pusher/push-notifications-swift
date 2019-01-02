@@ -139,12 +139,12 @@ class NetworkService: PushNotificationsNetworkable {
         }
     }
 
-    func getDevice(url: URL, completion: @escaping CompletionHandler<Result<Data, Error>>) {
+    func getDevice(url: URL, completion: @escaping CompletionHandler<Result<Void, Error>>) {
         let request = self.setRequest(url: url, httpMethod: .GET)
         self.networkRequest(request, session: self.session) { result in
             switch result {
-            case .value(let value):
-                completion(.value(value))
+            case .value:
+                completion(.value(()))
             case .error(let error):
                 completion(.error(error))
             }
