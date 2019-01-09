@@ -40,9 +40,16 @@ import Foundation
      */
     /// - Tag: start
     @objc public func start(instanceId: String, tokenProvider: TokenProvider? = nil) {
-
         if let tokenProvider = tokenProvider {
             self.tokenProvider = tokenProvider
+        }
+
+        // Detect from where the function is being called
+        let wasCalledFromCorrectLocation = Thread.callStackSymbols.contains { stack in
+            return stack.contains("didFinishLaunchingWith") || stack.contains("applicationDidFinishLaunching") || stack.contains("clearAllState")
+        }
+        if !wasCalledFromCorrectLocation {
+            print("[Push Notifications] - Warning: You should call `pushNotifications.start` from the `AppDelegate.didFinishLaunchingWith`")
         }
 
         do {
@@ -104,15 +111,13 @@ import Foundation
             }
 
             let persistenceService: UserPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
-            if let persistedUserId = persistenceService.getUserId(), persistedUserId == userId {
-                return completion(nil)
+            if let persistedUserId = persistenceService.getUserId() {
+                if persistedUserId == userId {
+                    return completion(nil)
+                } else {
+                    return completion(TokenProviderError.error("[PushNotifications] - Changing the `userId` is not allowed."))
+                }
             }
-
-            guard persistenceService.getUserId() == nil else {
-                return completion(TokenProviderError.error("[PushNotifications] - User id is nil."))
-            }
-
-            #warning("TODO: Changing user ids is an error!")
 
             guard let deviceId = Device.getDeviceId() else {
                 return completion(TokenProviderError.error("[PushNotifications] - Device id is nil."))
@@ -208,9 +213,7 @@ import Foundation
         self.deviceToken = deviceToken
 
         if Device.idAlreadyPresent() {
-            // If we have the device id that means that the token has already been registered.
-            // Therefore we don't need to call `networkService.register` again.
-            print("[Push Notifications] - Warning: Avoid multiple calls of `registerDeviceToken`")
+            // TODO: Handle the token change.
             return
         }
 
