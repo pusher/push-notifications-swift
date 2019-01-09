@@ -149,13 +149,12 @@ import Foundation
     }
 
     /**
-     Log out user and remove all subscriptions.
+     Disable Beams service.
 
-     Remove user and all subscriptions set from both client and server.
-     Device is now in a fresh state, ready for new subscriptions or user being set.
+     This will remove everything associated with the Beams from the device and Beams server.
      */
-    /// - Tag: clearAllState
-    @objc public func clearAllState(completion: @escaping (Error?) -> Void) {
+    /// - Tag: stop
+    @objc public func stop(completion: @escaping (Error?) -> Void) {
         self.preIISOperationQueue.async {
             guard let deviceId = Device.getDeviceId() else {
                 return completion(PushNotificationsError.error("[PushNotifications] - Device id is nil."))
@@ -175,21 +174,44 @@ import Foundation
                 let persistenceService: UserPersistable & InterestPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
                 persistenceService.removeAll()
 
-                guard let instanceId = Instance.getInstanceId() else {
-                    return completion(PushNotificationsError.error("[PushNotifications] - Instance id is nil."))
-                }
-
-                guard let deviceToken = self.deviceToken else {
-                    return completion(PushNotificationsError.error("[PushNotifications] - Device token is nil."))
-                }
-
-                self.start(instanceId: instanceId, tokenProvider: self.tokenProvider)
-                self.preIISOperationQueue.suspend()
-                self.registerDeviceToken(deviceToken, completion: {
-                    completion(nil)
-                })
+                completion(nil)
             })
         }
+    }
+
+    /**
+     Log out user and remove all interests associated with it.
+
+     This will remove the current user and all the interests associated with it from the device and Beams server.
+     Device is now in a fresh state, ready for new subscriptions or user being set.
+     */
+    /// - Tag: clearAllState
+    @objc public func clearAllState(completion: @escaping (Error?) -> Void) {
+        guard let instanceId = Instance.getInstanceId() else {
+            return completion(PushNotificationsError.error("[PushNotifications] - Instance id is nil."))
+        }
+
+        self.stop(completion: { [weak self] error in
+            guard let strongSelf = self else {
+                return completion(PushNotificationsError.error("[PushNotifications] - Something went wrong."))
+            }
+
+            strongSelf.preIISOperationQueue.async {
+                guard error == nil else {
+                    return completion(error)
+                }
+
+                strongSelf.preIISOperationQueue.suspend()
+
+                strongSelf.start(instanceId: instanceId, tokenProvider: strongSelf.tokenProvider)
+
+                completion(nil)
+
+                if let deviceToken = strongSelf.deviceToken {
+                    strongSelf.registerDeviceToken(deviceToken)
+                }
+            }
+        })
     }
 
     /**
@@ -223,33 +245,29 @@ import Foundation
             }
 
             strongSelf.persistenceStorageOperationQueue.async {
-                if Device.idAlreadyPresent() {
-                    print("[Push Notifications] - Warning: Avoid multiple calls of `registerDeviceToken`")
-                } else {
-                    switch result {
-                    case .value(let device):
-                        Device.persist(device.id)
+                switch result {
+                case .value(let device):
+                    Device.persist(device.id)
 
-                        let initialInterestSet = device.initialInterestSet ?? []
-                        let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
-                        if initialInterestSet.count > 0 {
-                            persistenceService.persist(interests: initialInterestSet)
+                    let initialInterestSet = device.initialInterestSet ?? []
+                    let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
+                    if initialInterestSet.count > 0 {
+                        persistenceService.persist(interests: initialInterestSet)
+                    }
+
+                    strongSelf.preIISOperationQueue.async {
+                        let interests = persistenceService.getSubscriptions() ?? []
+                        if !initialInterestSet.containsSameElements(as: interests) {
+                            strongSelf.syncInterests()
                         }
 
-                        strongSelf.preIISOperationQueue.async {
-                            let interests = persistenceService.getSubscriptions() ?? []
-                            if !initialInterestSet.containsSameElements(as: interests) {
-                                strongSelf.syncInterests()
-                            }
-
-                            completion()
-                        }
-
-                        strongSelf.preIISOperationQueue.resume()
-                    case .error(let error):
-                        print("\(error)")
                         completion()
                     }
+
+                    strongSelf.preIISOperationQueue.resume()
+                case .error(let error):
+                    print("\(error)")
+                    completion()
                 }
             }
         }
