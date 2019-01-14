@@ -166,7 +166,13 @@ class NetworkService: PushNotificationsNetworkable {
                         return networkRequestWithExponentialBackoff(numberOfAttempts: numberOfAttempts + 1)
                     }
                     let statusCode = httpURLResponse.statusCode
-                    guard statusCode >= 200 && statusCode < 300, error == nil else {
+
+                    if 400..<500 ~= statusCode && error == nil {
+                        if let reason = try? JSONDecoder().decode(Reason.self, from: data) {
+                            print("[PushNotifications]: \(reason.description)")
+                        }
+                    }
+                    else if statusCode >= 500 && error == nil {
                         if let reason = try? JSONDecoder().decode(Reason.self, from: data) {
                             print("[PushNotifications]: \(reason.description)")
                         }

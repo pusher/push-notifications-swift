@@ -98,6 +98,43 @@ class PushNotificationsNetworkableTests: XCTestCase {
         waitForExpectations(timeout: 10)
     }
 
+    func testRegistrationWith4xxError() {
+        let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")!
+        let exp = expectation(description: "It should fail to register the device")
+        let expRetry = expectation(description: "It should retry to register the device")
+        expRetry.isInverted = true
+
+        var numberOfAttempts = 0
+        stub(condition: isAbsoluteURLString(url.absoluteString)) { _ in
+            let jsonObject: [String: Any] = [
+                "description": "Something went terribly wrong"
+            ]
+
+            numberOfAttempts += 1
+            if numberOfAttempts == 3 {
+                XCTFail()
+                expRetry.fulfill()
+            }
+
+            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 404, headers: nil)
+        }
+
+        let deviceTokenData = "e4cea6a8b2419499c8c716bec80b705d7a5d8864adb2c69400bab9b7abe43ff1".toData()!
+        let networkService = NetworkService(session: URLSession(configuration: .ephemeral))
+        networkService.register(url: url, deviceToken: deviceTokenData, instanceId: instanceId) { result in
+            switch result {
+            case .value:
+                XCTFail()
+                exp.fulfill()
+            case .error(let error):
+                XCTAssertNotNil(error)
+                exp.fulfill()
+            }
+        }
+
+        waitForExpectations(timeout: 3)
+    }
+
     func testRegistrationWithIncorrectDeviceToken() {
         let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")!
         let exp = expectation(description: "It should fail to register the device")
