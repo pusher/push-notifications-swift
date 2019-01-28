@@ -171,8 +171,7 @@ class NetworkService: PushNotificationsNetworkable {
                         if let reason = try? JSONDecoder().decode(Reason.self, from: data) {
                             print("[PushNotifications]: Request failed due to: \(reason.description), skipping it.")
                         }
-                    }
-                    else if statusCode >= 500 && error == nil {
+                    } else if statusCode >= 500 && error == nil {
                         if let reason = try? JSONDecoder().decode(Reason.self, from: data) {
                             print("[PushNotifications]: \(reason.description)")
                         }
