@@ -284,6 +284,7 @@ import Foundation
      - Throws: An error of type `InvalidInterestError`
      */
     /// - Tag: subscribe
+    @available(*, deprecated, renamed: "addDeviceInterest(interest:completion:)")
     @objc public func subscribe(interest: String, completion: @escaping () -> Void = {}) throws {
         guard self.validateInterestName(interest) else {
             throw InvalidInterestError.invalidName(interest)
@@ -323,6 +324,21 @@ import Foundation
     }
 
     /**
+     Subscribes the device to an interest.
+
+     - Parameter interest: Interest that you want to subscribe your device to.
+     - Parameter completion: The block to execute when subscription to the interest is complete.
+
+     - Precondition: `interest` should not be nil.
+
+     - Throws: An error of type `InvalidInterestError`
+     */
+    /// - Tag: addDeviceInterest
+    @objc public func addDeviceInterest(interest: String, completion: @escaping () -> Void = {}) throws {
+        try subscribe(interest: interest, completion: completion)
+    }
+
+    /**
      Set subscriptions.
 
      - Parameter interests: Interests that you want to subscribe to.
@@ -333,6 +349,7 @@ import Foundation
      - Throws: An error of type `MultipleInvalidInterestsError`
      */
     /// - Tag: setSubscriptions
+    @available(*, deprecated, renamed: "setDeviceInterests(interest:completion:)")
     @objc public func setSubscriptions(interests: [String], completion: @escaping () -> Void = {}) throws {
         if let invalidInterests = self.validateInterestNames(interests), invalidInterests.count > 0 {
             throw MultipleInvalidInterestsError.invalidNames(invalidInterests)
@@ -372,6 +389,22 @@ import Foundation
     }
 
     /**
+     Sets the subscriptions state for the device.
+     Any interests not in the set will be unsubscribed from, so this will replace the interest set by the one provided.
+
+     - Parameter interests: Interests that you want to subscribe your device to.
+     - Parameter completion: The block to execute when subscription to interests is complete.
+
+     - Precondition: `interests` should not be nil.
+
+     - Throws: An error of type `MultipleInvalidInterestsError`
+     */
+    /// - Tag: setDeviceInterests
+    @objc public func setDeviceInterests(interests: [String], completion: @escaping () -> Void = {}) throws {
+        try setSubscriptions(interests: interests, completion: completion)
+    }
+
+    /**
      Unsubscribe from an interest.
 
      - Parameter interest: Interest that you want to unsubscribe to.
@@ -382,6 +415,7 @@ import Foundation
      - Throws: An error of type `InvalidInterestError`
      */
     /// - Tag: unsubscribe
+    @available(*, deprecated, renamed: "removeDeviceInterest(interest:completion:)")
     @objc public func unsubscribe(interest: String, completion: @escaping () -> Void = {}) throws {
         guard self.validateInterestName(interest) else {
             throw InvalidInterestError.invalidName(interest)
@@ -421,13 +455,39 @@ import Foundation
     }
 
     /**
+     Unsubscribe the device from an interest.
+
+     - Parameter interest: Interest that you want to unsubscribe your device from.
+     - Parameter completion: The block to execute when subscription to the interest is successfully cancelled.
+
+     - Precondition: `interest` should not be nil.
+
+     - Throws: An error of type `InvalidInterestError`
+     */
+    /// - Tag: removeDeviceInterest
+     @objc public func removeDeviceInterest(interest: String, completion: @escaping () -> Void = {}) throws {
+        try unsubscribe(interest: interest, completion: completion)
+    }
+
+    /**
      Unsubscribe from all interests.
 
      - Parameter completion: The block to execute when all subscriptions to the interests are successfully cancelled.
      */
     /// - Tag: unsubscribeAll
+    @available(*, deprecated, renamed: "clearDeviceInterests(completion:)")
     @objc public func unsubscribeAll(completion: @escaping () -> Void = {}) throws {
         try self.setSubscriptions(interests: [], completion: completion)
+    }
+
+    /**
+     Unsubscribes the device from all the interests.
+
+     - Parameter completion: The block to execute when all subscriptions to the interests are successfully cancelled.
+     */
+    /// - Tag: clearDeviceInterests
+    @objc public func clearDeviceInterests(completion: @escaping () -> Void = {}) throws {
+        try unsubscribeAll(completion: completion)
     }
 
     /**
@@ -436,12 +496,26 @@ import Foundation
      - returns: Array of interests
      */
     /// - Tag: getInterests
+    @available(*, deprecated, renamed: "getDeviceInterests()")
     @objc public func getInterests() -> [String]? {
         let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
 
         return persistenceService.getSubscriptions()
     }
 
+    /**
+     Get the interest subscriptions that the device is currently subscribed to.
+
+     - returns: Array of interests
+     */
+    /// - Tag: getDeviceInterests
+    @objc public func getDeviceInterests() -> [String]? {
+        let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
+
+        return persistenceService.getSubscriptions()
+    }
+
+    @available(*, deprecated, renamed: "interestsSetOnDeviceDidChange()")
     @objc public func interestsSetDidChange() {
         guard
             let delegate = delegate,
@@ -451,6 +525,17 @@ import Foundation
         }
 
         return delegate.interestsSetDidChange(interests: interests)
+    }
+
+    @objc public func interestsSetOnDeviceDidChange() {
+        guard
+            let delegate = delegate,
+            let interests = self.getDeviceInterests()
+        else {
+            return
+        }
+
+        return delegate.interestsSetOnDeviceDidChange(interests: interests)
     }
 
     /**
@@ -579,7 +664,7 @@ import Foundation
 
 /**
  InterestsChangedDelegate protocol.
- Method `interestsSetDidChange(interests:)` will be called when interests set changes.
+ Method `interestsSetOnDeviceDidChange(interests:)` will be called when interests set changes.
  */
 @objc public protocol InterestsChangedDelegate: class {
     /**
@@ -588,5 +673,14 @@ import Foundation
      - Parameter interests: The new list of interests.
      */
     /// - Tag: interestsSetDidChange
+    @available(*, deprecated, renamed: "interestsSetOnDeviceDidChange(interests:)")
     func interestsSetDidChange(interests: [String])
+
+    /**
+     Tells the delegate that the device's interests subscriptions list has changed.
+
+     - Parameter interests: The new list of interests.
+     */
+    /// - Tag: interestsSetOnDeviceDidChange
+    func interestsSetOnDeviceDidChange(interests: [String])
 }
