@@ -4,7 +4,7 @@ import Foundation
     public let authURL: String
     public let getAuthData: () -> AuthData
 
-    public init(authURL: String, getAuthData: @escaping () -> (AuthData)) {
+    @objc public init(authURL: String, getAuthData: @escaping () -> (AuthData)) {
         self.authURL = authURL
         self.getAuthData = getAuthData
     }
