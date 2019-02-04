@@ -7,7 +7,7 @@ class AuthDataTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        self.authData = AuthData(headers: ["A": "B"], urlParams: ["1": "2"])
+        self.authData = AuthData(headers: ["A": "B"], queryParams: ["1": "2"])
     }
 
     override func tearDown() {
@@ -18,7 +18,7 @@ class AuthDataTests: XCTestCase {
     func testAuthData() {
         XCTAssertNotNil(self.authData)
         XCTAssertEqual(self.authData.headers, ["A": "B"])
-        XCTAssertEqual(self.authData.urlParams, ["1": "2"])
+        XCTAssertEqual(self.authData.queryParams, ["1": "2"])
     }
 }
 

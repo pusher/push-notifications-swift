@@ -12,7 +12,7 @@ class BeamsTokenProviderTests: XCTestCase {
         super.setUp()
         self.beamsTokenProvider = BeamsTokenProvider(authURL: "localhost:8080", getAuthData: { () -> (AuthData) in
             let sessionToken = "SESSION-TOKEN"
-            return AuthData(headers: ["Authorization": "Bearer \(sessionToken)"], urlParams: [:])
+            return AuthData(headers: ["Authorization": "Bearer \(sessionToken)"], queryParams: [:])
         })
     }
 
