@@ -36,7 +36,6 @@
 		A144AB521F9E3DA3009F0040 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB4A1F9E3DA3009F0040 /* NetworkService.swift */; };
 		A144AB571F9E3DBF009F0040 /* DeviceTokenHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB541F9E3DBF009F0040 /* DeviceTokenHelperTests.swift */; };
 		A1482A542180A47900F19A4E /* UserPersistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1482A532180A47900F19A4E /* UserPersistable.swift */; };
-		A1482A562180A59800F19A4E /* UserValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1482A552180A59800F19A4E /* UserValidationError.swift */; };
 		A1482A582181F3CD00F19A4E /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1482A572181F3CD00F19A4E /* Result.swift */; };
 		A1482A5A218326AE00F19A4E /* UserPersistableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1482A59218326AE00F19A4E /* UserPersistableTests.swift */; };
 		A1482A5C218328C300F19A4E /* AuthDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1482A5B218328C300F19A4E /* AuthDataTests.swift */; };
@@ -110,7 +109,6 @@
 		A144AB4A1F9E3DA3009F0040 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkService.swift; path = ../../Sources/NetworkService.swift; sourceTree = "<group>"; };
 		A144AB541F9E3DBF009F0040 /* DeviceTokenHelperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceTokenHelperTests.swift; path = ../../Tests/DeviceTokenHelperTests.swift; sourceTree = "<group>"; };
 		A1482A532180A47900F19A4E /* UserPersistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserPersistable.swift; path = ../../Sources/UserPersistable.swift; sourceTree = "<group>"; };
-		A1482A552180A59800F19A4E /* UserValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserValidationError.swift; path = ../../Sources/UserValidationError.swift; sourceTree = "<group>"; };
 		A1482A572181F3CD00F19A4E /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Result.swift; path = ../../Sources/Result.swift; sourceTree = "<group>"; };
 		A1482A59218326AE00F19A4E /* UserPersistableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserPersistableTests.swift; path = ../../Tests/UserPersistableTests.swift; sourceTree = "<group>"; };
 		A1482A5B218328C300F19A4E /* AuthDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AuthDataTests.swift; path = ../../Tests/AuthDataTests.swift; sourceTree = "<group>"; };
@@ -234,7 +232,6 @@
 				A19B15D22189E4FC008E6DB5 /* Token.swift */,
 				A1327BDE2178EB62001483E1 /* TokenProvider.swift */,
 				A1482A532180A47900F19A4E /* UserPersistable.swift */,
-				A1482A552180A59800F19A4E /* UserValidationError.swift */,
 			);
 			path = PushNotifications;
 			sourceTree = "<group>";
@@ -408,7 +405,6 @@
 				A140FFD32020BECF00931AF6 /* Interests.swift in Sources */,
 				A1327BDF2178EB62001483E1 /* BeamsTokenProvider.swift in Sources */,
 				A1F0E942219B18B800D32363 /* PushNotificationsError.swift in Sources */,
-				A1482A562180A59800F19A4E /* UserValidationError.swift in Sources */,
 				A1327BE02178EB62001483E1 /* AuthData.swift in Sources */,
 				A19ECF831FCF099200688DAF /* InterestPersistable.swift in Sources */,
 				A1482A582181F3CD00F19A4E /* Result.swift in Sources */,

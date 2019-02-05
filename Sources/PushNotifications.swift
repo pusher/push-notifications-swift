@@ -14,8 +14,6 @@ import Foundation
     private let persistenceStorageOperationQueue = DispatchQueue(label: Constants.DispatchQueue.persistenceStorageOperationQueue)
     private let networkService: PushNotificationsNetworkable
 
-    private var tokenProvider: TokenProvider?
-
     // The object that acts as the delegate of push notifications.
     public weak var delegate: InterestsChangedDelegate?
 
@@ -39,11 +37,7 @@ import Foundation
      - Precondition: `instanceId` should not be nil.
      */
     /// - Tag: start
-    @objc public func start(instanceId: String, tokenProvider: TokenProvider? = nil) {
-        if let tokenProvider = tokenProvider {
-            self.tokenProvider = tokenProvider
-        }
-
+    @objc public func start(instanceId: String) {
         // Detect from where the function is being called
         let wasCalledFromCorrectLocation = Thread.callStackSymbols.contains { stack in
             return stack.contains("didFinishLaunchingWith") || stack.contains("applicationDidFinishLaunching") || stack.contains("clearAllState")
@@ -100,16 +94,11 @@ import Foundation
      Set user id.
 
      - Parameter userId: User id.
-
-     - Precondition: You need to first authenticate the user by providing `beamsTokenProvider` in `start(instanceId:, beamsTokenProvider:)` method. `beamsTokenProvider` should not be nil.
+     - Parameter tokenProvider: Token provider that will be used to generate the token for the user that you want to authenticate.
     */
     /// - Tag: setUserId
-    @objc public func setUserId(_ userId: String, completion: @escaping (Error?) -> Void) {
+    @objc public func setUserId(_ userId: String,  tokenProvider: TokenProvider, completion: @escaping (Error?) -> Void) {
         self.preIISOperationQueue.async {
-            guard let tokenProvider = self.tokenProvider else {
-                return completion(TokenProviderError.error("[PushNotifications] - Token provider is nil."))
-            }
-
             let persistenceService: UserPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
             if let persistedUserId = persistenceService.getUserId() {
                 if persistedUserId == userId {
@@ -202,7 +191,7 @@ import Foundation
 
                 strongSelf.preIISOperationQueue.suspend()
 
-                strongSelf.start(instanceId: instanceId, tokenProvider: strongSelf.tokenProvider)
+                strongSelf.start(instanceId: instanceId)
 
                 completion(nil)
 
