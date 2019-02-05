@@ -97,7 +97,7 @@ import Foundation
      - Parameter tokenProvider: Token provider that will be used to generate the token for the user that you want to authenticate.
     */
     /// - Tag: setUserId
-    @objc public func setUserId(_ userId: String,  tokenProvider: TokenProvider, completion: @escaping (Error?) -> Void) {
+    @objc public func setUserId(_ userId: String, tokenProvider: TokenProvider, completion: @escaping (Error?) -> Void) {
         self.preIISOperationQueue.async {
             let persistenceService: UserPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
             if let persistedUserId = persistenceService.getUserId() {
