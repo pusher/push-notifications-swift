@@ -10,18 +10,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let tokenProvider = BeamsTokenProvider(authURL: "YOUR-TOKEN-PROVIDER-URL") { () -> AuthData in
             let sessionToken = "SESSION-TOKEN"
-            return AuthData(headers: ["Authorization": "Bearer \(sessionToken)"], urlParams: [:])
+            return AuthData(headers: ["Authorization": "Bearer \(sessionToken)"], queryParams: [:])
         }
 
-        self.pushNotifications.start(instanceId: "YOUR_INSTANCE_ID", beamsTokenProvider: tokenProvider) // Can be found here: https://dash.pusher.com
-        try? self.pushNotifications.setUserId("Johnny Cash", completion: { (error) in
+        self.pushNotifications.start(instanceId: "YOUR_INSTANCE_ID") // Can be found here: https://dash.pusher.com
+        self.pushNotifications.setUserId("Johnny Cash", tokenProvider: tokenProvider, completion: { (error) in
             guard error == nil else {
                 print(error.debugDescription)
                 return
             }
         })
+
         self.pushNotifications.registerForRemoteNotifications()
-        try? self.pushNotifications.subscribe(interest: "hello")
 
         return true
     }
