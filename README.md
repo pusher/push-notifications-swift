@@ -42,7 +42,7 @@ use_frameworks!
 
 # Replace `<Your Target Name>` with your app's target name.
 target '<Your Target Name>' do
-    pod 'PushNotifications', '~> 1.0.0'
+    pod 'PushNotifications', '~> 1.2.0'
 end
 ```
 
@@ -72,6 +72,7 @@ github "pusher/push-notifications-swift"
 ```
 
 Continue following the steps below depending on the platform that you're building the dependency for:
+
 - If you're building for OS X, follow [this](https://github.com/Carthage/Carthage#if-youre-building-for-os-x) guide.
 - If you're building for iOS, tvOS, or watchOS, follow [this](https://github.com/Carthage/Carthage#if-youre-building-for-ios-tvos-or-watchos) guide.
 
