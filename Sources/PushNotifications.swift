@@ -8,6 +8,7 @@ import NotificationCenter
 import Foundation
 
 @objc public final class PushNotifications: NSObject {
+    private var deviceToken: Data?
     private let session = URLSession(configuration: .default)
     private let preIISOperationQueue = DispatchQueue(label: Constants.DispatchQueue.preIISOperationQueue)
     private let persistenceStorageOperationQueue = DispatchQueue(label: Constants.DispatchQueue.persistenceStorageOperationQueue)
@@ -39,7 +40,7 @@ import Foundation
     @objc public func start(instanceId: String) {
         // Detect from where the function is being called
         let wasCalledFromCorrectLocation = Thread.callStackSymbols.contains { stack in
-            return stack.contains("didFinishLaunchingWith") || stack.contains("applicationDidFinishLaunching")
+            return stack.contains("didFinishLaunchingWith") || stack.contains("applicationDidFinishLaunching") || stack.contains("clearAllState")
         }
         if !wasCalledFromCorrectLocation {
             print("[Push Notifications] - Warning: You should call `pushNotifications.start` from the `AppDelegate.didFinishLaunchingWith`")
@@ -90,6 +91,118 @@ import Foundation
     #endif
 
     /**
+     Set user id.
+
+     - Parameter userId: User id.
+     - Parameter tokenProvider: Token provider that will be used to generate the token for the user that you want to authenticate.
+    */
+    /// - Tag: setUserId
+    @objc public func setUserId(_ userId: String, tokenProvider: TokenProvider, completion: @escaping (Error?) -> Void) {
+        self.preIISOperationQueue.async {
+            let persistenceService: UserPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
+            if let persistedUserId = persistenceService.getUserId() {
+                if persistedUserId == userId {
+                    return completion(nil)
+                } else {
+                    return completion(TokenProviderError.error("[PushNotifications] - Changing the `userId` is not allowed."))
+                }
+            }
+
+            guard let deviceId = Device.getDeviceId() else {
+                return completion(TokenProviderError.error("[PushNotifications] - Device id is nil."))
+            }
+            guard let instanceId = Instance.getInstanceId() else {
+                return completion(TokenProviderError.error("[PushNotifications] - Instance id is nil."))
+            }
+            guard let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/user") else {
+                return completion(TokenProviderError.error("[PushNotifications] - Error while constructing URL from a string."))
+            }
+
+            do {
+                try tokenProvider.fetchToken(userId: userId, completionHandler: { (token, error) in
+                    guard error == nil else {
+                        return completion(error)
+                    }
+
+                    let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
+                    networkService.setUserId(url: url, token: token, completion: { _ in
+                        persistenceService.setUserId(userId: userId)
+                        completion(nil)
+                    })
+                })
+            } catch {
+                completion(error)
+            }
+        }
+    }
+
+    /**
+     Disable Beams service.
+
+     This will remove everything associated with the Beams from the device and Beams server.
+     */
+    /// - Tag: stop
+    @objc public func stop(completion: @escaping (Error?) -> Void) {
+        self.preIISOperationQueue.async {
+            guard let deviceId = Device.getDeviceId() else {
+                return completion(PushNotificationsError.error("[PushNotifications] - Device id is nil."))
+            }
+
+            guard let instanceId = Instance.getInstanceId() else {
+                return completion(PushNotificationsError.error("[PushNotifications] - Instance id is nil."))
+            }
+
+            guard let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)") else {
+                return completion(PushNotificationsError.error("[PushNotifications] - Error while constructing the URL."))
+            }
+
+            let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
+            networkService.deleteDevice(url: url, completion: { _ in
+
+                let persistenceService: UserPersistable & InterestPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
+                persistenceService.removeAll()
+
+                completion(nil)
+            })
+        }
+    }
+
+    /**
+     Log out user and remove all interests associated with it.
+
+     This will remove the current user and all the interests associated with it from the device and Beams server.
+     Device is now in a fresh state, ready for new subscriptions or user being set.
+     */
+    /// - Tag: clearAllState
+    @objc public func clearAllState(completion: @escaping (Error?) -> Void) {
+        guard let instanceId = Instance.getInstanceId() else {
+            return completion(PushNotificationsError.error("[PushNotifications] - Instance id is nil."))
+        }
+
+        self.stop(completion: { [weak self] error in
+            guard let strongSelf = self else {
+                return completion(PushNotificationsError.error("[PushNotifications] - Something went wrong."))
+            }
+
+            strongSelf.preIISOperationQueue.async {
+                guard error == nil else {
+                    return completion(error)
+                }
+
+                strongSelf.preIISOperationQueue.suspend()
+
+                strongSelf.start(instanceId: instanceId)
+
+                completion(nil)
+
+                if let deviceToken = strongSelf.deviceToken {
+                    strongSelf.registerDeviceToken(deviceToken)
+                }
+            }
+        })
+    }
+
+    /**
      Register device token with PushNotifications service.
 
      - Parameter deviceToken: A token that identifies the device to APNs.
@@ -107,29 +220,25 @@ import Foundation
             return
         }
 
+        self.deviceToken = deviceToken
+
         if Device.idAlreadyPresent() {
-            // If we have the device id that means that the token has already been registered.
-            // Therefore we don't need to call `networkService.register` again.
-            print("[Push Notifications] - Warning: Avoid multiple calls of `registerDeviceToken`")
+            // TODO: Handle the token change.
             return
         }
 
-        networkService.register(url: url, deviceToken: deviceToken, instanceId: instanceId) { [weak self] (device) in
-            guard
-                let device = device,
-                let strongSelf = self
-            else {
+        networkService.register(url: url, deviceToken: deviceToken, instanceId: instanceId) { [weak self] result in
+            guard let strongSelf = self else {
                 return
             }
 
             strongSelf.persistenceStorageOperationQueue.async {
-                if Device.idAlreadyPresent() {
-                    print("[Push Notifications] - Warning: Avoid multiple calls of `registerDeviceToken`")
-                } else {
+                switch result {
+                case .value(let device):
                     Device.persist(device.id)
 
                     let initialInterestSet = device.initialInterestSet ?? []
-                    let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: "PushNotifications")!)
+                    let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
                     if initialInterestSet.count > 0 {
                         persistenceService.persist(interests: initialInterestSet)
                     }
@@ -144,6 +253,9 @@ import Foundation
                     }
 
                     strongSelf.preIISOperationQueue.resume()
+                case .error(let error):
+                    print("\(error)")
+                    completion()
                 }
             }
         }
@@ -160,7 +272,23 @@ import Foundation
      - Throws: An error of type `InvalidInterestError`
      */
     /// - Tag: subscribe
+    @available(*, deprecated, renamed: "addDeviceInterest(interest:completion:)")
     @objc public func subscribe(interest: String, completion: @escaping () -> Void = {}) throws {
+        try self.addDeviceInterest(interest: interest, completion: completion)
+    }
+
+    /**
+     Subscribes the device to an interest.
+
+     - Parameter interest: Interest that you want to subscribe your device to.
+     - Parameter completion: The block to execute when subscription to the interest is complete.
+
+     - Precondition: `interest` should not be nil.
+
+     - Throws: An error of type `InvalidInterestError`
+     */
+    /// - Tag: addDeviceInterest
+    @objc public func addDeviceInterest(interest: String, completion: @escaping () -> Void = {}) throws {
         guard self.validateInterestName(interest) else {
             throw InvalidInterestError.invalidName(interest)
         }
@@ -176,8 +304,8 @@ import Foundation
                         let deviceId = Device.getDeviceId(),
                         let instanceId = Instance.getInstanceId(),
                         let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/interests/\(interest)")
-                    else {
-                        return
+                        else {
+                            return
                     }
 
                     let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
@@ -193,7 +321,7 @@ import Foundation
             }
 
             if interestAdded {
-                self.interestsSetDidChange()
+                self.interestsSetOnDeviceDidChange()
             }
         }
     }
@@ -209,7 +337,24 @@ import Foundation
      - Throws: An error of type `MultipleInvalidInterestsError`
      */
     /// - Tag: setSubscriptions
+    @available(*, deprecated, renamed: "setDeviceInterests(interest:completion:)")
     @objc public func setSubscriptions(interests: [String], completion: @escaping () -> Void = {}) throws {
+        try self.setDeviceInterests(interests: interests, completion: completion)
+    }
+
+    /**
+     Sets the subscriptions state for the device.
+     Any interests not in the set will be unsubscribed from, so this will replace the interest set by the one provided.
+
+     - Parameter interests: Interests that you want to subscribe your device to.
+     - Parameter completion: The block to execute when subscription to interests is complete.
+
+     - Precondition: `interests` should not be nil.
+
+     - Throws: An error of type `MultipleInvalidInterestsError`
+     */
+    /// - Tag: setDeviceInterests
+    @objc public func setDeviceInterests(interests: [String], completion: @escaping () -> Void = {}) throws {
         if let invalidInterests = self.validateInterestNames(interests), invalidInterests.count > 0 {
             throw MultipleInvalidInterestsError.invalidNames(invalidInterests)
         }
@@ -225,8 +370,8 @@ import Foundation
                         let deviceId = Device.getDeviceId(),
                         let instanceId = Instance.getInstanceId(),
                         let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/interests")
-                    else {
-                        return
+                        else {
+                            return
                     }
 
                     let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
@@ -242,7 +387,7 @@ import Foundation
             }
 
             if interestsChanged {
-                self.interestsSetDidChange()
+                self.interestsSetOnDeviceDidChange()
             }
         }
     }
@@ -258,7 +403,23 @@ import Foundation
      - Throws: An error of type `InvalidInterestError`
      */
     /// - Tag: unsubscribe
+    @available(*, deprecated, renamed: "removeDeviceInterest(interest:completion:)")
     @objc public func unsubscribe(interest: String, completion: @escaping () -> Void = {}) throws {
+        try self.removeDeviceInterest(interest: interest, completion: completion)
+    }
+
+    /**
+     Unsubscribe the device from an interest.
+
+     - Parameter interest: Interest that you want to unsubscribe your device from.
+     - Parameter completion: The block to execute when subscription to the interest is successfully cancelled.
+
+     - Precondition: `interest` should not be nil.
+
+     - Throws: An error of type `InvalidInterestError`
+     */
+    /// - Tag: removeDeviceInterest
+     @objc public func removeDeviceInterest(interest: String, completion: @escaping () -> Void = {}) throws {
         guard self.validateInterestName(interest) else {
             throw InvalidInterestError.invalidName(interest)
         }
@@ -274,7 +435,9 @@ import Foundation
                         let deviceId = Device.getDeviceId(),
                         let instanceId = Instance.getInstanceId(),
                         let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/interests/\(interest)")
-                        else { return }
+                        else {
+                            return
+                    }
 
                     let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
                     networkService.unsubscribe(url: url, completion: { _ in
@@ -289,7 +452,7 @@ import Foundation
             }
 
             if interestRemoved {
-                self.interestsSetDidChange()
+                self.interestsSetOnDeviceDidChange()
             }
         }
     }
@@ -300,8 +463,19 @@ import Foundation
      - Parameter completion: The block to execute when all subscriptions to the interests are successfully cancelled.
      */
     /// - Tag: unsubscribeAll
+    @available(*, deprecated, renamed: "clearDeviceInterests(completion:)")
     @objc public func unsubscribeAll(completion: @escaping () -> Void = {}) throws {
-        try self.setSubscriptions(interests: [], completion: completion)
+        try self.clearDeviceInterests(completion: completion)
+    }
+
+    /**
+     Unsubscribes the device from all the interests.
+
+     - Parameter completion: The block to execute when all subscriptions to the interests are successfully cancelled.
+     */
+    /// - Tag: clearDeviceInterests
+    @objc public func clearDeviceInterests(completion: @escaping () -> Void = {}) throws {
+        try self.setDeviceInterests(interests: [], completion: completion)
     }
 
     /**
@@ -310,21 +484,37 @@ import Foundation
      - returns: Array of interests
      */
     /// - Tag: getInterests
+    @available(*, deprecated, renamed: "getDeviceInterests()")
     @objc public func getInterests() -> [String]? {
+        return self.getDeviceInterests()
+    }
+
+    /**
+     Get the interest subscriptions that the device is currently subscribed to.
+
+     - returns: Array of interests
+     */
+    /// - Tag: getDeviceInterests
+    @objc public func getDeviceInterests() -> [String]? {
         let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
 
         return persistenceService.getSubscriptions()
     }
 
+    @available(*, deprecated, renamed: "interestsSetOnDeviceDidChange()")
     @objc public func interestsSetDidChange() {
+        self.interestsSetOnDeviceDidChange()
+    }
+
+    @objc public func interestsSetOnDeviceDidChange() {
         guard
             let delegate = delegate,
-            let interests = self.getInterests()
+            let interests = self.getDeviceInterests()
         else {
             return
         }
 
-        return delegate.interestsSetDidChange(interests: interests)
+        return delegate.interestsSetOnDeviceDidChange(interests: interests)
     }
 
     /**
@@ -389,7 +579,7 @@ import Foundation
     private func syncInterests() {
         // Sync saved interests when app starts, if necessary.
         guard
-            let interests = self.getInterests(),
+            let interests = self.getDeviceInterests(),
             let deviceId = Device.getDeviceId(),
             let instanceId = Instance.getInstanceId(),
             let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/interests")
@@ -425,11 +615,35 @@ import Foundation
         NSApplication.shared.registerForRemoteNotifications(matching: options)
     }
     #endif
+
+    private func getDevice(completion: @escaping CompletionHandler<Result<Void, Error>>) {
+        guard let deviceId = Device.getDeviceId() else {
+            return completion(.error(PushNotificationsError.error("[PushNotifications] - Device id is nil.")))
+        }
+
+        guard let instanceId = Instance.getInstanceId() else {
+            return completion(.error(PushNotificationsError.error("[PushNotifications] - Instance id is nil.")))
+        }
+
+        guard let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)") else {
+            return completion(.error(PushNotificationsError.error("[PushNotifications] - Error while constructing the getDevice URL.")))
+        }
+
+        let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
+        networkService.getDevice(url: url) { result in
+            switch result {
+            case .value:
+                completion(.value(()))
+            case .error(let error):
+                completion(.error(error))
+            }
+        }
+    }
 }
 
 /**
  InterestsChangedDelegate protocol.
- Method `interestsSetDidChange(interests:)` will be called when interests set changes.
+ Method `interestsSetOnDeviceDidChange(interests:)` will be called when interests set changes.
  */
 @objc public protocol InterestsChangedDelegate: class {
     /**
@@ -438,5 +652,14 @@ import Foundation
      - Parameter interests: The new list of interests.
      */
     /// - Tag: interestsSetDidChange
+    @available(*, deprecated, renamed: "interestsSetOnDeviceDidChange(interests:)")
     func interestsSetDidChange(interests: [String])
+
+    /**
+     Tells the delegate that the device's interests subscriptions list has changed.
+
+     - Parameter interests: The new list of interests.
+     */
+    /// - Tag: interestsSetOnDeviceDidChange
+    func interestsSetOnDeviceDidChange(interests: [String])
 }

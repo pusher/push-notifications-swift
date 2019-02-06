@@ -48,7 +48,7 @@ class InterestPersistableTests: XCTestCase {
 
     func testRemoveAllInterests() {
         _ = self.persistenceService.persist(interests: ["a", "b", "c", "d", "e"])
-        self.persistenceService.removeAll()
+        self.persistenceService.removeAllSubscriptions()
         let interests = self.persistenceService.getSubscriptions()
         XCTAssertEqual(interests!, [])
     }
