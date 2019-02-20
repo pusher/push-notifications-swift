@@ -211,12 +211,12 @@ import Foundation
      - Precondition: `deviceToken` should not be nil.
      */
     /// - Tag: registerDeviceToken
-    @objc public func registerDeviceToken(_ deviceToken: Data, completion: @escaping () -> Void = {}) {
+    @objc public func registerDeviceToken(_ deviceToken: Data, completion: @escaping (Error?) -> Void = { _ in }) {
         guard
             let instanceId = Instance.getInstanceId(),
             let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")
         else {
-            print("[Push Notifications] - Something went wrong. Please check your instance id: \(String(describing: Instance.getInstanceId()))")
+            completion(PushNotificationsError.error("[Push Notifications] - Something went wrong. Please check your instance id: \(String(describing: Instance.getInstanceId()))"))
             return
         }
 
@@ -249,13 +249,13 @@ import Foundation
                             strongSelf.syncInterests()
                         }
 
-                        completion()
+                        completion(nil)
                     }
 
                     strongSelf.preIISOperationQueue.resume()
                 case .error(let error):
                     print("\(error)")
-                    completion()
+                    completion(error)
                 }
             }
         }
