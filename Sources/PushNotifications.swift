@@ -224,11 +224,13 @@ import Foundation
 
         if Device.idAlreadyPresent() {
             // TODO: Handle the token change.
+            completion(PushNotificationsError.error("Device is already present"))
             return
         }
 
         networkService.register(url: url, deviceToken: deviceToken, instanceId: instanceId) { [weak self] result in
             guard let strongSelf = self else {
+                completion(PushNotificationsError.error("deallocated"))
                 return
             }
 
