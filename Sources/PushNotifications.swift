@@ -224,6 +224,7 @@ import Foundation
 
         if Device.idAlreadyPresent() {
             // TODO: Handle the token change.
+            completion()
             return
         }
 
