@@ -111,6 +111,18 @@ struct EventTypeHandler {
             return .ShouldProcess
         }
 
+        #if os(iOS) && swift(>=4.0)
+        let isForeground = UIApplication.shared.applicationState != .background
+        #elseif os(OSX)
+        let isForeground = true
+        #endif
+
+        let hasCustomerData = data.count > 1 // checks if there's anything other than the `pusher` key
+
+        if (hasCustomerData && isForeground) {
+            return .ShouldProcess
+        }
+
         return pusher["userShouldIgnore"] != nil ? .ShouldIgnore : .ShouldProcess
     }
 }
