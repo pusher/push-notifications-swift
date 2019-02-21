@@ -117,6 +117,6 @@ class MetadataTests: XCTestCase {
         XCTAssertNotNil(metadata.sdkVersion)
         XCTAssertNotNil(metadata.iosVersion)
         XCTAssertNotNil(metadata.macosVersion)
-        XCTAssert(metadata.sdkVersion == "1.2.1")
+        XCTAssert(metadata.sdkVersion == "1.3.0-beta.1")
     }
 }
