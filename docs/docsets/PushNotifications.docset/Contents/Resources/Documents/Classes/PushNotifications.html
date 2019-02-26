@@ -32,6 +32,12 @@
             <a href="../Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Classes/AuthData.html">AuthData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BeamsTokenProvider.html">BeamsTokenProvider</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/PushNotifications.html">PushNotifications</a>
               </li>
             </ul>
@@ -46,10 +52,27 @@
                 <a href="../Enums/MultipleInvalidInterestsError.html">MultipleInvalidInterestsError</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Enums/PushNotificationsError.html">PushNotificationsError</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Enums/PusherAlreadyRegisteredError.html">PusherAlreadyRegisteredError</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/RemoteNotificationType.html">RemoteNotificationType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Result.html">Result</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TokenProviderError.html">TokenProviderError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:17PushNotifications3MD5yS2SF">MD5(_:)</a>
               </li>
             </ul>
           </li>
@@ -58,6 +81,9 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Protocols/InterestsChangedDelegate.html">InterestsChangedDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/TokenProvider.html">TokenProvider</a>
               </li>
             </ul>
           </li>
@@ -318,6 +344,126 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)setUserId:tokenProvider:completion:"></a>
+                    <a name="//apple_ref/swift/Method/setUserId(_:tokenProvider:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)setUserId:tokenProvider:completion:">setUserId(_:tokenProvider:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Set user id.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">setUserId</span><span class="p">(</span><span class="n">_</span> <span class="nv">userId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">tokenProvider</span><span class="p">:</span> <span class="kt"><a href="../Protocols/TokenProvider.html">TokenProvider</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>userId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>User id.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>tokenProvider</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Token provider that will be used to generate the token for the user that you want to authenticate.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)stopWithCompletion:"></a>
+                    <a name="//apple_ref/swift/Method/stop(completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)stopWithCompletion:">stop(completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Disable Beams service.</p>
+
+<p>This will remove everything associated with the Beams from the device and Beams server.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">stop</span><span class="p">(</span><span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)clearAllStateWithCompletion:"></a>
+                    <a name="//apple_ref/swift/Method/clearAllState(completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)clearAllStateWithCompletion:">clearAllState(completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Log out user and remove all interests associated with it.</p>
+
+<p>This will remove the current user and all the interests associated with it from the device and Beams server.
+Device is now in a fresh state, ready for new subscriptions or user being set.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">clearAllState</span><span class="p">(</span><span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)registerDeviceToken:completion:"></a>
                     <a name="//apple_ref/swift/Method/registerDeviceToken(_:completion:)" class="dashAnchor"></a>
                     <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)registerDeviceToken:completion:">registerDeviceToken(_:completion:)</a>
@@ -409,7 +555,8 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+                          <pre class="highlight swift"><code><span class="kd">@available(*, deprecated, renamed: "addDeviceInterest(interest:completion:﹚")</span>
+<span class="kd">@objc</span>
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">subscribe</span><span class="p">(</span><span class="nv">interest</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="o">=</span> <span class="p">{})</span> <span class="k">throws</span></code></pre>
 
                         </div>
@@ -427,6 +574,75 @@
                               <td>
                                 <div>
                                   <p>Interest that you want to subscribe to.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The block to execute when subscription to the interest is complete.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)addDeviceInterestWithInterest:error:completion:"></a>
+                    <a name="//apple_ref/swift/Method/addDeviceInterest(interest:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)addDeviceInterestWithInterest:error:completion:">addDeviceInterest(interest:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Subscribes the device to an interest.</p>
+<div class="aside aside-precondition">
+    <p class="aside-title">Precondition</p>
+    <p><code>interest</code> should not be nil.</p>
+
+</div>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <p>An error of type <code><a href="../Enums/InvalidInterestError.html">InvalidInterestError</a></code></p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">addDeviceInterest</span><span class="p">(</span><span class="nv">interest</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="o">=</span> <span class="p">{})</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>interest</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Interest that you want to subscribe your device to.</p>
                                 </div>
                               </td>
                             </tr>
@@ -478,8 +694,9 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">setSubscriptions</span><span class="p">(</span><span class="nv">interests</span><span class="p">:</span> <span class="kt">Array</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="o">=</span> <span class="p">{})</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@available(*, deprecated, renamed: "setDeviceInterests(interest:completion:﹚")</span>
+<span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">setSubscriptions</span><span class="p">(</span><span class="nv">interests</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="o">=</span> <span class="p">{})</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
@@ -496,6 +713,76 @@
                               <td>
                                 <div>
                                   <p>Interests that you want to subscribe to.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The block to execute when subscription to interests is complete.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)setDeviceInterestsWithInterests:error:completion:"></a>
+                    <a name="//apple_ref/swift/Method/setDeviceInterests(interests:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)setDeviceInterestsWithInterests:error:completion:">setDeviceInterests(interests:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sets the subscriptions state for the device.
+Any interests not in the set will be unsubscribed from, so this will replace the interest set by the one provided.</p>
+<div class="aside aside-precondition">
+    <p class="aside-title">Precondition</p>
+    <p><code>interests</code> should not be nil.</p>
+
+</div>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <p>An error of type <code><a href="../Enums/MultipleInvalidInterestsError.html">MultipleInvalidInterestsError</a></code></p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">setDeviceInterests</span><span class="p">(</span><span class="nv">interests</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="o">=</span> <span class="p">{})</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>interests</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Interests that you want to subscribe your device to.</p>
                                 </div>
                               </td>
                             </tr>
@@ -547,7 +834,8 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+                          <pre class="highlight swift"><code><span class="kd">@available(*, deprecated, renamed: "removeDeviceInterest(interest:completion:﹚")</span>
+<span class="kd">@objc</span>
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">unsubscribe</span><span class="p">(</span><span class="nv">interest</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="o">=</span> <span class="p">{})</span> <span class="k">throws</span></code></pre>
 
                         </div>
@@ -589,6 +877,75 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)removeDeviceInterestWithInterest:error:completion:"></a>
+                    <a name="//apple_ref/swift/Method/removeDeviceInterest(interest:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)removeDeviceInterestWithInterest:error:completion:">removeDeviceInterest(interest:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Unsubscribe the device from an interest.</p>
+<div class="aside aside-precondition">
+    <p class="aside-title">Precondition</p>
+    <p><code>interest</code> should not be nil.</p>
+
+</div>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <p>An error of type <code><a href="../Enums/InvalidInterestError.html">InvalidInterestError</a></code></p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">removeDeviceInterest</span><span class="p">(</span><span class="nv">interest</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="o">=</span> <span class="p">{})</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>interest</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Interest that you want to unsubscribe your device from.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The block to execute when subscription to the interest is successfully cancelled.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)unsubscribeAllAndReturnError:completion:"></a>
                     <a name="//apple_ref/swift/Method/unsubscribeAll(completion:)" class="dashAnchor"></a>
                     <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)unsubscribeAllAndReturnError:completion:">unsubscribeAll(completion:)</a>
@@ -606,8 +963,56 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+                          <pre class="highlight swift"><code><span class="kd">@available(*, deprecated, renamed: "clearDeviceInterests(completion:﹚")</span>
+<span class="kd">@objc</span>
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">unsubscribeAll</span><span class="p">(</span><span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="o">=</span> <span class="p">{})</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The block to execute when all subscriptions to the interests are successfully cancelled.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)clearDeviceInterestsAndReturnError:completion:"></a>
+                    <a name="//apple_ref/swift/Method/clearDeviceInterests(completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)clearDeviceInterestsAndReturnError:completion:">clearDeviceInterests(completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Unsubscribes the device from all the interests.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">clearDeviceInterests</span><span class="p">(</span><span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="o">=</span> <span class="p">{})</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
@@ -653,8 +1058,41 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@available(*, deprecated, renamed: "getDeviceInterests(﹚")</span>
+<span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">getInterests</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Array of interests</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)getDeviceInterests"></a>
+                    <a name="//apple_ref/swift/Method/getDeviceInterests()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)getDeviceInterests">getDeviceInterests()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get the interest subscriptions that the device is currently subscribed to.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">getInterests</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Array</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">?</span></code></pre>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">getDeviceInterests</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">]?</span></code></pre>
 
                         </div>
                       </div>
@@ -686,6 +1124,33 @@
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">interestsSetDidChange</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)interestsSetOnDeviceDidChange"></a>
+                    <a name="//apple_ref/swift/Method/interestsSetOnDeviceDidChange()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)interestsSetOnDeviceDidChange">interestsSetOnDeviceDidChange()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">interestsSetOnDeviceDidChange</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -745,8 +1210,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="https://pusher.com" target="_blank" rel="external">Pusher</a>. All rights reserved. (Last updated: 2018-06-26)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2019 <a class="link" href="https://pusher.com" target="_blank" rel="external">Pusher</a>. All rights reserved. (Last updated: 2019-02-26)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

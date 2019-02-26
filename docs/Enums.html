@@ -32,6 +32,12 @@
             <a href="Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Classes/AuthData.html">AuthData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/BeamsTokenProvider.html">BeamsTokenProvider</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Classes/PushNotifications.html">PushNotifications</a>
               </li>
             </ul>
@@ -46,10 +52,27 @@
                 <a href="Enums/MultipleInvalidInterestsError.html">MultipleInvalidInterestsError</a>
               </li>
               <li class="nav-group-task">
+                <a href="Enums/PushNotificationsError.html">PushNotificationsError</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Enums/PusherAlreadyRegisteredError.html">PusherAlreadyRegisteredError</a>
               </li>
               <li class="nav-group-task">
                 <a href="Enums/RemoteNotificationType.html">RemoteNotificationType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/Result.html">Result</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/TokenProviderError.html">TokenProviderError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:17PushNotifications3MD5yS2SF">MD5(_:)</a>
               </li>
             </ul>
           </li>
@@ -58,6 +81,9 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="Protocols/InterestsChangedDelegate.html">InterestsChangedDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/TokenProvider.html">TokenProvider</a>
               </li>
             </ul>
           </li>
@@ -148,6 +174,42 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:17PushNotifications0aB5ErrorO"></a>
+                    <a name="//apple_ref/swift/Enum/PushNotificationsError" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17PushNotifications0aB5ErrorO">PushNotificationsError</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Error thrown by PushNotifications.</p>
+
+<p><em>Values</em></p>
+
+<p><code>error</code> General error message.</p>
+
+                        <a href="Enums/PushNotificationsError.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">PushNotificationsError</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:17PushNotifications28PusherAlreadyRegisteredErrorO"></a>
                     <a name="//apple_ref/swift/Enum/PusherAlreadyRegisteredError" class="dashAnchor"></a>
                     <a class="token" href="#/s:17PushNotifications28PusherAlreadyRegisteredErrorO">PusherAlreadyRegisteredError</a>
@@ -220,11 +282,78 @@ Sometimes, these notifications are just for Pusher SDK to handle.</p>
                 </li>
               </ul>
             </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17PushNotifications6ResultO"></a>
+                    <a name="//apple_ref/swift/Enum/Result" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17PushNotifications6ResultO">Result</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                        <a href="Enums/Result.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="kt">Value</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17PushNotifications18TokenProviderErrorO"></a>
+                    <a name="//apple_ref/swift/Enum/TokenProviderError" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17PushNotifications18TokenProviderErrorO">TokenProviderError</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>TokenProviderError.</p>
+
+<p><em>Values</em></p>
+
+<p><code>error</code> Token provider error message.</p>
+
+                        <a href="Enums/TokenProviderError.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">TokenProviderError</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="https://pusher.com" target="_blank" rel="external">Pusher</a>. All rights reserved. (Last updated: 2018-06-26)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2019 <a class="link" href="https://pusher.com" target="_blank" rel="external">Pusher</a>. All rights reserved. (Last updated: 2019-02-26)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>
