@@ -13,6 +13,20 @@ class EventTypeHandlerTests: XCTestCase {
         XCTAssertFalse(eventType.hasData)
     }
 
+    func testUserIdNotEmpty() {
+        let userInfo = ["aps": ["content-available": 1], "data": ["pusher": ["publishId": "pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df", "userId": "denis-s"]]]
+        let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo, applicationState: .active) as! DeliveryEventType
+        XCTAssertNotNil(eventType.userId)
+        XCTAssertEqual(eventType.userId, "denis-s")
+    }
+
+    func testUserIdEmpty() {
+        let userInfo = ["aps": ["content-available": 1], "data": ["pusher": ["publishId": "pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df", "userId": nil]]]
+        let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo, applicationState: .active) as! DeliveryEventType
+        XCTAssertNotNil(eventType.userId)
+        XCTAssertEqual(eventType.userId, "")
+    }
+
     func testEventTypeActiveWithDisplayableContent() {
         let userInfo = ["aps": ["alert": ["title": "Hello", "body": "Hello, world!"], "content-available": 1], "data": ["pusher": ["publishId": "pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df"]]]
         let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo, applicationState: .active) as! DeliveryEventType
@@ -77,6 +91,25 @@ class EventTypeHandlerTests: XCTestCase {
         }
 
         XCTAssertTrue(eventType.event == Constants.ReportEventType.open)
+    }
+
+    func testUserIdNotEmpty() {
+        let userInfo = ["aps": ["content-available": 1], "data": ["pusher": ["publishId": "pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df", "userId": "denis-s"]]]
+        guard let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo) else {
+            return XCTFail()
+        }
+
+        XCTAssertNotNil(eventType.userId)
+        XCTAssertEqual(eventType.userId, "denis-s")
+    }
+
+    func testUserIdEmpty() {
+        let userInfo = ["aps": ["content-available": 1], "data": ["pusher": ["publishId": "pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df", "userId": nil]]]
+        guard let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo) else {
+            return XCTFail()
+        }
+        XCTAssertNotNil(eventType.userId)
+        XCTAssertEqual(eventType.userId, "")
     }
     #endif
 
