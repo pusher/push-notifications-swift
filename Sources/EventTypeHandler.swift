@@ -19,7 +19,7 @@ struct EventTypeHandler {
             return nil
         }
 
-        let userId = UserId(userInfo: userInfo).id ?? ""
+        let userId = UserId(userInfo: userInfo).id
 
         switch applicationState {
         case .active:
@@ -46,7 +46,7 @@ struct EventTypeHandler {
             return nil
         }
 
-        let userId = UserId(userInfo: userInfo).id ?? ""
+        let userId = UserId(userInfo: userInfo).id
 
         switch applicationState {
         case .active:
@@ -70,7 +70,7 @@ struct EventTypeHandler {
             return nil
         }
 
-        let userId = UserId(userInfo: userInfo).id ?? ""
+        let userId = UserId(userInfo: userInfo).id
 
         return OpenEventType(publishId: publishId, deviceId: deviceId, userId: userId, timestampSecs: timestampSecs)
     }

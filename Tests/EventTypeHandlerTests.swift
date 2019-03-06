@@ -23,8 +23,8 @@ class EventTypeHandlerTests: XCTestCase {
     func testUserIdEmpty() {
         let userInfo = ["aps": ["content-available": 1], "data": ["pusher": ["publishId": "pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df", "userId": nil]]]
         let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo, applicationState: .active) as! DeliveryEventType
-        XCTAssertNotNil(eventType.userId)
-        XCTAssertEqual(eventType.userId, "")
+        XCTAssertNil(eventType.userId)
+        XCTAssertEqual(eventType.userId, nil)
     }
 
     func testEventTypeActiveWithDisplayableContent() {
@@ -108,8 +108,8 @@ class EventTypeHandlerTests: XCTestCase {
         guard let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo) else {
             return XCTFail()
         }
-        XCTAssertNotNil(eventType.userId)
-        XCTAssertEqual(eventType.userId, "")
+        XCTAssertNil(eventType.userId)
+        XCTAssertEqual(eventType.userId, nil)
     }
     #endif
 

@@ -6,10 +6,10 @@ struct OpenEventType: ReportEventType {
     let event: String
     let publishId: String
     let deviceId: String
-    let userId: String
+    let userId: String?
     let timestampSecs: UInt
 
-    init(event: String = Constants.ReportEventType.open, publishId: String, deviceId: String, userId: String, timestampSecs: UInt) {
+    init(event: String = Constants.ReportEventType.open, publishId: String, deviceId: String, userId: String?, timestampSecs: UInt) {
         self.event = event
         self.publishId = publishId
         self.deviceId = deviceId
@@ -22,13 +22,13 @@ struct DeliveryEventType: ReportEventType {
     let event: String
     let publishId: String
     let deviceId: String
-    let userId: String
+    let userId: String?
     let timestampSecs: UInt
     let appInBackground: Bool
     let hasDisplayableContent: Bool
     let hasData: Bool
 
-    init(event: String = Constants.ReportEventType.delivery, publishId: String, deviceId: String, userId: String, timestampSecs: UInt, appInBackground: Bool, hasDisplayableContent: Bool, hasData: Bool) {
+    init(event: String = Constants.ReportEventType.delivery, publishId: String, deviceId: String, userId: String?, timestampSecs: UInt, appInBackground: Bool, hasDisplayableContent: Bool, hasData: Bool) {
         self.event = event
         self.publishId = publishId
         self.deviceId = deviceId
