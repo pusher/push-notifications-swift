@@ -19,13 +19,15 @@ struct EventTypeHandler {
             return nil
         }
 
+        let userId = UserId(userInfo: userInfo).id ?? ""
+
         switch applicationState {
         case .active:
-            eventType = DeliveryEventType(publishId: publishId, deviceId: deviceId, timestampSecs: timestampSecs, appInBackground: false, hasDisplayableContent: hasDisplayableContent, hasData: hasData)
+            eventType = DeliveryEventType(publishId: publishId, deviceId: deviceId, userId: userId, timestampSecs: timestampSecs, appInBackground: false, hasDisplayableContent: hasDisplayableContent, hasData: hasData)
         case .background:
-            eventType = DeliveryEventType(publishId: publishId, deviceId: deviceId, timestampSecs: timestampSecs, appInBackground: true, hasDisplayableContent: hasDisplayableContent, hasData: hasData)
+            eventType = DeliveryEventType(publishId: publishId, deviceId: deviceId, userId: userId, timestampSecs: timestampSecs, appInBackground: true, hasDisplayableContent: hasDisplayableContent, hasData: hasData)
         case .inactive:
-            eventType = OpenEventType(publishId: publishId, deviceId: deviceId, timestampSecs: timestampSecs)
+            eventType = OpenEventType(publishId: publishId, deviceId: deviceId, userId: userId, timestampSecs: timestampSecs)
         }
 
         return eventType
@@ -44,13 +46,15 @@ struct EventTypeHandler {
             return nil
         }
 
+        let userId = UserId(userInfo: userInfo).id ?? ""
+
         switch applicationState {
         case .active:
-            eventType = DeliveryEventType(publishId: publishId, deviceId: deviceId, timestampSecs: timestampSecs, appInBackground: false, hasDisplayableContent: hasDisplayableContent, hasData: hasData)
+            eventType = DeliveryEventType(publishId: publishId, deviceId: deviceId, userId: userId, timestampSecs: timestampSecs, appInBackground: false, hasDisplayableContent: hasDisplayableContent, hasData: hasData)
         case .background:
-            eventType = DeliveryEventType(publishId: publishId, deviceId: deviceId, timestampSecs: timestampSecs, appInBackground: true, hasDisplayableContent: hasDisplayableContent, hasData: hasData)
+            eventType = DeliveryEventType(publishId: publishId, deviceId: deviceId, userId: userId, timestampSecs: timestampSecs, appInBackground: true, hasDisplayableContent: hasDisplayableContent, hasData: hasData)
         case .inactive:
-            eventType = OpenEventType(publishId: publishId, deviceId: deviceId, timestampSecs: timestampSecs)
+            eventType = OpenEventType(publishId: publishId, deviceId: deviceId, userId: userId, timestampSecs: timestampSecs)
         }
 
         return eventType
@@ -66,7 +70,9 @@ struct EventTypeHandler {
             return nil
         }
 
-        return OpenEventType(publishId: publishId, deviceId: deviceId, timestampSecs: timestampSecs)
+        let userId = UserId(userInfo: userInfo).id ?? ""
+
+        return OpenEventType(publishId: publishId, deviceId: deviceId, userId: userId, timestampSecs: timestampSecs)
     }
     #endif
 
