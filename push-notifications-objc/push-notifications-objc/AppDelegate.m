@@ -12,7 +12,7 @@
     [[PushNotifications shared] registerForRemoteNotifications];
 
     NSError *anyError;
-    [[PushNotifications shared] subscribeWithInterest:@"hello" error:&anyError completion:^{
+    [[PushNotifications shared] addDeviceInterestWithInterest:@"hello" error:&anyError completion:^{
         if (anyError) {
             NSLog(@"Error: %@", anyError);
         }
