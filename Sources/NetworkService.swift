@@ -3,192 +3,183 @@ import Foundation
 class NetworkService: PushNotificationsNetworkable {
 
     let session: URLSession
-    let queue = DispatchQueue(label: Constants.DispatchQueue.networkQueue)
 
     init(session: URLSession) {
         self.session = session
     }
 
     // MARK: PushNotificationsNetworkable
-    func register(url: URL, deviceToken: Data, instanceId: String, completion: @escaping CompletionHandler<Result<Device, Error>>) {
+    func register(url: URL, deviceToken: Data, instanceId: String) -> Result<Device, Error> {
         let deviceTokenString = deviceToken.hexadecimalRepresentation()
         let bundleIdentifier = Bundle.main.bundleIdentifier ?? ""
 
         let metadata = Metadata.update()
 
         guard let body = try? Register(token: deviceTokenString, instanceId: instanceId, bundleIdentifier: bundleIdentifier, metadata: metadata).encode() else {
-            return completion(.error(PushNotificationsError.error("[PushNotifications] - Error while encoding register payload.")))
+            return .error(PushNotificationsError.error("[PushNotifications] - Error while encoding register payload."))
         }
         let request = self.setRequest(url: url, httpMethod: .POST, body: body)
 
-        self.networkRequest(request, session: self.session) { result in
-            switch result {
-            case .value(let response):
-                guard let device = try? JSONDecoder().decode(Device.self, from: response) else {
-                    return completion(.error(PushNotificationsError.error("[PushNotifications] - Error while encoding device payload.")))
-                }
-                completion(.value(device))
-            case .error(let error):
-                completion(.error(error))
+        switch self.networkRequest(request, session: self.session) {
+        case .value(let response):
+            guard let device = try? JSONDecoder().decode(Device.self, from: response) else {
+                return .error(PushNotificationsError.error("[PushNotifications] - Error while encoding device payload."))
             }
+            return .value(device)
+        case .error(let error):
+            return .error(error)
         }
     }
 
-    func subscribe(url: URL, completion: @escaping CompletionHandler<Result<Void, Error>>) {
+    func subscribe(url: URL) -> Result<Void, Error> {
         let request = self.setRequest(url: url, httpMethod: .POST)
 
-        self.networkRequest(request, session: self.session) { result in
-            switch result {
-            case .value:
-                completion(.value(()))
-            case .error(let error):
-                completion(.error(error))
-            }
+        switch self.networkRequest(request, session: self.session) {
+        case .value:
+            return .value(())
+        case .error(let error):
+            return .error(error)
         }
     }
 
-    func setSubscriptions(url: URL, interests: [String], completion: @escaping CompletionHandler<Result<Void, Error>>) {
+    func setSubscriptions(url: URL, interests: [String]) -> Result<Void, Error> {
         guard let body = try? Interests(interests: interests).encode() else {
-            return completion(.error(PushNotificationsError.error("[PushNotifications] - Error while encoding the interests payload.")))
+            return .error(PushNotificationsError.error("[PushNotifications] - Error while encoding the interests payload."))
         }
         let request = self.setRequest(url: url, httpMethod: .PUT, body: body)
 
-        self.networkRequest(request, session: self.session) { result in
-            switch result {
-            case .value:
-                completion(.value(()))
-            case .error(let error):
-                completion(.error(error))
-            }
+        switch self.networkRequest(request, session: self.session) {
+        case .value:
+            return .value(())
+        case .error(let error):
+            return .error(error)
         }
     }
 
-    func unsubscribe(url: URL, completion: @escaping CompletionHandler<Result<Void, Error>>) {
+    func unsubscribe(url: URL) -> Result<Void, Error> {
         let request = self.setRequest(url: url, httpMethod: .DELETE)
 
-        self.networkRequest(request, session: self.session) { result in
-            switch result {
-            case .value:
-                completion(.value(()))
-            case .error(let error):
-                completion(.error(error))
-            }
+        switch self.networkRequest(request, session: self.session) {
+        case .value:
+            return .value(())
+        case .error(let error):
+            return .error(error)
         }
     }
 
-    func track(url: URL, eventType: ReportEventType, completion: @escaping CompletionHandler<Result<Void, Error>>) {
+    func track(url: URL, eventType: ReportEventType) -> Result<Void, Error> {
         guard let body = try? eventType.encode() else {
-            return completion(.error(PushNotificationsError.error("[PushNotifications] - Error while encoding the event type payload.")))
+            return .error(PushNotificationsError.error("[PushNotifications] - Error while encoding the event type payload."))
         }
 
         let request = self.setRequest(url: url, httpMethod: .POST, body: body)
-        self.networkRequest(request, session: self.session) { result in
-            switch result {
-            case .value:
-                completion(.value(()))
-            case .error(let error):
-                completion(.error(error))
-            }
+        switch self.networkRequest(request, session: self.session) {
+        case .value:
+            return .value(())
+        case .error(let error):
+            return .error(error)
         }
     }
 
-    func syncMetadata(url: URL, completion: @escaping CompletionHandler<Result<Void, Error>>) {
+    func syncMetadata(url: URL) -> Result<Void, Error> {
         guard let metadataDictionary = Metadata.load() else {
-            return completion(.error(PushNotificationsError.error("[PushNotifications] - Error while loading the metadata.")))
+            return .error(PushNotificationsError.error("[PushNotifications] - Error while loading the metadata."))
         }
         let metadata = Metadata(propertyListRepresentation: metadataDictionary)
         if metadata.hasChanged() {
             let updatedMetadataObject = Metadata.update()
             guard let body = try? updatedMetadataObject.encode() else {
-                return completion(.error(PushNotificationsError.error("[PushNotifications] - Error while encoding the metadata payload.")))
+                return .error(PushNotificationsError.error("[PushNotifications] - Error while encoding the metadata payload."))
             }
             let request = self.setRequest(url: url, httpMethod: .PUT, body: body)
-            self.networkRequest(request, session: self.session) { result in
-                switch result {
-                case .value:
-                    completion(.value(()))
-                case .error(let error):
-                    completion(.error(error))
-                }
+            switch self.networkRequest(request, session: self.session) {
+            case .value:
+                return .value(())
+            case .error(let error):
+                return .error(error)
             }
         }
+
+        return .value(())
     }
 
-    func setUserId(url: URL, token: String, completion: @escaping CompletionHandler<Result<Void, Error>>) {
+    func setUserId(url: URL, token: String) -> Result<Void, Error> {
         var request = self.setRequest(url: url, httpMethod: .PUT)
         request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        self.networkRequest(request, session: self.session) { result in
-            switch result {
-            case .value:
-                completion(.value(()))
-            case .error(let error):
-                completion(.error(error))
-            }
+        switch self.networkRequest(request, session: self.session) {
+        case .value:
+            return .value(())
+        case .error(let error):
+            return .error(error)
         }
     }
 
-    func deleteDevice(url: URL, completion: @escaping CompletionHandler<Result<Void, Error>>) {
+    func deleteDevice(url: URL) -> Result<Void, Error> {
         let request = self.setRequest(url: url, httpMethod: .DELETE)
-        self.networkRequest(request, session: self.session) { result in
-            switch result {
-            case .value:
-                completion(.value(()))
-            case .error(let error):
-                completion(.error(error))
-            }
+        switch self.networkRequest(request, session: self.session) {
+        case .value:
+            return .value(())
+        case .error(let error):
+            return .error(error)
         }
     }
 
-    func getDevice(url: URL, completion: @escaping CompletionHandler<Result<Void, Error>>) {
+    func getDevice(url: URL) -> Result<Void, Error> {
         let request = self.setRequest(url: url, httpMethod: .GET)
-        self.networkRequest(request, session: self.session) { result in
-            switch result {
-            case .value:
-                completion(.value(()))
-            case .error(let error):
-                completion(.error(error))
-            }
+        switch self.networkRequest(request, session: self.session) {
+        case .value:
+            return .value(())
+        case .error(let error):
+            return .error(error)
         }
     }
 
     // MARK: Networking Layer
-    private func networkRequest(_ request: URLRequest, session: URLSession, completion: @escaping (_ result: Result<Data, Error>) -> Void) {
-        self.queue.async {
-            self.queue.suspend()
+    //TODO: Support retry strategy
+    private func networkRequest(_ request: URLRequest, session: URLSession) -> Result<Data, Error> {
+        let semaphore = DispatchSemaphore(value: 0)
+        var result: Result<Data, Error>?
 
-            func networkRequestWithExponentialBackoff(numberOfAttempts: Int = 0) {
-                session.dataTask(with: request, completionHandler: { (data, response, error) in
-                    guard
-                        let data = data,
-                        let httpURLResponse = response as? HTTPURLResponse
-                    else {
-                        Thread.sleep(forTimeInterval: TimeInterval(self.calculateExponentialBackoffMs(attemptCount: numberOfAttempts) / 1000.0))
-                        return networkRequestWithExponentialBackoff(numberOfAttempts: numberOfAttempts + 1)
-                    }
-                    let statusCode = httpURLResponse.statusCode
-
-                    if 400..<500 ~= statusCode && error == nil {
-                        if let reason = try? JSONDecoder().decode(Reason.self, from: data) {
-                            print("[PushNotifications]: Request failed due to: \(reason.description), skipping it.")
-                        }
-                    } else if statusCode >= 500 && error == nil {
-                        if let reason = try? JSONDecoder().decode(Reason.self, from: data) {
-                            print("[PushNotifications]: \(reason.description)")
-                        }
-
-                        Thread.sleep(forTimeInterval: TimeInterval(self.calculateExponentialBackoffMs(attemptCount: numberOfAttempts) / 1000.0))
-                        return networkRequestWithExponentialBackoff(numberOfAttempts: numberOfAttempts + 1)
-                    }
-
-                    self.queue.resume()
-
-                    completion(.value(data))
-
-                }).resume()
+        session.dataTask(with: request, completionHandler: { (data, response, error) in
+            guard
+                let data = data,
+                let httpURLResponse = response as? HTTPURLResponse
+            else {
+                result = .error(PushNotificationsError.error("Error!"))
+                semaphore.signal()
+                return
             }
 
-            networkRequestWithExponentialBackoff()
-        }
+            if error != nil {
+                result = .error(PushNotificationsError.error("\(String(describing: error?.localizedDescription))"))
+                semaphore.signal()
+                return
+            }
+
+            let statusCode = httpURLResponse.statusCode
+
+            if 400..<500 ~= statusCode {
+                if let reason = try? JSONDecoder().decode(Reason.self, from: data) {
+                    print("[PushNotifications]: Request failed due to: \(reason.description), skipping it.")
+                    result = .error(PushNotificationsError.error("Error!"))
+                    semaphore.signal()
+                    return
+                }
+            } else if statusCode >= 500 {
+                if let reason = try? JSONDecoder().decode(Reason.self, from: data) {
+                    print("[PushNotifications]: \(reason.description)")
+                    result = .error(PushNotificationsError.error("Error!"))
+                    semaphore.signal()
+                    return
+                }
+            }
+
+            result = .value(data)
+            semaphore.signal()
+        }).resume()
+
+        semaphore.wait()
+        return result!
     }
 
     private let maxExponentialBackoffDelayMs = 32000.0

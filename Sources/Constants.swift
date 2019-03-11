@@ -15,7 +15,6 @@ struct Constants {
     }
 
     struct DispatchQueue {
-        static let networkQueue = "com.pusher.pushnotifications.sdk.network.queue"
         static let preIISOperationQueue = "com.pusher.pushnotifications.pre.iis.operation.queue"
         static let persistenceStorageOperationQueue = "com.pusher.pushnotifications.persistence.storage.operation.queue"
     }
