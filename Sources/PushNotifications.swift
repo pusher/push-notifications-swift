@@ -38,24 +38,27 @@ import Foundation
      */
     /// - Tag: start
     @objc public func start(instanceId: String) {
+
+        }
+
         // Detect from where the function is being called
-        let wasCalledFromCorrectLocation = Thread.callStackSymbols.contains { stack in
-            return stack.contains("didFinishLaunchingWith") || stack.contains("applicationDidFinishLaunching") || stack.contains("clearAllState")
-        }
-        if !wasCalledFromCorrectLocation {
-            print("[Push Notifications] - Warning: You should call `pushNotifications.start` from the `AppDelegate.didFinishLaunchingWith`")
-        }
-
-        do {
-            try Instance.persist(instanceId)
-        } catch PusherAlreadyRegisteredError.instanceId(let errorMessage) {
-            print("[Push Notifications] - \(errorMessage)")
-        } catch {
-            print("[Push Notifications] - Unexpected error: \(error).")
-        }
-
-        self.syncMetadata()
-        self.syncInterests()
+//        let wasCalledFromCorrectLocation = Thread.callStackSymbols.contains { stack in
+//            return stack.contains("didFinishLaunchingWith") || stack.contains("applicationDidFinishLaunching") || stack.contains("clearAllState")
+//        }
+//        if !wasCalledFromCorrectLocation {
+//            print("[Push Notifications] - Warning: You should call `pushNotifications.start` from the `AppDelegate.didFinishLaunchingWith`")
+//        }
+//
+//        do {
+//            try Instance.persist(instanceId)
+//        } catch PusherAlreadyRegisteredError.instanceId(let errorMessage) {
+//            print("[Push Notifications] - \(errorMessage)")
+//        } catch {
+//            print("[Push Notifications] - Unexpected error: \(error).")
+//        }
+//
+//        self.syncMetadata()
+//        self.syncInterests()
     }
 
     /**
@@ -124,11 +127,11 @@ import Foundation
                         return completion(error)
                     }
 
-                    let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
-                    networkService.setUserId(url: url, token: token, completion: { _ in
-                        persistenceService.setUserId(userId: userId)
-                        completion(nil)
-                    })
+//                    let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
+//                    networkService.setUserId(url: url, token: token, completion: { _ in
+//                        persistenceService.setUserId(userId: userId)
+//                        completion(nil)
+//                    })
                 })
             } catch {
                 completion(error)
@@ -157,13 +160,13 @@ import Foundation
             }
 
             let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
-            networkService.deleteDevice(url: url, completion: { _ in
-
-                let persistenceService: UserPersistable & InterestPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
-                persistenceService.removeAll()
-
-                completion(nil)
-            })
+//            networkService.deleteDevice(url: url, completion: { _ in
+//
+//                let persistenceService: UserPersistable & InterestPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
+//                persistenceService.removeAll()
+//
+//                completion(nil)
+//            })
         }
     }
 
@@ -228,38 +231,38 @@ import Foundation
             return
         }
 
-        networkService.register(url: url, deviceToken: deviceToken, instanceId: instanceId) { [weak self] result in
-            guard let strongSelf = self else {
-                return
-            }
-
-            strongSelf.persistenceStorageOperationQueue.async {
-                switch result {
-                case .value(let device):
-                    Device.persist(device.id)
-
-                    let initialInterestSet = device.initialInterestSet ?? []
-                    let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
-                    if initialInterestSet.count > 0 {
-                        persistenceService.persist(interests: initialInterestSet)
-                    }
-
-                    strongSelf.preIISOperationQueue.async {
-                        let interests = persistenceService.getSubscriptions() ?? []
-                        if !initialInterestSet.containsSameElements(as: interests) {
-                            strongSelf.syncInterests()
-                        }
-
-                        completion()
-                    }
-
-                    strongSelf.preIISOperationQueue.resume()
-                case .error(let error):
-                    print("\(error)")
-                    completion()
-                }
-            }
-        }
+//        networkService.register(url: url, deviceToken: deviceToken, instanceId: instanceId) { [weak self] result in
+//            guard let strongSelf = self else {
+//                return
+//            }
+//
+//            strongSelf.persistenceStorageOperationQueue.async {
+//                switch result {
+//                case .value(let device):
+//                    Device.persist(device.id)
+//
+//                    let initialInterestSet = device.initialInterestSet ?? []
+//                    let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
+//                    if initialInterestSet.count > 0 {
+//                        persistenceService.persist(interests: initialInterestSet)
+//                    }
+//
+//                    strongSelf.preIISOperationQueue.async {
+//                        let interests = persistenceService.getSubscriptions() ?? []
+//                        if !initialInterestSet.containsSameElements(as: interests) {
+//                            strongSelf.syncInterests()
+//                        }
+//
+//                        completion()
+//                    }
+//
+//                    strongSelf.preIISOperationQueue.resume()
+//                case .error(let error):
+//                    print("\(error)")
+//                    completion()
+//                }
+//            }
+//        }
     }
 
     /**
@@ -309,10 +312,10 @@ import Foundation
                             return
                     }
 
-                    let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
-                    networkService.subscribe(url: url, completion: { _ in
-                        completion()
-                    })
+//                    let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
+//                    networkService.subscribe(url: url, completion: { _ in
+//                        completion()
+//                    })
                 }
             } else {
                 self.preIISOperationQueue.async {
@@ -375,10 +378,10 @@ import Foundation
                             return
                     }
 
-                    let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
-                    networkService.setSubscriptions(url: url, interests: interests, completion: { _ in
-                        completion()
-                    })
+//                    let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
+//                    networkService.setSubscriptions(url: url, interests: interests, completion: { _ in
+//                        completion()
+//                    })
                 }
             } else {
                 self.preIISOperationQueue.async {
@@ -440,10 +443,10 @@ import Foundation
                             return
                     }
 
-                    let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
-                    networkService.unsubscribe(url: url, completion: { _ in
-                        completion()
-                    })
+//                    let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
+//                    networkService.unsubscribe(url: url, completion: { _ in
+//                        completion()
+//                    })
                 }
             } else {
                 self.preIISOperationQueue.async {
@@ -548,8 +551,8 @@ import Foundation
             return EventTypeHandler.getRemoteNotificationType(userInfo)
         }
 
-        let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
-        networkService.track(url: url, eventType: eventType, completion: { _ in })
+//        let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
+//        networkService.track(url: url, eventType: eventType, completion: { _ in })
 
         return EventTypeHandler.getRemoteNotificationType(userInfo)
     }
@@ -573,8 +576,8 @@ import Foundation
             return
         }
 
-        let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
-        networkService.syncMetadata(url: url, completion: { _ in })
+//        let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
+//        networkService.syncMetadata(url: url, completion: { _ in })
     }
 
     private func syncInterests() {
@@ -592,9 +595,9 @@ import Foundation
         let persistenceService: InterestPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
         let interestsHash = interests.calculateMD5Hash()
         if interestsHash != persistenceService.getServerConfirmedInterestsHash() {
-            networkService.setSubscriptions(url: url, interests: interests, completion: { _ in
-                persistenceService.persistServerConfirmedInterestsHash(interestsHash)
-            })
+//            networkService.setSubscriptions(url: url, interests: interests, completion: { _ in
+//                persistenceService.persistServerConfirmedInterestsHash(interestsHash)
+//            })
         }
     }
 
@@ -631,14 +634,14 @@ import Foundation
         }
 
         let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
-        networkService.getDevice(url: url) { result in
-            switch result {
-            case .value:
-                completion(.value(()))
-            case .error(let error):
-                completion(.error(error))
-            }
-        }
+//        networkService.getDevice(url: url) { result in
+//            switch result {
+//            case .value:
+//                completion(.value(()))
+//            case .error(let error):
+//                completion(.error(error))
+//            }
+//        }
     }
 }
 
