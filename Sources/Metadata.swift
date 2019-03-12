@@ -1,6 +1,6 @@
 import Foundation
 
-struct Metadata: Encodable {
+public struct Metadata: Encodable {
     let sdkVersion: String?
     let iosVersion: String?
     let macosVersion: String?
@@ -19,6 +19,17 @@ extension Metadata: PropertyListReadable {
 
     func hasChanged() -> Bool {
         return self.sdkVersion != SDK.version
+    }
+
+    static func get() -> Metadata {
+        let sdkVersion = SDK.version
+        let systemVersion = SystemVersion.version
+        
+        #if os(iOS)
+        return Metadata(sdkVersion: sdkVersion, iosVersion: systemVersion, macosVersion: nil)
+        #elseif os(OSX)
+        return Metadata(sdkVersion: sdkVersion, iosVersion: nil, macosVersion: systemVersion)
+        #endif
     }
 
     static func update() -> Metadata {

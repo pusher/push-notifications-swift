@@ -1,23 +1,28 @@
 import Foundation
 
 class NetworkService: PushNotificationsNetworkable {
-
     let session: URLSession
+    let baseDeviceAPIURL: String
+    let baseReportingAPIURL: String
 
-    init(session: URLSession) {
+    init(session: URLSession, instanceId: String) {
         self.session = session
+        self.baseDeviceAPIURL = "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)"
+        self.baseReportingAPIURL = "https://\(instanceId).pushnotifications.pusher.com/reporting_api/v2/instances/\(instanceId)"
     }
 
     // MARK: PushNotificationsNetworkable
-    func register(url: URL, deviceToken: Data, instanceId: String) -> Result<Device, Error> {
-        let deviceTokenString = deviceToken.hexadecimalRepresentation()
+    func register(deviceToken: String, metadata: Metadata) -> Result<Device, Error> {
         let bundleIdentifier = Bundle.main.bundleIdentifier ?? ""
 
-        let metadata = Metadata.update()
-
-        guard let body = try? Register(token: deviceTokenString, instanceId: instanceId, bundleIdentifier: bundleIdentifier, metadata: metadata).encode() else {
+        guard let body = try? Register(token: deviceToken, bundleIdentifier: bundleIdentifier, metadata: metadata).encode() else {
             return .error(PushNotificationsError.error("[PushNotifications] - Error while encoding register payload."))
         }
+
+        guard let url = URL(string: "\(self.baseDeviceAPIURL)/devices/apns") else {
+            return .error(PushNotificationsError.error("[PushNotifications] - Error while constructing the URL"))
+        }
+
         let request = self.setRequest(url: url, httpMethod: .POST, body: body)
 
         switch self.networkRequest(request, session: self.session) {
@@ -31,7 +36,11 @@ class NetworkService: PushNotificationsNetworkable {
         }
     }
 
-    func subscribe(url: URL) -> Result<Void, Error> {
+    func subscribe(deviceId: String, interest: String) -> Result<Void, Error> {
+        guard let url = URL(string: "\(self.baseDeviceAPIURL)/devices/apns/\(deviceId)/interests/\(interest)") else {
+            return .error(PushNotificationsError.error("[PushNotifications] - Error while constructing the URL"))
+        }
+
         let request = self.setRequest(url: url, httpMethod: .POST)
 
         switch self.networkRequest(request, session: self.session) {
@@ -42,7 +51,11 @@ class NetworkService: PushNotificationsNetworkable {
         }
     }
 
-    func setSubscriptions(url: URL, interests: [String]) -> Result<Void, Error> {
+    func setSubscriptions(deviceId: String, interests: [String]) -> Result<Void, Error> {
+        guard let url = URL(string: "\(self.baseDeviceAPIURL)/devices/apns/\(deviceId)/interests") else {
+            return .error(PushNotificationsError.error("[PushNotifications] - Error while constructing the URL"))
+        }
+
         guard let body = try? Interests(interests: interests).encode() else {
             return .error(PushNotificationsError.error("[PushNotifications] - Error while encoding the interests payload."))
         }
@@ -56,7 +69,11 @@ class NetworkService: PushNotificationsNetworkable {
         }
     }
 
-    func unsubscribe(url: URL) -> Result<Void, Error> {
+    func unsubscribe(deviceId: String, interest: String) -> Result<Void, Error> {
+        guard let url = URL(string: "\(self.baseDeviceAPIURL)/devices/apns/\(deviceId)/interests/\(interest)") else {
+            return .error(PushNotificationsError.error("[PushNotifications] - Error while constructing the URL"))
+        }
+
         let request = self.setRequest(url: url, httpMethod: .DELETE)
 
         switch self.networkRequest(request, session: self.session) {
@@ -67,7 +84,11 @@ class NetworkService: PushNotificationsNetworkable {
         }
     }
 
-    func track(url: URL, eventType: ReportEventType) -> Result<Void, Error> {
+    func track(deviceId: String, eventType: ReportEventType) -> Result<Void, Error> {
+        guard let url = URL(string: "\(self.baseReportingAPIURL)/events") else {
+            return .error(PushNotificationsError.error("[PushNotifications] - Error while constructing the URL"))
+        }
+
         guard let body = try? eventType.encode() else {
             return .error(PushNotificationsError.error("[PushNotifications] - Error while encoding the event type payload."))
         }
@@ -81,29 +102,28 @@ class NetworkService: PushNotificationsNetworkable {
         }
     }
 
-    func syncMetadata(url: URL) -> Result<Void, Error> {
-        guard let metadataDictionary = Metadata.load() else {
-            return .error(PushNotificationsError.error("[PushNotifications] - Error while loading the metadata."))
-        }
-        let metadata = Metadata(propertyListRepresentation: metadataDictionary)
-        if metadata.hasChanged() {
-            let updatedMetadataObject = Metadata.update()
-            guard let body = try? updatedMetadataObject.encode() else {
-                return .error(PushNotificationsError.error("[PushNotifications] - Error while encoding the metadata payload."))
-            }
-            let request = self.setRequest(url: url, httpMethod: .PUT, body: body)
-            switch self.networkRequest(request, session: self.session) {
-            case .value:
-                return .value(())
-            case .error(let error):
-                return .error(error)
-            }
+    func syncMetadata(deviceId: String, metadata: Metadata) -> Result<Void, Error> {
+        guard let url = URL(string: "\(self.baseDeviceAPIURL)/devices/apns/\(deviceId)/metadata") else {
+            return .error(PushNotificationsError.error("[PushNotifications] - Error while constructing the URL"))
         }
 
-        return .value(())
+        guard let body = try? metadata.encode() else {
+            return .error(PushNotificationsError.error("[PushNotifications] - Error while encoding the metadata payload."))
+        }
+        let request = self.setRequest(url: url, httpMethod: .PUT, body: body)
+        switch self.networkRequest(request, session: self.session) {
+        case .value:
+            return .value(())
+        case .error(let error):
+            return .error(error)
+        }
     }
 
-    func setUserId(url: URL, token: String) -> Result<Void, Error> {
+    func setUserId(deviceId: String, token: String) -> Result<Void, Error> {
+        guard let url = URL(string: "\(self.baseDeviceAPIURL)/devices/apns/\(deviceId)/user") else {
+            return .error(PushNotificationsError.error("[PushNotifications] - Error while constructing the URL"))
+        }
+
         var request = self.setRequest(url: url, httpMethod: .PUT)
         request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         switch self.networkRequest(request, session: self.session) {
@@ -114,7 +134,11 @@ class NetworkService: PushNotificationsNetworkable {
         }
     }
 
-    func deleteDevice(url: URL) -> Result<Void, Error> {
+    func deleteDevice(deviceId: String) -> Result<Void, Error> {
+        guard let url = URL(string: "\(self.baseDeviceAPIURL)/devices/apns/\(deviceId)") else {
+            return .error(PushNotificationsError.error("[PushNotifications] - Error while constructing the URL"))
+        }
+
         let request = self.setRequest(url: url, httpMethod: .DELETE)
         switch self.networkRequest(request, session: self.session) {
         case .value:
@@ -124,7 +148,11 @@ class NetworkService: PushNotificationsNetworkable {
         }
     }
 
-    func getDevice(url: URL) -> Result<Void, Error> {
+    func getDevice(deviceId: String) -> Result<Void, Error> {
+        guard let url = URL(string: "\(self.baseDeviceAPIURL)/devices/apns/\(deviceId)") else {
+            return .error(PushNotificationsError.error("[PushNotifications] - Error while constructing the URL"))
+        }
+
         let request = self.setRequest(url: url, httpMethod: .GET)
         switch self.networkRequest(request, session: self.session) {
         case .value:
