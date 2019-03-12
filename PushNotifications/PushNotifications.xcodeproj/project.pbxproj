@@ -57,8 +57,6 @@
 		A1AC401520FDFF1E002E6128 /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AC401420FDFF1E002E6128 /* MD5.swift */; };
 		A1B344432018BC0200481BDF /* InterestValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B344412018BC0100481BDF /* InterestValidationError.swift */; };
 		A1B344442018BC0200481BDF /* MultipleInvalidInterestsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B344422018BC0200481BDF /* MultipleInvalidInterestsError.swift */; };
-		A1BCC608223011BD002BE4EC /* UserId.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BCC607223011BD002BE4EC /* UserId.swift */; };
-		A1BCC60A223013B3002BE4EC /* UserIdTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BCC609223013B3002BE4EC /* UserIdTests.swift */; };
 		A1DAD62E2020CAE7001497B5 /* SystemVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DAD62D2020CAE7001497B5 /* SystemVersion.swift */; };
 		A1DAD6302020CEA6001497B5 /* PublishIdTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DAD62F2020CEA6001497B5 /* PublishIdTests.swift */; };
 		A1DAD6322020CED7001497B5 /* InterestNameValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DAD6312020CED7001497B5 /* InterestNameValidationTests.swift */; };
@@ -135,8 +133,6 @@
 		A1AC401420FDFF1E002E6128 /* MD5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MD5.swift; path = ../../Sources/MD5.swift; sourceTree = "<group>"; };
 		A1B344412018BC0100481BDF /* InterestValidationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterestValidationError.swift; path = ../../Sources/InterestValidationError.swift; sourceTree = "<group>"; };
 		A1B344422018BC0200481BDF /* MultipleInvalidInterestsError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultipleInvalidInterestsError.swift; path = ../../Sources/MultipleInvalidInterestsError.swift; sourceTree = "<group>"; };
-		A1BCC607223011BD002BE4EC /* UserId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserId.swift; path = ../../Sources/UserId.swift; sourceTree = "<group>"; };
-		A1BCC609223013B3002BE4EC /* UserIdTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserIdTests.swift; path = ../../Tests/UserIdTests.swift; sourceTree = "<group>"; };
 		A1DAD62D2020CAE7001497B5 /* SystemVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SystemVersion.swift; path = ../../Sources/SystemVersion.swift; sourceTree = "<group>"; };
 		A1DAD62F2020CEA6001497B5 /* PublishIdTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PublishIdTests.swift; path = ../../Tests/PublishIdTests.swift; sourceTree = "<group>"; };
 		A1DAD6312020CED7001497B5 /* InterestNameValidationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterestNameValidationTests.swift; path = ../../Tests/InterestNameValidationTests.swift; sourceTree = "<group>"; };
@@ -235,7 +231,6 @@
 				A1DAD62D2020CAE7001497B5 /* SystemVersion.swift */,
 				A19B15D22189E4FC008E6DB5 /* Token.swift */,
 				A1327BDE2178EB62001483E1 /* TokenProvider.swift */,
-				A1BCC607223011BD002BE4EC /* UserId.swift */,
 				A1482A532180A47900F19A4E /* UserPersistable.swift */,
 			);
 			path = PushNotifications;
@@ -267,7 +262,6 @@
 				A125B64A2020DCC3002E0809 /* SDKTests.swift */,
 				A1DAD6352020D4D1001497B5 /* SystemVersionTests.swift */,
 				A1482A59218326AE00F19A4E /* UserPersistableTests.swift */,
-				A1BCC609223013B3002BE4EC /* UserIdTests.swift */,
 			);
 			path = PushNotificationsTests;
 			sourceTree = "<group>";
@@ -415,7 +409,6 @@
 				A19ECF831FCF099200688DAF /* InterestPersistable.swift in Sources */,
 				A1482A582181F3CD00F19A4E /* Result.swift in Sources */,
 				A1DAD62E2020CAE7001497B5 /* SystemVersion.swift in Sources */,
-				A1BCC608223011BD002BE4EC /* UserId.swift in Sources */,
 				A104B3A120F75C9000587100 /* Array+CalculateMD5Hash.swift in Sources */,
 				A1EFF5C9207B7E78006C3004 /* RemoteNotificationType.swift in Sources */,
 				A19ECF841FCF099200688DAF /* PersistenceService.swift in Sources */,
@@ -451,7 +444,6 @@
 				A11E83352021D014009C09EF /* RegisterTests.swift in Sources */,
 				A12B36EC2020DBA40038E59F /* ReasonTests.swift in Sources */,
 				A1482A5E218329B900F19A4E /* BeamsTokenProviderTests.swift in Sources */,
-				A1BCC60A223013B3002BE4EC /* UserIdTests.swift in Sources */,
 				A1DAD6362020D4D1001497B5 /* SystemVersionTests.swift in Sources */,
 				A1482A5C218328C300F19A4E /* AuthDataTests.swift in Sources */,
 				A108811E20334DC20091E8EB /* InstanceTests.swift in Sources */,
