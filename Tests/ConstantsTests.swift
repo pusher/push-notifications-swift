@@ -15,7 +15,6 @@ class ConstantsTests: XCTestCase {
     }
 
     func testDispatchQueueConstants() {
-        XCTAssertEqual(Constants.DispatchQueue.networkQueue, "com.pusher.pushnotifications.sdk.network.queue")
         XCTAssertEqual(Constants.DispatchQueue.preIISOperationQueue, "com.pusher.pushnotifications.pre.iis.operation.queue")
         XCTAssertEqual(Constants.DispatchQueue.persistenceStorageOperationQueue, "com.pusher.pushnotifications.persistence.storage.operation.queue")
     }

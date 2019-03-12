@@ -3,9 +3,9 @@ import XCTest
 
 class RegisterTests: XCTestCase {
     #if os(iOS)
-    let register = Register(token: "123", instanceId: "abc", bundleIdentifier: "com.pusher", metadata: Metadata(sdkVersion: "0.4.0", iosVersion: "11.2.0", macosVersion: nil))
+    let register = Register(token: "123", bundleIdentifier: "com.pusher", metadata: Metadata(sdkVersion: "0.4.0", iosVersion: "11.2.0", macosVersion: nil))
     #elseif os(OSX)
-    let register = Register(token: "123", instanceId: "abc", bundleIdentifier: "com.pusher", metadata: Metadata(sdkVersion: "0.4.0", iosVersion: nil, macosVersion: "10.9"))
+    let register = Register(token: "123", bundleIdentifier: "com.pusher", metadata: Metadata(sdkVersion: "0.4.0", iosVersion: nil, macosVersion: "10.9"))
     #endif
 
     #if os(iOS)
@@ -13,7 +13,6 @@ class RegisterTests: XCTestCase {
         let register = self.register
         XCTAssertNotNil(register)
         XCTAssertEqual(register.token, "123")
-        XCTAssertEqual(register.instanceId, "abc")
         XCTAssertEqual(register.bundleIdentifier, "com.pusher")
         XCTAssertEqual(register.metadata.sdkVersion, "0.4.0")
         XCTAssertEqual(register.metadata.iosVersion, "11.2.0")
@@ -32,7 +31,6 @@ class RegisterTests: XCTestCase {
         let register = self.register
         XCTAssertNotNil(register)
         XCTAssertEqual(register.token, "123")
-        XCTAssertEqual(register.instanceId, "abc")
         XCTAssertEqual(register.bundleIdentifier, "com.pusher")
         XCTAssertEqual(register.metadata.sdkVersion, "0.4.0")
         XCTAssertEqual(register.metadata.iosVersion, nil)

@@ -5,6 +5,7 @@ struct Constants {
         static let suiteName = "PushNotifications"
         static let metadata = "com.pusher.sdk.metadata"
         static let deviceId = "com.pusher.sdk.deviceId"
+        static let deviceAPNsToken = "com.pusher.sdk.deviceAPNsToken"
         static let instanceId = "com.pusher.sdk.instanceId"
     }
 
