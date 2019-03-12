@@ -30,8 +30,17 @@ public class ServerSyncProcessHandler {
 
     private func processStartJob(token: String) {
         // Register device with Error
+        let result = self.networkService.register(deviceToken: token, metadata: Metadata.get(), retryStrategy: WithInfiniteExpBackoff())
 
-        self.networkService.register(deviceToken: token, metadata: Metadata.get())
+        switch result {
+        case .error(let error):
+            print("[PushNotifications]: Unrecoverable error when registering device with Pusher Beams (Reason - \(error.getErrorMessage()))")
+            print("[PushNotifications]: SDK will not start.")
+            return
+        case .value(let deviceId):
+            var outstandingJobs: [ServerSyncJob]
+            
+        }
     }
 
     private func handleMessage(serverSyncJob: ServerSyncJob) {
