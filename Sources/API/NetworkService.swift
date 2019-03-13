@@ -2,17 +2,13 @@ import Foundation
 
 class NetworkService: PushNotificationsNetworkable {
     let session: URLSession
-    let baseDeviceAPIURL: String
-    let baseReportingAPIURL: String
 
-    init(session: URLSession, instanceId: String) {
+    init(session: URLSession) {
         self.session = session
-        self.baseDeviceAPIURL = "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)"
-        self.baseReportingAPIURL = "https://\(instanceId).pushnotifications.pusher.com/reporting_api/v2/instances/\(instanceId)"
     }
 
     // MARK: PushNotificationsNetworkable
-    func register(deviceToken: String, metadata: Metadata, retryStrategy: RetryStrategy) -> Result<Device, PushNotificationsAPIError> {
+    func register(instanceId: String, deviceToken: String, metadata: Metadata, retryStrategy: RetryStrategy) -> Result<Device, PushNotificationsAPIError> {
         return retryStrategy.retry {
             let bundleIdentifier = Bundle.main.bundleIdentifier ?? ""
 
@@ -20,7 +16,7 @@ class NetworkService: PushNotificationsNetworkable {
                 return .error(PushNotificationsAPIError.GenericError(reason: "Error while encoding register payload."))
             }
 
-            guard let url = URL(string: "\(self.baseDeviceAPIURL)/devices/apns") else {
+            guard let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns") else {
                 return .error(PushNotificationsAPIError.GenericError(reason: "Error while constructing the URL."))
             }
 
@@ -38,9 +34,9 @@ class NetworkService: PushNotificationsNetworkable {
         }
     }
 
-    func subscribe(deviceId: String, interest: String, retryStrategy: RetryStrategy) -> Result<Void, PushNotificationsAPIError> {
+    func subscribe(instanceId: String, deviceId: String, interest: String, retryStrategy: RetryStrategy) -> Result<Void, PushNotificationsAPIError> {
         return retryStrategy.retry {
-            guard let url = URL(string: "\(self.baseDeviceAPIURL)/devices/apns/\(deviceId)/interests/\(interest)") else {
+            guard let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/interests/\(interest)") else {
                 return .error(PushNotificationsAPIError.GenericError(reason: "Error while constructing the URL."))
             }
 
@@ -55,9 +51,9 @@ class NetworkService: PushNotificationsNetworkable {
         }
     }
 
-    func setSubscriptions(deviceId: String, interests: [String], retryStrategy: RetryStrategy) -> Result<Void, PushNotificationsAPIError> {
+    func setSubscriptions(instanceId: String, deviceId: String, interests: [String], retryStrategy: RetryStrategy) -> Result<Void, PushNotificationsAPIError> {
         return retryStrategy.retry {
-            guard let url = URL(string: "\(self.baseDeviceAPIURL)/devices/apns/\(deviceId)/interests") else {
+            guard let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/interests") else {
                 return .error(PushNotificationsAPIError.GenericError(reason: "Error while constructing the URL."))
             }
 
@@ -75,9 +71,9 @@ class NetworkService: PushNotificationsNetworkable {
         }
     }
 
-    func unsubscribe(deviceId: String, interest: String, retryStrategy: RetryStrategy) -> Result<Void, PushNotificationsAPIError> {
+    func unsubscribe(instanceId: String, deviceId: String, interest: String, retryStrategy: RetryStrategy) -> Result<Void, PushNotificationsAPIError> {
         return retryStrategy.retry {
-            guard let url = URL(string: "\(self.baseDeviceAPIURL)/devices/apns/\(deviceId)/interests/\(interest)") else {
+            guard let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/interests/\(interest)") else {
                 return .error(PushNotificationsAPIError.GenericError(reason: "Error while constructing the URL."))
             }
 
@@ -92,9 +88,9 @@ class NetworkService: PushNotificationsNetworkable {
         }
     }
 
-    func track(deviceId: String, eventType: ReportEventType, retryStrategy: RetryStrategy) -> Result<Void, PushNotificationsAPIError> {
+    func track(instanceId: String, deviceId: String, eventType: ReportEventType, retryStrategy: RetryStrategy) -> Result<Void, PushNotificationsAPIError> {
         return retryStrategy.retry {
-            guard let url = URL(string: "\(self.baseReportingAPIURL)/events") else {
+            guard let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/reporting_api/v2/instances/\(instanceId)/events") else {
                 return .error(PushNotificationsAPIError.GenericError(reason: "Error while constructing the URL."))
             }
 
@@ -112,9 +108,9 @@ class NetworkService: PushNotificationsNetworkable {
         }
     }
 
-    func syncMetadata(deviceId: String, metadata: Metadata, retryStrategy: RetryStrategy) -> Result<Void, PushNotificationsAPIError> {
+    func syncMetadata(instanceId: String, deviceId: String, metadata: Metadata, retryStrategy: RetryStrategy) -> Result<Void, PushNotificationsAPIError> {
         return retryStrategy.retry {
-            guard let url = URL(string: "\(self.baseDeviceAPIURL)/devices/apns/\(deviceId)/metadata") else {
+            guard let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/metadata") else {
                 return .error(PushNotificationsAPIError.GenericError(reason: "Error while constructing the URL."))
             }
 
@@ -131,9 +127,9 @@ class NetworkService: PushNotificationsNetworkable {
         }
     }
 
-    func setUserId(deviceId: String, token: String, retryStrategy: RetryStrategy) -> Result<Void, PushNotificationsAPIError> {
+    func setUserId(instanceId: String, deviceId: String, token: String, retryStrategy: RetryStrategy) -> Result<Void, PushNotificationsAPIError> {
         return retryStrategy.retry {
-            guard let url = URL(string: "\(self.baseDeviceAPIURL)/devices/apns/\(deviceId)/user") else {
+            guard let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/user") else {
                 return .error(PushNotificationsAPIError.GenericError(reason: "Error while constructing the URL."))
             }
 
@@ -148,9 +144,9 @@ class NetworkService: PushNotificationsNetworkable {
         }
     }
 
-    func deleteDevice(deviceId: String, retryStrategy: RetryStrategy) -> Result<Void, PushNotificationsAPIError> {
+    func deleteDevice(instanceId: String, deviceId: String, retryStrategy: RetryStrategy) -> Result<Void, PushNotificationsAPIError> {
         return retryStrategy.retry {
-            guard let url = URL(string: "\(self.baseDeviceAPIURL)/devices/apns/\(deviceId)") else {
+            guard let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)") else {
                 return .error(PushNotificationsAPIError.GenericError(reason: "Error while constructing the URL."))
             }
 
@@ -164,9 +160,9 @@ class NetworkService: PushNotificationsNetworkable {
         }
     }
 
-    func getDevice(deviceId: String, retryStrategy: RetryStrategy) -> Result<Void, PushNotificationsAPIError> {
+    func getDevice(instanceId: String, deviceId: String, retryStrategy: RetryStrategy) -> Result<Void, PushNotificationsAPIError> {
         return retryStrategy.retry {
-            guard let url = URL(string: "\(self.baseDeviceAPIURL)/devices/apns/\(deviceId)") else {
+            guard let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)") else {
                 return .error(PushNotificationsAPIError.GenericError(reason: "Error while constructing the URL."))
             }
 

@@ -2,7 +2,7 @@ import Foundation
 
 // Needs to be Codable
 public enum ServerSyncJob {
-    case StartJob(token: String)
+    case StartJob(instanceId: String, token: String)
     case RefreshTokenJob(newToken: String)
     case SubscribeJob(interest: String)
     case UnsubscribeJob(interest: String)
@@ -17,10 +17,10 @@ public class ServerSyncProcessHandler {
     private let networkService: NetworkService
     public var jobQueue: [ServerSyncJob] = [] // TODO: This will need to be a persistent queue.
 
-    init(instanceId: String) {
+    init() {
         self.queue = DispatchQueue(label: "queue")
         let session = URLSession(configuration: .ephemeral)
-        self.networkService = NetworkService(session: session, instanceId: instanceId)
+        self.networkService = NetworkService(session: session)
     }
 
     public func sendMessage(serverSyncJob: ServerSyncJob) {
@@ -36,9 +36,9 @@ public class ServerSyncProcessHandler {
         }
     }
 
-    private func processStartJob(token: String) {
+    private func processStartJob(instanceId: String, token: String) {
         // Register device with Error
-        let result = self.networkService.register(deviceToken: token, metadata: Metadata.getCurrentMetadata(), retryStrategy: WithInfiniteExpBackoff())
+        let result = self.networkService.register(instanceId: instanceId, deviceToken: token, metadata: Metadata.getCurrentMetadata(), retryStrategy: WithInfiniteExpBackoff())
 
         switch result {
         case .error(let error):
@@ -82,6 +82,7 @@ public class ServerSyncProcessHandler {
                     DeviceStateStore.interestsService.persist(interests: Array(interestsSet))
                 }
 
+                Instance.persist(instanceId)
                 Device.persistAPNsToken(token: token)
                 Device.persist(device.id)
             }
@@ -90,7 +91,7 @@ public class ServerSyncProcessHandler {
             let remoteInterestsWillChange = Set(localInterests) != device.initialInterestSet ?? Set()
             if remoteInterestsWillChange {
                 // We don't care about the result at this point.
-                _ = self.networkService.setSubscriptions(deviceId: device.id, interests: localInterests, retryStrategy: WithInfiniteExpBackoff())
+                _ = self.networkService.setSubscriptions(instanceId: Instance.getInstanceId()!, deviceId: device.id, interests: localInterests, retryStrategy: WithInfiniteExpBackoff())
             }
 
             for job in outstandingJobs {
@@ -100,7 +101,8 @@ public class ServerSyncProcessHandler {
     }
 
     private func processStopJob() {
-        _ = self.networkService.deleteDevice(deviceId: Device.getDeviceId()!, retryStrategy: WithInfiniteExpBackoff())
+        _ = self.networkService.deleteDevice(instanceId: Instance.getInstanceId()!, deviceId: Device.getDeviceId()!, retryStrategy: WithInfiniteExpBackoff())
+//        Instance.delete()
         Device.delete()
         Device.deleteAPNsToken()
         Metadata.delete()
@@ -110,7 +112,7 @@ public class ServerSyncProcessHandler {
     private func processApplicationStartJob(metadata: Metadata) {
         let localMetadata = Metadata.load()
         if metadata != localMetadata {
-            let result = self.networkService.syncMetadata(deviceId: Device.getDeviceId()!, metadata: metadata, retryStrategy: JustDont())
+            let result = self.networkService.syncMetadata(instanceId: Instance.getInstanceId()!, deviceId: Device.getDeviceId()!, metadata: metadata, retryStrategy: JustDont())
             if case .value(()) = result {
                 Metadata.save(metadata: metadata)
             }
@@ -120,7 +122,7 @@ public class ServerSyncProcessHandler {
         let localInterestsHash = localInterests.calculateMD5Hash()
 
         if localInterestsHash != DeviceStateStore.interestsService.getServerConfirmedInterestsHash() {
-            let result = self.networkService.setSubscriptions(deviceId: Device.getDeviceId()!, interests: localInterests, retryStrategy: JustDont())
+            let result = self.networkService.setSubscriptions(instanceId: Instance.getInstanceId()!, deviceId: Device.getDeviceId()!, interests: localInterests, retryStrategy: JustDont())
             if case .value(()) = result {
                 DeviceStateStore.interestsService.persistServerConfirmedInterestsHash(localInterestsHash)
             }
@@ -131,11 +133,11 @@ public class ServerSyncProcessHandler {
         let result: Result<Void, PushNotificationsAPIError> = {
             switch job {
             case .SubscribeJob(let interest):
-                return self.networkService.subscribe(deviceId: Device.getDeviceId()!, interest: interest, retryStrategy: WithInfiniteExpBackoff())
+                return self.networkService.subscribe(instanceId: Instance.getInstanceId()!, deviceId: Device.getDeviceId()!, interest: interest, retryStrategy: WithInfiniteExpBackoff())
             case .UnsubscribeJob(let interest):
-                return self.networkService.unsubscribe(deviceId: Device.getDeviceId()!, interest: interest, retryStrategy: WithInfiniteExpBackoff())
+                return self.networkService.unsubscribe(instanceId: Instance.getInstanceId()!, deviceId: Device.getDeviceId()!, interest: interest, retryStrategy: WithInfiniteExpBackoff())
             case .SetSubscriptions(let interests):
-                return self.networkService.setSubscriptions(deviceId: Device.getDeviceId()!, interests: interests, retryStrategy: WithInfiniteExpBackoff())
+                return self.networkService.setSubscriptions(instanceId: Instance.getInstanceId()!, deviceId: Device.getDeviceId()!, interests: interests, retryStrategy: WithInfiniteExpBackoff())
             case .ApplicationStartJob(let metadata):
                 processApplicationStartJob(metadata: metadata)
                 return .value(()) // this was always a best effort operation
@@ -165,7 +167,7 @@ public class ServerSyncProcessHandler {
 
     private func recreateDevice(token: String) -> Bool {
         // Register device with Error
-        let result = self.networkService.register(deviceToken: token, metadata: Metadata.getCurrentMetadata(), retryStrategy: WithInfiniteExpBackoff())
+        let result = self.networkService.register(instanceId: Instance.getInstanceId()!, deviceToken: token, metadata: Metadata.getCurrentMetadata(), retryStrategy: WithInfiniteExpBackoff())
 
         switch result {
         case .error(let error):
@@ -179,7 +181,7 @@ public class ServerSyncProcessHandler {
             }
 
             if !localIntersets.isEmpty {
-                _ = self.networkService.setSubscriptions(deviceId: device.id, interests: localIntersets, retryStrategy: WithInfiniteExpBackoff())
+                _ = self.networkService.setSubscriptions(instanceId: Instance.getInstanceId()!, deviceId: device.id, interests: localIntersets, retryStrategy: WithInfiniteExpBackoff())
             }
 
             // TODO Handle UserId recreation
@@ -202,8 +204,8 @@ public class ServerSyncProcessHandler {
         }
 
         switch serverSyncJob {
-        case .StartJob(let token):
-            processStartJob(token: token)
+        case .StartJob(let instanceId, let token):
+            processStartJob(instanceId: instanceId, token: token)
 
             // Clear up the queue up to the StartJob.
             while(!jobQueue.isEmpty) {

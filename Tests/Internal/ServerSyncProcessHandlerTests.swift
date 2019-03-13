@@ -34,8 +34,8 @@ class ServerSyncProcessHandlerTests: XCTestCase {
             return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
         }
 
-        let startJob = ServerSyncJob.StartJob(token: deviceToken)
-        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId)
+        let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
+        let serverSyncProcessHandler = ServerSyncProcessHandler()
         serverSyncProcessHandler.sendMessage(serverSyncJob: startJob)
 
         waitForExpectations(timeout: 1)
@@ -60,8 +60,8 @@ class ServerSyncProcessHandlerTests: XCTestCase {
             }
         }
 
-        let startJob = ServerSyncJob.StartJob(token: deviceToken)
-        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId)
+        let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
+        let serverSyncProcessHandler = ServerSyncProcessHandler()
         serverSyncProcessHandler.sendMessage(serverSyncJob: startJob)
 
         waitForExpectations(timeout: 1)
@@ -80,7 +80,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
             return OHHTTPStubsResponse(jsonObject: [], statusCode: 500, headers: nil)
         }
 
-        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId)
+        let serverSyncProcessHandler = ServerSyncProcessHandler()
         let jobs = [ServerSyncJob.RefreshTokenJob(newToken: "1"), ServerSyncJob.SubscribeJob(interest: "abc"), ServerSyncJob.UnsubscribeJob(interest: "12")]
 
         for job in jobs {
@@ -108,10 +108,10 @@ class ServerSyncProcessHandlerTests: XCTestCase {
             ServerSyncJob.SubscribeJob(interest: "interest-2"),
             ServerSyncJob.UnsubscribeJob(interest: "interest-0"),
             ServerSyncJob.UnsubscribeJob(interest: "interest-x"),
-            ServerSyncJob.StartJob(token: deviceToken)
+            ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
         ]
 
-        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId)
+        let serverSyncProcessHandler = ServerSyncProcessHandler()
         for job in jobs {
             serverSyncProcessHandler.jobQueue.append(job)
             serverSyncProcessHandler.handleMessage(serverSyncJob: job)
@@ -141,10 +141,10 @@ class ServerSyncProcessHandlerTests: XCTestCase {
             ServerSyncJob.SetSubscriptions(interests: ["cucas", "potatoes", "123"]),
             ServerSyncJob.SubscribeJob(interest: "interest-2"),
             ServerSyncJob.UnsubscribeJob(interest: "interest-x"),
-            ServerSyncJob.StartJob(token: deviceToken)
+            ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
         ]
 
-        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId)
+        let serverSyncProcessHandler = ServerSyncProcessHandler()
         for job in jobs {
             serverSyncProcessHandler.jobQueue.append(job)
             serverSyncProcessHandler.handleMessage(serverSyncJob: job)
@@ -181,11 +181,11 @@ class ServerSyncProcessHandlerTests: XCTestCase {
             ServerSyncJob.SetSubscriptions(interests: ["cucas", "potatoes", "123"]),
             ServerSyncJob.SubscribeJob(interest: "interest-2"),
             ServerSyncJob.UnsubscribeJob(interest: "interest-x"),
-            ServerSyncJob.StartJob(token: deviceToken)
+            ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
         ]
 
 
-        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId)
+        let serverSyncProcessHandler = ServerSyncProcessHandler()
         for job in jobs {
             serverSyncProcessHandler.jobQueue.append(job)
             serverSyncProcessHandler.handleMessage(serverSyncJob: job)
@@ -220,11 +220,11 @@ class ServerSyncProcessHandlerTests: XCTestCase {
 
         let jobs = [
             ServerSyncJob.SubscribeJob(interest: "hello"),
-            ServerSyncJob.StartJob(token: deviceToken)
+            ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
         ]
 
 
-        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId)
+        let serverSyncProcessHandler = ServerSyncProcessHandler()
         for job in jobs {
             serverSyncProcessHandler.jobQueue.append(job)
             serverSyncProcessHandler.handleMessage(serverSyncJob: job)
@@ -251,11 +251,11 @@ class ServerSyncProcessHandlerTests: XCTestCase {
 
         let jobs = [
             ServerSyncJob.StopJob,
-            ServerSyncJob.StartJob(token: deviceToken)
+            ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
         ]
 
 
-        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId)
+        let serverSyncProcessHandler = ServerSyncProcessHandler()
         for job in jobs {
             serverSyncProcessHandler.jobQueue.append(job)
             serverSyncProcessHandler.handleMessage(serverSyncJob: job)
@@ -280,8 +280,8 @@ class ServerSyncProcessHandlerTests: XCTestCase {
             return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
         }
 
-        let startJob = ServerSyncJob.StartJob(token: deviceToken)
-        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId)
+        let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
+        let serverSyncProcessHandler = ServerSyncProcessHandler()
         serverSyncProcessHandler.jobQueue.append(startJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
 
@@ -332,13 +332,13 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         }
 
         let jobs = [
-            ServerSyncJob.StartJob(token: deviceToken),
+            ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken),
             ServerSyncJob.SubscribeJob(interest: "hello"),
             ServerSyncJob.UnsubscribeJob(interest: "hello"),
             ServerSyncJob.SetSubscriptions(interests: ["1", "2"])
         ]
 
-        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId)
+        let serverSyncProcessHandler = ServerSyncProcessHandler()
         for job in jobs {
             serverSyncProcessHandler.jobQueue.append(job)
             serverSyncProcessHandler.handleMessage(serverSyncJob: job)
@@ -379,8 +379,8 @@ class ServerSyncProcessHandlerTests: XCTestCase {
             return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
         }
 
-        let startJob = ServerSyncJob.StartJob(token: deviceToken)
-        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId)
+        let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
+        let serverSyncProcessHandler = ServerSyncProcessHandler()
         serverSyncProcessHandler.jobQueue.append(startJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
 
@@ -416,10 +416,10 @@ class ServerSyncProcessHandlerTests: XCTestCase {
             return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
         }
 
-        let startJob = ServerSyncJob.StartJob(token: deviceToken)
+        let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
         let metadata = Metadata(sdkVersion: "123", iosVersion: "11", macosVersion: nil)
         let applicationStartJob = ServerSyncJob.ApplicationStartJob(metadata: metadata)
-        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId)
+        let serverSyncProcessHandler = ServerSyncProcessHandler()
         serverSyncProcessHandler.jobQueue.append(startJob)
         serverSyncProcessHandler.jobQueue.append(applicationStartJob)
         serverSyncProcessHandler.jobQueue.append(applicationStartJob)
@@ -468,10 +468,10 @@ class ServerSyncProcessHandlerTests: XCTestCase {
             return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
         }
 
-        let startJob = ServerSyncJob.StartJob(token: deviceToken)
+        let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
         let metadata = Metadata(sdkVersion: "123", iosVersion: "11", macosVersion: nil)
         let applicationStartJob = ServerSyncJob.ApplicationStartJob(metadata: metadata)
-        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId)
+        let serverSyncProcessHandler = ServerSyncProcessHandler()
         serverSyncProcessHandler.jobQueue.append(startJob)
         serverSyncProcessHandler.jobQueue.append(applicationStartJob)
         serverSyncProcessHandler.jobQueue.append(applicationStartJob)
