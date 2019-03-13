@@ -348,4 +348,48 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         XCTAssertTrue(expUnsubscribeCalled)
         XCTAssertTrue(expSetSubscriptionsCalled)
     }
+
+    func testDeviceRecreation() {
+        let registerURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")!
+
+        let newDeviceId = "new-device-id"
+        var isFirstTimeRegistering = true
+        stub(condition: isMethodPOST() && isAbsoluteURLString(registerURL.absoluteString)) { _ in
+            var jsonObject: [String: Any] = [:]
+
+            if isFirstTimeRegistering {
+                jsonObject["id"] = self.deviceId
+            } else {
+                jsonObject["id"] = newDeviceId
+            }
+
+            isFirstTimeRegistering = false
+
+            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+        }
+
+        let subscribeURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/interests/hello")!
+        stub(condition: isMethodPOST() && isAbsoluteURLString(subscribeURL.absoluteString)) { _ in
+            return OHHTTPStubsResponse(jsonObject: [], statusCode: 404, headers: nil)
+        }
+
+        let subscribe2URL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(newDeviceId)/interests/hello")!
+        stub(condition: isMethodPOST() && isAbsoluteURLString(subscribe2URL.absoluteString)) { _ in
+            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+        }
+
+        let startJob = ServerSyncJob.StartJob(token: deviceToken)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId)
+        serverSyncProcessHandler.jobQueue.append(startJob)
+        serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
+
+        XCTAssertNotNil(Device.getDeviceId())
+        XCTAssertNotNil(Device.getAPNsToken())
+
+        let subscribeJob = ServerSyncJob.SubscribeJob(interest: "hello")
+        serverSyncProcessHandler.jobQueue.append(subscribeJob)
+        serverSyncProcessHandler.handleMessage(serverSyncJob: subscribeJob)
+
+        XCTAssertEqual(Device.getDeviceId(), newDeviceId)
+    }
 }

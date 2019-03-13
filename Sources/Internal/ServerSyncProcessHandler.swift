@@ -125,8 +125,11 @@ public class ServerSyncProcessHandler {
         case .value:
             return
         case .error(PushNotificationsAPIError.DeviceNotFound):
-            recreateDevice(token: Device.getAPNsToken()!)
-            processJob(job)
+            if recreateDevice(token: Device.getAPNsToken()!) {
+                processJob(job)
+            } else {
+                print("[PushNotifications]: Not retrying, skipping job: \(job).")
+            }
         case .error(let error):
             // not really recoverable, so log it here and also monitor 400s closely on our backend
             // (this really shouldn't happen)
@@ -135,8 +138,29 @@ public class ServerSyncProcessHandler {
         }
     }
 
-    private func recreateDevice(token: String) {
-        // TODO:
+    private func recreateDevice(token: String) -> Bool {
+        // Register device with Error
+        let result = self.networkService.register(deviceToken: token, metadata: Metadata.get(), retryStrategy: WithInfiniteExpBackoff())
+
+        switch result {
+        case .error(let error):
+            print("[PushNotifications]: Unrecoverable error when registering device with Pusher Beams (Reason - \(error.getErrorMessage()))")
+            return false
+        case .value(let device):
+            let localIntersets: [String] = DeviceStateStore.synchronize {
+                Device.persist(device.id)
+                Device.persistAPNsToken(token: token)
+                return DeviceStateStore.interestsService.getSubscriptions() ?? []
+            }
+
+            if !localIntersets.isEmpty {
+                _ = self.networkService.setSubscriptions(deviceId: device.id, interests: localIntersets, retryStrategy: WithInfiniteExpBackoff())
+            }
+
+            // TODO Handle UserId recreation
+
+            return true
+        }
     }
 
     func handleMessage(serverSyncJob: ServerSyncJob) {
