@@ -295,38 +295,46 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         XCTAssertNil(Device.getAPNsToken())
     }
 
-    func testThatSubscribingAndUnsubscribingWillTriggerTheAPI() {
+    func testThatSubscribingUnsubscribingAndSetSubscriptionsWillTriggerTheAPI() {
         let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")!
-        let expRegister = expectation(description: "It should successfully register the device")
-        let expSubscribe = expectation(description: "It should successfully subscribe the device to an interest")
-        let expUnsubscribe = expectation(description: "It should successfully unsubscribe the device from the interest")
+        var expRegisterCalled = false
+        var expSubscribeCalled = false
+        var expUnsubscribeCalled = false
+        var expSetSubscriptionsCalled = false
 
         stub(condition: isMethodPOST() && isAbsoluteURLString(url.absoluteString)) { _ in
             let jsonObject: [String: Any] = [
                 "id": self.deviceId
             ]
 
-            expRegister.fulfill()
+            expRegisterCalled = true
 
             return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
         }
 
         let addInterestURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(self.deviceId)/interests/hello")!
         stub(condition: isMethodPOST() && isAbsoluteURLString(addInterestURL.absoluteString)) { _ in
-            expSubscribe.fulfill()
+            expSubscribeCalled = true
             return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
         }
 
         let removeInterestURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(self.deviceId)/interests/hello")!
         stub(condition: isMethodDELETE() && isAbsoluteURLString(removeInterestURL.absoluteString)) { _ in
-            expUnsubscribe.fulfill()
+            expUnsubscribeCalled = true
+            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+        }
+
+        let setSubscriptionsURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(self.deviceId)/interests")!
+        stub(condition: isMethodPUT() && isAbsoluteURLString(setSubscriptionsURL.absoluteString)) { _ in
+            expSetSubscriptionsCalled = true
             return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
         }
 
         let jobs = [
             ServerSyncJob.StartJob(token: deviceToken),
             ServerSyncJob.SubscribeJob(interest: "hello"),
-            ServerSyncJob.UnsubscribeJob(interest: "hello")
+            ServerSyncJob.UnsubscribeJob(interest: "hello"),
+            ServerSyncJob.SetSubscriptions(interests: ["1", "2"])
         ]
 
         let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId)
@@ -335,6 +343,9 @@ class ServerSyncProcessHandlerTests: XCTestCase {
             serverSyncProcessHandler.handleMessage(serverSyncJob: job)
         }
 
-        waitForExpectations(timeout: 1)
+        XCTAssertTrue(expRegisterCalled)
+        XCTAssertTrue(expSubscribeCalled)
+        XCTAssertTrue(expUnsubscribeCalled)
+        XCTAssertTrue(expSetSubscriptionsCalled)
     }
 }

@@ -87,7 +87,7 @@ public class ServerSyncProcessHandler {
             }
 
             let localInterests = DeviceStateStore.interestsService.getSubscriptions() ?? []
-            let remoteInterestsWillChange = Set(localInterests) != device.initialInterestSet
+            let remoteInterestsWillChange = Set(localInterests) != device.initialInterestSet ?? Set()
             if remoteInterestsWillChange {
                 // We don't care about the result at this point.
                 _ = self.networkService.setSubscriptions(deviceId: device.id, interests: localInterests, retryStrategy: WithInfiniteExpBackoff())
@@ -112,6 +112,8 @@ public class ServerSyncProcessHandler {
                 return self.networkService.subscribe(deviceId: Device.getDeviceId()!, interest: interest, retryStrategy: WithInfiniteExpBackoff())
             case .UnsubscribeJob(let interest):
                 return self.networkService.unsubscribe(deviceId: Device.getDeviceId()!, interest: interest, retryStrategy: WithInfiniteExpBackoff())
+            case .SetSubscriptions(let interests):
+                return self.networkService.setSubscriptions(deviceId: Device.getDeviceId()!, interests: interests, retryStrategy: WithInfiniteExpBackoff())
             case .StartJob, .StopJob:
                 return .value(()) // already handled in `handleMessage`
             default:
