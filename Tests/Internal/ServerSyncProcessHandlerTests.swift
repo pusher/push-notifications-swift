@@ -10,8 +10,9 @@ class ServerSyncProcessHandlerTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-
-        UserDefaults(suiteName: Constants.UserDefaults.suiteName)?.removeObject(forKey: Constants.UserDefaults.deviceId)
+        UserDefaults(suiteName: Constants.UserDefaults.suiteName).map { userDefaults in
+            Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
+        }
     }
 
     override func tearDown() {
@@ -391,5 +392,109 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         serverSyncProcessHandler.handleMessage(serverSyncJob: subscribeJob)
 
         XCTAssertEqual(Device.getDeviceId(), newDeviceId)
+    }
+
+    func testMetadataSynchonizationWhenAppStarts() {
+        let registerURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")!
+        stub(condition: isMethodPOST() && isAbsoluteURLString(registerURL.absoluteString)) { _ in
+            let jsonObject: [String: Any] = [
+                "id": self.deviceId
+            ]
+
+            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+        }
+
+        let deleteURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)")!
+        stub(condition: isAbsoluteURLString(deleteURL.absoluteString)) { _ in
+            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+        }
+
+        var numMetadataCalled = 0
+        let metadataURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/metadata")!
+        stub(condition: isMethodPUT() && isAbsoluteURLString(metadataURL.absoluteString)) { _ in
+            numMetadataCalled += 1
+            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+        }
+
+        let startJob = ServerSyncJob.StartJob(token: deviceToken)
+        let metadata = Metadata(sdkVersion: "123", iosVersion: "11", macosVersion: nil)
+        let applicationStartJob = ServerSyncJob.ApplicationStartJob(metadata: metadata)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId)
+        serverSyncProcessHandler.jobQueue.append(startJob)
+        serverSyncProcessHandler.jobQueue.append(applicationStartJob)
+        serverSyncProcessHandler.jobQueue.append(applicationStartJob)
+        serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
+        XCTAssertEqual(numMetadataCalled, 0)
+        serverSyncProcessHandler.handleMessage(serverSyncJob: applicationStartJob)
+        XCTAssertEqual(numMetadataCalled, 1)
+        serverSyncProcessHandler.handleMessage(serverSyncJob: applicationStartJob)
+        XCTAssertEqual(numMetadataCalled, 1) // It didn't change.
+
+        // ... and stopping and starting the SDK will lead to the same result
+        numMetadataCalled = 0
+        let stopJob = ServerSyncJob.StopJob
+        serverSyncProcessHandler.jobQueue.append(stopJob)
+        serverSyncProcessHandler.jobQueue.append(startJob)
+        serverSyncProcessHandler.jobQueue.append(applicationStartJob)
+        serverSyncProcessHandler.jobQueue.append(applicationStartJob)
+        serverSyncProcessHandler.handleMessage(serverSyncJob: stopJob)
+        serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
+        XCTAssertEqual(numMetadataCalled, 0)
+        serverSyncProcessHandler.handleMessage(serverSyncJob: applicationStartJob)
+        XCTAssertEqual(numMetadataCalled, 1)
+        serverSyncProcessHandler.handleMessage(serverSyncJob: applicationStartJob)
+        XCTAssertEqual(numMetadataCalled, 1) // It didn't change.
+    }
+
+    func testInterestsSynchonizationWhenAppStarts() {
+        let registerURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")!
+        stub(condition: isMethodPOST() && isAbsoluteURLString(registerURL.absoluteString)) { _ in
+            let jsonObject: [String: Any] = [
+                "id": self.deviceId
+            ]
+
+            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+        }
+
+        let deleteURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)")!
+        stub(condition: isAbsoluteURLString(deleteURL.absoluteString)) { _ in
+            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+        }
+
+        var numInterestsCalled = 0
+        let setInterestsURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/interests")!
+        stub(condition: isMethodPUT() && isAbsoluteURLString(setInterestsURL.absoluteString)) { _ in
+            numInterestsCalled += 1
+            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+        }
+
+        let startJob = ServerSyncJob.StartJob(token: deviceToken)
+        let metadata = Metadata(sdkVersion: "123", iosVersion: "11", macosVersion: nil)
+        let applicationStartJob = ServerSyncJob.ApplicationStartJob(metadata: metadata)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId)
+        serverSyncProcessHandler.jobQueue.append(startJob)
+        serverSyncProcessHandler.jobQueue.append(applicationStartJob)
+        serverSyncProcessHandler.jobQueue.append(applicationStartJob)
+        serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
+        XCTAssertEqual(numInterestsCalled, 0)
+        serverSyncProcessHandler.handleMessage(serverSyncJob: applicationStartJob)
+        XCTAssertEqual(numInterestsCalled, 1)
+        serverSyncProcessHandler.handleMessage(serverSyncJob: applicationStartJob)
+        XCTAssertEqual(numInterestsCalled, 1) // It didn't change.
+
+        // ... and stopping and starting the SDK will lead to the same result
+        numInterestsCalled = 0
+        let stopJob = ServerSyncJob.StopJob
+        serverSyncProcessHandler.jobQueue.append(stopJob)
+        serverSyncProcessHandler.jobQueue.append(startJob)
+        serverSyncProcessHandler.jobQueue.append(applicationStartJob)
+        serverSyncProcessHandler.jobQueue.append(applicationStartJob)
+        serverSyncProcessHandler.handleMessage(serverSyncJob: stopJob)
+        serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
+        XCTAssertEqual(numInterestsCalled, 0)
+        serverSyncProcessHandler.handleMessage(serverSyncJob: applicationStartJob)
+        XCTAssertEqual(numInterestsCalled, 1)
+        serverSyncProcessHandler.handleMessage(serverSyncJob: applicationStartJob)
+        XCTAssertEqual(numInterestsCalled, 1) // It didn't change.
     }
 }

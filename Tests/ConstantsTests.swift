@@ -4,7 +4,9 @@ import XCTest
 class ConstantsTests: XCTestCase {
     func testUserDefaultsConstants() {
         XCTAssertEqual(Constants.UserDefaults.suiteName, "PushNotifications")
-        XCTAssertEqual(Constants.UserDefaults.metadata, "com.pusher.sdk.metadata")
+        XCTAssertEqual(Constants.UserDefaults.metadataSDKVersion, "com.pusher.sdk.metadata.sdkVersion")
+        XCTAssertEqual(Constants.UserDefaults.metadataiOSVersion, "com.pusher.sdk.metadata.iosVersion")
+        XCTAssertEqual(Constants.UserDefaults.metadataMacOSVersion, "com.pusher.sdk.metadata.macosVersion")
         XCTAssertEqual(Constants.UserDefaults.deviceId, "com.pusher.sdk.deviceId")
         XCTAssertEqual(Constants.UserDefaults.instanceId, "com.pusher.sdk.instanceId")
     }

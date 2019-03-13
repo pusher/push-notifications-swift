@@ -22,7 +22,6 @@
 		A108B0EF2237FD51007FCB2D /* InterestNameValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108B0D82237FD50007FCB2D /* InterestNameValidationTests.swift */; };
 		A108B0F02237FD51007FCB2D /* BeamsTokenProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108B0D92237FD50007FCB2D /* BeamsTokenProviderTests.swift */; };
 		A108B0F12237FD51007FCB2D /* RegisterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108B0DA2237FD50007FCB2D /* RegisterTests.swift */; };
-		A108B0F22237FD51007FCB2D /* MetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108B0DB2237FD50007FCB2D /* MetadataTests.swift */; };
 		A108B0F32237FD51007FCB2D /* ConstantsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108B0DC2237FD50007FCB2D /* ConstantsTests.swift */; };
 		A108B0F42237FD51007FCB2D /* ArrayContainsSameElementsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108B0DD2237FD50007FCB2D /* ArrayContainsSameElementsTests.swift */; };
 		A108B0F62237FD51007FCB2D /* SDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108B0DF2237FD50007FCB2D /* SDKTests.swift */; };
@@ -99,7 +98,6 @@
 		A108B0D82237FD50007FCB2D /* InterestNameValidationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterestNameValidationTests.swift; path = ../../Tests/InterestNameValidationTests.swift; sourceTree = "<group>"; };
 		A108B0D92237FD50007FCB2D /* BeamsTokenProviderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BeamsTokenProviderTests.swift; path = ../../Tests/BeamsTokenProviderTests.swift; sourceTree = "<group>"; };
 		A108B0DA2237FD50007FCB2D /* RegisterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegisterTests.swift; path = ../../Tests/RegisterTests.swift; sourceTree = "<group>"; };
-		A108B0DB2237FD50007FCB2D /* MetadataTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetadataTests.swift; path = ../../Tests/MetadataTests.swift; sourceTree = "<group>"; };
 		A108B0DC2237FD50007FCB2D /* ConstantsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConstantsTests.swift; path = ../../Tests/ConstantsTests.swift; sourceTree = "<group>"; };
 		A108B0DD2237FD50007FCB2D /* ArrayContainsSameElementsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArrayContainsSameElementsTests.swift; path = ../../Tests/ArrayContainsSameElementsTests.swift; sourceTree = "<group>"; };
 		A108B0DF2237FD50007FCB2D /* SDKTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SDKTests.swift; path = ../../Tests/SDKTests.swift; sourceTree = "<group>"; };
@@ -293,7 +291,6 @@
 				A108B0E12237FD50007FCB2D /* InterestsMD5HashTests.swift */,
 				A108B0E72237FD51007FCB2D /* InterestsTests.swift */,
 				A108B0D22237FD50007FCB2D /* Internal */,
-				A108B0DB2237FD50007FCB2D /* MetadataTests.swift */,
 				A108B0E42237FD50007FCB2D /* PublishIdTests.swift */,
 				A108B0E62237FD51007FCB2D /* PushNotificationsNetworkableTests.swift */,
 				A108B0D62237FD50007FCB2D /* ReasonTests.swift */,
@@ -508,7 +505,6 @@
 				A108B0F72237FD51007FCB2D /* SystemVersionTests.swift in Sources */,
 				A108B0F02237FD51007FCB2D /* BeamsTokenProviderTests.swift in Sources */,
 				A108B1062237FE4D007FCB2D /* InterestPersistableTests.swift in Sources */,
-				A108B0F22237FD51007FCB2D /* MetadataTests.swift in Sources */,
 				A108B0F62237FD51007FCB2D /* SDKTests.swift in Sources */,
 				A108B0EF2237FD51007FCB2D /* InterestNameValidationTests.swift in Sources */,
 				A108B0FE2237FD51007FCB2D /* InterestsTests.swift in Sources */,

@@ -1,27 +1,13 @@
 import Foundation
 
-public struct Metadata: Encodable {
+public struct Metadata: Equatable, Encodable {
     let sdkVersion: String?
     let iosVersion: String?
     let macosVersion: String?
-}
 
-extension Metadata: PropertyListReadable {
-    func propertyListRepresentation() -> [String: Any] {
-        return ["sdkVersion": self.sdkVersion ?? "", "iosVersion": self.iosVersion ?? "", "macosVersion": self.macosVersion ?? ""]
-    }
+    private static let userDefaults = UserDefaults(suiteName: Constants.UserDefaults.suiteName)
 
-    init(propertyListRepresentation: [String: Any]) {
-        self.sdkVersion = propertyListRepresentation["sdkVersion"]  as? String
-        self.iosVersion = propertyListRepresentation["iosVersion"] as? String
-        self.macosVersion = propertyListRepresentation["macosVersion"] as? String
-    }
-
-    func hasChanged() -> Bool {
-        return self.sdkVersion != SDK.version
-    }
-
-    static func get() -> Metadata {
+    static func getCurrentMetadata() -> Metadata {
         let sdkVersion = SDK.version
         let systemVersion = SystemVersion.version
         
@@ -32,29 +18,23 @@ extension Metadata: PropertyListReadable {
         #endif
     }
 
-    static func update() -> Metadata {
-        let sdkVersion = SDK.version
-        let systemVersion = SystemVersion.version
-
-        #if os(iOS)
-            let metadata = Metadata(sdkVersion: sdkVersion, iosVersion: systemVersion, macosVersion: nil)
-        #elseif os(OSX)
-            let metadata = Metadata(sdkVersion: sdkVersion, iosVersion: nil, macosVersion: systemVersion)
-        #endif
-        metadata.save()
-
-        return metadata
+    static func save(metadata: Metadata) {
+        userDefaults?.set(metadata.sdkVersion, forKey: Constants.UserDefaults.metadataSDKVersion)
+        userDefaults?.set(metadata.iosVersion, forKey: Constants.UserDefaults.metadataiOSVersion)
+        userDefaults?.set(metadata.macosVersion, forKey: Constants.UserDefaults.metadataMacOSVersion)
     }
 
-    func save() {
-        let userDefaults = UserDefaults(suiteName: Constants.UserDefaults.suiteName)
-        userDefaults?.set(self.propertyListRepresentation(), forKey: Constants.UserDefaults.metadata)
+    static func load() -> Metadata {
+        return Metadata(
+            sdkVersion: userDefaults?.string(forKey: Constants.UserDefaults.metadataSDKVersion),
+            iosVersion: userDefaults?.string(forKey: Constants.UserDefaults.metadataiOSVersion),
+            macosVersion: userDefaults?.string(forKey: Constants.UserDefaults.metadataMacOSVersion)
+        )
     }
 
-    static func load() -> [String: Any]? {
-        let userDefaults = UserDefaults(suiteName: Constants.UserDefaults.suiteName)
-        let metadata = userDefaults?.object(forKey: Constants.UserDefaults.metadata) as? [String: String]
-
-        return metadata
+    static func delete() {
+        userDefaults?.removeObject(forKey: Constants.UserDefaults.metadataSDKVersion)
+        userDefaults?.removeObject(forKey: Constants.UserDefaults.metadataiOSVersion)
+        userDefaults?.removeObject(forKey: Constants.UserDefaults.metadataMacOSVersion)
     }
 }

@@ -3,7 +3,9 @@ import Foundation
 struct Constants {
     struct UserDefaults {
         static let suiteName = "PushNotifications"
-        static let metadata = "com.pusher.sdk.metadata"
+        static let metadataSDKVersion = "com.pusher.sdk.metadata.sdkVersion"
+        static let metadataiOSVersion = "com.pusher.sdk.metadata.iosVersion"
+        static let metadataMacOSVersion = "com.pusher.sdk.metadata.macosVersion"
         static let deviceId = "com.pusher.sdk.deviceId"
         static let deviceAPNsToken = "com.pusher.sdk.deviceAPNsToken"
         static let instanceId = "com.pusher.sdk.instanceId"
