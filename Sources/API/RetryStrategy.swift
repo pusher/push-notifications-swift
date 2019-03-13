@@ -10,7 +10,7 @@ public struct JustDont: RetryStrategy {
 
         switch result {
         case .error(let error):
-            print("[PushNotifications]: \(error.getErrorMessage())")
+            print("[PushNotifications]: Network error: \(error.getErrorMessage())")
             return result
         case .value:
             return result
@@ -32,7 +32,7 @@ public class WithInfiniteExpBackoff: RetryStrategy {
                     // Not recoverable cases.
                     return result
                 case .GenericError:
-                    print("[PushNotifications]: \(error.getErrorMessage())")
+                    print("[PushNotifications]: Network error: \(error.getErrorMessage())")
                     self.retryCount += 1
                     let delay = calculateExponentialBackoffMs(attemptCount: self.retryCount)
                     Thread.sleep(forTimeInterval: TimeInterval(delay / 1000.0))

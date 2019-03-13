@@ -23,7 +23,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")!
         let exp = expectation(description: "It should successfully register the device")
 
-        stub(condition: isAbsoluteURLString(url.absoluteString)) { _ in
+        stub(condition: isMethodPOST() && isAbsoluteURLString(url.absoluteString)) { _ in
             let jsonObject: [String: Any] = [
                 "id": self.deviceId
             ]
@@ -45,7 +45,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         let exp = expectation(description: "It should successfully register the device")
 
         var numberOfAttempts = 0
-        stub(condition: isAbsoluteURLString(url.absoluteString)) { _ in
+        stub(condition: isMethodPOST() && isAbsoluteURLString(url.absoluteString)) { _ in
             let jsonObject: [String: Any] = [
                 "description": "Something went terribly wrong"
             ]
@@ -92,7 +92,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
     func testItShouldMergeTheRemoteInitialInterestsSetWithLocalInterestSet() {
         let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")!
 
-        stub(condition: isAbsoluteURLString(url.absoluteString)) { _ in
+        stub(condition: isMethodPOST() && isAbsoluteURLString(url.absoluteString)) { _ in
             let jsonObject: [String: Any] = [
                 "id": self.deviceId,
                 "initialInterestSet": ["interest-x", "hello"]
@@ -124,7 +124,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
     func testItShouldMergeTheRemoteInitialInterestsSetWithLocalInterestSetThisTimeUsingSetSubscriptions() {
         let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")!
 
-        stub(condition: isAbsoluteURLString(url.absoluteString)) { _ in
+        stub(condition: isMethodPOST() && isAbsoluteURLString(url.absoluteString)) { _ in
             let jsonObject: [String: Any] = [
                 "id": self.deviceId,
                 "initialInterestSet": ["interest-x", "hello"]
@@ -157,7 +157,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
     func testItShouldSetSubscriptionsAfterStartingIfItDiffersFromTheInitialInterestSet() {
         let registerURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")!
 
-        stub(condition: isAbsoluteURLString(registerURL.absoluteString)) { _ in
+        stub(condition: isMethodPOST() && isAbsoluteURLString(registerURL.absoluteString)) { _ in
             let jsonObject: [String: Any] = [
                 "id": self.deviceId,
                 "initialInterestSet": ["interest-x", "hello"]
@@ -168,7 +168,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
 
         let exp = expectation(description: "It should successfully set subscriptions")
         let setInterestsURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(self.deviceId)/interests")!
-        stub(condition: isAbsoluteURLString(setInterestsURL.absoluteString)) { _ in
+        stub(condition: isMethodPUT() && isAbsoluteURLString(setInterestsURL.absoluteString)) { _ in
             exp.fulfill()
             return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
         }
@@ -200,7 +200,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
     func testItShouldNotSetSubscriptionsAfterStartingIfItDoesntDifferFromTheInitialInterestSet() {
         let registerURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")!
 
-        stub(condition: isAbsoluteURLString(registerURL.absoluteString)) { _ in
+        stub(condition: isMethodPOST() && isAbsoluteURLString(registerURL.absoluteString)) { _ in
             let jsonObject: [String: Any] = [
                 "id": self.deviceId,
                 "initialInterestSet": ["interest-x", "hello"]
@@ -212,7 +212,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         let exp = expectation(description: "It should not call set subscriptions")
         exp.isInverted = true
         let setInterestsURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(self.deviceId)/interests")!
-        stub(condition: isAbsoluteURLString(setInterestsURL.absoluteString)) { _ in
+        stub(condition: isMethodPUT() && isAbsoluteURLString(setInterestsURL.absoluteString)) { _ in
             exp.fulfill()
             return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
         }
@@ -239,7 +239,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
     func testStopJobBeforeStartSHouldNotThrowAnError() {
         let registerURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")!
 
-        stub(condition: isAbsoluteURLString(registerURL.absoluteString)) { _ in
+        stub(condition: isMethodPOST() && isAbsoluteURLString(registerURL.absoluteString)) { _ in
             let jsonObject: [String: Any] = [
                 "id": self.deviceId,
                 "initialInterestSet": ["interest-x", "hello"]
@@ -264,7 +264,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
     func testStopJobWillDeleteDeviceRemotelyAndLocally() {
         let registerURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")!
 
-        stub(condition: isAbsoluteURLString(registerURL.absoluteString)) { _ in
+        stub(condition: isMethodPOST() && isAbsoluteURLString(registerURL.absoluteString)) { _ in
             let jsonObject: [String: Any] = [
                 "id": self.deviceId,
                 "initialInterestSet": ["interest-x", "hello"]
@@ -293,5 +293,48 @@ class ServerSyncProcessHandlerTests: XCTestCase {
 
         XCTAssertNil(Device.getDeviceId())
         XCTAssertNil(Device.getAPNsToken())
+    }
+
+    func testThatSubscribingAndUnsubscribingWillTriggerTheAPI() {
+        let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")!
+        let expRegister = expectation(description: "It should successfully register the device")
+        let expSubscribe = expectation(description: "It should successfully subscribe the device to an interest")
+        let expUnsubscribe = expectation(description: "It should successfully unsubscribe the device from the interest")
+
+        stub(condition: isMethodPOST() && isAbsoluteURLString(url.absoluteString)) { _ in
+            let jsonObject: [String: Any] = [
+                "id": self.deviceId
+            ]
+
+            expRegister.fulfill()
+
+            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+        }
+
+        let addInterestURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(self.deviceId)/interests/hello")!
+        stub(condition: isMethodPOST() && isAbsoluteURLString(addInterestURL.absoluteString)) { _ in
+            expSubscribe.fulfill()
+            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+        }
+
+        let removeInterestURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(self.deviceId)/interests/hello")!
+        stub(condition: isMethodDELETE() && isAbsoluteURLString(removeInterestURL.absoluteString)) { _ in
+            expUnsubscribe.fulfill()
+            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+        }
+
+        let jobs = [
+            ServerSyncJob.StartJob(token: deviceToken),
+            ServerSyncJob.SubscribeJob(interest: "hello"),
+            ServerSyncJob.UnsubscribeJob(interest: "hello")
+        ]
+
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId)
+        for job in jobs {
+            serverSyncProcessHandler.jobQueue.append(job)
+            serverSyncProcessHandler.handleMessage(serverSyncJob: job)
+        }
+
+        waitForExpectations(timeout: 1)
     }
 }

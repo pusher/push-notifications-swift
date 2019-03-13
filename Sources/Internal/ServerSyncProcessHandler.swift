@@ -106,6 +106,34 @@ public class ServerSyncProcessHandler {
     }
 
     private func processJob(_ job: ServerSyncJob) {
+        let result: Result<Void, PushNotificationsAPIError> = {
+            switch job {
+            case .SubscribeJob(let interest):
+                return self.networkService.subscribe(deviceId: Device.getDeviceId()!, interest: interest, retryStrategy: WithInfiniteExpBackoff())
+            case .UnsubscribeJob(let interest):
+                return self.networkService.unsubscribe(deviceId: Device.getDeviceId()!, interest: interest, retryStrategy: WithInfiniteExpBackoff())
+            case .StartJob, .StopJob:
+                return .value(()) // already handled in `handleMessage`
+            default:
+                return .value(()) // TODO: REMOVE THIS
+            }
+        }()
+
+        switch result {
+        case .value:
+            return
+        case .error(PushNotificationsAPIError.DeviceNotFound):
+            recreateDevice(token: Device.getAPNsToken()!)
+            processJob(job)
+        case .error(let error):
+            // not really recoverable, so log it here and also monitor 400s closely on our backend
+            // (this really shouldn't happen)
+            print("[PushNotifications]: Fail to make a valid request to the server for job \(job), skipping it. Error: \(error)")
+            return
+        }
+    }
+
+    private func recreateDevice(token: String) {
         // TODO:
     }
 
@@ -142,7 +170,8 @@ public class ServerSyncProcessHandler {
             jobQueue.removeFirst()
 
         default:
-            print("Not implemented")
+            processJob(serverSyncJob)
+            jobQueue.removeFirst()
         }
     }
 }
