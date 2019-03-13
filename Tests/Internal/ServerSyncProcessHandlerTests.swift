@@ -235,4 +235,63 @@ class ServerSyncProcessHandlerTests: XCTestCase {
 
         waitForExpectations(timeout: 1)
     }
+
+    func testStopJobBeforeStartSHouldNotThrowAnError() {
+        let registerURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")!
+
+        stub(condition: isAbsoluteURLString(registerURL.absoluteString)) { _ in
+            let jsonObject: [String: Any] = [
+                "id": self.deviceId,
+                "initialInterestSet": ["interest-x", "hello"]
+            ]
+
+            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+        }
+
+        let jobs = [
+            ServerSyncJob.StopJob,
+            ServerSyncJob.StartJob(token: deviceToken)
+        ]
+
+
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId)
+        for job in jobs {
+            serverSyncProcessHandler.jobQueue.append(job)
+            serverSyncProcessHandler.handleMessage(serverSyncJob: job)
+        }
+    }
+
+    func testStopJobWillDeleteDeviceRemotelyAndLocally() {
+        let registerURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")!
+
+        stub(condition: isAbsoluteURLString(registerURL.absoluteString)) { _ in
+            let jsonObject: [String: Any] = [
+                "id": self.deviceId,
+                "initialInterestSet": ["interest-x", "hello"]
+            ]
+
+            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+        }
+
+        let deleteURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)")!
+
+        stub(condition: isAbsoluteURLString(deleteURL.absoluteString)) { _ in
+            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+        }
+
+        let startJob = ServerSyncJob.StartJob(token: deviceToken)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId)
+        serverSyncProcessHandler.jobQueue.append(startJob)
+        serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
+
+        XCTAssertNotNil(Device.getDeviceId())
+        XCTAssertNotNil(Device.getAPNsToken())
+
+        let stopJob = ServerSyncJob.StopJob
+        serverSyncProcessHandler.jobQueue.append(stopJob)
+        serverSyncProcessHandler.handleMessage(serverSyncJob: stopJob)
+
+        XCTAssertNil(Device.getDeviceId())
+        XCTAssertNil(Device.getAPNsToken())
+    }
 }

@@ -97,8 +97,12 @@ public class ServerSyncProcessHandler {
                 processJob(job)
             }
         }
+    }
 
-
+    private func processStopJob() {
+        _ = self.networkService.deleteDevice(deviceId: Device.getDeviceId()!, retryStrategy: WithInfiniteExpBackoff())
+        Device.delete()
+        Device.deleteAPNsToken()
     }
 
     private func processJob(_ job: ServerSyncJob) {
@@ -132,6 +136,10 @@ public class ServerSyncProcessHandler {
                     jobQueue.removeFirst()
                 }
             }
+
+        case .StopJob:
+            processStopJob()
+            jobQueue.removeFirst()
 
         default:
             print("Not implemented")
