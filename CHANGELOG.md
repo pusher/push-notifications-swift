@@ -5,7 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/pusher/push-notifications-swift/compare/1.3.0-beta.1...HEAD)
+## [Unreleased](https://github.com/pusher/push-notifications-swift/compare/1.3.0...HEAD)
+
+## [1.3.0](https://github.com/pusher/push-notifications-swift/compare/1.3.0-beta.1...1.3.0) - 2019-03-25
+
+## Added
+
+- Add optional `userId` to the event type payload.
 
 ## [1.3.0-beta.1](https://github.com/pusher/push-notifications-swift/compare/1.2.1...1.3.0-beta.1) - 2019-02-21
 
