@@ -13,6 +13,8 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         UserDefaults(suiteName: Constants.UserDefaults.suiteName).map { userDefaults in
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
         }
+
+        Instance.persist(instanceId)
     }
 
     override func tearDown() {
@@ -36,7 +38,8 @@ class ServerSyncProcessHandlerTests: XCTestCase {
 
         let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
         let serverSyncProcessHandler = ServerSyncProcessHandler()
-        serverSyncProcessHandler.sendMessage(serverSyncJob: startJob)
+        serverSyncProcessHandler.jobQueue.append(startJob)
+        serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
 
         waitForExpectations(timeout: 1)
     }
@@ -54,6 +57,10 @@ class ServerSyncProcessHandlerTests: XCTestCase {
             numberOfAttempts += 1
             if numberOfAttempts == 2 {
                 exp.fulfill()
+                let jsonObject: [String: Any] = [
+                    "id": self.deviceId
+                ]
+
                 return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
             } else {
                 return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 500, headers: nil)
@@ -62,7 +69,8 @@ class ServerSyncProcessHandlerTests: XCTestCase {
 
         let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
         let serverSyncProcessHandler = ServerSyncProcessHandler()
-        serverSyncProcessHandler.sendMessage(serverSyncJob: startJob)
+        serverSyncProcessHandler.jobQueue.append(startJob)
+        serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
 
         waitForExpectations(timeout: 1)
     }
@@ -84,7 +92,8 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         let jobs = [ServerSyncJob.RefreshTokenJob(newToken: "1"), ServerSyncJob.SubscribeJob(interest: "abc"), ServerSyncJob.UnsubscribeJob(interest: "12")]
 
         for job in jobs {
-            serverSyncProcessHandler.sendMessage(serverSyncJob: job)
+            serverSyncProcessHandler.jobQueue.append(job)
+            serverSyncProcessHandler.handleMessage(serverSyncJob: job)
         }
 
         waitForExpectations(timeout: 1)

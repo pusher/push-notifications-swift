@@ -29,7 +29,6 @@
 		A108B0F82237FD51007FCB2D /* InterestsMD5HashTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108B0E12237FD50007FCB2D /* InterestsMD5HashTests.swift */; };
 		A108B0F92237FD51007FCB2D /* DeviceTokenHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108B0E22237FD50007FCB2D /* DeviceTokenHelperTests.swift */; };
 		A108B0FB2237FD51007FCB2D /* PublishIdTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108B0E42237FD50007FCB2D /* PublishIdTests.swift */; };
-		A108B0FD2237FD51007FCB2D /* PushNotificationsNetworkableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108B0E62237FD51007FCB2D /* PushNotificationsNetworkableTests.swift */; };
 		A108B0FE2237FD51007FCB2D /* InterestsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108B0E72237FD51007FCB2D /* InterestsTests.swift */; };
 		A108B1042237FE4D007FCB2D /* InstanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108B1002237FE4C007FCB2D /* InstanceTests.swift */; };
 		A108B1052237FE4D007FCB2D /* DeviceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108B1012237FE4C007FCB2D /* DeviceTests.swift */; };
@@ -105,7 +104,6 @@
 		A108B0E12237FD50007FCB2D /* InterestsMD5HashTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterestsMD5HashTests.swift; path = ../../Tests/InterestsMD5HashTests.swift; sourceTree = "<group>"; };
 		A108B0E22237FD50007FCB2D /* DeviceTokenHelperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceTokenHelperTests.swift; path = ../../Tests/DeviceTokenHelperTests.swift; sourceTree = "<group>"; };
 		A108B0E42237FD50007FCB2D /* PublishIdTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PublishIdTests.swift; path = ../../Tests/PublishIdTests.swift; sourceTree = "<group>"; };
-		A108B0E62237FD51007FCB2D /* PushNotificationsNetworkableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PushNotificationsNetworkableTests.swift; path = ../../Tests/PushNotificationsNetworkableTests.swift; sourceTree = "<group>"; };
 		A108B0E72237FD51007FCB2D /* InterestsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterestsTests.swift; path = ../../Tests/InterestsTests.swift; sourceTree = "<group>"; };
 		A108B1002237FE4C007FCB2D /* InstanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstanceTests.swift; sourceTree = "<group>"; };
 		A108B1012237FE4C007FCB2D /* DeviceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTests.swift; sourceTree = "<group>"; };
@@ -292,7 +290,6 @@
 				A108B0E72237FD51007FCB2D /* InterestsTests.swift */,
 				A108B0D22237FD50007FCB2D /* Internal */,
 				A108B0E42237FD50007FCB2D /* PublishIdTests.swift */,
-				A108B0E62237FD51007FCB2D /* PushNotificationsNetworkableTests.swift */,
 				A108B0D62237FD50007FCB2D /* ReasonTests.swift */,
 				A108B0DA2237FD50007FCB2D /* RegisterTests.swift */,
 				A108B0DF2237FD50007FCB2D /* SDKTests.swift */,
@@ -509,7 +506,6 @@
 				A108B0EF2237FD51007FCB2D /* InterestNameValidationTests.swift in Sources */,
 				A108B0FE2237FD51007FCB2D /* InterestsTests.swift in Sources */,
 				A108B0EA2237FD51007FCB2D /* ServerSyncProcessHandlerTests.swift in Sources */,
-				A108B0FD2237FD51007FCB2D /* PushNotificationsNetworkableTests.swift in Sources */,
 				A108B0FB2237FD51007FCB2D /* PublishIdTests.swift in Sources */,
 				A108B1052237FE4D007FCB2D /* DeviceTests.swift in Sources */,
 				A108B0F32237FD51007FCB2D /* ConstantsTests.swift in Sources */,
