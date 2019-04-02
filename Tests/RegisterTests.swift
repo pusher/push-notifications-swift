@@ -22,9 +22,16 @@ class RegisterTests: XCTestCase {
     func testRegisterEncoded() {
         let registerEncoded = try! self.register.encode()
         XCTAssertNotNil(registerEncoded)
-        let registerJSONExpected = "{\"metadata\":{\"sdkVersion\":\"0.4.0\",\"iosVersion\":\"11.2.0\"},\"instanceId\":\"abc\",\"token\":\"123\",\"bundleIdentifier\":\"com.pusher\"}"
         let registerJSON = String(data: registerEncoded, encoding: .utf8)!
-        XCTAssertEqual(registerJSONExpected, registerJSON)
+
+        let registerDecoded = try! JSONDecoder().decode(Register.self, from: registerJSON.data(using: .utf8)!)
+
+        XCTAssertNotNil(registerDecoded)
+        XCTAssertEqual(registerDecoded.token, "123")
+        XCTAssertEqual(registerDecoded.bundleIdentifier, "com.pusher")
+        XCTAssertEqual(registerDecoded.metadata.sdkVersion, "0.4.0")
+        XCTAssertEqual(registerDecoded.metadata.iosVersion, "11.2.0")
+        XCTAssertEqual(registerDecoded.metadata.macosVersion, nil)
     }
     #elseif os(OSX)
     func testRegisterModel() {
@@ -40,9 +47,16 @@ class RegisterTests: XCTestCase {
     func testRegisterEncoded() {
         let registerEncoded = try! self.register.encode()
         XCTAssertNotNil(registerEncoded)
-        let registerJSONExpected = "{\"metadata\":{\"sdkVersion\":\"0.4.0\",\"macosVersion\":\"10.9\"},\"instanceId\":\"abc\",\"token\":\"123\",\"bundleIdentifier\":\"com.pusher\"}"
         let registerJSON = String(data: registerEncoded, encoding: .utf8)!
-        XCTAssertEqual(registerJSONExpected, registerJSON)
+
+        let registerDecoded = try! JSONDecoder().decode(Register.self, from: registerJSON.data(using: .utf8)!)
+
+        XCTAssertNotNil(registerDecoded)
+        XCTAssertEqual(registerDecoded.token, "123")
+        XCTAssertEqual(registerDecoded.bundleIdentifier, "com.pusher")
+        XCTAssertEqual(registerDecoded.metadata.sdkVersion, "0.4.0")
+        XCTAssertEqual(registerDecoded.metadata.iosVersion, nil)
+        XCTAssertEqual(registerDecoded.metadata.macosVersion, "10.9")
     }
     #endif
 }
