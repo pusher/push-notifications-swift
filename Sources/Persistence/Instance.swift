@@ -5,20 +5,7 @@ struct Instance {
     private static let userDefaults = UserDefaults(suiteName: Constants.UserDefaults.suiteName)!
 
     static func persist(_ instanceId: String) {
-        guard let savedInstanceId = Instance.getInstanceId() else {
-            self.userDefaults.set(instanceId, forKey: key)
-            return
-        }
-
-//        guard instanceId == savedInstanceId else {
-//            let errorMessage = """
-//            This device has already been registered with Pusher.
-//            Push Notifications application with instance id: \(savedInstanceId).
-//            If you would like to register this device to \(instanceId) please reinstall the application.
-//            """
-//
-//            throw PusherAlreadyRegisteredError.instanceId(errorMessage)
-//        }
+        self.userDefaults.set(instanceId, forKey: key)
     }
 
     static func getInstanceId() -> String? {
