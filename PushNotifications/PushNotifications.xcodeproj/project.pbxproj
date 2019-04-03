@@ -58,6 +58,7 @@
 		A1AC401520FDFF1E002E6128 /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AC401420FDFF1E002E6128 /* MD5.swift */; };
 		A1B344432018BC0200481BDF /* InterestValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B344412018BC0100481BDF /* InterestValidationError.swift */; };
 		A1B344442018BC0200481BDF /* MultipleInvalidInterestsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B344422018BC0200481BDF /* MultipleInvalidInterestsError.swift */; };
+		A1C41F7B2253B4BC00497D87 /* DeviceRegistrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C41F7A2253B4BC00497D87 /* DeviceRegistrationTests.swift */; };
 		A1DAD62E2020CAE7001497B5 /* SystemVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DAD62D2020CAE7001497B5 /* SystemVersion.swift */; };
 		A1E78E312020AEF400DD94B2 /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E78E302020AEF400DD94B2 /* Register.swift */; };
 		A1E8000A201A213000467EB9 /* ReportEventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E80009201A213000467EB9 /* ReportEventType.swift */; };
@@ -137,6 +138,8 @@
 		A1AC401420FDFF1E002E6128 /* MD5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MD5.swift; path = ../../Sources/MD5.swift; sourceTree = "<group>"; };
 		A1B344412018BC0100481BDF /* InterestValidationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterestValidationError.swift; path = ../../Sources/InterestValidationError.swift; sourceTree = "<group>"; };
 		A1B344422018BC0200481BDF /* MultipleInvalidInterestsError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultipleInvalidInterestsError.swift; path = ../../Sources/MultipleInvalidInterestsError.swift; sourceTree = "<group>"; };
+		A1C41F7A2253B4BC00497D87 /* DeviceRegistrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRegistrationTests.swift; sourceTree = "<group>"; };
+		A1D2AC302254E6FB00AF4871 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = ../Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		A1DAD62D2020CAE7001497B5 /* SystemVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SystemVersion.swift; path = ../../Sources/SystemVersion.swift; sourceTree = "<group>"; };
 		A1E78E302020AEF400DD94B2 /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Register.swift; path = ../../Sources/Register.swift; sourceTree = "<group>"; };
 		A1E80009201A213000467EB9 /* ReportEventType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportEventType.swift; path = ../../Sources/ReportEventType.swift; sourceTree = "<group>"; };
@@ -209,6 +212,7 @@
 		A1197BD5206266D100FD7335 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A1D2AC302254E6FB00AF4871 /* Nimble.framework */,
 				A1197BD6206266D200FD7335 /* OHHTTPStubs.framework */,
 			);
 			name = Frameworks;
@@ -276,6 +280,7 @@
 		A155BFC01F9E38040070A609 /* PushNotificationsTests */ = {
 			isa = PBXGroup;
 			children = (
+				A1C41F792253B4A100497D87 /* IntegrationTests */,
 				A108B0FF2237FE4C007FCB2D /* Persistence */,
 				A155BFC31F9E38040070A609 /* Info.plist */,
 				A108B0DD2237FD50007FCB2D /* ArrayContainsSameElementsTests.swift */,
@@ -297,6 +302,15 @@
 				A1ED00141F9E392700A029F2 /* PushNotificationsTests-Bridging-Header.h */,
 			);
 			path = PushNotificationsTests;
+			sourceTree = "<group>";
+		};
+		A1C41F792253B4A100497D87 /* IntegrationTests */ = {
+			isa = PBXGroup;
+			children = (
+				A1C41F7A2253B4BC00497D87 /* DeviceRegistrationTests.swift */,
+			);
+			name = IntegrationTests;
+			path = ../../Tests/IntegrationTests;
 			sourceTree = "<group>";
 		};
 		A1F122DD2237C7B200F7D766 /* Internal */ = {
@@ -436,12 +450,13 @@
 			);
 			inputPaths = (
 				OHHTTPStubs,
+				Nimble,
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "case \"$PLATFORM_NAME\" in\nmacosx) plat=Mac;;\niphone*) plat=iOS;;\nwatch*) plat=watchOS;;\ntv*) plat=tvOS;;\nappletv*) plat=tvOS;;\n*) echo \"error: Unknown PLATFORM_NAME: $PLATFORM_NAME\"; exit 1;;\nesac\nfor (( n = 0; n < SCRIPT_INPUT_FILE_COUNT; n++ )); do\nVAR=SCRIPT_INPUT_FILE_$n\nframework=$(basename \"${!VAR}\")\nexport SCRIPT_INPUT_FILE_$n=../Carthage/Build/$plat/\"$framework\".framework\ndone\n\n/usr/local/bin/carthage copy-frameworks || exit\n\nfor (( n = 0; n < SCRIPT_INPUT_FILE_COUNT; n++ )); do\nVAR=SCRIPT_INPUT_FILE_$n\nsource=${!VAR}.dSYM\ndest=${BUILT_PRODUCTS_DIR}/$(basename \"$source\")\nditto \"$source\" \"$dest\" || exit\ndone";
+			shellScript = "case \"$PLATFORM_NAME\" in\nmacosx) plat=Mac;;\niphone*) plat=iOS;;\nwatch*) plat=watchOS;;\ntv*) plat=tvOS;;\nappletv*) plat=tvOS;;\n*) echo \"error: Unknown PLATFORM_NAME: $PLATFORM_NAME\"; exit 1;;\nesac\nfor (( n = 0; n < SCRIPT_INPUT_FILE_COUNT; n++ )); do\nVAR=SCRIPT_INPUT_FILE_$n\nframework=$(basename \"${!VAR}\")\nexport SCRIPT_INPUT_FILE_$n=../Carthage/Build/$plat/\"$framework\".framework\ndone\n\n/usr/local/bin/carthage copy-frameworks || exit\n\nfor (( n = 0; n < SCRIPT_INPUT_FILE_COUNT; n++ )); do\nVAR=SCRIPT_INPUT_FILE_$n\nsource=${!VAR}.dSYM\ndest=${BUILT_PRODUCTS_DIR}/$(basename \"$source\")\nditto \"$source\" \"$dest\" || exit\ndone\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -515,6 +530,7 @@
 				A108B0E82237FD51007FCB2D /* AuthDataTests.swift in Sources */,
 				A108B0F82237FD51007FCB2D /* InterestsMD5HashTests.swift in Sources */,
 				A108B0F12237FD51007FCB2D /* RegisterTests.swift in Sources */,
+				A1C41F7B2253B4BC00497D87 /* DeviceRegistrationTests.swift in Sources */,
 				A108B0ED2237FD51007FCB2D /* ReasonTests.swift in Sources */,
 				A108B1072237FE4D007FCB2D /* UserPersistableTests.swift in Sources */,
 			);
