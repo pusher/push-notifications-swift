@@ -89,7 +89,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         }
 
         let serverSyncProcessHandler = ServerSyncProcessHandler()
-        let jobs = [ServerSyncJob.RefreshTokenJob(newToken: "1"), ServerSyncJob.SubscribeJob(interest: "abc"), ServerSyncJob.UnsubscribeJob(interest: "12")]
+        let jobs = [ServerSyncJob.RefreshTokenJob(newToken: "1"), ServerSyncJob.SubscribeJob(interest: "abc", localInterestsChanged: true), ServerSyncJob.UnsubscribeJob(interest: "12", localInterestsChanged: true)]
 
         for job in jobs {
             serverSyncProcessHandler.jobQueue.append(job)
@@ -112,11 +112,11 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         }
 
         let jobs = [
-            ServerSyncJob.SubscribeJob(interest: "interest-0"),
-            ServerSyncJob.SubscribeJob(interest: "interest-1"),
-            ServerSyncJob.SubscribeJob(interest: "interest-2"),
-            ServerSyncJob.UnsubscribeJob(interest: "interest-0"),
-            ServerSyncJob.UnsubscribeJob(interest: "interest-x"),
+            ServerSyncJob.SubscribeJob(interest: "interest-0", localInterestsChanged: true),
+            ServerSyncJob.SubscribeJob(interest: "interest-1", localInterestsChanged: true),
+            ServerSyncJob.SubscribeJob(interest: "interest-2", localInterestsChanged: true),
+            ServerSyncJob.UnsubscribeJob(interest: "interest-0", localInterestsChanged: true),
+            ServerSyncJob.UnsubscribeJob(interest: "interest-x", localInterestsChanged: true),
             ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
         ]
 
@@ -144,12 +144,12 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         }
 
         let jobs = [
-            ServerSyncJob.SubscribeJob(interest: "interest-0"),
-            ServerSyncJob.SubscribeJob(interest: "interest-1"),
-            ServerSyncJob.UnsubscribeJob(interest: "interest-0"),
-            ServerSyncJob.SetSubscriptions(interests: ["cucas", "potatoes", "123"]),
-            ServerSyncJob.SubscribeJob(interest: "interest-2"),
-            ServerSyncJob.UnsubscribeJob(interest: "interest-x"),
+            ServerSyncJob.SubscribeJob(interest: "interest-0", localInterestsChanged: true),
+            ServerSyncJob.SubscribeJob(interest: "interest-1", localInterestsChanged: true),
+            ServerSyncJob.UnsubscribeJob(interest: "interest-0", localInterestsChanged: true),
+            ServerSyncJob.SetSubscriptions(interests: ["cucas", "potatoes", "123"], localInterestsChanged: true),
+            ServerSyncJob.SubscribeJob(interest: "interest-2", localInterestsChanged: true),
+            ServerSyncJob.UnsubscribeJob(interest: "interest-x", localInterestsChanged: true),
             ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
         ]
 
@@ -184,12 +184,12 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         }
 
         let jobs = [
-            ServerSyncJob.SubscribeJob(interest: "interest-0"),
-            ServerSyncJob.SubscribeJob(interest: "interest-1"),
-            ServerSyncJob.UnsubscribeJob(interest: "interest-0"),
-            ServerSyncJob.SetSubscriptions(interests: ["cucas", "potatoes", "123"]),
-            ServerSyncJob.SubscribeJob(interest: "interest-2"),
-            ServerSyncJob.UnsubscribeJob(interest: "interest-x"),
+            ServerSyncJob.SubscribeJob(interest: "interest-0", localInterestsChanged: true),
+            ServerSyncJob.SubscribeJob(interest: "interest-1", localInterestsChanged: true),
+            ServerSyncJob.UnsubscribeJob(interest: "interest-0", localInterestsChanged: true),
+            ServerSyncJob.SetSubscriptions(interests: ["cucas", "potatoes", "123"], localInterestsChanged: true),
+            ServerSyncJob.SubscribeJob(interest: "interest-2", localInterestsChanged: true),
+            ServerSyncJob.UnsubscribeJob(interest: "interest-x", localInterestsChanged: true),
             ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
         ]
 
@@ -228,7 +228,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         }
 
         let jobs = [
-            ServerSyncJob.SubscribeJob(interest: "hello"),
+            ServerSyncJob.SubscribeJob(interest: "hello", localInterestsChanged: true),
             ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
         ]
 
@@ -342,9 +342,9 @@ class ServerSyncProcessHandlerTests: XCTestCase {
 
         let jobs = [
             ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken),
-            ServerSyncJob.SubscribeJob(interest: "hello"),
-            ServerSyncJob.UnsubscribeJob(interest: "hello"),
-            ServerSyncJob.SetSubscriptions(interests: ["1", "2"])
+            ServerSyncJob.SubscribeJob(interest: "hello", localInterestsChanged: true),
+            ServerSyncJob.UnsubscribeJob(interest: "hello", localInterestsChanged: true),
+            ServerSyncJob.SetSubscriptions(interests: ["1", "2"], localInterestsChanged: true)
         ]
 
         let serverSyncProcessHandler = ServerSyncProcessHandler()
@@ -396,7 +396,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         XCTAssertNotNil(Device.getDeviceId())
         XCTAssertNotNil(Device.getAPNsToken())
 
-        let subscribeJob = ServerSyncJob.SubscribeJob(interest: "hello")
+        let subscribeJob = ServerSyncJob.SubscribeJob(interest: "hello", localInterestsChanged: true)
         serverSyncProcessHandler.jobQueue.append(subscribeJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: subscribeJob)
 

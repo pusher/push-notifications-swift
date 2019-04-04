@@ -59,6 +59,9 @@
 		A1B344432018BC0200481BDF /* InterestValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B344412018BC0100481BDF /* InterestValidationError.swift */; };
 		A1B344442018BC0200481BDF /* MultipleInvalidInterestsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B344422018BC0200481BDF /* MultipleInvalidInterestsError.swift */; };
 		A1C41F7B2253B4BC00497D87 /* DeviceRegistrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C41F7A2253B4BC00497D87 /* DeviceRegistrationTests.swift */; };
+		A1D2AC342254E83900AF4871 /* DeviceInterestsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D2AC332254E83900AF4871 /* DeviceInterestsTest.swift */; };
+		A1D2AC362254EF0900AF4871 /* TestAPIClientHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D2AC352254EF0900AF4871 /* TestAPIClientHelper.swift */; };
+		A1D2AC382254F7EE00AF4871 /* String+HexStringToData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D2AC372254F7EE00AF4871 /* String+HexStringToData.swift */; };
 		A1DAD62E2020CAE7001497B5 /* SystemVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DAD62D2020CAE7001497B5 /* SystemVersion.swift */; };
 		A1E78E312020AEF400DD94B2 /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E78E302020AEF400DD94B2 /* Register.swift */; };
 		A1E8000A201A213000467EB9 /* ReportEventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E80009201A213000467EB9 /* ReportEventType.swift */; };
@@ -140,6 +143,9 @@
 		A1B344422018BC0200481BDF /* MultipleInvalidInterestsError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultipleInvalidInterestsError.swift; path = ../../Sources/MultipleInvalidInterestsError.swift; sourceTree = "<group>"; };
 		A1C41F7A2253B4BC00497D87 /* DeviceRegistrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRegistrationTests.swift; sourceTree = "<group>"; };
 		A1D2AC302254E6FB00AF4871 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = ../Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
+		A1D2AC332254E83900AF4871 /* DeviceInterestsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInterestsTest.swift; sourceTree = "<group>"; };
+		A1D2AC352254EF0900AF4871 /* TestAPIClientHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAPIClientHelper.swift; sourceTree = "<group>"; };
+		A1D2AC372254F7EE00AF4871 /* String+HexStringToData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+HexStringToData.swift"; sourceTree = "<group>"; };
 		A1DAD62D2020CAE7001497B5 /* SystemVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SystemVersion.swift; path = ../../Sources/SystemVersion.swift; sourceTree = "<group>"; };
 		A1E78E302020AEF400DD94B2 /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Register.swift; path = ../../Sources/Register.swift; sourceTree = "<group>"; };
 		A1E80009201A213000467EB9 /* ReportEventType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportEventType.swift; path = ../../Sources/ReportEventType.swift; sourceTree = "<group>"; };
@@ -308,6 +314,9 @@
 			isa = PBXGroup;
 			children = (
 				A1C41F7A2253B4BC00497D87 /* DeviceRegistrationTests.swift */,
+				A1D2AC332254E83900AF4871 /* DeviceInterestsTest.swift */,
+				A1D2AC352254EF0900AF4871 /* TestAPIClientHelper.swift */,
+				A1D2AC372254F7EE00AF4871 /* String+HexStringToData.swift */,
 			);
 			name = IntegrationTests;
 			path = ../../Tests/IntegrationTests;
@@ -514,15 +523,18 @@
 			files = (
 				A108B0EC2237FD51007FCB2D /* EventTypeHandlerTests.swift in Sources */,
 				A108B0F92237FD51007FCB2D /* DeviceTokenHelperTests.swift in Sources */,
+				A1D2AC382254F7EE00AF4871 /* String+HexStringToData.swift in Sources */,
 				A108B0F72237FD51007FCB2D /* SystemVersionTests.swift in Sources */,
 				A108B0F02237FD51007FCB2D /* BeamsTokenProviderTests.swift in Sources */,
 				A108B1062237FE4D007FCB2D /* InterestPersistableTests.swift in Sources */,
 				A108B0F62237FD51007FCB2D /* SDKTests.swift in Sources */,
 				A108B0EF2237FD51007FCB2D /* InterestNameValidationTests.swift in Sources */,
+				A1D2AC362254EF0900AF4871 /* TestAPIClientHelper.swift in Sources */,
 				A108B0FE2237FD51007FCB2D /* InterestsTests.swift in Sources */,
 				A108B0EA2237FD51007FCB2D /* ServerSyncProcessHandlerTests.swift in Sources */,
 				A108B0FB2237FD51007FCB2D /* PublishIdTests.swift in Sources */,
 				A108B1052237FE4D007FCB2D /* DeviceTests.swift in Sources */,
+				A1D2AC342254E83900AF4871 /* DeviceInterestsTest.swift in Sources */,
 				A108B0F32237FD51007FCB2D /* ConstantsTests.swift in Sources */,
 				A108B1042237FE4D007FCB2D /* InstanceTests.swift in Sources */,
 				A108B0F42237FD51007FCB2D /* ArrayContainsSameElementsTests.swift in Sources */,

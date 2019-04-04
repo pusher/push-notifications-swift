@@ -4,9 +4,9 @@ import Foundation
 public enum ServerSyncJob {
     case StartJob(instanceId: String, token: String)
     case RefreshTokenJob(newToken: String)
-    case SubscribeJob(interest: String)
-    case UnsubscribeJob(interest: String)
-    case SetSubscriptions(interests: [String])
+    case SubscribeJob(interest: String, localInterestsChanged: Bool)
+    case UnsubscribeJob(interest: String, localInterestsChanged: Bool)
+    case SetSubscriptions(interests: [String], localInterestsChanged: Bool)
     case ApplicationStartJob(metadata: Metadata)
     case SetUserIdJob(userId: String)
     case StopJob
@@ -55,11 +55,11 @@ public class ServerSyncProcessHandler {
                     switch job {
                     case .StartJob:
                         break
-                    case .SubscribeJob(let interest):
+                    case .SubscribeJob(let interest, _):
                         interestsSet.insert(interest)
-                    case .UnsubscribeJob(let interest):
+                    case .UnsubscribeJob(let interest, _):
                         interestsSet.remove(interest)
-                    case .SetSubscriptions(let interests):
+                    case .SetSubscriptions(let interests, _):
                         interestsSet = Set(interests)
                     case .StopJob:
                         outstandingJobs.removeAll()
@@ -132,11 +132,13 @@ public class ServerSyncProcessHandler {
     private func processJob(_ job: ServerSyncJob) {
         let result: Result<Void, PushNotificationsAPIError> = {
             switch job {
-            case .SubscribeJob(let interest):
+            case .SubscribeJob(_, localInterestsChanged: false), .UnsubscribeJob(_, localInterestsChanged: false), .SetSubscriptions(_, localInterestsChanged: false):
+                return .value(()) // if local interests haven't changed, then we don't need to sync with server
+            case .SubscribeJob(let interest, localInterestsChanged: true):
                 return self.networkService.subscribe(instanceId: Instance.getInstanceId()!, deviceId: Device.getDeviceId()!, interest: interest, retryStrategy: WithInfiniteExpBackoff())
-            case .UnsubscribeJob(let interest):
+            case .UnsubscribeJob(let interest, localInterestsChanged: true):
                 return self.networkService.unsubscribe(instanceId: Instance.getInstanceId()!, deviceId: Device.getDeviceId()!, interest: interest, retryStrategy: WithInfiniteExpBackoff())
-            case .SetSubscriptions(let interests):
+            case .SetSubscriptions(let interests, localInterestsChanged: true):
                 return self.networkService.setSubscriptions(instanceId: Instance.getInstanceId()!, deviceId: Device.getDeviceId()!, interests: interests, retryStrategy: WithInfiniteExpBackoff())
             case .ApplicationStartJob(let metadata):
                 processApplicationStartJob(metadata: metadata)

@@ -223,8 +223,8 @@ import Foundation
             DeviceStateStore.interestsService.persist(interest: interest)
         }
 
+        self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.SubscribeJob(interest: interest, localInterestsChanged: interestsChanged))
         if interestsChanged {
-            self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.SubscribeJob(interest: interest))
             self.interestsSetOnDeviceDidChange()
         }
     }
@@ -266,8 +266,8 @@ import Foundation
             DeviceStateStore.interestsService.persist(interests: interests)
         }
 
+        self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.SetSubscriptions(interests: interests, localInterestsChanged: interestsChanged))
         if interestsChanged {
-            self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.SetSubscriptions(interests: interests))
             self.interestsSetOnDeviceDidChange()
         }
     }
@@ -308,8 +308,8 @@ import Foundation
             DeviceStateStore.interestsService.remove(interest: interest)
         }
 
+        self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.UnsubscribeJob(interest: interest, localInterestsChanged: interestsChanged))
         if interestsChanged {
-            self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.UnsubscribeJob(interest: interest))
             self.interestsSetOnDeviceDidChange()
         }
     }
