@@ -61,7 +61,9 @@
 		A1C41F7B2253B4BC00497D87 /* DeviceRegistrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C41F7A2253B4BC00497D87 /* DeviceRegistrationTests.swift */; };
 		A1D2AC342254E83900AF4871 /* DeviceInterestsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D2AC332254E83900AF4871 /* DeviceInterestsTest.swift */; };
 		A1D2AC362254EF0900AF4871 /* TestAPIClientHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D2AC352254EF0900AF4871 /* TestAPIClientHelper.swift */; };
-		A1D2AC382254F7EE00AF4871 /* String+HexStringToData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D2AC372254F7EE00AF4871 /* String+HexStringToData.swift */; };
+		A1D2AC3A225602B800AF4871 /* StopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D2AC39225602B800AF4871 /* StopTests.swift */; };
+		A1D2AC3C22560A4300AF4871 /* ClearAllStateTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D2AC3B22560A4300AF4871 /* ClearAllStateTest.swift */; };
+		A1D2AC3D22560D3E00AF4871 /* String+HexStringToData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D2AC372254F7EE00AF4871 /* String+HexStringToData.swift */; };
 		A1DAD62E2020CAE7001497B5 /* SystemVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DAD62D2020CAE7001497B5 /* SystemVersion.swift */; };
 		A1E78E312020AEF400DD94B2 /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E78E302020AEF400DD94B2 /* Register.swift */; };
 		A1E8000A201A213000467EB9 /* ReportEventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E80009201A213000467EB9 /* ReportEventType.swift */; };
@@ -146,6 +148,8 @@
 		A1D2AC332254E83900AF4871 /* DeviceInterestsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInterestsTest.swift; sourceTree = "<group>"; };
 		A1D2AC352254EF0900AF4871 /* TestAPIClientHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAPIClientHelper.swift; sourceTree = "<group>"; };
 		A1D2AC372254F7EE00AF4871 /* String+HexStringToData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+HexStringToData.swift"; sourceTree = "<group>"; };
+		A1D2AC39225602B800AF4871 /* StopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopTests.swift; sourceTree = "<group>"; };
+		A1D2AC3B22560A4300AF4871 /* ClearAllStateTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearAllStateTest.swift; sourceTree = "<group>"; };
 		A1DAD62D2020CAE7001497B5 /* SystemVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SystemVersion.swift; path = ../../Sources/SystemVersion.swift; sourceTree = "<group>"; };
 		A1E78E302020AEF400DD94B2 /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Register.swift; path = ../../Sources/Register.swift; sourceTree = "<group>"; };
 		A1E80009201A213000467EB9 /* ReportEventType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportEventType.swift; path = ../../Sources/ReportEventType.swift; sourceTree = "<group>"; };
@@ -316,7 +320,8 @@
 				A1C41F7A2253B4BC00497D87 /* DeviceRegistrationTests.swift */,
 				A1D2AC332254E83900AF4871 /* DeviceInterestsTest.swift */,
 				A1D2AC352254EF0900AF4871 /* TestAPIClientHelper.swift */,
-				A1D2AC372254F7EE00AF4871 /* String+HexStringToData.swift */,
+				A1D2AC39225602B800AF4871 /* StopTests.swift */,
+				A1D2AC3B22560A4300AF4871 /* ClearAllStateTest.swift */,
 			);
 			name = IntegrationTests;
 			path = ../../Tests/IntegrationTests;
@@ -325,6 +330,7 @@
 		A1F122DD2237C7B200F7D766 /* Internal */ = {
 			isa = PBXGroup;
 			children = (
+				A1D2AC372254F7EE00AF4871 /* String+HexStringToData.swift */,
 				A1F122DE2237C7B200F7D766 /* ServerSyncProcessHandler.swift */,
 			);
 			name = Internal;
@@ -488,6 +494,7 @@
 				A1327BE02178EB62001483E1 /* AuthData.swift in Sources */,
 				A19ECF831FCF099200688DAF /* InterestPersistable.swift in Sources */,
 				A1482A582181F3CD00F19A4E /* Result.swift in Sources */,
+				A1D2AC3D22560D3E00AF4871 /* String+HexStringToData.swift in Sources */,
 				A1F122E42237C90600F7D766 /* NetworkService.swift in Sources */,
 				A1DAD62E2020CAE7001497B5 /* SystemVersion.swift in Sources */,
 				A104B3A120F75C9000587100 /* Array+CalculateMD5Hash.swift in Sources */,
@@ -523,10 +530,11 @@
 			files = (
 				A108B0EC2237FD51007FCB2D /* EventTypeHandlerTests.swift in Sources */,
 				A108B0F92237FD51007FCB2D /* DeviceTokenHelperTests.swift in Sources */,
-				A1D2AC382254F7EE00AF4871 /* String+HexStringToData.swift in Sources */,
+				A1D2AC3A225602B800AF4871 /* StopTests.swift in Sources */,
 				A108B0F72237FD51007FCB2D /* SystemVersionTests.swift in Sources */,
 				A108B0F02237FD51007FCB2D /* BeamsTokenProviderTests.swift in Sources */,
 				A108B1062237FE4D007FCB2D /* InterestPersistableTests.swift in Sources */,
+				A1D2AC3C22560A4300AF4871 /* ClearAllStateTest.swift in Sources */,
 				A108B0F62237FD51007FCB2D /* SDKTests.swift in Sources */,
 				A108B0EF2237FD51007FCB2D /* InterestNameValidationTests.swift in Sources */,
 				A1D2AC362254EF0900AF4871 /* TestAPIClientHelper.swift in Sources */,

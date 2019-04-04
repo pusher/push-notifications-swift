@@ -138,7 +138,7 @@ import Foundation
     @objc public func stop(completion: @escaping (Error?) -> Void) {
         let hadAnyInterests: Bool = DeviceStateStore.synchronize {
             let hadAnyInterests = DeviceStateStore.interestsService.getSubscriptions()?.isEmpty ?? false
-            DeviceStateStore.interestsService.removeAll()
+            DeviceStateStore.interestsService.removeAllSubscriptions()
 
             return hadAnyInterests
         }
@@ -151,7 +151,7 @@ import Foundation
     }
 
     /**
-     Log out user and remove all interests associated with it.
+     Clears all the state on the SDK leaving it in the empty started state.
 
      This will remove the current user and all the interests associated with it from the device and Beams server.
      Device is now in a fresh state, ready for new subscriptions or user being set.
@@ -163,6 +163,10 @@ import Foundation
 
         if instanceId != nil {
             self.start(instanceId: instanceId!)
+            if let apnsToken = Device.getAPNsToken() {
+                // Since we already had the token, we're forcing new device creation.
+                self.registerDeviceToken(apnsToken.hexStringToData()!)
+            }
         }
     }
 
