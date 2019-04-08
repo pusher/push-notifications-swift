@@ -193,7 +193,7 @@ class DeviceInterestsTest: XCTestCase {
 
         exp = expectation(description: "Interests changed called with ['a', 'b', 'c']")
         stubInterestsChanged = StubInterestsChanged(completion: { [weak self] interests in
-            XCTAssertEqual(interests, ["a", "b", "c"])
+            XCTAssertTrue(interests.containsSameElements(as: ["a", "b", "c"]))
             exp.fulfill()
         })
         pushNotifications.delegate = stubInterestsChanged

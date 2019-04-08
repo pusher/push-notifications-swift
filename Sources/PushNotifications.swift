@@ -14,14 +14,21 @@ import Foundation
 
     private var tokenProvider: TokenProvider?
 
+    private var userIdCallbacks = Dictionary<String, [(Error?) -> Void]>()
     private lazy var serverSyncHandler = ServerSyncProcessHandler(
         getTokenProvider: { return PushNotifications.shared.tokenProvider },
         handleServerSyncEvent: { [weak self] (event) in
-            switch event {
-            case .InterestsChangedEvent(let interests):
-                self?.delegate?.interestsSetOnDeviceDidChange(interests: interests)
-            default:
-                break // TODO
+            DispatchQueue.main.async {
+                switch event {
+                case .InterestsChangedEvent(let interests):
+                    self?.delegate?.interestsSetOnDeviceDidChange(interests: interests)
+                case .UserIdSetEvent(let userId, let error):
+                    self?.userIdCallbacks[userId]?.forEach { completion in
+                        completion(error)
+                    }
+
+                    self?.userIdCallbacks.removeValue(forKey: userId)
+                }
             }
         }
     )
@@ -127,11 +134,17 @@ import Foundation
         case .some(false):
             // Stored user id is same as `userId`
             completion(nil)
+            return
         case .some(true):
             completion(TokenProviderError.error("[PushNotifications] - Changing the `userId` is not allowed."))
+            return
         }
 
-        //TODO: Add completion handler
+        if let callbacks = self.userIdCallbacks[userId] {
+            self.userIdCallbacks[userId] = callbacks + [completion]
+        } else {
+            self.userIdCallbacks[userId] = [completion]
+        }
         self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.SetUserIdJob(userId: userId))
     }
 
@@ -169,15 +182,17 @@ import Foundation
     /// - Tag: clearAllState
     @objc public func clearAllState(completion: @escaping (Error?) -> Void) {
         let instanceId = Instance.getInstanceId()
+        let storedAPNsToken = Device.getAPNsToken()
         self.stop { _ in }
 
         if instanceId != nil {
             self.start(instanceId: instanceId!)
-            if let apnsToken = Device.getAPNsToken() {
+            if let apnsToken = storedAPNsToken {
                 // Since we already had the token, we're forcing new device creation.
                 self.registerDeviceToken(apnsToken.hexStringToData()!)
             }
         }
+        // TODO completion handler
     }
 
     /**
@@ -196,6 +211,8 @@ import Foundation
             print("[Push Notifications] - Something went wrong. Please check your instance id: \(String(describing: Instance.getInstanceId()))")
             return
         }
+
+        Device.persistAPNsToken(token: deviceToken.hexadecimalRepresentation())
 
         // TODO: Handle Token Refresh support
         self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken.hexadecimalRepresentation()))

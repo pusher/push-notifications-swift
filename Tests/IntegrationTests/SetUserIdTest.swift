@@ -75,7 +75,6 @@ class SetUserIdTest: XCTestCase {
         }
 
         pushNotifications.clearAllState { _ in
-
         }
 
         let exp = expectation(description: "It should not return an error")
@@ -112,6 +111,4 @@ class SetUserIdTest: XCTestCase {
             completion(jwt, error)
         }
     }
-
-
 }

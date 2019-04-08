@@ -616,16 +616,231 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         XCTAssertNotNil(DeviceStateStore.usersService.getUserId())
     }
 
+    func testSetUserIdSuccessCallbackIsCalled() {
+        let registerURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")!
+        stub(condition: isMethodPOST() && isAbsoluteURLString(registerURL.absoluteString)) { _ in
+            let jsonObject: [String: Any] = [
+                "id": self.deviceId
+            ]
+
+            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+        }
+
+        let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
+        let setUserIdJob = ServerSyncJob.SetUserIdJob(userId: "cucas")
+        let tokenProvider = StubTokenProvider(jwt: "dummy-jwt", error: nil)
+
+        let exp = expectation(description: "Callback should be called")
+
+        let serverSyncProcessHandler = ServerSyncProcessHandler(
+            getTokenProvider: { return tokenProvider },
+            handleServerSyncEvent: { event in
+                switch event {
+                case .UserIdSetEvent("cucas", nil):
+                    exp.fulfill()
+                default:
+                    XCTFail()
+                }
+            }
+        )
+        serverSyncProcessHandler.jobQueue.append(startJob)
+        serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
+
+        let setUserIdURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/user")!
+        stub(condition: isMethodPUT() && isAbsoluteURLString(setUserIdURL.absoluteString)) { _ in
+            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+        }
+
+        serverSyncProcessHandler.jobQueue.append(setUserIdJob)
+        serverSyncProcessHandler.handleMessage(serverSyncJob: setUserIdJob)
+
+        waitForExpectations(timeout: 1)
+    }
+
+    func testSetUserIdTokenProviderNilError() {
+        let registerURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")!
+        stub(condition: isMethodPOST() && isAbsoluteURLString(registerURL.absoluteString)) { _ in
+            let jsonObject: [String: Any] = [
+                "id": self.deviceId
+            ]
+
+            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+        }
+
+        let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
+        let setUserIdJob = ServerSyncJob.SetUserIdJob(userId: "cucas")
+
+        let exp = expectation(description: "Callback should be called")
+
+        let serverSyncProcessHandler = ServerSyncProcessHandler(
+            getTokenProvider: { return nil },
+            handleServerSyncEvent: { event in
+                switch event {
+                case .UserIdSetEvent("cucas", let error):
+                    XCTAssertNotNil(error)
+                    exp.fulfill()
+                default:
+                    XCTFail()
+                }
+        }
+        )
+        serverSyncProcessHandler.jobQueue.append(startJob)
+        serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
+
+        let setUserIdURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/user")!
+        stub(condition: isMethodPUT() && isAbsoluteURLString(setUserIdURL.absoluteString)) { _ in
+            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+        }
+
+        serverSyncProcessHandler.jobQueue.append(setUserIdJob)
+        serverSyncProcessHandler.handleMessage(serverSyncJob: setUserIdJob)
+
+        waitForExpectations(timeout: 1)
+    }
+
+    func testSetUserIdTokenProviderReturnsError() {
+        let registerURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")!
+        stub(condition: isMethodPOST() && isAbsoluteURLString(registerURL.absoluteString)) { _ in
+            let jsonObject: [String: Any] = [
+                "id": self.deviceId
+            ]
+
+            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+        }
+
+        let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
+        let setUserIdJob = ServerSyncJob.SetUserIdJob(userId: "cucas")
+        let tokenProvider = StubTokenProvider(jwt: "dummy-jwt", error: TokenProviderError.error("Error"))
+
+        let exp = expectation(description: "Callback should be called")
+
+        let serverSyncProcessHandler = ServerSyncProcessHandler(
+            getTokenProvider: { return tokenProvider },
+            handleServerSyncEvent: { event in
+                switch event {
+                case .UserIdSetEvent("cucas", let error):
+                    XCTAssertNotNil(error)
+                    exp.fulfill()
+                default:
+                    XCTFail()
+                }
+        }
+        )
+        serverSyncProcessHandler.jobQueue.append(startJob)
+        serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
+
+        let setUserIdURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/user")!
+        stub(condition: isMethodPUT() && isAbsoluteURLString(setUserIdURL.absoluteString)) { _ in
+            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+        }
+
+        serverSyncProcessHandler.jobQueue.append(setUserIdJob)
+        serverSyncProcessHandler.handleMessage(serverSyncJob: setUserIdJob)
+
+        waitForExpectations(timeout: 1)
+    }
+
+    func testSetUserIdBeamsServerRejectsTheRequest() {
+        let registerURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")!
+        stub(condition: isMethodPOST() && isAbsoluteURLString(registerURL.absoluteString)) { _ in
+            let jsonObject: [String: Any] = [
+                "id": self.deviceId
+            ]
+
+            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+        }
+
+        let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
+        let setUserIdJob = ServerSyncJob.SetUserIdJob(userId: "cucas")
+        let tokenProvider = StubTokenProvider(jwt: "dummy-jwt", error: nil)
+
+        let exp = expectation(description: "Callback should be called")
+
+        let serverSyncProcessHandler = ServerSyncProcessHandler(
+            getTokenProvider: { return tokenProvider },
+            handleServerSyncEvent: { event in
+                switch event {
+                case .UserIdSetEvent("cucas", let error):
+                    XCTAssertNotNil(error)
+                    exp.fulfill()
+                default:
+                    XCTFail()
+                }
+        }
+        )
+        serverSyncProcessHandler.jobQueue.append(startJob)
+        serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
+
+        let setUserIdURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/user")!
+        stub(condition: isMethodPUT() && isAbsoluteURLString(setUserIdURL.absoluteString)) { _ in
+            return OHHTTPStubsResponse(jsonObject: [], statusCode: 400, headers: nil)
+        }
+
+        serverSyncProcessHandler.jobQueue.append(setUserIdJob)
+        serverSyncProcessHandler.handleMessage(serverSyncJob: setUserIdJob)
+
+        waitForExpectations(timeout: 1)
+    }
+
+    func testSetUserIdTokenProviderThrowsException() {
+        let registerURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")!
+        stub(condition: isMethodPOST() && isAbsoluteURLString(registerURL.absoluteString)) { _ in
+            let jsonObject: [String: Any] = [
+                "id": self.deviceId
+            ]
+
+            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+        }
+
+        let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
+        let setUserIdJob = ServerSyncJob.SetUserIdJob(userId: "cucas")
+        let tokenProvider = StubTokenProvider(jwt: "dummy-jwt", error: nil, exception: PushNotificationsError.error("💣"))
+
+        let exp = expectation(description: "Callback should be called")
+
+        let serverSyncProcessHandler = ServerSyncProcessHandler(
+            getTokenProvider: { return tokenProvider },
+            handleServerSyncEvent: { event in
+                switch event {
+                case .UserIdSetEvent("cucas", let error):
+                    XCTAssertNotNil(error)
+                    exp.fulfill()
+                default:
+                    XCTFail()
+                }
+        }
+        )
+        serverSyncProcessHandler.jobQueue.append(startJob)
+        serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
+
+        let setUserIdURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/user")!
+        stub(condition: isMethodPUT() && isAbsoluteURLString(setUserIdURL.absoluteString)) { _ in
+            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+        }
+
+        serverSyncProcessHandler.jobQueue.append(setUserIdJob)
+        serverSyncProcessHandler.handleMessage(serverSyncJob: setUserIdJob)
+
+        waitForExpectations(timeout: 1)
+    }
+
+
     class StubTokenProvider: TokenProvider {
         private let jwt: String
         private let error: Error?
+        private let exception: Error?
 
-        init(jwt: String, error: Error?) {
+        init(jwt: String, error: Error?, exception: Error? = nil) {
             self.jwt = jwt
             self.error = error
+            self.exception = exception
         }
 
         func fetchToken(userId: String, completionHandler completion: @escaping (String, Error?) -> Void) throws {
+            if let exception = self.exception {
+                throw exception
+            }
+
             completion(jwt, error)
         }
     }

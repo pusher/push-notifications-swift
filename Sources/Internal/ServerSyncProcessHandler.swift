@@ -243,7 +243,8 @@ class ServerSyncProcessHandler {
 
     func processSetUserIdJob(userId: String) {
         guard let tokenProvider = self.getTokenProvider() else {
-            //TODO callback with token provider missing error
+            let error = TokenProviderError.error("[PushNotifications] - Token provider missing")
+            self.handleServerSyncEvent(.UserIdSetEvent(userId: userId, error: error))
             return
         }
 
@@ -251,7 +252,8 @@ class ServerSyncProcessHandler {
         do {
             try tokenProvider.fetchToken(userId: userId, completionHandler: { jwt, error in
                 if error != nil {
-                    // TODO callback with error
+                    let error = TokenProviderError.error("[PushNotifications] - Error when fetching token: \(error!)")
+                    self.handleServerSyncEvent(.UserIdSetEvent(userId: userId, error: error))
                     semaphore.signal()
                     return
                 }
@@ -261,9 +263,10 @@ class ServerSyncProcessHandler {
                 switch result {
                 case .value:
                     DeviceStateStore.usersService.setUserId(userId: userId)
-                // TODO call success callback
+                    self.handleServerSyncEvent(.UserIdSetEvent(userId: userId, error: nil))
                 case .error(let error):
-                    // TODO callback return error
+                    let error = TokenProviderError.error("[PushNotifications] - Error when synchronising with server: \(error)")
+                    self.handleServerSyncEvent(.UserIdSetEvent(userId: userId, error: error))
                     semaphore.signal()
                     return
                 }
@@ -272,8 +275,9 @@ class ServerSyncProcessHandler {
             })
             semaphore.wait()
         }
-        catch(let error) {
-            // TODO callback return error
+        catch (let error) {
+            let error = TokenProviderError.error("[PushNotifications] - Error when executing `fetchToken` method: \(error)")
+            self.handleServerSyncEvent(.UserIdSetEvent(userId: userId, error: error))
         }
     }
 
