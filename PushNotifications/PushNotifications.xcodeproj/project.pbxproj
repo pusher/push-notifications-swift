@@ -64,6 +64,7 @@
 		A1D2AC3A225602B800AF4871 /* StopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D2AC39225602B800AF4871 /* StopTests.swift */; };
 		A1D2AC3C22560A4300AF4871 /* ClearAllStateTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D2AC3B22560A4300AF4871 /* ClearAllStateTest.swift */; };
 		A1D2AC3D22560D3E00AF4871 /* String+HexStringToData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D2AC372254F7EE00AF4871 /* String+HexStringToData.swift */; };
+		A1D2AC3F225653A600AF4871 /* SetUserIdTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D2AC3E225653A600AF4871 /* SetUserIdTest.swift */; };
 		A1D2AC4122565FE400AF4871 /* PushNotificationsInstancePersistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D2AC4022565FE400AF4871 /* PushNotificationsInstancePersistable.swift */; };
 		A1DAD62E2020CAE7001497B5 /* SystemVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DAD62D2020CAE7001497B5 /* SystemVersion.swift */; };
 		A1E78E312020AEF400DD94B2 /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E78E302020AEF400DD94B2 /* Register.swift */; };
@@ -151,6 +152,7 @@
 		A1D2AC372254F7EE00AF4871 /* String+HexStringToData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+HexStringToData.swift"; sourceTree = "<group>"; };
 		A1D2AC39225602B800AF4871 /* StopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopTests.swift; sourceTree = "<group>"; };
 		A1D2AC3B22560A4300AF4871 /* ClearAllStateTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearAllStateTest.swift; sourceTree = "<group>"; };
+		A1D2AC3E225653A600AF4871 /* SetUserIdTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUserIdTest.swift; sourceTree = "<group>"; };
 		A1D2AC4022565FE400AF4871 /* PushNotificationsInstancePersistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PushNotificationsInstancePersistable.swift; path = ../../Sources/PushNotificationsInstancePersistable.swift; sourceTree = "<group>"; };
 		A1DAD62D2020CAE7001497B5 /* SystemVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SystemVersion.swift; path = ../../Sources/SystemVersion.swift; sourceTree = "<group>"; };
 		A1E78E302020AEF400DD94B2 /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Register.swift; path = ../../Sources/Register.swift; sourceTree = "<group>"; };
@@ -325,6 +327,7 @@
 				A1D2AC352254EF0900AF4871 /* TestAPIClientHelper.swift */,
 				A1D2AC39225602B800AF4871 /* StopTests.swift */,
 				A1D2AC3B22560A4300AF4871 /* ClearAllStateTest.swift */,
+				A1D2AC3E225653A600AF4871 /* SetUserIdTest.swift */,
 			);
 			name = IntegrationTests;
 			path = ../../Tests/IntegrationTests;
@@ -554,6 +557,7 @@
 				A108B0E82237FD51007FCB2D /* AuthDataTests.swift in Sources */,
 				A108B0F82237FD51007FCB2D /* InterestsMD5HashTests.swift in Sources */,
 				A108B0F12237FD51007FCB2D /* RegisterTests.swift in Sources */,
+				A1D2AC3F225653A600AF4871 /* SetUserIdTest.swift in Sources */,
 				A1C41F7B2253B4BC00497D87 /* DeviceRegistrationTests.swift in Sources */,
 				A108B0ED2237FD51007FCB2D /* ReasonTests.swift in Sources */,
 				A108B1072237FE4D007FCB2D /* UserPersistableTests.swift in Sources */,

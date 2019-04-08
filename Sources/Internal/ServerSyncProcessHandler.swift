@@ -15,9 +15,11 @@ public enum ServerSyncJob {
 public class ServerSyncProcessHandler {
     private let queue: DispatchQueue
     private let networkService: NetworkService
+    private let getTokenProvider: () -> TokenProvider?
     public var jobQueue: [ServerSyncJob] = [] // TODO: This will need to be a persistent queue.
 
-    init() {
+    init(getTokenProvider: @escaping () -> TokenProvider?) {
+        self.getTokenProvider = getTokenProvider
         self.queue = DispatchQueue(label: "queue")
         let session = URLSession(configuration: .ephemeral)
         self.networkService = NetworkService(session: session)
@@ -107,6 +109,7 @@ public class ServerSyncProcessHandler {
         Device.deleteAPNsToken()
         Metadata.delete()
         DeviceStateStore.interestsService.persistServerConfirmedInterestsHash("")
+        DeviceStateStore.usersService.removeUserId()
     }
 
     private func processApplicationStartJob(metadata: Metadata) {
@@ -143,6 +146,9 @@ public class ServerSyncProcessHandler {
             case .ApplicationStartJob(let metadata):
                 processApplicationStartJob(metadata: metadata)
                 return .value(()) // this was always a best effort operation
+            case .SetUserIdJob(let userId):
+                processSetUserIdJob(userId: userId)
+                return .value(()) // errors were already handled at this point
             case .StartJob, .StopJob:
                 return .value(()) // already handled in `handleMessage`
             default:
@@ -186,9 +192,86 @@ public class ServerSyncProcessHandler {
                 _ = self.networkService.setSubscriptions(instanceId: Instance.getInstanceId()!, deviceId: device.id, interests: localIntersets, retryStrategy: WithInfiniteExpBackoff())
             }
 
-            // TODO Handle UserId recreation
+            if let userId = DeviceStateStore.usersService.getUserId() {
+                let tokenProvider = self.getTokenProvider()
+                if tokenProvider == nil {
+                    // Any failures during this process are equivalent to de-authing the user e.g. setUserId(null)
+                    // If the user session is indeed over, there should be a Stop in the backlog eventually
+                    // If the user session is still valid, there should be a setUserId in the backlog
+
+                    print("[PushNotifications]: Warning - Failed to set the user id due token provider not being present")
+                    DeviceStateStore.usersService.removeUserId()
+                } else {
+                    let semaphore = DispatchSemaphore(value: 0)
+                    do {
+                        try tokenProvider!.fetchToken(userId: userId, completionHandler: { jwt, error in
+                            if error != nil {
+                                print("[PushNotifications]: Warning - Unexpected customer error: \(error!.localizedDescription)")
+                                DeviceStateStore.usersService.removeUserId()
+                                semaphore.signal()
+                                return
+                            }
+
+                            let result = self.networkService.setUserId(instanceId: Instance.getInstanceId()!, deviceId: Device.getDeviceId()!, token: jwt, retryStrategy: WithInfiniteExpBackoff())
+
+                            switch result {
+                            case .value:
+                                DeviceStateStore.usersService.setUserId(userId: userId)
+                            case .error(let error):
+                                print("[PushNotifications]: Warning - Unexpected error: \(error.getErrorMessage())")
+                                DeviceStateStore.usersService.removeUserId()
+                                semaphore.signal()
+                                return
+                            }
+
+                            semaphore.signal()
+                        })
+                        semaphore.wait()
+                    }
+                    catch(let error) {
+                        print("[PushNotifications]: Warning - Unexpected error: \(error.localizedDescription)")
+                        DeviceStateStore.usersService.removeUserId()
+                    }
+                }
+            }
 
             return true
+        }
+    }
+
+    func processSetUserIdJob(userId: String) {
+        guard let tokenProvider = self.getTokenProvider() else {
+            //TODO callback with token provider missing error
+            return
+        }
+
+        let semaphore = DispatchSemaphore(value: 0)
+        do {
+            try tokenProvider.fetchToken(userId: userId, completionHandler: { jwt, error in
+                if error != nil {
+                    // TODO callback with error
+                    semaphore.signal()
+                    return
+                }
+
+                let result = self.networkService.setUserId(instanceId: Instance.getInstanceId()!, deviceId: Device.getDeviceId()!, token: jwt, retryStrategy: WithInfiniteExpBackoff())
+
+                switch result {
+                case .value:
+                    DeviceStateStore.usersService.setUserId(userId: userId)
+                // TODO call success callback
+                case .error(let error):
+                    // TODO callback return error
+                    semaphore.signal()
+                    return
+                }
+
+                semaphore.signal()
+            })
+            semaphore.wait()
+        }
+        catch(let error) {
+            // TODO callback return error
         }
     }
 

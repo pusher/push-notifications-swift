@@ -8,13 +8,19 @@ import NotificationCenter
 import Foundation
 
 @objc public final class PushNotifications: NSObject {
-    private var serverSyncHandler = ServerSyncProcessHandler()
-    // The object that acts as the delegate of push notifications.
-    public weak var delegate: InterestsChangedDelegate?
-
     //! Returns a shared singleton PushNotifications object.
     /// - Tag: shared
     @objc public static let shared = PushNotifications()
+
+    private var tokenProvider: TokenProvider?
+
+    private var serverSyncHandler = ServerSyncProcessHandler(getTokenProvider: {
+        return PushNotifications.shared.tokenProvider
+    })
+
+    // The object that acts as the delegate of push notifications.
+    public weak var delegate: InterestsChangedDelegate?
+
 
     private var startHasBeenCalledThisSession = false
 
@@ -91,42 +97,34 @@ import Foundation
     */
     /// - Tag: setUserId
     @objc public func setUserId(_ userId: String, tokenProvider: TokenProvider, completion: @escaping (Error?) -> Void) {
-//        self.preIISOperationQueue.async {
-//            let persistenceService: UserPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
-//            if let persistedUserId = persistenceService.getUserId() {
-//                if persistedUserId == userId {
-//                    return completion(nil)
-//                } else {
-//                    return completion(TokenProviderError.error("[PushNotifications] - Changing the `userId` is not allowed."))
-//                }
-//            }
-//
-//            guard let deviceId = Device.getDeviceId() else {
-//                return completion(TokenProviderError.error("[PushNotifications] - Device id is nil."))
-//            }
-//            guard let instanceId = Instance.getInstanceId() else {
-//                return completion(TokenProviderError.error("[PushNotifications] - Instance id is nil."))
-//            }
-//            guard let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/user") else {
-//                return completion(TokenProviderError.error("[PushNotifications] - Error while constructing URL from a string."))
-//            }
-//
-//            do {
-//                try tokenProvider.fetchToken(userId: userId, completionHandler: { (token, error) in
-//                    guard error == nil else {
-//                        return completion(error)
-//                    }
-//
-////                    let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
-////                    networkService.setUserId(url: url, token: token, completion: { _ in
-////                        persistenceService.setUserId(userId: userId)
-////                        completion(nil)
-////                    })
-//                })
-//            } catch {
-//                completion(error)
-//            }
-//        }
+        if startHasBeenCalledThisSession == false {
+            completion(PushNotificationsError.error("[PushNotifications] - `start` method must be called before setting `userId`"))
+            return
+        }
+
+        PushNotifications.shared.tokenProvider = tokenProvider
+
+        var localUserIdDifferent: Bool? = nil
+        DeviceStateStore.synchronize {
+            if let userIdExists = DeviceStateStore.pushNotificationsInstance.getUserIdPreviouslyCalledWith() {
+                localUserIdDifferent = userIdExists != userId
+            } else {
+                DeviceStateStore.pushNotificationsInstance.setUserIdHasBeenCalledWith(userId: userId)
+            }
+        }
+        switch localUserIdDifferent {
+        case .none:
+            // There was no user id previously stored.
+            break
+        case .some(false):
+            // Stored user id is same as `userId`
+            completion(nil)
+        case .some(true):
+            completion(TokenProviderError.error("[PushNotifications] - Changing the `userId` is not allowed."))
+        }
+
+        //TODO: Add completion handler
+        self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.SetUserIdJob(userId: userId))
     }
 
     /**
@@ -146,6 +144,10 @@ import Foundation
         if hadAnyInterests {
             self.interestsSetOnDeviceDidChange()
         }
+
+        DeviceStateStore.pushNotificationsInstance.clear()
+
+        startHasBeenCalledThisSession = false
 
         self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.StopJob)
     }
