@@ -64,6 +64,7 @@
 		A1D2AC3A225602B800AF4871 /* StopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D2AC39225602B800AF4871 /* StopTests.swift */; };
 		A1D2AC3C22560A4300AF4871 /* ClearAllStateTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D2AC3B22560A4300AF4871 /* ClearAllStateTest.swift */; };
 		A1D2AC3D22560D3E00AF4871 /* String+HexStringToData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D2AC372254F7EE00AF4871 /* String+HexStringToData.swift */; };
+		A1D2AC4122565FE400AF4871 /* PushNotificationsInstancePersistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D2AC4022565FE400AF4871 /* PushNotificationsInstancePersistable.swift */; };
 		A1DAD62E2020CAE7001497B5 /* SystemVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DAD62D2020CAE7001497B5 /* SystemVersion.swift */; };
 		A1E78E312020AEF400DD94B2 /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E78E302020AEF400DD94B2 /* Register.swift */; };
 		A1E8000A201A213000467EB9 /* ReportEventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E80009201A213000467EB9 /* ReportEventType.swift */; };
@@ -150,6 +151,7 @@
 		A1D2AC372254F7EE00AF4871 /* String+HexStringToData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+HexStringToData.swift"; sourceTree = "<group>"; };
 		A1D2AC39225602B800AF4871 /* StopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopTests.swift; sourceTree = "<group>"; };
 		A1D2AC3B22560A4300AF4871 /* ClearAllStateTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearAllStateTest.swift; sourceTree = "<group>"; };
+		A1D2AC4022565FE400AF4871 /* PushNotificationsInstancePersistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PushNotificationsInstancePersistable.swift; path = ../../Sources/PushNotificationsInstancePersistable.swift; sourceTree = "<group>"; };
 		A1DAD62D2020CAE7001497B5 /* SystemVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SystemVersion.swift; path = ../../Sources/SystemVersion.swift; sourceTree = "<group>"; };
 		A1E78E302020AEF400DD94B2 /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Register.swift; path = ../../Sources/Register.swift; sourceTree = "<group>"; };
 		A1E80009201A213000467EB9 /* ReportEventType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportEventType.swift; path = ../../Sources/ReportEventType.swift; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 				A1DAD62D2020CAE7001497B5 /* SystemVersion.swift */,
 				A19B15D22189E4FC008E6DB5 /* Token.swift */,
 				A1327BDE2178EB62001483E1 /* TokenProvider.swift */,
+				A1D2AC4022565FE400AF4871 /* PushNotificationsInstancePersistable.swift */,
 			);
 			path = PushNotifications;
 			sourceTree = "<group>";
@@ -486,6 +489,7 @@
 				A140FFD72020C5E600931AF6 /* SDK.swift in Sources */,
 				A144AB4C1F9E3DA3009F0040 /* DeviceTokenHelper.swift in Sources */,
 				A140FFD12020BE5700931AF6 /* Encodable+Encode.swift in Sources */,
+				A1D2AC4122565FE400AF4871 /* PushNotificationsInstancePersistable.swift in Sources */,
 				A182088D2014C6F4007D86C6 /* Array+ContainsSameElements.swift in Sources */,
 				A138645B212C5057009FE29D /* Constants.swift in Sources */,
 				A140FFD32020BECF00931AF6 /* Interests.swift in Sources */,

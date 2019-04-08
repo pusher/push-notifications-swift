@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol InterestPersistable {
+protocol InterestPersistable {
     @discardableResult func persist(interest: String) -> Bool
     @discardableResult func persist(interests: [String]) -> Bool
     @discardableResult func remove(interest: String) -> Bool

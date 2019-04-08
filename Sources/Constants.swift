@@ -11,10 +11,16 @@ struct Constants {
         static let instanceId = "com.pusher.sdk.instanceId"
     }
 
+    // Typo
     struct PersistanceService {
         static let prefix = "com.pusher.sdk.interests"
         static let userId = "com.pusher.sdk.user.id"
         static let hashKey = "interestsHash"
+    }
+
+    struct PushNotificationsInstancePersistence {
+        static let userId = "com.pusher.sdk.pni.user.id.called.with"
+        static let startJob = "com.pusher.sdk.pni.start.job.enqueued"
     }
 
     struct DispatchQueue {
