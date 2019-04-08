@@ -1,7 +1,7 @@
 import Foundation
 
 // Needs to be Codable
-public enum ServerSyncJob {
+enum ServerSyncJob {
     case StartJob(instanceId: String, token: String)
     case RefreshTokenJob(newToken: String)
     case SubscribeJob(interest: String, localInterestsChanged: Bool)
@@ -12,20 +12,22 @@ public enum ServerSyncJob {
     case StopJob
 }
 
-public class ServerSyncProcessHandler {
+class ServerSyncProcessHandler {
     private let queue: DispatchQueue
     private let networkService: NetworkService
     private let getTokenProvider: () -> TokenProvider?
+    private let handleServerSyncEvent: (ServerSyncEvent) -> Void
     public var jobQueue: [ServerSyncJob] = [] // TODO: This will need to be a persistent queue.
 
-    init(getTokenProvider: @escaping () -> TokenProvider?) {
+    init(getTokenProvider: @escaping () -> TokenProvider?, handleServerSyncEvent: @escaping (ServerSyncEvent) -> Void) {
         self.getTokenProvider = getTokenProvider
+        self.handleServerSyncEvent = handleServerSyncEvent
         self.queue = DispatchQueue(label: "queue")
         let session = URLSession(configuration: .ephemeral)
         self.networkService = NetworkService(session: session)
     }
 
-    public func sendMessage(serverSyncJob: ServerSyncJob) {
+    func sendMessage(serverSyncJob: ServerSyncJob) {
         self.queue.async {
             self.jobQueue.append(serverSyncJob)
             self.handleMessage(serverSyncJob: serverSyncJob)
@@ -80,8 +82,8 @@ public class ServerSyncProcessHandler {
 
                 let localInterestsWillChange = Set(DeviceStateStore.interestsService.getSubscriptions() ?? []) != interestsSet
                 if localInterestsWillChange {
-                    // TODO: Notify interests changed event
                     DeviceStateStore.interestsService.persist(interests: Array(interestsSet))
+                    self.handleServerSyncEvent(.InterestsChangedEvent(interests: Array(interestsSet)))
                 }
 
                 Instance.persist(instanceId)

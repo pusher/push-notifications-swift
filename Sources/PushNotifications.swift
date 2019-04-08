@@ -14,13 +14,20 @@ import Foundation
 
     private var tokenProvider: TokenProvider?
 
-    private var serverSyncHandler = ServerSyncProcessHandler(getTokenProvider: {
-        return PushNotifications.shared.tokenProvider
-    })
+    private lazy var serverSyncHandler = ServerSyncProcessHandler(
+        getTokenProvider: { return PushNotifications.shared.tokenProvider },
+        handleServerSyncEvent: { [weak self] (event) in
+            switch event {
+            case .InterestsChangedEvent(let interests):
+                self?.delegate?.interestsSetOnDeviceDidChange(interests: interests)
+            default:
+                break // TODO
+            }
+        }
+    )
 
     // The object that acts as the delegate of push notifications.
     public weak var delegate: InterestsChangedDelegate?
-
 
     private var startHasBeenCalledThisSession = false
 
@@ -55,6 +62,7 @@ import Foundation
         }
 
         startHasBeenCalledThisSession = true
+        // TODO: Start job
     }
 
     /**
@@ -228,6 +236,7 @@ import Foundation
         let interestsChanged = DeviceStateStore.synchronize {
             DeviceStateStore.interestsService.persist(interest: interest)
         }
+        // TODO: completion
 
         self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.SubscribeJob(interest: interest, localInterestsChanged: interestsChanged))
         if interestsChanged {
@@ -271,6 +280,7 @@ import Foundation
         let interestsChanged = DeviceStateStore.synchronize {
             DeviceStateStore.interestsService.persist(interests: interests)
         }
+        // TODO: completion
 
         self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.SetSubscriptions(interests: interests, localInterestsChanged: interestsChanged))
         if interestsChanged {
@@ -313,6 +323,7 @@ import Foundation
         let interestsChanged = DeviceStateStore.synchronize {
             DeviceStateStore.interestsService.remove(interest: interest)
         }
+        // TODO: completion
 
         self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.UnsubscribeJob(interest: interest, localInterestsChanged: interestsChanged))
         if interestsChanged {
@@ -451,15 +462,6 @@ import Foundation
  Method `interestsSetOnDeviceDidChange(interests:)` will be called when interests set changes.
  */
 @objc public protocol InterestsChangedDelegate: class {
-    /**
-     Tells the delegate that the interests list has changed.
-
-     - Parameter interests: The new list of interests.
-     */
-    /// - Tag: interestsSetDidChange
-    @available(*, deprecated, renamed: "interestsSetOnDeviceDidChange(interests:)")
-    func interestsSetDidChange(interests: [String])
-
     /**
      Tells the delegate that the device's interests subscriptions list has changed.
 

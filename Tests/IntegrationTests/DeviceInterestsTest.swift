@@ -105,9 +105,27 @@ class DeviceInterestsTest: XCTestCase {
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
         }
 
+        // Creating new instance to pretend a fresh state
         let pushNotifications2 = PushNotifications()
         XCTAssertNoThrow(try pushNotifications2.removeDeviceInterest(interest: "panda"))
         XCTAssertNoThrow(try pushNotifications2.addDeviceInterest(interest: "lion"))
+
+        class StubInterestsChanged: InterestsChangedDelegate {
+            let completion: ([String]) -> ()
+            init(completion: @escaping ([String]) -> ()) {
+                self.completion = completion
+            }
+
+            func interestsSetOnDeviceDidChange(interests: [String]) {
+                completion(interests)
+            }
+        }
+        let exp = expectation(description: "Interests changed called with ['zebra', 'lion']")
+        let stubInterestsChanged = StubInterestsChanged(completion: { [weak self] interests in
+            XCTAssertTrue(interests.containsSameElements(as: ["zebra", "lion"]))
+            exp.fulfill()
+        })
+        pushNotifications2.delegate = stubInterestsChanged
 
         pushNotifications2.start(instanceId: instanceId)
         pushNotifications2.registerDeviceToken(validToken)
@@ -118,5 +136,79 @@ class DeviceInterestsTest: XCTestCase {
 
         expect(TestAPIClientHelper().getDeviceInterests(instanceId: self.instanceId, deviceId: deviceId2))
             .toEventually(contain("zebra", "lion"), timeout: 10)
+        waitForExpectations(timeout: 1)
+    }
+
+    func testInterestsSetDidChangeAndCallbackIsCalled() {
+        let pushNotifications = PushNotifications()
+
+        class StubInterestsChanged: InterestsChangedDelegate {
+            let completion: ([String]) -> ()
+            init(completion: @escaping ([String]) -> ()) {
+                self.completion = completion
+            }
+
+            func interestsSetOnDeviceDidChange(interests: [String]) {
+                completion(interests)
+            }
+        }
+
+        var exp = expectation(description: "Interests changed called with ['a']")
+        var stubInterestsChanged = StubInterestsChanged(completion: { [weak self] interests in
+            XCTAssertEqual(interests, ["a"])
+            exp.fulfill()
+        })
+        pushNotifications.delegate = stubInterestsChanged
+        XCTAssertNoThrow(try pushNotifications.addDeviceInterest(interest: "a"))
+
+        waitForExpectations(timeout: 1)
+
+        exp = expectation(description: "Interests changed not called")
+        exp.isInverted = true
+        stubInterestsChanged = StubInterestsChanged(completion: { [weak self] interests in
+            exp.fulfill()
+        })
+        pushNotifications.delegate = stubInterestsChanged
+        XCTAssertNoThrow(try pushNotifications.addDeviceInterest(interest: "a"))
+
+        exp = expectation(description: "Interests changed called with []")
+        stubInterestsChanged = StubInterestsChanged(completion: { [weak self] interests in
+            XCTAssertEqual(interests, [])
+            exp.fulfill()
+        })
+        pushNotifications.delegate = stubInterestsChanged
+        XCTAssertNoThrow(try pushNotifications.removeDeviceInterest(interest: "a"))
+
+        waitForExpectations(timeout: 1)
+
+        exp = expectation(description: "Interests changed not called")
+        exp.isInverted = true
+        stubInterestsChanged = StubInterestsChanged(completion: { [weak self] interests in
+            exp.fulfill()
+        })
+        pushNotifications.delegate = stubInterestsChanged
+        XCTAssertNoThrow(try pushNotifications.removeDeviceInterest(interest: "a"))
+
+        waitForExpectations(timeout: 1)
+
+        exp = expectation(description: "Interests changed called with ['a', 'b', 'c']")
+        stubInterestsChanged = StubInterestsChanged(completion: { [weak self] interests in
+            XCTAssertEqual(interests, ["a", "b", "c"])
+            exp.fulfill()
+        })
+        pushNotifications.delegate = stubInterestsChanged
+        XCTAssertNoThrow(try pushNotifications.setDeviceInterests(interests: ["a", "b", "c"]))
+
+        waitForExpectations(timeout: 1)
+
+        exp = expectation(description: "Interests changed not called")
+        exp.isInverted = true
+        stubInterestsChanged = StubInterestsChanged(completion: { [weak self] interests in
+            exp.fulfill()
+        })
+        pushNotifications.delegate = stubInterestsChanged
+        XCTAssertNoThrow(try pushNotifications.setDeviceInterests(interests: ["a", "b", "c"]))
+
+        waitForExpectations(timeout: 1)
     }
 }

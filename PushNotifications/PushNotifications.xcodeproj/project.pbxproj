@@ -70,6 +70,7 @@
 		A1E78E312020AEF400DD94B2 /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E78E302020AEF400DD94B2 /* Register.swift */; };
 		A1E8000A201A213000467EB9 /* ReportEventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E80009201A213000467EB9 /* ReportEventType.swift */; };
 		A1E80015201A3DAC00467EB9 /* PublishId.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E80013201A3DAC00467EB9 /* PublishId.swift */; };
+		A1EB82FB225B7FA600D63F7C /* ServerSyncEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EB82FA225B7FA600D63F7C /* ServerSyncEvent.swift */; };
 		A1EFF5C9207B7E78006C3004 /* RemoteNotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EFF5C8207B7E78006C3004 /* RemoteNotificationType.swift */; };
 		A1F0E942219B18B800D32363 /* PushNotificationsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F0E941219B18B800D32363 /* PushNotificationsError.swift */; };
 		A1F122DF2237C7B200F7D766 /* ServerSyncProcessHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F122DE2237C7B200F7D766 /* ServerSyncProcessHandler.swift */; };
@@ -158,6 +159,7 @@
 		A1E78E302020AEF400DD94B2 /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Register.swift; path = ../../Sources/Register.swift; sourceTree = "<group>"; };
 		A1E80009201A213000467EB9 /* ReportEventType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportEventType.swift; path = ../../Sources/ReportEventType.swift; sourceTree = "<group>"; };
 		A1E80013201A3DAC00467EB9 /* PublishId.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PublishId.swift; path = ../../Sources/PublishId.swift; sourceTree = "<group>"; };
+		A1EB82FA225B7FA600D63F7C /* ServerSyncEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSyncEvent.swift; sourceTree = "<group>"; };
 		A1ED00141F9E392700A029F2 /* PushNotificationsTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PushNotificationsTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		A1EFF5C8207B7E78006C3004 /* RemoteNotificationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RemoteNotificationType.swift; path = ../../Sources/RemoteNotificationType.swift; sourceTree = "<group>"; };
 		A1F0E941219B18B800D32363 /* PushNotificationsError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PushNotificationsError.swift; path = ../../Sources/PushNotificationsError.swift; sourceTree = "<group>"; };
@@ -338,6 +340,7 @@
 			children = (
 				A1D2AC372254F7EE00AF4871 /* String+HexStringToData.swift */,
 				A1F122DE2237C7B200F7D766 /* ServerSyncProcessHandler.swift */,
+				A1EB82FA225B7FA600D63F7C /* ServerSyncEvent.swift */,
 			);
 			name = Internal;
 			path = ../../Sources/Internal;
@@ -495,6 +498,7 @@
 				A1D2AC4122565FE400AF4871 /* PushNotificationsInstancePersistable.swift in Sources */,
 				A182088D2014C6F4007D86C6 /* Array+ContainsSameElements.swift in Sources */,
 				A138645B212C5057009FE29D /* Constants.swift in Sources */,
+				A1EB82FB225B7FA600D63F7C /* ServerSyncEvent.swift in Sources */,
 				A140FFD32020BECF00931AF6 /* Interests.swift in Sources */,
 				A1327BDF2178EB62001483E1 /* BeamsTokenProvider.swift in Sources */,
 				A1F0E942219B18B800D32363 /* PushNotificationsError.swift in Sources */,
