@@ -37,7 +37,9 @@ class ClearAllStateTest: XCTestCase {
 
         XCTAssertNoThrow(try pushNotifications.addDeviceInterest(interest: "a"))
         XCTAssertEqual(pushNotifications.getDeviceInterests(), ["a"])
-        pushNotifications.clearAllState { _ in
+        let exp = expectation(description: "Clear all state completion handler must be called")
+        pushNotifications.clearAllState {
+            exp.fulfill()
         }
 
         expect(TestAPIClientHelper().getDevice(instanceId: self.instanceId, deviceId: deviceId!))
@@ -45,5 +47,7 @@ class ClearAllStateTest: XCTestCase {
 
         XCTAssertEqual(pushNotifications.getDeviceInterests(), [])
         expect(Device.getDeviceId()).toEventuallyNot(equal(deviceId!), timeout: 10)
+
+        waitForExpectations(timeout: 1)
     }
 }

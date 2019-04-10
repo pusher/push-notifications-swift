@@ -15,6 +15,7 @@ import Foundation
     private var tokenProvider: TokenProvider?
 
     private var userIdCallbacks = Dictionary<String, [(Error?) -> Void]>()
+    private var stopCallbacks = [() -> Void]()
     private lazy var serverSyncHandler = ServerSyncProcessHandler(
         getTokenProvider: { return PushNotifications.shared.tokenProvider },
         handleServerSyncEvent: { [weak self] (event) in
@@ -23,11 +24,13 @@ import Foundation
                 case .InterestsChangedEvent(let interests):
                     self?.delegate?.interestsSetOnDeviceDidChange(interests: interests)
                 case .UserIdSetEvent(let userId, let error):
-                    self?.userIdCallbacks[userId]?.forEach { completion in
+                    if let completion = self?.userIdCallbacks[userId]?.removeFirst() {
                         completion(error)
                     }
-
-                    self?.userIdCallbacks.removeValue(forKey: userId)
+                case .StopEvent:
+                    if let completion = self?.stopCallbacks.removeFirst() {
+                        completion()
+                    }
                 }
             }
         }
@@ -132,9 +135,9 @@ import Foundation
             // There was no user id previously stored.
             break
         case .some(false):
-            // Stored user id is same as `userId`
-            completion(nil)
-            return
+            // Although there was a previous call with the same user id, it might still be in progress
+            // therefore, for the callbacks to work, we will just enqueue the `.SetUserIdJob`
+            break
         case .some(true):
             completion(TokenProviderError.error("[PushNotifications] - Changing the `userId` is not allowed."))
             return
@@ -154,7 +157,7 @@ import Foundation
      This will remove everything associated with the Beams from the device and Beams server.
      */
     /// - Tag: stop
-    @objc public func stop(completion: @escaping (Error?) -> Void) {
+    @objc public func stop(completion: @escaping () -> Void) {
         let hadAnyInterests: Bool = DeviceStateStore.synchronize {
             let hadAnyInterests = DeviceStateStore.interestsService.getSubscriptions()?.isEmpty ?? false
             DeviceStateStore.interestsService.removeAllSubscriptions()
@@ -170,6 +173,7 @@ import Foundation
 
         startHasBeenCalledThisSession = false
 
+        self.stopCallbacks.append(completion)
         self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.StopJob)
     }
 
@@ -180,10 +184,10 @@ import Foundation
      Device is now in a fresh state, ready for new subscriptions or user being set.
      */
     /// - Tag: clearAllState
-    @objc public func clearAllState(completion: @escaping (Error?) -> Void) {
+    @objc public func clearAllState(completion: @escaping () -> Void) {
         let instanceId = Instance.getInstanceId()
         let storedAPNsToken = Device.getAPNsToken()
-        self.stop { _ in }
+        self.stop(completion: completion)
 
         if instanceId != nil {
             self.start(instanceId: instanceId!)
@@ -192,7 +196,7 @@ import Foundation
                 self.registerDeviceToken(apnsToken.hexStringToData()!)
             }
         }
-        // TODO completion handler
+
     }
 
     /**

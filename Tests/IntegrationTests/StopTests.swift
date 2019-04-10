@@ -35,11 +35,15 @@ class StopTests: XCTestCase {
         expect(Device.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
         let deviceId = Device.getDeviceId()!
 
-        pushNotifications.stop { error in
+        let exp = expectation(description: "Stop completion handler must be called")
+        pushNotifications.stop {
+            exp.fulfill()
         }
 
         expect(TestAPIClientHelper().getDevice(instanceId: self.instanceId, deviceId: deviceId))
             .toEventually(beNil(), timeout: 10)
+
+        waitForExpectations(timeout: 1)
     }
 
     func testShouldDeleteLocalInterests() {
@@ -49,8 +53,7 @@ class StopTests: XCTestCase {
 
         expect(Device.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
 
-        pushNotifications.stop { error in
-        }
+        pushNotifications.stop { }
 
         XCTAssertEqual(pushNotifications.getDeviceInterests(), [])
     }
@@ -62,8 +65,7 @@ class StopTests: XCTestCase {
 
         expect(Device.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
 
-        pushNotifications.stop { error in
-        }
+        pushNotifications.stop { }
 
         expect(Device.getDeviceId()).toEventually(beNil(), timeout: 10)
 

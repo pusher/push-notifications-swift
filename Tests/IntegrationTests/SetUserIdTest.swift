@@ -47,13 +47,13 @@ class SetUserIdTest: XCTestCase {
         let pushNotifications = PushNotifications()
         pushNotifications.start(instanceId: instanceId)
         pushNotifications.registerDeviceToken(validToken)
-//        let expCucas = expectation(description: "Set user id for cucas should succeed")
+        let expCucas = expectation(description: "Set user id for cucas should succeed")
         let expPotato = expectation(description: "Set user id for potato should fail")
 
         let tokenProvider = StubTokenProvider(jwt: validCucasJWTToken, error: nil)
         pushNotifications.setUserId("cucas", tokenProvider: tokenProvider) { error in
             XCTAssertNil(error)
-//            expCucas.fulfill()
+            expCucas.fulfill()
         }
 
         pushNotifications.setUserId("potato", tokenProvider: tokenProvider) { error in
@@ -74,8 +74,7 @@ class SetUserIdTest: XCTestCase {
             XCTAssertNil(error)
         }
 
-        pushNotifications.clearAllState { _ in
-        }
+        pushNotifications.clearAllState { }
 
         let exp = expectation(description: "It should not return an error")
         pushNotifications.setUserId("potato", tokenProvider: tokenProvider) { error in

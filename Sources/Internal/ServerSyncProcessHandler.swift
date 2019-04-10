@@ -112,6 +112,7 @@ class ServerSyncProcessHandler {
         Metadata.delete()
         DeviceStateStore.interestsService.persistServerConfirmedInterestsHash("")
         DeviceStateStore.usersService.removeUserId()
+        self.handleServerSyncEvent(.StopEvent)
     }
 
     private func processApplicationStartJob(metadata: Metadata) {
