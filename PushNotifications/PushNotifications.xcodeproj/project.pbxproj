@@ -41,6 +41,8 @@
 		A140FFD12020BE5700931AF6 /* Encodable+Encode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A140FFD02020BE5700931AF6 /* Encodable+Encode.swift */; };
 		A140FFD32020BECF00931AF6 /* Interests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A140FFD22020BECF00931AF6 /* Interests.swift */; };
 		A140FFD72020C5E600931AF6 /* SDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = A140FFD62020C5E600931AF6 /* SDK.swift */; };
+		A1424C1E225E061200BCE570 /* ReportEventTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1424C1D225E061200BCE570 /* ReportEventTypeTests.swift */; };
+		A1424C22225E20EA00BCE570 /* ApplicationStartTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1424C21225E20EA00BCE570 /* ApplicationStartTests.swift */; };
 		A144AB4C1F9E3DA3009F0040 /* DeviceTokenHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB441F9E3DA2009F0040 /* DeviceTokenHelper.swift */; };
 		A144AB4F1F9E3DA3009F0040 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB471F9E3DA2009F0040 /* Device.swift */; };
 		A144AB501F9E3DA3009F0040 /* PushNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB481F9E3DA2009F0040 /* PushNotifications.swift */; };
@@ -126,6 +128,8 @@
 		A140FFD02020BE5700931AF6 /* Encodable+Encode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Encodable+Encode.swift"; path = "../../Sources/Encodable+Encode.swift"; sourceTree = "<group>"; };
 		A140FFD22020BECF00931AF6 /* Interests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Interests.swift; path = ../../Sources/Interests.swift; sourceTree = "<group>"; };
 		A140FFD62020C5E600931AF6 /* SDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SDK.swift; path = ../../Sources/SDK.swift; sourceTree = "<group>"; };
+		A1424C1D225E061200BCE570 /* ReportEventTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportEventTypeTests.swift; sourceTree = "<group>"; };
+		A1424C21225E20EA00BCE570 /* ApplicationStartTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationStartTests.swift; sourceTree = "<group>"; };
 		A144AB441F9E3DA2009F0040 /* DeviceTokenHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceTokenHelper.swift; path = ../../Sources/DeviceTokenHelper.swift; sourceTree = "<group>"; };
 		A144AB471F9E3DA2009F0040 /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		A144AB481F9E3DA2009F0040 /* PushNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PushNotifications.swift; path = ../../Sources/PushNotifications.swift; sourceTree = "<group>"; };
@@ -330,6 +334,8 @@
 				A1D2AC39225602B800AF4871 /* StopTests.swift */,
 				A1D2AC3B22560A4300AF4871 /* ClearAllStateTest.swift */,
 				A1D2AC3E225653A600AF4871 /* SetUserIdTest.swift */,
+				A1424C1D225E061200BCE570 /* ReportEventTypeTests.swift */,
+				A1424C21225E20EA00BCE570 /* ApplicationStartTests.swift */,
 			);
 			name = IntegrationTests;
 			path = ../../Tests/IntegrationTests;
@@ -552,6 +558,7 @@
 				A108B0FE2237FD51007FCB2D /* InterestsTests.swift in Sources */,
 				A108B0EA2237FD51007FCB2D /* ServerSyncProcessHandlerTests.swift in Sources */,
 				A108B0FB2237FD51007FCB2D /* PublishIdTests.swift in Sources */,
+				A1424C1E225E061200BCE570 /* ReportEventTypeTests.swift in Sources */,
 				A108B1052237FE4D007FCB2D /* DeviceTests.swift in Sources */,
 				A1D2AC342254E83900AF4871 /* DeviceInterestsTest.swift in Sources */,
 				A108B0F32237FD51007FCB2D /* ConstantsTests.swift in Sources */,
@@ -565,6 +572,7 @@
 				A1C41F7B2253B4BC00497D87 /* DeviceRegistrationTests.swift in Sources */,
 				A108B0ED2237FD51007FCB2D /* ReasonTests.swift in Sources */,
 				A108B1072237FE4D007FCB2D /* UserPersistableTests.swift in Sources */,
+				A1424C22225E20EA00BCE570 /* ApplicationStartTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

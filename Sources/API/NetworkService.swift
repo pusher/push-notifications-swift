@@ -177,7 +177,6 @@ class NetworkService: PushNotificationsNetworkable {
     }
 
     // MARK: Networking Layer
-    //TODO: Support retry strategy
     private func networkRequest(_ request: URLRequest, session: URLSession, retryStrategy: RetryStrategy) -> Result<Data, PushNotificationsAPIError> {
         let semaphore = DispatchSemaphore(value: 0)
         var result: Result<Data, PushNotificationsAPIError>?

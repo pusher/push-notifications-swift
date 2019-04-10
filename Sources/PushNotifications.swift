@@ -72,7 +72,7 @@ import Foundation
         }
 
         startHasBeenCalledThisSession = true
-        // TODO: Start job
+        self.serverSyncHandler.sendMessage(serverSyncJob: .ApplicationStartJob(metadata: Metadata.getCurrentMetadata()))
     }
 
     /**
@@ -112,6 +112,7 @@ import Foundation
 
      - Parameter userId: User id.
      - Parameter tokenProvider: Token provider that will be used to generate the token for the user that you want to authenticate.
+     - Parameter completion: The block to execute after attempt to set user id has been made.
     */
     /// - Tag: setUserId
     @objc public func setUserId(_ userId: String, tokenProvider: TokenProvider, completion: @escaping (Error?) -> Void) {
@@ -155,6 +156,7 @@ import Foundation
      Disable Beams service.
 
      This will remove everything associated with the Beams from the device and Beams server.
+     - Parameter completion: The block to execute after the device has been deleted from the server.
      */
     /// - Tag: stop
     @objc public func stop(completion: @escaping () -> Void) {
@@ -182,6 +184,7 @@ import Foundation
 
      This will remove the current user and all the interests associated with it from the device and Beams server.
      Device is now in a fresh state, ready for new subscriptions or user being set.
+     - Parameter completion: The block to execute after the device has been deleted from the server.
      */
     /// - Tag: clearAllState
     @objc public func clearAllState(completion: @escaping () -> Void) {
@@ -203,12 +206,11 @@ import Foundation
      Register device token with PushNotifications service.
 
      - Parameter deviceToken: A token that identifies the device to APNs.
-     - Parameter completion: The block to execute when the register device token operation is complete.
 
      - Precondition: `deviceToken` should not be nil.
      */
     /// - Tag: registerDeviceToken
-    @objc public func registerDeviceToken(_ deviceToken: Data, completion: @escaping () -> Void = {}) {
+    @objc public func registerDeviceToken(_ deviceToken: Data) {
         guard
             let instanceId = Instance.getInstanceId()
         else {
@@ -223,33 +225,16 @@ import Foundation
     }
 
     /**
-     Subscribe to an interest.
-
-     - Parameter interest: Interest that you want to subscribe to.
-     - Parameter completion: The block to execute when subscription to the interest is complete.
-
-     - Precondition: `interest` should not be nil.
-
-     - Throws: An error of type `InvalidInterestError`
-     */
-    /// - Tag: subscribe
-    @available(*, deprecated, renamed: "addDeviceInterest(interest:completion:)")
-    @objc public func subscribe(interest: String, completion: @escaping () -> Void = {}) throws {
-        try self.addDeviceInterest(interest: interest, completion: completion)
-    }
-
-    /**
      Subscribes the device to an interest.
 
      - Parameter interest: Interest that you want to subscribe your device to.
-     - Parameter completion: The block to execute when subscription to the interest is complete.
 
      - Precondition: `interest` should not be nil.
 
      - Throws: An error of type `InvalidInterestError`
      */
     /// - Tag: addDeviceInterest
-    @objc public func addDeviceInterest(interest: String, completion: @escaping () -> Void = {}) throws {
+    @objc public func addDeviceInterest(interest: String) throws {
         guard self.validateInterestName(interest) else {
             throw InvalidInterestError.invalidName(interest)
         }
@@ -257,7 +242,6 @@ import Foundation
         let interestsChanged = DeviceStateStore.synchronize {
             DeviceStateStore.interestsService.persist(interest: interest)
         }
-        // TODO: completion
 
         self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.SubscribeJob(interest: interest, localInterestsChanged: interestsChanged))
         if interestsChanged {
@@ -266,34 +250,17 @@ import Foundation
     }
 
     /**
-     Set subscriptions.
-
-     - Parameter interests: Interests that you want to subscribe to.
-     - Parameter completion: The block to execute when subscription to interests is complete.
-
-     - Precondition: `interests` should not be nil.
-
-     - Throws: An error of type `MultipleInvalidInterestsError`
-     */
-    /// - Tag: setSubscriptions
-    @available(*, deprecated, renamed: "setDeviceInterests(interest:completion:)")
-    @objc public func setSubscriptions(interests: [String], completion: @escaping () -> Void = {}) throws {
-        try self.setDeviceInterests(interests: interests, completion: completion)
-    }
-
-    /**
      Sets the subscriptions state for the device.
      Any interests not in the set will be unsubscribed from, so this will replace the interest set by the one provided.
 
      - Parameter interests: Interests that you want to subscribe your device to.
-     - Parameter completion: The block to execute when subscription to interests is complete.
 
      - Precondition: `interests` should not be nil.
 
      - Throws: An error of type `MultipleInvalidInterestsError`
      */
     /// - Tag: setDeviceInterests
-    @objc public func setDeviceInterests(interests: [String], completion: @escaping () -> Void = {}) throws {
+    @objc public func setDeviceInterests(interests: [String]) throws {
         if let invalidInterests = self.validateInterestNames(interests), invalidInterests.count > 0 {
             throw MultipleInvalidInterestsError.invalidNames(invalidInterests)
         }
@@ -301,7 +268,6 @@ import Foundation
         let interestsChanged = DeviceStateStore.synchronize {
             DeviceStateStore.interestsService.persist(interests: interests)
         }
-        // TODO: completion
 
         self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.SetSubscriptions(interests: interests, localInterestsChanged: interestsChanged))
         if interestsChanged {
@@ -310,33 +276,16 @@ import Foundation
     }
 
     /**
-     Unsubscribe from an interest.
-
-     - Parameter interest: Interest that you want to unsubscribe to.
-     - Parameter completion: The block to execute when subscription to the interest is successfully cancelled.
-
-     - Precondition: `interest` should not be nil.
-
-     - Throws: An error of type `InvalidInterestError`
-     */
-    /// - Tag: unsubscribe
-    @available(*, deprecated, renamed: "removeDeviceInterest(interest:completion:)")
-    @objc public func unsubscribe(interest: String, completion: @escaping () -> Void = {}) throws {
-        try self.removeDeviceInterest(interest: interest, completion: completion)
-    }
-
-    /**
      Unsubscribe the device from an interest.
 
      - Parameter interest: Interest that you want to unsubscribe your device from.
-     - Parameter completion: The block to execute when subscription to the interest is successfully cancelled.
 
      - Precondition: `interest` should not be nil.
 
      - Throws: An error of type `InvalidInterestError`
      */
     /// - Tag: removeDeviceInterest
-     @objc public func removeDeviceInterest(interest: String, completion: @escaping () -> Void = {}) throws {
+     @objc public func removeDeviceInterest(interest: String) throws {
         guard self.validateInterestName(interest) else {
             throw InvalidInterestError.invalidName(interest)
         }
@@ -344,7 +293,6 @@ import Foundation
         let interestsChanged = DeviceStateStore.synchronize {
             DeviceStateStore.interestsService.remove(interest: interest)
         }
-        // TODO: completion
 
         self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.UnsubscribeJob(interest: interest, localInterestsChanged: interestsChanged))
         if interestsChanged {
@@ -352,36 +300,10 @@ import Foundation
         }
     }
 
-    /**
-     Unsubscribe from all interests.
-
-     - Parameter completion: The block to execute when all subscriptions to the interests are successfully cancelled.
-     */
-    /// - Tag: unsubscribeAll
-    @available(*, deprecated, renamed: "clearDeviceInterests(completion:)")
-    @objc public func unsubscribeAll(completion: @escaping () -> Void = {}) throws {
-        try self.clearDeviceInterests(completion: completion)
-    }
-
-    /**
-     Unsubscribes the device from all the interests.
-
-     - Parameter completion: The block to execute when all subscriptions to the interests are successfully cancelled.
-     */
+    ///Unsubscribes the device from all the interests.
     /// - Tag: clearDeviceInterests
-    @objc public func clearDeviceInterests(completion: @escaping () -> Void = {}) throws {
-        try self.setDeviceInterests(interests: [], completion: completion)
-    }
-
-    /**
-     Get a list of all interests.
-
-     - returns: Array of interests
-     */
-    /// - Tag: getInterests
-    @available(*, deprecated, renamed: "getDeviceInterests()")
-    @objc public func getInterests() -> [String]? {
-        return self.getDeviceInterests()
+    @objc public func clearDeviceInterests() throws {
+        try self.setDeviceInterests(interests: [])
     }
 
     /**
@@ -396,12 +318,7 @@ import Foundation
         }
     }
 
-    @available(*, deprecated, renamed: "interestsSetOnDeviceDidChange()")
-    @objc public func interestsSetDidChange() {
-        self.interestsSetOnDeviceDidChange()
-    }
-
-    @objc public func interestsSetOnDeviceDidChange() {
+    private func interestsSetOnDeviceDidChange() {
         guard
             let delegate = delegate,
             let interests = self.getDeviceInterests()
@@ -435,16 +352,7 @@ import Foundation
             }
         #endif
 
-        guard
-            let instanceId = Instance.getInstanceId(),
-            let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/reporting_api/v2/instances/\(instanceId)/events")
-        else {
-            return EventTypeHandler.getRemoteNotificationType(userInfo)
-        }
-
-//        let networkService: PushNotificationsNetworkable = NetworkService(session: self.session)
-//        networkService.track(url: url, eventType: eventType, completion: { _ in })
-
+        self.serverSyncHandler.sendMessage(serverSyncJob: .ReportEventJob(eventType: eventType))
         return EventTypeHandler.getRemoteNotificationType(userInfo)
     }
 

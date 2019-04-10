@@ -824,6 +824,44 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         waitForExpectations(timeout: 1)
     }
 
+    func testTrackWillSendEventTypeToTheServer() {
+        let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")!
+        var expRegisterCalled = false
+        var trackCalled = false
+
+        stub(condition: isMethodPOST() && isAbsoluteURLString(url.absoluteString)) { _ in
+            let jsonObject: [String: Any] = [
+                "id": self.deviceId
+            ]
+
+            expRegisterCalled = true
+
+            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+        }
+
+        let trackURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/reporting_api/v2/instances/\(instanceId)/events")!
+        stub(condition: isMethodPOST() && isAbsoluteURLString(trackURL.absoluteString)) { _ in
+            trackCalled = true
+            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+        }
+
+        let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
+
+        let serverSyncProcessHandler = ServerSyncProcessHandler(getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
+        serverSyncProcessHandler.jobQueue.append(startJob)
+        serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
+
+        let userInfo = ["aps": ["alert": ["title": "Hello", "body": "Hello, world!"], "content-available": 1], "data": ["pusher": ["publishId": "pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df"]]]
+        let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo, applicationState: .active) as! DeliveryEventType
+
+        let trackEventJob = ServerSyncJob.ReportEventJob(eventType: eventType)
+
+        serverSyncProcessHandler.jobQueue.append(trackEventJob)
+        serverSyncProcessHandler.handleMessage(serverSyncJob: trackEventJob)
+
+        XCTAssertTrue(expRegisterCalled)
+        XCTAssertTrue(trackCalled)
+    }
 
     class StubTokenProvider: TokenProvider {
         private let jwt: String

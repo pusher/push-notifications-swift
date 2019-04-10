@@ -9,6 +9,7 @@ enum ServerSyncJob {
     case SetSubscriptions(interests: [String], localInterestsChanged: Bool)
     case ApplicationStartJob(metadata: Metadata)
     case SetUserIdJob(userId: String)
+    case ReportEventJob(eventType: ReportEventType)
     case StopJob
 }
 
@@ -77,6 +78,9 @@ class ServerSyncProcessHandler {
                         continue
                     case .RefreshTokenJob:
                         outstandingJobs.append(job)
+                    case .ReportEventJob:
+                        // If SDK hasn't started yet we couldn't have receive any remote notifications
+                        continue
                     }
                 }
 
@@ -146,6 +150,8 @@ class ServerSyncProcessHandler {
                 return self.networkService.unsubscribe(instanceId: Instance.getInstanceId()!, deviceId: Device.getDeviceId()!, interest: interest, retryStrategy: WithInfiniteExpBackoff())
             case .SetSubscriptions(let interests, localInterestsChanged: true):
                 return self.networkService.setSubscriptions(instanceId: Instance.getInstanceId()!, deviceId: Device.getDeviceId()!, interests: interests, retryStrategy: WithInfiniteExpBackoff())
+            case .ReportEventJob(let eventType):
+                return self.networkService.track(instanceId: Instance.getInstanceId()!, deviceId: Device.getDeviceId()!, eventType: eventType, retryStrategy: WithInfiniteExpBackoff())
             case .ApplicationStartJob(let metadata):
                 processApplicationStartJob(metadata: metadata)
                 return .value(()) // this was always a best effort operation
@@ -154,8 +160,9 @@ class ServerSyncProcessHandler {
                 return .value(()) // errors were already handled at this point
             case .StartJob, .StopJob:
                 return .value(()) // already handled in `handleMessage`
-            default:
-                return .value(()) // TODO: REMOVE THIS
+            case .RefreshTokenJob:
+                // TODO: Implement refresh token
+                return .value(())
             }
         }()
 
