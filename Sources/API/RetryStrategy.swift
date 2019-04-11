@@ -28,7 +28,7 @@ public class WithInfiniteExpBackoff: RetryStrategy {
             switch result {
             case .error(let error):
                 switch error {
-                case .DeviceNotFound, .BadRequest, .BadJWT:
+                case .DeviceNotFound, .BadRequest, .BadJWT, .BadDeviceToken:
                     // Not recoverable cases.
                     return result
                 case .GenericError:

@@ -5,6 +5,7 @@ enum PushNotificationsAPIError {
     case BadRequest
     case BadJWT(reason: String)
     case GenericError(reason: String)
+    case BadDeviceToken(reason: String)
 
     func getErrorMessage() -> String {
         switch self {
@@ -16,6 +17,8 @@ enum PushNotificationsAPIError {
             return "Bad JWT: \(reason)"
         case .GenericError(let reason):
             return "Error: \(reason)"
+        case .BadDeviceToken(let reason):
+            return "Bad Device Token: \(reason)"
         }
     }
 }

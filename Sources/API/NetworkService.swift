@@ -206,7 +206,13 @@ class NetworkService: PushNotificationsNetworkable {
             case 401, 403:
                 let reason = try? JSONDecoder().decode(Reason.self, from: data)
 
-                result = .error(PushNotificationsAPIError.BadJWT(reason: reason?.description  ?? "Unknown API error"))
+                // Hack, until we add error codes in the server.
+                if reason?.description.contains("device token") ?? false {
+                    result = .error(PushNotificationsAPIError.BadDeviceToken(reason: reason!.description))
+                }
+                else {
+                    result = .error(PushNotificationsAPIError.BadJWT(reason: reason?.description  ?? "Unknown API error"))
+                }
             case 404:
                 result = .error(PushNotificationsAPIError.DeviceNotFound)
             default:
