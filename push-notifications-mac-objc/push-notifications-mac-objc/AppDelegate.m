@@ -12,18 +12,11 @@
     [[PushNotifications shared] registerForRemoteNotifications];
 
     NSError *anyError;
-    [[PushNotifications shared] addDeviceInterestWithInterest:@"hello" error:&anyError completion:^{
-        if (anyError) {
-            NSLog(@"Error: %@", anyError);
-        }
-        else {
-            NSLog(@"Subscribed to interest hello.");
-        }
-    }];
+    [[PushNotifications shared] addDeviceInterestWithInterest:@"debug-test" error:&anyError];
 }
 
 - (void)application:(NSApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    [[PushNotifications shared] registerDeviceToken:deviceToken completion:^{}];
+    [[PushNotifications shared] registerDeviceToken:deviceToken];
 }
 
 - (void)application:(NSApplication *)application didReceiveRemoteNotification:(NSDictionary<NSString *,id> *)userInfo {
