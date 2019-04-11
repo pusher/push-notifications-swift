@@ -61,6 +61,12 @@ import Foundation
             print("[PushNotifications]: \(errorMessage)")
             return
         }
+
+        if UUID(uuidString: instanceId) == nil {
+            print("[PushNotifications]: '\(instanceId)' is not a valid instance id.")
+            return
+        }
+
         Instance.persist(instanceId)
 
         // Detect from where the function is being called
@@ -214,7 +220,7 @@ import Foundation
         guard
             let instanceId = Instance.getInstanceId()
         else {
-            print("[Push Notifications] - Something went wrong. Please check your instance id: \(String(describing: Instance.getInstanceId()))")
+            print("[PushNotifications] - Something went wrong. Please make sure that you've called `start` before `registerDeviceToken`.")
             return
         }
 
@@ -375,7 +381,7 @@ import Foundation
                 }
             }
             if let error = error {
-                print("[Push Notifications] - \(error.localizedDescription)")
+                print("[PushNotifications] - \(error.localizedDescription)")
             }
         }
     }
