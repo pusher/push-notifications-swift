@@ -121,7 +121,7 @@ class DeviceInterestsTest: XCTestCase {
             }
         }
         let exp = expectation(description: "Interests changed called with ['zebra', 'lion']")
-        let stubInterestsChanged = StubInterestsChanged(completion: { [weak self] interests in
+        let stubInterestsChanged = StubInterestsChanged(completion: { interests in
             XCTAssertTrue(interests.containsSameElements(as: ["zebra", "lion"]))
             exp.fulfill()
         })
@@ -154,7 +154,7 @@ class DeviceInterestsTest: XCTestCase {
         }
 
         var exp = expectation(description: "Interests changed called with ['a']")
-        var stubInterestsChanged = StubInterestsChanged(completion: { [weak self] interests in
+        var stubInterestsChanged = StubInterestsChanged(completion: { interests in
             XCTAssertEqual(interests, ["a"])
             exp.fulfill()
         })
@@ -165,14 +165,14 @@ class DeviceInterestsTest: XCTestCase {
 
         exp = expectation(description: "Interests changed not called")
         exp.isInverted = true
-        stubInterestsChanged = StubInterestsChanged(completion: { [weak self] interests in
+        stubInterestsChanged = StubInterestsChanged(completion: { interests in
             exp.fulfill()
         })
         pushNotifications.delegate = stubInterestsChanged
         XCTAssertNoThrow(try pushNotifications.addDeviceInterest(interest: "a"))
 
         exp = expectation(description: "Interests changed called with []")
-        stubInterestsChanged = StubInterestsChanged(completion: { [weak self] interests in
+        stubInterestsChanged = StubInterestsChanged(completion: { interests in
             XCTAssertEqual(interests, [])
             exp.fulfill()
         })
@@ -183,7 +183,7 @@ class DeviceInterestsTest: XCTestCase {
 
         exp = expectation(description: "Interests changed not called")
         exp.isInverted = true
-        stubInterestsChanged = StubInterestsChanged(completion: { [weak self] interests in
+        stubInterestsChanged = StubInterestsChanged(completion: { interests in
             exp.fulfill()
         })
         pushNotifications.delegate = stubInterestsChanged
@@ -192,7 +192,7 @@ class DeviceInterestsTest: XCTestCase {
         waitForExpectations(timeout: 1)
 
         exp = expectation(description: "Interests changed called with ['a', 'b', 'c']")
-        stubInterestsChanged = StubInterestsChanged(completion: { [weak self] interests in
+        stubInterestsChanged = StubInterestsChanged(completion: { interests in
             XCTAssertTrue(interests.containsSameElements(as: ["a", "b", "c"]))
             exp.fulfill()
         })
@@ -203,7 +203,7 @@ class DeviceInterestsTest: XCTestCase {
 
         exp = expectation(description: "Interests changed not called")
         exp.isInverted = true
-        stubInterestsChanged = StubInterestsChanged(completion: { [weak self] interests in
+        stubInterestsChanged = StubInterestsChanged(completion: { interests in
             exp.fulfill()
         })
         pushNotifications.delegate = stubInterestsChanged

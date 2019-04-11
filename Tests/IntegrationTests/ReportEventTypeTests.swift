@@ -37,7 +37,7 @@ class ReportEventTypeTests: XCTestCase {
 
         let userInfo = ["aps": ["alert": ["title": "Hello", "body": "Hello, world!"], "content-available": 1], "data": ["pusher": ["publishId": "pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df"]]]
 
-        let eventType = pushNotifications.handleNotification(userInfo: userInfo) as? RemoteNotificationType
+        let eventType = pushNotifications.handleNotification(userInfo: userInfo)
         XCTAssertEqual(eventType, .ShouldProcess)
     }
 }
