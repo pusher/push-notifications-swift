@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changed
 
+Simplified completion handlers:
+
 - `registerDeviceToken(_ deviceToken:, completion:)` to `func registerDeviceToken(_ deviceToken:)`
 - `addDeviceInterest(interest:, completion:)` to `func addDeviceInterest(interest:)`
 - `setDeviceInterests(interests:, completion:)` to `func setDeviceInterests(interests:)`
@@ -25,12 +27,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Removed
 
+Removed deprecated methods:
+
 - `subscribe(interest:, completion:)`
 - `setSubscriptions(interests:, completion:)`
 - `unsubscribe(interest: String, completion:)`
 - `unsubscribeAll(completion:)`
 - `getInterests()`
-- `interestsSetDidChange()`
 - `interestsSetDidChange(interests:)`
 
 ## [1.3.0](https://github.com/pusher/push-notifications-swift/compare/1.3.0-beta.1...1.3.0) - 2019-03-25
