@@ -150,10 +150,19 @@ import Foundation
             return
         }
 
+        let helpfulTimer = Timer.scheduledTimer(withTimeInterval: 15, repeats: false) { _ in
+            print("[PushNotifications] - It looks like setUserId hasn't completed yet -- have you called `registerDeviceToken`?")
+        }
+
+        let wrapperCompletion: (Error?) -> Void = { error in
+            helpfulTimer.invalidate()
+            completion(error)
+        }
+
         if let callbacks = self.userIdCallbacks[userId] {
-            self.userIdCallbacks[userId] = callbacks + [completion]
+            self.userIdCallbacks[userId] = callbacks + [wrapperCompletion]
         } else {
-            self.userIdCallbacks[userId] = [completion]
+            self.userIdCallbacks[userId] = [wrapperCompletion]
         }
         self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.SetUserIdJob(userId: userId))
     }
