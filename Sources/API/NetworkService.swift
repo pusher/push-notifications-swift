@@ -10,7 +10,7 @@ class NetworkService: PushNotificationsNetworkable {
     // MARK: PushNotificationsNetworkable
     func register(instanceId: String, deviceToken: String, metadata: Metadata, retryStrategy: RetryStrategy) -> Result<Device, PushNotificationsAPIError> {
         return retryStrategy.retry {
-            let bundleIdentifier = Bundle.main.bundleIdentifier ?? ""
+            let bundleIdentifier = Bundle.main.bundleIdentifier ?? "missing-bundle-id"
 
             guard let body = try? Register(token: deviceToken, bundleIdentifier: bundleIdentifier, metadata: metadata).encode() else {
                 return .error(PushNotificationsAPIError.GenericError(reason: "Error while encoding register payload."))
@@ -202,7 +202,9 @@ class NetworkService: PushNotificationsNetworkable {
             case 200..<300:
                 result = .value(data)
             case 400:
-                result = .error(PushNotificationsAPIError.BadRequest)
+                let reason = try? JSONDecoder().decode(Reason.self, from: data)
+
+                result = .error(PushNotificationsAPIError.BadRequest(reason: reason?.description  ?? "Unknown API error"))
             case 401, 403:
                 let reason = try? JSONDecoder().decode(Reason.self, from: data)
 
