@@ -10,8 +10,8 @@ Pod::Spec.new do |s|
   s.documentation_url = 'https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html'
 
   s.requires_arc = true
-  s.source_files = 'Sources/*.swift'
+  s.source_files = 'Sources/**/*.swift'
 
   s.ios.deployment_target = '10.0'
-  s.osx.deployment_target = '10.10'
+  s.osx.deployment_target = '10.12'
 end
