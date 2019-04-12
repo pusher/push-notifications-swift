@@ -824,6 +824,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         waitForExpectations(timeout: 1)
     }
 
+    #if os(iOS)
     func testTrackWillSendEventTypeToTheServer() {
         let url = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns")!
         var expRegisterCalled = false
@@ -862,6 +863,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         XCTAssertTrue(expRegisterCalled)
         XCTAssertTrue(trackCalled)
     }
+    #endif
 
     class StubTokenProvider: TokenProvider {
         private let jwt: String
