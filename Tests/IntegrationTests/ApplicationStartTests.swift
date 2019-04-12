@@ -5,7 +5,7 @@ import Nimble
 class ApplicationStartTests: XCTestCase {
     // Real production instance.
     let instanceId = "1b880590-6301-4bb5-b34f-45db1c5f5644"
-    let validToken = "81f5b7dda5c66bd2497c15a79a8be6e8858f7bd62ccfbb96cbbed9d327d95a78".hexStringToData()!
+    let validToken = "notadevicetoken-apns-ApplicationStartTests".data(using: .utf8)!
 
     override func setUp() {
         if let deviceId = Device.getDeviceId() {
