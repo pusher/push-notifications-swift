@@ -1,8 +1,7 @@
 import Foundation
 
-struct Register: Encodable {
+struct Register: Codable {
     let token: String
-    let instanceId: String
     let bundleIdentifier: String
     let metadata: Metadata
 }

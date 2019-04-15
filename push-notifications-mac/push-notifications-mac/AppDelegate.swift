@@ -9,7 +9,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         self.pushNotifications.start(instanceId: "YOUR_INSTANCE_ID") // Can be found here: https://dash.pusher.com
         self.pushNotifications.registerForRemoteNotifications()
-        try? self.pushNotifications.addDeviceInterest(interest: "hello")
+        try? self.pushNotifications.addDeviceInterest(interest: "debug-test")
     }
 
     func application(_ application: NSApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {

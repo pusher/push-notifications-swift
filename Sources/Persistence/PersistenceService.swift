@@ -1,7 +1,6 @@
 import Foundation
 
-struct PersistenceService: InterestPersistable, UserPersistable {
-
+struct PersistenceService: InterestPersistable, UserPersistable, PushNotificationsInstancePersistable {
     let service: UserDefaults
     private let prefix = Constants.PersistanceService.prefix
 
@@ -94,5 +93,26 @@ struct PersistenceService: InterestPersistable, UserPersistable {
                 service.removeObject(forKey: element.key)
             }
         }
+    }
+
+    func setStartJobHasBeenEnqueued(flag: Bool) {
+        service.set(flag, forKey: Constants.PushNotificationsInstancePersistence.startJob)
+    }
+
+    func getStartJobHasBeenEnqueued() -> Bool {
+        return service.object(forKey: Constants.PushNotificationsInstancePersistence.startJob) as? Bool ?? false
+    }
+
+    func setUserIdHasBeenCalledWith(userId: String) {
+        service.set(userId, forKey: Constants.PushNotificationsInstancePersistence.userId)
+    }
+
+    func getUserIdPreviouslyCalledWith() -> String? {
+        return service.object(forKey: Constants.PushNotificationsInstancePersistence.userId) as? String
+    }
+
+    func clear() {
+        service.removeObject(forKey: Constants.PushNotificationsInstancePersistence.startJob)
+        service.removeObject(forKey: Constants.PushNotificationsInstancePersistence.userId)
     }
 }
