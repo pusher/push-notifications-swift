@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [2.0.1](https://github.com/pusher/push-notifications-swift/compare/2.0.0...2.0.1) - 2019-05-28
 
-## Added
+## Changed
 
 - Minor improvements.
 
