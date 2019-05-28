@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changed
 
-- Minor improvements.
+- Improve cases when a warning message is displayed.
 
 ## [2.0.0](https://github.com/pusher/push-notifications-swift/compare/1.3.0...2.0.0) - 2019-04-12
 
