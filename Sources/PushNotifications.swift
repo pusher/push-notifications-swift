@@ -71,7 +71,7 @@ import Foundation
 
         // Detect from where the function is being called
         let wasCalledFromCorrectLocation = Thread.callStackSymbols.contains { stack in
-            return stack.contains("didFinishLaunchingWith") || stack.contains("applicationDidFinishLaunching") || stack.contains("clearAllState")
+            return stack.contains("didFinishLaunchingWith") || stack.contains("applicationDidFinishLaunching") || stack.contains("clearAllState") || stack.contains("enablePushNotifications")
         }
         if !wasCalledFromCorrectLocation {
             print("[PushNotifications]: Warning: You should call `pushNotifications.start` from the `AppDelegate.didFinishLaunchingWith`")
