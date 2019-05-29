@@ -42,7 +42,7 @@ use_frameworks!
 
 # Replace `<Your Target Name>` with your app's target name.
 target '<Your Target Name>' do
-    pod 'PushNotifications', '~> 1.2.0'
+    pod 'PushNotifications', '~> 2.0.2'
 end
 ```
 
