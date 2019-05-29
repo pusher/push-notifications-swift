@@ -150,9 +150,7 @@ import Foundation
             return
         }
 
-        let helpfulTimer = Timer.scheduledTimer(withTimeInterval: 15, repeats: false) { _ in
-            print("[PushNotifications] - It looks like setUserId hasn't completed yet -- have you called `registerDeviceToken`?")
-        }
+        let helpfulTimer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(printHelpfulMessage), userInfo: nil, repeats: false)
 
         let wrapperCompletion: (Error?) -> Void = { error in
             helpfulTimer.invalidate()
@@ -165,6 +163,10 @@ import Foundation
             self.userIdCallbacks[userId] = [wrapperCompletion]
         }
         self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.SetUserIdJob(userId: userId))
+    }
+
+    @objc private func printHelpfulMessage() {
+        print("[PushNotifications] - It looks like setUserId hasn't completed yet -- have you called `registerDeviceToken`?")
     }
 
     /**
