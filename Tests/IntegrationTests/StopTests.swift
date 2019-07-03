@@ -15,6 +15,8 @@ class StopTests: XCTestCase {
         UserDefaults(suiteName: Constants.UserDefaults.suiteName).map { userDefaults in
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
         }
+
+        try? FileManager.default.removeItem(atPath: "store")
     }
 
     override func tearDown() {
@@ -25,6 +27,8 @@ class StopTests: XCTestCase {
         UserDefaults(suiteName: Constants.UserDefaults.suiteName).map { userDefaults in
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
         }
+
+        try? FileManager.default.removeItem(atPath: "store")
     }
 
     func testStopShouldDeleteDeviceOnTheServer() {

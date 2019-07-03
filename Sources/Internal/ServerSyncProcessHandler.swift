@@ -1,24 +1,11 @@
 import Foundation
 
-// Needs to be Codable
-enum ServerSyncJob {
-    case StartJob(instanceId: String, token: String)
-    case RefreshTokenJob(newToken: String)
-    case SubscribeJob(interest: String, localInterestsChanged: Bool)
-    case UnsubscribeJob(interest: String, localInterestsChanged: Bool)
-    case SetSubscriptions(interests: [String], localInterestsChanged: Bool)
-    case ApplicationStartJob(metadata: Metadata)
-    case SetUserIdJob(userId: String)
-    case ReportEventJob(eventType: ReportEventType)
-    case StopJob
-}
-
 class ServerSyncProcessHandler {
     private let queue: DispatchQueue
     private let networkService: NetworkService
     private let getTokenProvider: () -> TokenProvider?
     private let handleServerSyncEvent: (ServerSyncEvent) -> Void
-    public var jobQueue: [ServerSyncJob] = [] // TODO: This will need to be a persistent queue.
+    public var jobQueue: ServerSyncJobStore = ServerSyncJobStore()
 
     init(getTokenProvider: @escaping () -> TokenProvider?, handleServerSyncEvent: @escaping (ServerSyncEvent) -> Void) {
         self.getTokenProvider = getTokenProvider
@@ -26,6 +13,19 @@ class ServerSyncProcessHandler {
         self.queue = DispatchQueue(label: "queue")
         let session = URLSession(configuration: .ephemeral)
         self.networkService = NetworkService(session: session)
+
+        self.jobQueue.toList().forEach { job in
+            switch job {
+            case .SetUserIdJob:
+                return
+                // skipping it. If the user is still supposed to logged in, then
+                // there should be another setUserIdJob being enqueued upon launch
+            default:
+                self.queue.async {
+                    self.handleMessage(serverSyncJob: job)
+                }
+            }
+        }
     }
 
     func sendMessage(serverSyncJob: ServerSyncJob) {
@@ -56,7 +56,7 @@ class ServerSyncProcessHandler {
                 // Replay sub/unsub/setsub operations in job queue over initial interest set
                 var interestsSet = device.initialInterestSet ?? Set<String>()
 
-                for job in jobQueue {
+                for job in jobQueue.toList() {
                     switch job {
                     case .StartJob:
                         break
