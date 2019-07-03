@@ -1,6 +1,7 @@
 import Foundation
 
 class ServerSyncProcessHandler {
+    private let sendMessageQueue: DispatchQueue
     private let queue: DispatchQueue
     private let networkService: NetworkService
     private let getTokenProvider: () -> TokenProvider?
@@ -10,6 +11,7 @@ class ServerSyncProcessHandler {
     init(getTokenProvider: @escaping () -> TokenProvider?, handleServerSyncEvent: @escaping (ServerSyncEvent) -> Void) {
         self.getTokenProvider = getTokenProvider
         self.handleServerSyncEvent = handleServerSyncEvent
+        self.sendMessageQueue = DispatchQueue(label: "sendMessageQueue")
         self.queue = DispatchQueue(label: "queue")
         let session = URLSession(configuration: .ephemeral)
         self.networkService = NetworkService(session: session)
@@ -29,9 +31,12 @@ class ServerSyncProcessHandler {
     }
 
     func sendMessage(serverSyncJob: ServerSyncJob) {
-        self.queue.async {
+        self.sendMessageQueue.async {
             self.jobQueue.append(serverSyncJob)
-            self.handleMessage(serverSyncJob: serverSyncJob)
+
+            self.queue.async {
+                self.handleMessage(serverSyncJob: serverSyncJob)
+            }
         }
     }
 
