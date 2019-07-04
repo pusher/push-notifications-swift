@@ -11,11 +11,13 @@ struct ServerSyncJobStore {
 
     private func loadOperations() -> [ServerSyncJob] {
         guard let operations = NSData(contentsOfFile: "syncJobStoreQueue") else {
+            print("[PushNotifications] - Failed to load previously stored operations, continuing without them.")
             return []
         }
 
         let jsonDecoder = JSONDecoder()
         guard let operationsArray = try? jsonDecoder.decode([ServerSyncJob].self, from: (operations as Data)) else {
+            print("[PushNotifications] - Failed to load previously stored operations, continuing without them.")
             return []
         }
 
