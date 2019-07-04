@@ -1,7 +1,7 @@
 import Foundation
 
 struct ServerSyncJobStore {
-    private let syncJobStore = "syncJobStore"
+    private let syncJobStoreFileName = "syncJobStore"
     private var jobStoreArray: [ServerSyncJob] = []
     private let syncJobStoreQueue = DispatchQueue(label: "syncJobStoreQueue")
 
@@ -10,8 +10,8 @@ struct ServerSyncJobStore {
     }
 
     private func loadOperations() -> [ServerSyncJob] {
-        guard let operations = NSData(contentsOfFile: syncJobStore) else {
-            print("[PushNotifications] - Failed to load previously stored operations, continuing without them.")
+        guard let operations = NSData(contentsOfFile: syncJobStoreFileName) else {
+            // Assuming a fresh installation here
             return []
         }
 
@@ -27,14 +27,13 @@ struct ServerSyncJobStore {
     private func persistOperations(_ jobStoreArray: [ServerSyncJob]) {
         let jsonEncoder = JSONEncoder()
         guard let data = try? jsonEncoder.encode(jobStoreArray) else {
-            print("[PushNotifications] - Failed to encode operations, continuing without them.")
+            print("[PushNotifications] - Failed to encode operations, continuing without persisting them.")
             return
         }
         do {
-            try (data as NSData).write(toFile: syncJobStore, options: .atomic)
-        }
-        catch {
-            print("[PushNotifications] - Failed to persist operations, continuing without them.")
+            try (data as NSData).write(toFile: syncJobStoreFileName, options: .atomic)
+        } catch {
+            print("[PushNotifications] - Failed to persist operations, continuing ...")
         }
     }
 
