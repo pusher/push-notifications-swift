@@ -242,7 +242,7 @@ class ServerSyncProcessHandler {
                             semaphore.signal()
                         })
                         semaphore.wait()
-                    } catch(let error) {
+                    } catch (let error) {
                         print("[PushNotifications]: Warning - Unexpected error: \(error.localizedDescription)")
                         DeviceStateStore.usersService.removeUserId()
                     }
