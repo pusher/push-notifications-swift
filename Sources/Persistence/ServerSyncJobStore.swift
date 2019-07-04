@@ -1,7 +1,7 @@
 import Foundation
 
 struct ServerSyncJobStore {
-
+    private let syncJobStore = "syncJobStore"
     private var jobStoreArray: [ServerSyncJob] = []
     private let syncJobStoreQueue = DispatchQueue(label: "syncJobStoreQueue")
 
@@ -10,7 +10,7 @@ struct ServerSyncJobStore {
     }
 
     private func loadOperations() -> [ServerSyncJob] {
-        guard let operations = NSData(contentsOfFile: "syncJobStoreQueue") else {
+        guard let operations = NSData(contentsOfFile: syncJobStore) else {
             print("[PushNotifications] - Failed to load previously stored operations, continuing without them.")
             return []
         }
@@ -52,7 +52,7 @@ struct ServerSyncJobStore {
 
             let jsonEncoder = JSONEncoder()
             let data = try! jsonEncoder.encode(jobStoreArray)
-            try! (data as NSData).write(toFile: "syncJobStoreQueue", options: .atomic)
+            try! (data as NSData).write(toFile: syncJobStore, options: .atomic)
         }
     }
 
@@ -63,7 +63,7 @@ struct ServerSyncJobStore {
 
                 let jsonEncoder = JSONEncoder()
                 let data = try! jsonEncoder.encode(jobStoreArray)
-                try! (data as NSData).write(toFile: "syncJobStoreQueue", options: .atomic)
+                try! (data as NSData).write(toFile: syncJobStore, options: .atomic)
             }
         }
     }
