@@ -19,9 +19,9 @@ class ServerSyncProcessHandler {
         self.jobQueue.toList().forEach { job in
             switch job {
             case .SetUserIdJob:
-                return
-                // skipping it. If the user is still supposed to logged in, then
+                // Skipping it. If the user is still supposed to logged in, then
                 // there should be another setUserIdJob being enqueued upon launch
+                return
             default:
                 self.queue.async {
                     self.handleMessage(serverSyncJob: job)
