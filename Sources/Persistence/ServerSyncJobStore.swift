@@ -2,15 +2,14 @@ import Foundation
 
 struct ServerSyncJobStore {
 
-    private var jobStoreArray: [ServerSyncJob]
+    private var jobStoreArray: [ServerSyncJob] = []
+    private let syncJobStoreQueue = DispatchQueue(label: "store")
 
     init() {
-        self.jobStoreArray = []
-
         self.jobStoreArray = self.loadOperations()
     }
 
-    func loadOperations() -> [ServerSyncJob] {
+    private func loadOperations() -> [ServerSyncJob] {
         guard let operations = NSData(contentsOfFile: "store") else {
             return []
         }
@@ -25,46 +24,45 @@ struct ServerSyncJobStore {
 
     var isEmpty: Bool {
         get {
-            return self.jobStoreArray.isEmpty
+            return syncJobStoreQueue.sync {
+                return self.jobStoreArray.isEmpty
+            }
         }
     }
 
     var first: ServerSyncJob? {
         get {
-            return jobStoreArray.first
+            return syncJobStoreQueue.sync {
+                return jobStoreArray.first
+            }
         }
     }
 
     func toList() -> [ServerSyncJob] {
-        return self.jobStoreArray
+        return syncJobStoreQueue.sync {
+            return self.jobStoreArray
+        }
     }
     
     mutating func append(_ job: ServerSyncJob) {
-        var operations = self.loadOperations()
-        operations.append(job)
-        if(self.jobStoreArray.count > 0) {
-            self.jobStoreArray.removeAll()
+        syncJobStoreQueue.sync {
+            self.jobStoreArray.append(job)
+
+            let jsonEncoder = JSONEncoder()
+            let data = try! jsonEncoder.encode(jobStoreArray)
+            try! (data as NSData).write(toFile: "store", options: .atomic)
         }
-
-        let jsonEncoder = JSONEncoder()
-        guard let data = try? jsonEncoder.encode(operations) else {
-            return
-        }
-
-        try! (data as NSData).write(toFile: "store", options: .atomic)
-
-        self.jobStoreArray = operations
     }
 
     mutating func removeFirst() {
-        if(self.jobStoreArray.count > 0) {
-            self.jobStoreArray.removeFirst()
+        syncJobStoreQueue.sync {
+            if (self.jobStoreArray.count > 0) {
+                self.jobStoreArray.removeFirst()
 
-            let jsonEncoder = JSONEncoder()
-            guard let data = try? jsonEncoder.encode(jobStoreArray) else {
-                return
+                let jsonEncoder = JSONEncoder()
+                let data = try! jsonEncoder.encode(jobStoreArray)
+                try! (data as NSData).write(toFile: "store", options: .atomic)
             }
-            try! (data as NSData).write(toFile: "store", options: .atomic)
         }
     }
 }
