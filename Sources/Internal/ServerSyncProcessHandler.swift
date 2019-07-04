@@ -2,7 +2,7 @@ import Foundation
 
 class ServerSyncProcessHandler {
     private let sendMessageQueue: DispatchQueue
-    private let queue: DispatchQueue
+    private let handleMessageQueue: DispatchQueue
     private let networkService: NetworkService
     private let getTokenProvider: () -> TokenProvider?
     private let handleServerSyncEvent: (ServerSyncEvent) -> Void
@@ -12,7 +12,7 @@ class ServerSyncProcessHandler {
         self.getTokenProvider = getTokenProvider
         self.handleServerSyncEvent = handleServerSyncEvent
         self.sendMessageQueue = DispatchQueue(label: "sendMessageQueue")
-        self.queue = DispatchQueue(label: "queue")
+        self.handleMessageQueue = DispatchQueue(label: "handleMessageQueue")
         let session = URLSession(configuration: .ephemeral)
         self.networkService = NetworkService(session: session)
 
@@ -23,7 +23,7 @@ class ServerSyncProcessHandler {
                 // there should be another setUserIdJob being enqueued upon launch
                 return
             default:
-                self.queue.async {
+                self.handleMessageQueue.async {
                     self.handleMessage(serverSyncJob: job)
                 }
             }
@@ -34,7 +34,7 @@ class ServerSyncProcessHandler {
         self.sendMessageQueue.async {
             self.jobQueue.append(serverSyncJob)
 
-            self.queue.async {
+            self.handleMessageQueue.async {
                 self.handleMessage(serverSyncJob: serverSyncJob)
             }
         }
