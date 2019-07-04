@@ -1,7 +1,5 @@
 import Foundation
 
-
-
 enum ServerSyncJob {
     case StartJob(instanceId: String, token: String)
     case RefreshTokenJob(newToken: String)
@@ -40,7 +38,6 @@ extension ServerSyncJob: Codable {
         case openEventTypeKey
         case deliveryEventTypeKey
     }
-
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)

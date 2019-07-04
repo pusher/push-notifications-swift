@@ -9,5 +9,3 @@ protocol PushNotificationsInstancePersistable {
 
     func clear()
 }
-
-

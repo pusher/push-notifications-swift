@@ -43,7 +43,7 @@ struct ServerSyncJobStore {
             return self.jobStoreArray
         }
     }
-    
+
     mutating func append(_ job: ServerSyncJob) {
         syncJobStoreQueue.sync {
             self.jobStoreArray.append(job)

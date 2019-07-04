@@ -133,7 +133,7 @@ import Foundation
 
         PushNotifications.shared.tokenProvider = tokenProvider
 
-        var localUserIdDifferent: Bool? = nil
+        var localUserIdDifferent: Bool?
         DeviceStateStore.synchronize {
             if let userIdExists = DeviceStateStore.pushNotificationsInstance.getUserIdPreviouslyCalledWith() {
                 localUserIdDifferent = userIdExists != userId

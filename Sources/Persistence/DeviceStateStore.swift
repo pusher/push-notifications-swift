@@ -7,7 +7,7 @@ public class DeviceStateStore {
     static let pushNotificationsInstance: PushNotificationsInstancePersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
 
     public static func synchronize<T>(f: () -> T) -> T {
-        var result: T? = nil
+        var result: T?
         DeviceStateStore.queue.sync {
             result = f()
         }

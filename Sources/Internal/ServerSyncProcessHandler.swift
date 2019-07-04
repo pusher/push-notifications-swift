@@ -242,8 +242,7 @@ class ServerSyncProcessHandler {
                             semaphore.signal()
                         })
                         semaphore.wait()
-                    }
-                    catch(let error) {
+                    } catch(let error) {
                         print("[PushNotifications]: Warning - Unexpected error: \(error.localizedDescription)")
                         DeviceStateStore.usersService.removeUserId()
                     }
@@ -287,8 +286,7 @@ class ServerSyncProcessHandler {
                 semaphore.signal()
             })
             semaphore.wait()
-        }
-        catch (let error) {
+        } catch (let error) {
             let error = TokenProviderError.error("[PushNotifications] - Error when executing `fetchToken` method: \(error)")
             self.handleServerSyncEvent(.UserIdSetEvent(userId: userId, error: error))
         }
