@@ -16,6 +16,8 @@ class SetUserIdTest: XCTestCase {
         UserDefaults(suiteName: Constants.UserDefaults.suiteName).map { userDefaults in
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
         }
+
+        try? FileManager.default.removeItem(atPath: "syncJobStoreQueue")
     }
 
     override func tearDown() {
@@ -26,6 +28,8 @@ class SetUserIdTest: XCTestCase {
         UserDefaults(suiteName: Constants.UserDefaults.suiteName).map { userDefaults in
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
         }
+
+        try? FileManager.default.removeItem(atPath: "syncJobStoreQueue")
     }
 
     func testSetUserIdShouldAssociateThisDeviceWithUserOnTheServer() {

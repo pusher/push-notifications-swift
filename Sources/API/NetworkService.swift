@@ -211,8 +211,7 @@ class NetworkService: PushNotificationsNetworkable {
                 // Hack, until we add error codes in the server.
                 if reason?.description.contains("device token") ?? false {
                     result = .error(PushNotificationsAPIError.BadDeviceToken(reason: reason!.description))
-                }
-                else {
+                } else {
                     result = .error(PushNotificationsAPIError.BadJWT(reason: reason?.description  ?? "Unknown API error"))
                 }
             case 404:

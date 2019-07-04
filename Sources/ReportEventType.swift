@@ -2,7 +2,7 @@ import Foundation
 
 protocol ReportEventType: Encodable {}
 
-struct OpenEventType: ReportEventType {
+struct OpenEventType: ReportEventType, Codable {
     let event: String
     let publishId: String
     let deviceId: String
@@ -18,7 +18,7 @@ struct OpenEventType: ReportEventType {
     }
 }
 
-struct DeliveryEventType: ReportEventType {
+struct DeliveryEventType: ReportEventType, Codable {
     let event: String
     let publishId: String
     let deviceId: String

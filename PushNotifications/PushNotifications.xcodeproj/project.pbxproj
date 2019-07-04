@@ -33,6 +33,8 @@
 		A108B1052237FE4D007FCB2D /* DeviceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108B1012237FE4C007FCB2D /* DeviceTests.swift */; };
 		A108B1062237FE4D007FCB2D /* InterestPersistableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108B1022237FE4C007FCB2D /* InterestPersistableTests.swift */; };
 		A108B1072237FE4D007FCB2D /* UserPersistableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108B1032237FE4C007FCB2D /* UserPersistableTests.swift */; };
+		A126312322CA705600DDAD28 /* ServerSyncJobStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A126312222CA705600DDAD28 /* ServerSyncJobStore.swift */; };
+		A126312722CB726900DDAD28 /* ServerSyncJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = A126312622CB726900DDAD28 /* ServerSyncJob.swift */; };
 		A1327BDF2178EB62001483E1 /* BeamsTokenProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1327BDC2178EB61001483E1 /* BeamsTokenProvider.swift */; };
 		A1327BE02178EB62001483E1 /* AuthData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1327BDD2178EB62001483E1 /* AuthData.swift */; };
 		A1327BE12178EB62001483E1 /* TokenProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1327BDE2178EB62001483E1 /* TokenProvider.swift */; };
@@ -119,6 +121,8 @@
 		A108B1022237FE4C007FCB2D /* InterestPersistableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterestPersistableTests.swift; sourceTree = "<group>"; };
 		A108B1032237FE4C007FCB2D /* UserPersistableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPersistableTests.swift; sourceTree = "<group>"; };
 		A1197BD6206266D200FD7335 /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = ../Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
+		A126312222CA705600DDAD28 /* ServerSyncJobStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSyncJobStore.swift; sourceTree = "<group>"; };
+		A126312622CB726900DDAD28 /* ServerSyncJob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ServerSyncJob.swift; path = ../ServerSyncJob.swift; sourceTree = "<group>"; };
 		A1327BDC2178EB61001483E1 /* BeamsTokenProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BeamsTokenProvider.swift; path = ../../Sources/BeamsTokenProvider.swift; sourceTree = "<group>"; };
 		A1327BDD2178EB62001483E1 /* AuthData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthData.swift; path = ../../Sources/AuthData.swift; sourceTree = "<group>"; };
 		A1327BDE2178EB62001483E1 /* TokenProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TokenProvider.swift; path = ../../Sources/TokenProvider.swift; sourceTree = "<group>"; };
@@ -201,6 +205,8 @@
 				A19ECF811FCF099100688DAF /* InterestPersistable.swift */,
 				A1482A532180A47900F19A4E /* UserPersistable.swift */,
 				A10552EC2028A934001E45D1 /* Metadata.swift */,
+				A126312222CA705600DDAD28 /* ServerSyncJobStore.swift */,
+				A126312622CB726900DDAD28 /* ServerSyncJob.swift */,
 			);
 			name = Persistence;
 			path = ../../Sources/Persistence;
@@ -506,6 +512,7 @@
 				A1327BDF2178EB62001483E1 /* BeamsTokenProvider.swift in Sources */,
 				A1F0E942219B18B800D32363 /* PushNotificationsError.swift in Sources */,
 				A1327BE02178EB62001483E1 /* AuthData.swift in Sources */,
+				A126312722CB726900DDAD28 /* ServerSyncJob.swift in Sources */,
 				A19ECF831FCF099200688DAF /* InterestPersistable.swift in Sources */,
 				A1482A582181F3CD00F19A4E /* Result.swift in Sources */,
 				A1D2AC3D22560D3E00AF4871 /* String+HexStringToData.swift in Sources */,
@@ -535,6 +542,7 @@
 				A108811B20334D860091E8EB /* Instance.swift in Sources */,
 				A16782551FA0EA2D00A193DF /* Reason.swift in Sources */,
 				A108B0CF2237FBF8007FCB2D /* DeviceStateStore.swift in Sources */,
+				A126312322CA705600DDAD28 /* ServerSyncJobStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

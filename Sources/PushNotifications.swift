@@ -24,12 +24,16 @@ import Foundation
                 case .InterestsChangedEvent(let interests):
                     self?.delegate?.interestsSetOnDeviceDidChange(interests: interests)
                 case .UserIdSetEvent(let userId, let error):
-                    if let completion = self?.userIdCallbacks[userId]?.removeFirst() {
-                        completion(error)
+                    if !(self?.userIdCallbacks.isEmpty ?? true) {
+                        if let completion = self?.userIdCallbacks[userId]?.removeFirst() {
+                            completion(error)
+                        }
                     }
                 case .StopEvent:
-                    if let completion = self?.stopCallbacks.removeFirst() {
-                        completion()
+                    if !(self?.stopCallbacks.isEmpty ?? true) {
+                        if let completion = self?.stopCallbacks.removeFirst() {
+                            completion()
+                        }
                     }
                 }
             }
@@ -129,7 +133,7 @@ import Foundation
 
         PushNotifications.shared.tokenProvider = tokenProvider
 
-        var localUserIdDifferent: Bool? = nil
+        var localUserIdDifferent: Bool?
         DeviceStateStore.synchronize {
             if let userIdExists = DeviceStateStore.pushNotificationsInstance.getUserIdPreviouslyCalledWith() {
                 localUserIdDifferent = userIdExists != userId
