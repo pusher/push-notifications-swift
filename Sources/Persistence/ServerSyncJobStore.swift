@@ -24,6 +24,20 @@ struct ServerSyncJobStore {
         return operationsArray
     }
 
+    private func persistOperations(_ jobStoreArray: [ServerSyncJob]) {
+        let jsonEncoder = JSONEncoder()
+        guard let data = try? jsonEncoder.encode(jobStoreArray) else {
+            print("[PushNotifications] - Failed to encode operations, continuing without them.")
+            return
+        }
+        do {
+            try (data as NSData).write(toFile: syncJobStore, options: .atomic)
+        }
+        catch {
+            print("[PushNotifications] - Failed to persist operations, continuing without them.")
+        }
+    }
+
     var isEmpty: Bool {
         get {
             return syncJobStoreQueue.sync {
@@ -49,10 +63,7 @@ struct ServerSyncJobStore {
     mutating func append(_ job: ServerSyncJob) {
         syncJobStoreQueue.sync {
             self.jobStoreArray.append(job)
-
-            let jsonEncoder = JSONEncoder()
-            let data = try! jsonEncoder.encode(jobStoreArray)
-            try! (data as NSData).write(toFile: syncJobStore, options: .atomic)
+            self.persistOperations(self.jobStoreArray)
         }
     }
 
@@ -60,10 +71,7 @@ struct ServerSyncJobStore {
         syncJobStoreQueue.sync {
             if (self.jobStoreArray.count > 0) {
                 self.jobStoreArray.removeFirst()
-
-                let jsonEncoder = JSONEncoder()
-                let data = try! jsonEncoder.encode(jobStoreArray)
-                try! (data as NSData).write(toFile: syncJobStore, options: .atomic)
+                self.persistOperations(self.jobStoreArray)
             }
         }
     }
