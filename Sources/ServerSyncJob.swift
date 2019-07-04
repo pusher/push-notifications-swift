@@ -15,14 +15,14 @@ enum ServerSyncJob {
 extension ServerSyncJob: Codable {
     enum Discriminator: Int, Codable {
         case StartJobKey = 0
-        case RefreshTokenJobKey
-        case SubscribeJobKey
-        case UnsubscribeJobKey
-        case SetSubscriptionsKey
-        case ApplicationStartJobKey
-        case SetUserIdJobKey
-        case ReportEventJobKey
-        case StopJobKey
+        case RefreshTokenJobKey = 1
+        case SubscribeJobKey = 2
+        case UnsubscribeJobKey = 3
+        case SetSubscriptionsKey = 4
+        case ApplicationStartJobKey = 5
+        case SetUserIdJobKey = 6
+        case ReportEventJobKey = 7
+        case StopJobKey = 8
     }
 
     enum CodingKeys: String, CodingKey {
