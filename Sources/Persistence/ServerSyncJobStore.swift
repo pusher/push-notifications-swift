@@ -3,14 +3,14 @@ import Foundation
 struct ServerSyncJobStore {
 
     private var jobStoreArray: [ServerSyncJob] = []
-    private let syncJobStoreQueue = DispatchQueue(label: "store")
+    private let syncJobStoreQueue = DispatchQueue(label: "syncJobStoreQueue")
 
     init() {
         self.jobStoreArray = self.loadOperations()
     }
 
     private func loadOperations() -> [ServerSyncJob] {
-        guard let operations = NSData(contentsOfFile: "store") else {
+        guard let operations = NSData(contentsOfFile: "syncJobStoreQueue") else {
             return []
         }
 
@@ -50,7 +50,7 @@ struct ServerSyncJobStore {
 
             let jsonEncoder = JSONEncoder()
             let data = try! jsonEncoder.encode(jobStoreArray)
-            try! (data as NSData).write(toFile: "store", options: .atomic)
+            try! (data as NSData).write(toFile: "syncJobStoreQueue", options: .atomic)
         }
     }
 
@@ -61,7 +61,7 @@ struct ServerSyncJobStore {
 
                 let jsonEncoder = JSONEncoder()
                 let data = try! jsonEncoder.encode(jobStoreArray)
-                try! (data as NSData).write(toFile: "store", options: .atomic)
+                try! (data as NSData).write(toFile: "syncJobStoreQueue", options: .atomic)
             }
         }
     }
