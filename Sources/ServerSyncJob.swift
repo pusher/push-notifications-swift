@@ -93,7 +93,6 @@ extension ServerSyncJob: Codable {
             self = .StopJob
             return
         }
-
     }
 
     func encode(to encoder: Encoder) throws {
@@ -146,6 +145,5 @@ extension ServerSyncJob: Codable {
             let v: Discriminator = .StopJobKey
             try container.encode(v, forKey: k)
         }
-
     }
 }
