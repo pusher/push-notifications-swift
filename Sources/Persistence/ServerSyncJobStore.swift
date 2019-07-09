@@ -11,7 +11,7 @@ struct ServerSyncJobStore {
     }
 
     private func loadOperations() -> [ServerSyncJob] {
-        guard let fileURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).last else {
+        guard let fileURL = try? fileManager.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false) else {
             return []
         }
 
@@ -37,14 +37,19 @@ struct ServerSyncJobStore {
             print("[PushNotifications] - Failed to encode operations, continuing without persisting them.")
             return
         }
-        guard let fileURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).last else {
+
+        guard let fileURL = try? fileManager.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false) else {
             return
         }
 
-        let filePath = fileURL.appendingPathComponent(syncJobStoreFileName)
+        var filePath = fileURL.appendingPathComponent(syncJobStoreFileName)
 
         do {
             try (data as NSData).write(toFile: filePath.relativePath, options: .atomic)
+
+            var resourceValues = URLResourceValues()
+            resourceValues.isExcludedFromBackup = true
+            try? filePath.setResourceValues(resourceValues)
         } catch {
             print("[PushNotifications] - Failed to persist operations, continuing ...")
         }
