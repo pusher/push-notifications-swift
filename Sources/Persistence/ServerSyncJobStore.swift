@@ -2,6 +2,7 @@ import Foundation
 
 struct ServerSyncJobStore {
     private let syncJobStoreFileName = "syncJobStore"
+    private let fileManager = FileManager.default
     private var jobStoreArray: [ServerSyncJob] = []
     private let syncJobStoreQueue = DispatchQueue(label: "syncJobStoreQueue")
 
@@ -10,7 +11,13 @@ struct ServerSyncJobStore {
     }
 
     private func loadOperations() -> [ServerSyncJob] {
-        guard let operations = NSData(contentsOfFile: syncJobStoreFileName) else {
+        guard let fileURL = try? fileManager.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false) else {
+            return []
+        }
+
+        let filePath = fileURL.appendingPathComponent(syncJobStoreFileName)
+
+        guard let operations = NSData(contentsOfFile: filePath.relativePath) else {
             // Assuming a fresh installation here
             return []
         }
@@ -30,8 +37,19 @@ struct ServerSyncJobStore {
             print("[PushNotifications] - Failed to encode operations, continuing without persisting them.")
             return
         }
+
+        guard let fileURL = try? fileManager.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false) else {
+            return
+        }
+
+        var filePath = fileURL.appendingPathComponent(syncJobStoreFileName)
+
         do {
-            try (data as NSData).write(toFile: syncJobStoreFileName, options: .atomic)
+            try (data as NSData).write(toFile: filePath.relativePath, options: .atomic)
+
+            var resourceValues = URLResourceValues()
+            resourceValues.isExcludedFromBackup = true
+            try? filePath.setResourceValues(resourceValues)
         } catch {
             print("[PushNotifications] - Failed to persist operations, continuing ...")
         }
