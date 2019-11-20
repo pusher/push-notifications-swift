@@ -15,7 +15,6 @@ class ApplicationStartTests: XCTestCase {
         UserDefaults(suiteName: Constants.UserDefaults.suiteName).map { userDefaults in
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
         }
-        
         TestHelper().removeSyncjobStore()
     }
 
@@ -27,7 +26,6 @@ class ApplicationStartTests: XCTestCase {
         UserDefaults(suiteName: Constants.UserDefaults.suiteName).map { userDefaults in
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
         }
-        
         TestHelper().removeSyncjobStore()
     }
 
