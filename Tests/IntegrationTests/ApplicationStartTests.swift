@@ -15,8 +15,7 @@ class ApplicationStartTests: XCTestCase {
         UserDefaults(suiteName: Constants.UserDefaults.suiteName).map { userDefaults in
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
         }
-
-        try? FileManager.default.removeItem(atPath: "syncJobStoreQueue")
+        TestHelper().removeSyncjobStore()
     }
 
     override func tearDown() {
@@ -27,8 +26,7 @@ class ApplicationStartTests: XCTestCase {
         UserDefaults(suiteName: Constants.UserDefaults.suiteName).map { userDefaults in
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
         }
-
-        try? FileManager.default.removeItem(atPath: "syncJobStoreQueue")
+        TestHelper().removeSyncjobStore()
     }
 
     func testApplicationStartWillSyncInterests() {

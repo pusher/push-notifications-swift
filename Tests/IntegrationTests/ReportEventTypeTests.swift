@@ -16,7 +16,7 @@ class ReportEventTypeTests: XCTestCase {
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
         }
 
-        try? FileManager.default.removeItem(atPath: "syncJobStoreQueue")
+        TestHelper().removeSyncjobStore()
     }
 
     override func tearDown() {
@@ -28,7 +28,7 @@ class ReportEventTypeTests: XCTestCase {
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
         }
 
-        try? FileManager.default.removeItem(atPath: "syncJobStoreQueue")
+        TestHelper().removeSyncjobStore()
     }
 
     func testHandleNotification() {
