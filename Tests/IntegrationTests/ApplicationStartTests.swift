@@ -30,7 +30,7 @@ class ApplicationStartTests: XCTestCase {
     }
 
     func testApplicationStartWillSyncInterests() {
-        let pushNotifications = PushNotifications.shared
+        let pushNotifications = PushNotifications(instanceId: instanceId)
         pushNotifications.start(instanceId: instanceId)
 
         pushNotifications.registerDeviceToken(validToken)

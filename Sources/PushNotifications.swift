@@ -8,11 +8,16 @@ import NotificationCenter
 import Foundation
 
 @objc public final class PushNotifications: NSObject {
+    
+    private var instanceId: String
+    
+    init(instanceId: String) {
+        self.instanceId = instanceId
+    }
+    
     //! Returns a shared singleton PushNotifications object.
     /// - Tag: shared
-    @objc public static let shared = PushNotifications()
-
-    private var tokenProvider: TokenProvider?
+    @objc public static let shared = PushNotificationStatic.self
 
     private var userIdCallbacks = Dictionary<String, [(Error?) -> Void]>()
     private var stopCallbacks = [() -> Void]()

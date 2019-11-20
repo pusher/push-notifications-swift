@@ -32,7 +32,7 @@ class StopTests: XCTestCase {
     }
 
     func testStopShouldDeleteDeviceOnTheServer() {
-        let pushNotifications = PushNotifications()
+        let pushNotifications = PushNotifications(instanceId: instanceId)
         pushNotifications.start(instanceId: instanceId)
         pushNotifications.registerDeviceToken(validToken)
 
@@ -51,7 +51,7 @@ class StopTests: XCTestCase {
     }
 
     func testShouldDeleteLocalInterests() {
-        let pushNotifications = PushNotifications()
+        let pushNotifications = PushNotifications(instanceId: instanceId)
         pushNotifications.start(instanceId: instanceId)
         pushNotifications.registerDeviceToken(validToken)
 
@@ -63,7 +63,7 @@ class StopTests: XCTestCase {
     }
 
     func testAfterStopStartingAgainShouldBePossible() {
-        let pushNotifications = PushNotifications()
+        let pushNotifications = PushNotifications(instanceId: instanceId)
         pushNotifications.start(instanceId: instanceId)
         pushNotifications.registerDeviceToken(validToken)
 
