@@ -81,6 +81,7 @@
 		A1F122E42237C90600F7D766 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F122E22237C90500F7D766 /* NetworkService.swift */; };
 		A1F122E62237C94600F7D766 /* RetryStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F122E52237C94600F7D766 /* RetryStrategy.swift */; };
 		A1F122E82237C9D400F7D766 /* PushNotificationsAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F122E72237C9D400F7D766 /* PushNotificationsAPIError.swift */; };
+		D33A751623858D64002E64CB /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33A751523858D64002E64CB /* TestHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -174,6 +175,7 @@
 		A1F122E22237C90500F7D766 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		A1F122E52237C94600F7D766 /* RetryStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryStrategy.swift; sourceTree = "<group>"; };
 		A1F122E72237C9D400F7D766 /* PushNotificationsAPIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsAPIError.swift; sourceTree = "<group>"; };
+		D33A751523858D64002E64CB /* TestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -339,6 +341,7 @@
 				A1D2AC3E225653A600AF4871 /* SetUserIdTest.swift */,
 				A1424C1D225E061200BCE570 /* ReportEventTypeTests.swift */,
 				A1424C21225E20EA00BCE570 /* ApplicationStartTests.swift */,
+				D33A751523858D64002E64CB /* TestHelper.swift */,
 			);
 			name = IntegrationTests;
 			path = ../../Tests/IntegrationTests;
@@ -573,6 +576,7 @@
 				A108B0F82237FD51007FCB2D /* InterestsMD5HashTests.swift in Sources */,
 				A108B0F12237FD51007FCB2D /* RegisterTests.swift in Sources */,
 				A1D2AC3F225653A600AF4871 /* SetUserIdTest.swift in Sources */,
+				D33A751623858D64002E64CB /* TestHelper.swift in Sources */,
 				A1C41F7B2253B4BC00497D87 /* DeviceRegistrationTests.swift in Sources */,
 				A108B0ED2237FD51007FCB2D /* ReasonTests.swift in Sources */,
 				A108B1072237FE4D007FCB2D /* UserPersistableTests.swift in Sources */,
