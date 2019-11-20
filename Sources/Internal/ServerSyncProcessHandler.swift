@@ -156,7 +156,7 @@ class ServerSyncProcessHandler {
             case .SetSubscriptions(let interests, localInterestsChanged: true):
                 return self.networkService.setSubscriptions(instanceId: Instance.getInstanceId()!, deviceId: Device.getDeviceId()!, interests: interests, retryStrategy: WithInfiniteExpBackoff())
             case .ReportEventJob(let eventType):
-                return self.networkService.track(instanceId: Instance.getInstanceId()!, deviceId: Device.getDeviceId()!, eventType: eventType, retryStrategy: WithInfiniteExpBackoff())
+                return self.networkService.track(instanceId: eventType.getInstanceId(), deviceId: Device.getDeviceId()!, eventType: eventType, retryStrategy: WithInfiniteExpBackoff())
             case .ApplicationStartJob(let metadata):
                 processApplicationStartJob(metadata: metadata)
                 return .value(()) // this was always a best effort operation

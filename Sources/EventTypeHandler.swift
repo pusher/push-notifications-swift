@@ -67,6 +67,7 @@ struct EventTypeHandler {
         let timestampSecs = UInt(Date().timeIntervalSince1970)
         guard
             let publishId = PublishId(userInfo: userInfo).id,
+            let instanceId = InstanceId(userInfo: userInfo).id,
             let deviceId = Device.getDeviceId()
         else {
             return nil
@@ -75,7 +76,7 @@ struct EventTypeHandler {
         let persistenceService: UserPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
         let userId = persistenceService.getUserId()
 
-        return OpenEventType(publishId: publishId, deviceId: deviceId, userId: userId, timestampSecs: timestampSecs)
+        return OpenEventType(instanceId: instanceId, publishId: publishId, deviceId: deviceId, userId: userId, timestampSecs: timestampSecs)
     }
     #endif
 
