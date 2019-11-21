@@ -82,6 +82,7 @@
 		A1F122E62237C94600F7D766 /* RetryStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F122E52237C94600F7D766 /* RetryStrategy.swift */; };
 		A1F122E82237C9D400F7D766 /* PushNotificationsAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F122E72237C9D400F7D766 /* PushNotificationsAPIError.swift */; };
 		D323BB812385992800A618F4 /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D323BB802385992800A618F4 /* TestHelper.swift */; };
+		D323BB832385AAAE00A618F4 /* InstanceId.swift in Sources */ = {isa = PBXBuildFile; fileRef = D323BB822385AAAE00A618F4 /* InstanceId.swift */; };
 		D3FBCEA5238555C400CD9B8F /* PushNotificationsStatic.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FBCEA4238555C400CD9B8F /* PushNotificationsStatic.swift */; };
 /* End PBXBuildFile section */
 
@@ -177,6 +178,7 @@
 		A1F122E52237C94600F7D766 /* RetryStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryStrategy.swift; sourceTree = "<group>"; };
 		A1F122E72237C9D400F7D766 /* PushNotificationsAPIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsAPIError.swift; sourceTree = "<group>"; };
 		D323BB802385992800A618F4 /* TestHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
+		D323BB822385AAAE00A618F4 /* InstanceId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstanceId.swift; sourceTree = "<group>"; };
 		D3FBCEA4238555C400CD9B8F /* PushNotificationsStatic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsStatic.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -288,6 +290,7 @@
 				A1B344422018BC0200481BDF /* MultipleInvalidInterestsError.swift */,
 				A10552EE2028C017001E45D1 /* PropertyListReadable.swift */,
 				A1E80013201A3DAC00467EB9 /* PublishId.swift */,
+				D323BB822385AAAE00A618F4 /* InstanceId.swift */,
 				A108811820334D860091E8EB /* PusherAlreadyRegisteredError.swift */,
 				A155BFB61F9E38040070A609 /* PushNotifications.h */,
 				D3FBCEA4238555C400CD9B8F /* PushNotificationsStatic.swift */,
@@ -521,6 +524,7 @@
 				A1327BE02178EB62001483E1 /* AuthData.swift in Sources */,
 				A126312722CB726900DDAD28 /* ServerSyncJob.swift in Sources */,
 				A19ECF831FCF099200688DAF /* InterestPersistable.swift in Sources */,
+				D323BB832385AAAE00A618F4 /* InstanceId.swift in Sources */,
 				A1482A582181F3CD00F19A4E /* Result.swift in Sources */,
 				A1D2AC3D22560D3E00AF4871 /* String+HexStringToData.swift in Sources */,
 				A1F122E42237C90600F7D766 /* NetworkService.swift in Sources */,

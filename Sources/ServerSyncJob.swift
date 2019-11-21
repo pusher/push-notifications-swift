@@ -85,7 +85,7 @@ extension ServerSyncJob: Codable {
                 self = .ReportEventJob(eventType: deliveryEventType)
                 return
             }
-            self = .ReportEventJob(eventType: OpenEventType.init(publishId: "", deviceId: "", userId: "", timestampSecs: 0))
+            self = .ReportEventJob(eventType: OpenEventType.init(instanceId: "", publishId: "", deviceId: "", userId: "", timestampSecs: 0))
         case .StopJobKey:
             self = .StopJob
             return
