@@ -20,8 +20,7 @@ struct EventTypeHandler {
             return nil
         }
 
-        let persistenceService: UserPersistable = PersistenceService(service: UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName)!)
-        let userId = persistenceService.getUserId()
+        let userId = DeviceStateStore().getUserId()
 
         switch applicationState {
         case .active:
@@ -49,8 +48,7 @@ struct EventTypeHandler {
             return nil
         }
 
-        let persistenceService: UserPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
-        let userId = persistenceService.getUserId()
+        let userId = DeviceStateStore().getUserId()
 
         switch applicationState {
         case .active:
@@ -75,8 +73,7 @@ struct EventTypeHandler {
             return nil
         }
 
-        let persistenceService = PersistenceService(service: UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName)!)
-        let userId = persistenceService.getUserId()
+        let userId = DeviceStateStore().getUserId()
 
         return OpenEventType(instanceId: instanceId, publishId: publishId, deviceId: deviceId, userId: userId, timestampSecs: timestampSecs)
     }

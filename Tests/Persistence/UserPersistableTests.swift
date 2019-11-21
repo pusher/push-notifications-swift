@@ -3,16 +3,17 @@ import XCTest
 
 class UserPersistableTests: XCTestCase {
 
-    var persistenceService: PersistenceService!
+    var persistenceService: DeviceStateStore!
 
     override func setUp() {
             super.setUp()
-            self.persistenceService = PersistenceService(service: UserDefaults(suiteName: "Test")!)
+            UserDefaults.standard.removePersistentDomain(forName: PersistenceConstants.UserDefaults.suiteName)
+            self.persistenceService = DeviceStateStore()
         }
 
     override func tearDown() {
             self.persistenceService = nil
-            UserDefaults.standard.removePersistentDomain(forName: "Test")
+            UserDefaults.standard.removePersistentDomain(forName: PersistenceConstants.UserDefaults.suiteName)
             super.tearDown()
     }
 

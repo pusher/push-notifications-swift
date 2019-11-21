@@ -137,10 +137,10 @@ import Foundation
 
         var localUserIdDifferent: Bool?
         DeviceStateStore.synchronize {
-            if let userIdExists = DeviceStateStore.pushNotificationsInstance.getUserIdPreviouslyCalledWith() {
+            if let userIdExists = DeviceStateStore().getUserIdPreviouslyCalledWith() {
                 localUserIdDifferent = userIdExists != userId
             } else {
-                DeviceStateStore.pushNotificationsInstance.setUserIdHasBeenCalledWith(userId: userId)
+                DeviceStateStore().setUserIdHasBeenCalledWith(userId: userId)
             }
         }
         switch localUserIdDifferent {
@@ -184,8 +184,8 @@ import Foundation
     /// - Tag: stop
     @objc public func stop(completion: @escaping () -> Void) {
         let hadAnyInterests: Bool = DeviceStateStore.synchronize {
-            let hadAnyInterests = DeviceStateStore.interestsService.getSubscriptions()?.isEmpty ?? false
-            DeviceStateStore.interestsService.removeAllSubscriptions()
+            let hadAnyInterests = DeviceStateStore().getSubscriptions()?.isEmpty ?? false
+            DeviceStateStore().removeAllSubscriptions()
 
             return hadAnyInterests
         }
@@ -194,7 +194,7 @@ import Foundation
             self.interestsSetOnDeviceDidChange()
         }
 
-        DeviceStateStore.pushNotificationsInstance.clear()
+        DeviceStateStore().clear()
 
         startHasBeenCalledThisSession = false
 
@@ -261,7 +261,7 @@ import Foundation
         }
 
         let interestsChanged = DeviceStateStore.synchronize {
-            DeviceStateStore.interestsService.persist(interest: interest)
+            DeviceStateStore().persist(interest: interest)
         }
 
         self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.SubscribeJob(interest: interest, localInterestsChanged: interestsChanged))
@@ -287,7 +287,7 @@ import Foundation
         }
 
         let interestsChanged = DeviceStateStore.synchronize {
-            DeviceStateStore.interestsService.persist(interests: interests)
+            DeviceStateStore().persist(interests: interests)
         }
 
         self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.SetSubscriptions(interests: interests, localInterestsChanged: interestsChanged))
@@ -312,7 +312,7 @@ import Foundation
         }
 
         let interestsChanged = DeviceStateStore.synchronize {
-            DeviceStateStore.interestsService.remove(interest: interest)
+            DeviceStateStore().remove(interest: interest)
         }
 
         self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.UnsubscribeJob(interest: interest, localInterestsChanged: interestsChanged))
@@ -335,7 +335,7 @@ import Foundation
     /// - Tag: getDeviceInterests
     @objc public func getDeviceInterests() -> [String]? {
         return DeviceStateStore.synchronize {
-            return DeviceStateStore.interestsService.getSubscriptions()
+            return DeviceStateStore().getSubscriptions()
         }
     }
 
