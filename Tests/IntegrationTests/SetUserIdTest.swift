@@ -34,7 +34,7 @@ class SetUserIdTest: XCTestCase {
 
     func testSetUserIdShouldAssociateThisDeviceWithUserOnTheServer() {
         let pushNotifications = PushNotifications(instanceId: instanceId)
-        pushNotifications.start(instanceId: instanceId)
+        pushNotifications.start()
         pushNotifications.registerDeviceToken(validToken)
 
         expect(Device.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
@@ -49,7 +49,7 @@ class SetUserIdTest: XCTestCase {
 
     func testSetUserIdShouldThrowExceptionIfUserIdIsReassigned() {
         let pushNotifications = PushNotifications(instanceId: instanceId)
-        pushNotifications.start(instanceId: instanceId)
+        pushNotifications.start()
         pushNotifications.registerDeviceToken(validToken)
         let expCucas = expectation(description: "Set user id for cucas should succeed")
         let expPotato = expectation(description: "Set user id for potato should fail")
@@ -70,7 +70,7 @@ class SetUserIdTest: XCTestCase {
 
     func testSetUserIdCallStopAndSettingADifferentUserIdSucceeds() {
         let pushNotifications = PushNotifications(instanceId: instanceId)
-        pushNotifications.start(instanceId: instanceId)
+        pushNotifications.start()
         pushNotifications.registerDeviceToken(validToken)
 
         let tokenProvider = StubTokenProvider(jwt: validCucasJWTToken, error: nil)

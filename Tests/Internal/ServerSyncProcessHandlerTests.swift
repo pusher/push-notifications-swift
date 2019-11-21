@@ -48,7 +48,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         }
 
         let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
-        let serverSyncProcessHandler = ServerSyncProcessHandler(getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
         serverSyncProcessHandler.jobQueue.append(startJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
 
@@ -79,7 +79,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         }
 
         let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
-        let serverSyncProcessHandler = ServerSyncProcessHandler(getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
         serverSyncProcessHandler.jobQueue.append(startJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
 
@@ -99,7 +99,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
             return OHHTTPStubsResponse(jsonObject: [], statusCode: 500, headers: nil)
         }
 
-        let serverSyncProcessHandler = ServerSyncProcessHandler(getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
         let jobs = [ServerSyncJob.RefreshTokenJob(newToken: "1"), ServerSyncJob.SubscribeJob(interest: "abc", localInterestsChanged: true), ServerSyncJob.UnsubscribeJob(interest: "12", localInterestsChanged: true)]
 
         for job in jobs {
@@ -145,7 +145,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
             return
         }
 
-        let serverSyncProcessHandler = ServerSyncProcessHandler(getTokenProvider: noTokenProvider, handleServerSyncEvent: handleServerSyncEvent)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: handleServerSyncEvent)
         for job in jobs {
             serverSyncProcessHandler.jobQueue.append(job)
             serverSyncProcessHandler.handleMessage(serverSyncJob: job)
@@ -179,7 +179,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
             ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
         ]
 
-        let serverSyncProcessHandler = ServerSyncProcessHandler(getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
         for job in jobs {
             serverSyncProcessHandler.jobQueue.append(job)
             serverSyncProcessHandler.handleMessage(serverSyncJob: job)
@@ -220,7 +220,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         ]
 
 
-        let serverSyncProcessHandler = ServerSyncProcessHandler(getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
         for job in jobs {
             serverSyncProcessHandler.jobQueue.append(job)
             serverSyncProcessHandler.handleMessage(serverSyncJob: job)
@@ -259,7 +259,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         ]
 
 
-        let serverSyncProcessHandler = ServerSyncProcessHandler(getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
         for job in jobs {
             serverSyncProcessHandler.jobQueue.append(job)
             serverSyncProcessHandler.handleMessage(serverSyncJob: job)
@@ -290,7 +290,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         ]
 
 
-        let serverSyncProcessHandler = ServerSyncProcessHandler(getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
         for job in jobs {
             serverSyncProcessHandler.jobQueue.append(job)
             serverSyncProcessHandler.handleMessage(serverSyncJob: job)
@@ -316,7 +316,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         }
 
         let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
-        let serverSyncProcessHandler = ServerSyncProcessHandler(getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
         serverSyncProcessHandler.jobQueue.append(startJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
 
@@ -373,7 +373,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
             ServerSyncJob.SetSubscriptions(interests: ["1", "2"], localInterestsChanged: true)
         ]
 
-        let serverSyncProcessHandler = ServerSyncProcessHandler(getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
         for job in jobs {
             serverSyncProcessHandler.jobQueue.append(job)
             serverSyncProcessHandler.handleMessage(serverSyncJob: job)
@@ -415,7 +415,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         }
 
         let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
-        let serverSyncProcessHandler = ServerSyncProcessHandler(getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
         serverSyncProcessHandler.jobQueue.append(startJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
 
@@ -462,7 +462,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         DeviceStateStore.usersService.setUserId(userId: "cucas")
 
         let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
-        let serverSyncProcessHandler = ServerSyncProcessHandler(getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
         serverSyncProcessHandler.jobQueue.append(startJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
 
@@ -502,7 +502,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
         let metadata = Metadata(sdkVersion: "123", iosVersion: "11", macosVersion: nil)
         let applicationStartJob = ServerSyncJob.ApplicationStartJob(metadata: metadata)
-        let serverSyncProcessHandler = ServerSyncProcessHandler(getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
         serverSyncProcessHandler.jobQueue.append(startJob)
         serverSyncProcessHandler.jobQueue.append(applicationStartJob)
         serverSyncProcessHandler.jobQueue.append(applicationStartJob)
@@ -554,7 +554,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
         let metadata = Metadata(sdkVersion: "123", iosVersion: "11", macosVersion: nil)
         let applicationStartJob = ServerSyncJob.ApplicationStartJob(metadata: metadata)
-        let serverSyncProcessHandler = ServerSyncProcessHandler(getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
         serverSyncProcessHandler.jobQueue.append(startJob)
         serverSyncProcessHandler.jobQueue.append(applicationStartJob)
         serverSyncProcessHandler.jobQueue.append(applicationStartJob)
@@ -595,6 +595,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         let setUserIdJob = ServerSyncJob.SetUserIdJob(userId: "cucas")
         let tokenProvider = StubTokenProvider(jwt: "dummy-jwt", error: nil)
         let serverSyncProcessHandler = ServerSyncProcessHandler(
+            instanceId: instanceId,
             getTokenProvider: { return tokenProvider },
             handleServerSyncEvent: { _ in return }
         )
@@ -633,6 +634,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         let exp = expectation(description: "Callback should be called")
 
         let serverSyncProcessHandler = ServerSyncProcessHandler(
+            instanceId: instanceId,
             getTokenProvider: { return tokenProvider },
             handleServerSyncEvent: { event in
                 switch event {
@@ -673,6 +675,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         let exp = expectation(description: "Callback should be called")
 
         let serverSyncProcessHandler = ServerSyncProcessHandler(
+            instanceId: instanceId,
             getTokenProvider: { return nil },
             handleServerSyncEvent: { event in
                 switch event {
@@ -715,6 +718,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         let exp = expectation(description: "Callback should be called")
 
         let serverSyncProcessHandler = ServerSyncProcessHandler(
+            instanceId: instanceId,
             getTokenProvider: { return tokenProvider },
             handleServerSyncEvent: { event in
                 switch event {
@@ -757,6 +761,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         let exp = expectation(description: "Callback should be called")
 
         let serverSyncProcessHandler = ServerSyncProcessHandler(
+            instanceId: instanceId,
             getTokenProvider: { return tokenProvider },
             handleServerSyncEvent: { event in
                 switch event {
@@ -799,6 +804,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         let exp = expectation(description: "Callback should be called")
 
         let serverSyncProcessHandler = ServerSyncProcessHandler(
+            instanceId: instanceId,
             getTokenProvider: { return tokenProvider },
             handleServerSyncEvent: { event in
                 switch event {
