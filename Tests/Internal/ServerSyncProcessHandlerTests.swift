@@ -151,7 +151,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
             serverSyncProcessHandler.handleMessage(serverSyncJob: job)
         }
 
-        let localInterestsSet = Set(DeviceStateStore().getSubscriptions() ?? [])
+        let localInterestsSet = Set(DeviceStateStore().getInterests() ?? [])
         XCTAssertEqual(localInterestsSet, expectedInterestsSet)
 
         waitForExpectations(timeout: 1)
@@ -185,7 +185,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
             serverSyncProcessHandler.handleMessage(serverSyncJob: job)
         }
 
-        let localInterestsSet = Set(DeviceStateStore().getSubscriptions() ?? [])
+        let localInterestsSet = Set(DeviceStateStore().getInterests() ?? [])
         let expectedInterestsSet = Set(["cucas", "potatoes", "123", "interest-2"])
         XCTAssertEqual(localInterestsSet, expectedInterestsSet)
     }
@@ -226,7 +226,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
             serverSyncProcessHandler.handleMessage(serverSyncJob: job)
         }
 
-        let localInterestsSet = Set(DeviceStateStore().getSubscriptions() ?? [])
+        let localInterestsSet = Set(DeviceStateStore().getInterests() ?? [])
         let expectedInterestsSet = Set(["cucas", "potatoes", "123", "interest-2"])
         XCTAssertEqual(localInterestsSet, expectedInterestsSet)
 
@@ -265,7 +265,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
             serverSyncProcessHandler.handleMessage(serverSyncJob: job)
         }
 
-        let localInterestsSet = Set(DeviceStateStore().getSubscriptions() ?? [])
+        let localInterestsSet = Set(DeviceStateStore().getInterests() ?? [])
         let expectedInterestsSet = Set(["interest-x", "hello"])
         XCTAssertEqual(localInterestsSet, expectedInterestsSet)
 

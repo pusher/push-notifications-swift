@@ -91,9 +91,9 @@ class ServerSyncProcessHandler {
                     }
                 }
 
-                let localInterestsWillChange = Set(DeviceStateStore().getSubscriptions() ?? []) != interestsSet
+                let localInterestsWillChange = Set(DeviceStateStore().getInterests() ?? []) != interestsSet
                 if localInterestsWillChange {
-                    DeviceStateStore().persist(interests: Array(interestsSet))
+                    DeviceStateStore().persistInterests(Array(interestsSet))
                     self.handleServerSyncEvent(.InterestsChangedEvent(interests: Array(interestsSet)))
                 }
 
@@ -102,7 +102,7 @@ class ServerSyncProcessHandler {
                 Device.persist(device.id)
             }
 
-            let localInterests = DeviceStateStore().getSubscriptions() ?? []
+            let localInterests = DeviceStateStore().getInterests() ?? []
             let remoteInterestsWillChange = Set(localInterests) != device.initialInterestSet ?? Set()
             if remoteInterestsWillChange {
                 // We don't care about the result at this point.
@@ -135,7 +135,7 @@ class ServerSyncProcessHandler {
             }
         }
 
-        let localInterests = DeviceStateStore().getSubscriptions() ?? []
+        let localInterests = DeviceStateStore().getInterests() ?? []
         let localInterestsHash = localInterests.calculateMD5Hash()
 
         if localInterestsHash != DeviceStateStore().getServerConfirmedInterestsHash() {
@@ -202,7 +202,7 @@ class ServerSyncProcessHandler {
             let localIntersets: [String] = DeviceStateStore.synchronize {
                 Device.persist(device.id)
                 Device.persistAPNsToken(token: token)
-                return DeviceStateStore().getSubscriptions() ?? []
+                return DeviceStateStore().getInterests() ?? []
             }
 
             if !localIntersets.isEmpty {

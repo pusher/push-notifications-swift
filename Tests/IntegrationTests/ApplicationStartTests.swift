@@ -41,7 +41,7 @@ class ApplicationStartTests: XCTestCase {
         expect(TestAPIClientHelper().getDeviceInterests(instanceId: self.instanceId, deviceId: deviceId))
             .toEventually(equal([]), timeout: 10)
 
-        DeviceStateStore().persist(interests: ["cucas", "panda", "potato"])
+        DeviceStateStore().persistInterests(["cucas", "panda", "potato"])
         pushNotifications.start()
 
         expect(TestAPIClientHelper().getDeviceInterests(instanceId: self.instanceId, deviceId: deviceId))
