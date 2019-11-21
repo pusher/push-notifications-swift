@@ -12,7 +12,6 @@
 		A10552EF2028C017001E45D1 /* PropertyListReadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10552EE2028C017001E45D1 /* PropertyListReadable.swift */; };
 		A1067109201F69B8001190F8 /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1067108201F69B8001190F8 /* FeatureFlags.swift */; };
 		A108811A20334D860091E8EB /* PusherAlreadyRegisteredError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108811820334D860091E8EB /* PusherAlreadyRegisteredError.swift */; };
-		A108811B20334D860091E8EB /* Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108811920334D860091E8EB /* Instance.swift */; };
 		A108B0CF2237FBF8007FCB2D /* DeviceStateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108B0CE2237FBF8007FCB2D /* DeviceStateStore.swift */; };
 		A108B0E82237FD51007FCB2D /* AuthDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108B0D02237FD50007FCB2D /* AuthDataTests.swift */; };
 		A108B0EA2237FD51007FCB2D /* ServerSyncProcessHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108B0D32237FD50007FCB2D /* ServerSyncProcessHandlerTests.swift */; };
@@ -99,7 +98,6 @@
 		A10552EE2028C017001E45D1 /* PropertyListReadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PropertyListReadable.swift; path = ../../Sources/PropertyListReadable.swift; sourceTree = "<group>"; };
 		A1067108201F69B8001190F8 /* FeatureFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FeatureFlags.swift; path = ../../Sources/FeatureFlags.swift; sourceTree = "<group>"; };
 		A108811820334D860091E8EB /* PusherAlreadyRegisteredError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PusherAlreadyRegisteredError.swift; path = ../../Sources/PusherAlreadyRegisteredError.swift; sourceTree = "<group>"; };
-		A108811920334D860091E8EB /* Instance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instance.swift; sourceTree = "<group>"; };
 		A108B0CE2237FBF8007FCB2D /* DeviceStateStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceStateStore.swift; sourceTree = "<group>"; };
 		A108B0D02237FD50007FCB2D /* AuthDataTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthDataTests.swift; path = ../../Tests/AuthDataTests.swift; sourceTree = "<group>"; };
 		A108B0D32237FD50007FCB2D /* ServerSyncProcessHandlerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerSyncProcessHandlerTests.swift; sourceTree = "<group>"; };
@@ -198,7 +196,6 @@
 		A108B0CB2237FAD6007FCB2D /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
-				A108811920334D860091E8EB /* Instance.swift */,
 				A108B0CE2237FBF8007FCB2D /* DeviceStateStore.swift */,
 				A144AB471F9E3DA2009F0040 /* Device.swift */,
 				A10552EC2028A934001E45D1 /* Metadata.swift */,
@@ -538,7 +535,6 @@
 				A1E8000A201A213000467EB9 /* ReportEventType.swift in Sources */,
 				A1E80015201A3DAC00467EB9 /* PublishId.swift in Sources */,
 				A1F122E62237C94600F7D766 /* RetryStrategy.swift in Sources */,
-				A108811B20334D860091E8EB /* Instance.swift in Sources */,
 				A16782551FA0EA2D00A193DF /* Reason.swift in Sources */,
 				A108B0CF2237FBF8007FCB2D /* DeviceStateStore.swift in Sources */,
 				A126312322CA705600DDAD28 /* ServerSyncJobStore.swift in Sources */,

@@ -20,6 +20,15 @@ public class DeviceStateStore {
         }
     }
     
+    // MARK: Instance Id
+    func persistInstanceId(_ instanceId: String) {
+        self.service.set(instanceId, forKey: PersistenceConstants.UserDefaults.instanceId)
+    }
+
+    func getInstanceId() -> String? {
+        return self.service.string(forKey: PersistenceConstants.UserDefaults.instanceId)
+    }
+    
     // MARK: Interest
     func persistInterest(_ interest: String) -> Bool {
         guard !self.interestExists(interest: interest) else {

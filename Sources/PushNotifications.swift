@@ -57,7 +57,7 @@ import Foundation
      */
     /// - Tag: start
     @objc public func start() {
-        let localInstanceId = Instance.getInstanceId()
+        let localInstanceId = self.deviceStateStore.getInstanceId()
         if localInstanceId != nil && localInstanceId != instanceId {
             let errorMessage = """
             This device has already been registered with Pusher.
@@ -74,7 +74,7 @@ import Foundation
             return
         }
 
-        Instance.persist(instanceId)
+        self.deviceStateStore.persistInstanceId(instanceId)
 
         // Detect from where the function is being called
         let wasCalledFromCorrectLocation = Thread.callStackSymbols.contains { stack in

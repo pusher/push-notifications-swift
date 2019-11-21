@@ -22,7 +22,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
         }
 
-        Instance.persist(instanceId)
+        self.deviceStateStore.persistInstanceId(instanceId)
     }
 
     override func tearDown() {
