@@ -13,6 +13,7 @@ struct EventTypeHandler {
         let hasData = EventTypeHandler.hasData(userInfo)
 
         guard
+            let instanceId = InstanceId(userInfo: userInfo).id,
             let publishId = PublishId(userInfo: userInfo).id,
             let deviceId = Device.getDeviceId()
         else {
@@ -24,11 +25,11 @@ struct EventTypeHandler {
 
         switch applicationState {
         case .active:
-            eventType = DeliveryEventType(publishId: publishId, deviceId: deviceId, userId: userId, timestampSecs: timestampSecs, appInBackground: false, hasDisplayableContent: hasDisplayableContent, hasData: hasData)
+            eventType = DeliveryEventType(instanceId: instanceId, publishId: publishId, deviceId: deviceId, userId: userId, timestampSecs: timestampSecs, appInBackground: false, hasDisplayableContent: hasDisplayableContent, hasData: hasData)
         case .background:
-            eventType = DeliveryEventType(publishId: publishId, deviceId: deviceId, userId: userId, timestampSecs: timestampSecs, appInBackground: true, hasDisplayableContent: hasDisplayableContent, hasData: hasData)
+            eventType = DeliveryEventType(instanceId: instanceId, publishId: publishId, deviceId: deviceId, userId: userId, timestampSecs: timestampSecs, appInBackground: true, hasDisplayableContent: hasDisplayableContent, hasData: hasData)
         case .inactive:
-            eventType = OpenEventType(publishId: publishId, deviceId: deviceId, userId: userId, timestampSecs: timestampSecs)
+            eventType = OpenEventType(instanceId: instanceId, publishId: publishId, deviceId: deviceId, userId: userId, timestampSecs: timestampSecs)
         }
 
         return eventType
@@ -41,6 +42,7 @@ struct EventTypeHandler {
         let hasData = EventTypeHandler.hasData(userInfo)
 
         guard
+            let instanceId = InstanceId(userInfo: userInfo).id,
             let publishId = PublishId(userInfo: userInfo).id,
             let deviceId = Device.getDeviceId()
         else {
@@ -52,11 +54,11 @@ struct EventTypeHandler {
 
         switch applicationState {
         case .active:
-            eventType = DeliveryEventType(publishId: publishId, deviceId: deviceId, userId: userId, timestampSecs: timestampSecs, appInBackground: false, hasDisplayableContent: hasDisplayableContent, hasData: hasData)
+            eventType = DeliveryEventType(instanceId: instanceId, publishId: publishId, deviceId: deviceId, userId: userId, timestampSecs: timestampSecs, appInBackground: false, hasDisplayableContent: hasDisplayableContent, hasData: hasData)
         case .background:
-            eventType = DeliveryEventType(publishId: publishId, deviceId: deviceId, userId: userId, timestampSecs: timestampSecs, appInBackground: true, hasDisplayableContent: hasDisplayableContent, hasData: hasData)
+            eventType = DeliveryEventType(instanceId: instanceId, publishId: publishId, deviceId: deviceId, userId: userId, timestampSecs: timestampSecs, appInBackground: true, hasDisplayableContent: hasDisplayableContent, hasData: hasData)
         case .inactive:
-            eventType = OpenEventType(publishId: publishId, deviceId: deviceId, userId: userId, timestampSecs: timestampSecs)
+            eventType = OpenEventType(instanceId: instanceId, publishId: publishId, deviceId: deviceId, userId: userId, timestampSecs: timestampSecs)
         }
 
         return eventType
@@ -66,8 +68,8 @@ struct EventTypeHandler {
     static func getNotificationEventType(userInfo: [AnyHashable: Any]) -> OpenEventType? {
         let timestampSecs = UInt(Date().timeIntervalSince1970)
         guard
-            let publishId = PublishId(userInfo: userInfo).id,
             let instanceId = InstanceId(userInfo: userInfo).id,
+            let publishId = PublishId(userInfo: userInfo).id,
             let deviceId = Device.getDeviceId()
         else {
             return nil
