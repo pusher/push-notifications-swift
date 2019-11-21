@@ -31,7 +31,7 @@ class ApplicationStartTests: XCTestCase {
 
     func testApplicationStartWillSyncInterests() {
         let pushNotifications = PushNotifications(instanceId: instanceId)
-        pushNotifications.start(instanceId: instanceId)
+        pushNotifications.start()
 
         pushNotifications.registerDeviceToken(validToken)
 
@@ -42,7 +42,7 @@ class ApplicationStartTests: XCTestCase {
             .toEventually(equal([]), timeout: 10)
 
         DeviceStateStore.interestsService.persist(interests: ["cucas", "panda", "potato"])
-        pushNotifications.start(instanceId: instanceId)
+        pushNotifications.start()
 
         expect(TestAPIClientHelper().getDeviceInterests(instanceId: self.instanceId, deviceId: deviceId))
             .toEventually(contain("cucas", "panda", "potato"), timeout: 10)

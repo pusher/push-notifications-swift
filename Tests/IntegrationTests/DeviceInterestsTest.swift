@@ -79,7 +79,7 @@ class DeviceInterestsTest: XCTestCase {
         let pushNotifications = PushNotifications(instanceId: instanceId)
         XCTAssertNoThrow(try pushNotifications.addDeviceInterest(interest: "panda"))
 
-        pushNotifications.start(instanceId: instanceId)
+        pushNotifications.start()
         pushNotifications.registerDeviceToken(validToken)
 
         expect(Device.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
@@ -95,7 +95,7 @@ class DeviceInterestsTest: XCTestCase {
         XCTAssertNoThrow(try pushNotifications.addDeviceInterest(interest: "panda"))
         XCTAssertNoThrow(try pushNotifications.addDeviceInterest(interest: "zebra"))
 
-        pushNotifications.start(instanceId: instanceId)
+        pushNotifications.start()
         pushNotifications.registerDeviceToken(validToken)
 
         expect(Device.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
@@ -131,7 +131,7 @@ class DeviceInterestsTest: XCTestCase {
         })
         pushNotifications2.delegate = stubInterestsChanged
 
-        pushNotifications2.start(instanceId: instanceId)
+        pushNotifications2.start()
         pushNotifications2.registerDeviceToken(validToken)
 
         expect(Device.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)

@@ -33,7 +33,7 @@ class ClearAllStateTest: XCTestCase {
 
     func testItShouldClearAllState() {
         let pushNotifications = PushNotifications(instanceId: instanceId)
-        pushNotifications.start(instanceId: instanceId)
+        pushNotifications.start()
         pushNotifications.registerDeviceToken(validToken)
 
         expect(Device.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)

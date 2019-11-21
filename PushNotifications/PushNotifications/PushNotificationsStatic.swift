@@ -28,7 +28,7 @@ import Foundation
         if (instance == nil) {
             instance = PushNotifications(instanceId: instanceId)
         }
-        instance?.start(instanceId: instanceId)
+        instance?.start()
         //todo: handle starting different instances
         
     }
@@ -218,7 +218,6 @@ import Foundation
         } else {
             fatalError("PushNotifications.shared.start must have been called first")
         }
-        return nil
     }
     
     /**
@@ -234,8 +233,6 @@ import Foundation
         } else {
             fatalError("PushNotifications.shared.start must have been called first")
         }
-        return RemoteNotificationType.ShouldProcess
     }
-    
     
 }

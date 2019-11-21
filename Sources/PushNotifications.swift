@@ -9,7 +9,7 @@ import Foundation
 
 @objc public final class PushNotifications: NSObject {
     
-    private var instanceId: String
+    private let instanceId: String
     
     init(instanceId: String) {
         self.instanceId = instanceId
@@ -22,6 +22,7 @@ import Foundation
     private var userIdCallbacks = Dictionary<String, [(Error?) -> Void]>()
     private var stopCallbacks = [() -> Void]()
     private lazy var serverSyncHandler = ServerSyncProcessHandler(
+        instanceId: self.instanceId,
         getTokenProvider: { return PushNotifications.shared.tokenProvider },
         handleServerSyncEvent: { [weak self] (event) in
             DispatchQueue.main.async {
@@ -52,13 +53,9 @@ import Foundation
 
     /**
      Start PushNotifications service.
-
-     - Parameter instanceId: PushNotifications instance id.
-
-     - Precondition: `instanceId` should not be nil.
      */
     /// - Tag: start
-    @objc public func start(instanceId: String) {
+    @objc public func start() {
         let localInstanceId = Instance.getInstanceId()
         if localInstanceId != nil && localInstanceId != instanceId {
             let errorMessage = """
@@ -214,12 +211,12 @@ import Foundation
      */
     /// - Tag: clearAllState
     @objc public func clearAllState(completion: @escaping () -> Void) {
-        let instanceId = Instance.getInstanceId()
         let storedAPNsToken = Device.getAPNsToken()
+        let hasStartAlreadyBeenCalled = self.startHasBeenCalledThisSession
         self.stop(completion: completion)
 
-        if instanceId != nil {
-            self.start(instanceId: instanceId!)
+        if hasStartAlreadyBeenCalled {
+            self.start()
             if let apnsToken = storedAPNsToken {
                 // Since we already had the token, we're forcing new device creation.
                 self.registerDeviceToken(apnsToken.hexStringToData()!)
@@ -237,9 +234,7 @@ import Foundation
      */
     /// - Tag: registerDeviceToken
     @objc public func registerDeviceToken(_ deviceToken: Data) {
-        guard
-            let instanceId = Instance.getInstanceId()
-        else {
+        if !startHasBeenCalledThisSession {
             print("[PushNotifications] - Something went wrong. Please make sure that you've called `start` before `registerDeviceToken`.")
             return
         }

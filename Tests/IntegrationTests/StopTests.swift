@@ -33,7 +33,7 @@ class StopTests: XCTestCase {
 
     func testStopShouldDeleteDeviceOnTheServer() {
         let pushNotifications = PushNotifications(instanceId: instanceId)
-        pushNotifications.start(instanceId: instanceId)
+        pushNotifications.start()
         pushNotifications.registerDeviceToken(validToken)
 
         expect(Device.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
@@ -52,7 +52,7 @@ class StopTests: XCTestCase {
 
     func testShouldDeleteLocalInterests() {
         let pushNotifications = PushNotifications(instanceId: instanceId)
-        pushNotifications.start(instanceId: instanceId)
+        pushNotifications.start()
         pushNotifications.registerDeviceToken(validToken)
 
         expect(Device.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
@@ -64,7 +64,7 @@ class StopTests: XCTestCase {
 
     func testAfterStopStartingAgainShouldBePossible() {
         let pushNotifications = PushNotifications(instanceId: instanceId)
-        pushNotifications.start(instanceId: instanceId)
+        pushNotifications.start()
         pushNotifications.registerDeviceToken(validToken)
 
         expect(Device.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
@@ -73,7 +73,7 @@ class StopTests: XCTestCase {
 
         expect(Device.getDeviceId()).toEventually(beNil(), timeout: 10)
 
-        pushNotifications.start(instanceId: self.instanceId)
+        pushNotifications.start()
         pushNotifications.registerDeviceToken(validToken)
 
         expect(Device.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
