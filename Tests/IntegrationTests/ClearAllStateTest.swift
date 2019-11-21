@@ -16,7 +16,7 @@ class ClearAllStateTest: XCTestCase {
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
         }
 
-        try? FileManager.default.removeItem(atPath: "syncJobStoreQueue")
+        TestHelper().removeSyncjobStore()
     }
 
     override func tearDown() {
@@ -28,11 +28,11 @@ class ClearAllStateTest: XCTestCase {
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
         }
 
-        try? FileManager.default.removeItem(atPath: "syncJobStoreQueue")
+        TestHelper().removeSyncjobStore()
     }
 
     func testItShouldClearAllState() {
-        let pushNotifications = PushNotifications()
+        let pushNotifications = PushNotifications(instanceId: instanceId)
         pushNotifications.start(instanceId: instanceId)
         pushNotifications.registerDeviceToken(validToken)
 

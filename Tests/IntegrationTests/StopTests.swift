@@ -16,7 +16,7 @@ class StopTests: XCTestCase {
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
         }
 
-        try? FileManager.default.removeItem(atPath: "syncJobStoreQueue")
+        TestHelper().removeSyncjobStore()
     }
 
     override func tearDown() {
@@ -28,11 +28,11 @@ class StopTests: XCTestCase {
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
         }
 
-        try? FileManager.default.removeItem(atPath: "syncJobStoreQueue")
+        TestHelper().removeSyncjobStore()
     }
 
     func testStopShouldDeleteDeviceOnTheServer() {
-        let pushNotifications = PushNotifications()
+        let pushNotifications = PushNotifications(instanceId: instanceId)
         pushNotifications.start(instanceId: instanceId)
         pushNotifications.registerDeviceToken(validToken)
 
@@ -51,7 +51,7 @@ class StopTests: XCTestCase {
     }
 
     func testShouldDeleteLocalInterests() {
-        let pushNotifications = PushNotifications()
+        let pushNotifications = PushNotifications(instanceId: instanceId)
         pushNotifications.start(instanceId: instanceId)
         pushNotifications.registerDeviceToken(validToken)
 
@@ -63,7 +63,7 @@ class StopTests: XCTestCase {
     }
 
     func testAfterStopStartingAgainShouldBePossible() {
-        let pushNotifications = PushNotifications()
+        let pushNotifications = PushNotifications(instanceId: instanceId)
         pushNotifications.start(instanceId: instanceId)
         pushNotifications.registerDeviceToken(validToken)
 

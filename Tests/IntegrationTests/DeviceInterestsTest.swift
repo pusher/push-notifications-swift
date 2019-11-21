@@ -16,7 +16,7 @@ class DeviceInterestsTest: XCTestCase {
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
         }
 
-        try? FileManager.default.removeItem(atPath: "syncJobStoreQueue")
+        TestHelper().removeSyncjobStore()
     }
 
     override func tearDown() {
@@ -28,18 +28,18 @@ class DeviceInterestsTest: XCTestCase {
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
         }
 
-        try? FileManager.default.removeItem(atPath: "syncJobStoreQueue")
+        TestHelper().removeSyncjobStore()
     }
 
     func testInterestNameValidation() {
-        let pushNotifications = PushNotifications.shared
+        let pushNotifications = PushNotifications(instanceId: instanceId)
         XCTAssertThrowsError(try pushNotifications.addDeviceInterest(interest: "hello$*"))
         XCTAssertThrowsError(try pushNotifications.removeDeviceInterest(interest: "hello$*"))
 
         let invalidInterests = ["¢123", "#ssss#dds", "£", "hello|world"]
         let validInterests = ["a;b", "hello-world", "pusher.com", "@cucas", "apples,grapes,oranges==fruit"]
         let allInterests = invalidInterests + validInterests
-        XCTAssertThrowsError(try PushNotifications.shared.setDeviceInterests(interests: allInterests)) { error in
+        XCTAssertThrowsError(try pushNotifications.setDeviceInterests(interests: allInterests)) { error in
             guard case MultipleInvalidInterestsError.invalidNames(let names) = error else {
                 return XCTFail()
             }
@@ -60,7 +60,7 @@ class DeviceInterestsTest: XCTestCase {
     }
 
     func testSubscribingAndUnsubscribingBeforeTheStartWorks() {
-        let pushNotifications = PushNotifications.shared
+        let pushNotifications = PushNotifications(instanceId: instanceId)
         XCTAssertNoThrow(try pushNotifications.addDeviceInterest(interest: "panda"))
         var interests = pushNotifications.getDeviceInterests()
         XCTAssertNotNil(interests)
@@ -76,7 +76,7 @@ class DeviceInterestsTest: XCTestCase {
     }
 
     func testInterestsShouldBeSynchronisedAfterStart() {
-        let pushNotifications = PushNotifications.shared
+        let pushNotifications = PushNotifications(instanceId: instanceId)
         XCTAssertNoThrow(try pushNotifications.addDeviceInterest(interest: "panda"))
 
         pushNotifications.start(instanceId: instanceId)
@@ -91,7 +91,7 @@ class DeviceInterestsTest: XCTestCase {
 
     func testLocalInterestsSetShouldBeMergedAfterDeviceRegistration() {
         // Creating device and setting interests to simulate preexisting device with interests.
-        let pushNotifications = PushNotifications()
+        let pushNotifications = PushNotifications(instanceId: instanceId)
         XCTAssertNoThrow(try pushNotifications.addDeviceInterest(interest: "panda"))
         XCTAssertNoThrow(try pushNotifications.addDeviceInterest(interest: "zebra"))
 
@@ -110,7 +110,7 @@ class DeviceInterestsTest: XCTestCase {
         }
 
         // Creating new instance to pretend a fresh state
-        let pushNotifications2 = PushNotifications()
+        let pushNotifications2 = PushNotifications(instanceId: instanceId)
         XCTAssertNoThrow(try pushNotifications2.removeDeviceInterest(interest: "panda"))
         XCTAssertNoThrow(try pushNotifications2.addDeviceInterest(interest: "lion"))
 
@@ -144,7 +144,7 @@ class DeviceInterestsTest: XCTestCase {
     }
 
     func testInterestsSetDidChangeAndCallbackIsCalled() {
-        let pushNotifications = PushNotifications()
+        let pushNotifications = PushNotifications(instanceId: instanceId)
 
         class StubInterestsChanged: InterestsChangedDelegate {
             let completion: ([String]) -> ()
@@ -215,4 +215,5 @@ class DeviceInterestsTest: XCTestCase {
 
         waitForExpectations(timeout: 1)
     }
+
 }
