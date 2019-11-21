@@ -218,7 +218,6 @@ import Foundation
         } else {
             fatalError("PushNotifications.shared.start must have been called first")
         }
-        return nil
     }
     
     /**
@@ -234,8 +233,6 @@ import Foundation
         } else {
             fatalError("PushNotifications.shared.start must have been called first")
         }
-        return RemoteNotificationType.ShouldProcess
     }
-    
     
 }
