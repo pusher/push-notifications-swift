@@ -13,7 +13,7 @@ class SetUserIdTest: XCTestCase {
             TestAPIClientHelper().deleteDevice(instanceId: instanceId, deviceId: deviceId)
         }
 
-        UserDefaults(suiteName: Constants.UserDefaults.suiteName).map { userDefaults in
+        UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName).map { userDefaults in
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
         }
 
@@ -25,7 +25,7 @@ class SetUserIdTest: XCTestCase {
             TestAPIClientHelper().deleteDevice(instanceId: instanceId, deviceId: deviceId)
         }
 
-        UserDefaults(suiteName: Constants.UserDefaults.suiteName).map { userDefaults in
+        UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName).map { userDefaults in
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
         }
 

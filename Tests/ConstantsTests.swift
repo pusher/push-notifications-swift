@@ -3,17 +3,17 @@ import XCTest
 
 class ConstantsTests: XCTestCase {
     func testUserDefaultsConstants() {
-        XCTAssertEqual(Constants.UserDefaults.suiteName, "PushNotifications")
-        XCTAssertEqual(Constants.UserDefaults.metadataSDKVersion, "com.pusher.sdk.metadata.sdkVersion")
-        XCTAssertEqual(Constants.UserDefaults.metadataiOSVersion, "com.pusher.sdk.metadata.iosVersion")
-        XCTAssertEqual(Constants.UserDefaults.metadataMacOSVersion, "com.pusher.sdk.metadata.macosVersion")
-        XCTAssertEqual(Constants.UserDefaults.deviceId, "com.pusher.sdk.deviceId")
-        XCTAssertEqual(Constants.UserDefaults.instanceId, "com.pusher.sdk.instanceId")
+        XCTAssertEqual(PersistenceConstants.UserDefaults.suiteName, "PushNotifications")
+        XCTAssertEqual(PersistenceConstants.UserDefaults.metadataSDKVersion, "com.pusher.sdk.metadata.sdkVersion")
+        XCTAssertEqual(PersistenceConstants.UserDefaults.metadataiOSVersion, "com.pusher.sdk.metadata.iosVersion")
+        XCTAssertEqual(PersistenceConstants.UserDefaults.metadataMacOSVersion, "com.pusher.sdk.metadata.macosVersion")
+        XCTAssertEqual(PersistenceConstants.UserDefaults.deviceId, "com.pusher.sdk.deviceId")
+        XCTAssertEqual(PersistenceConstants.UserDefaults.instanceId, "com.pusher.sdk.instanceId")
     }
 
     func testPersistanceServiceConstants() {
-        XCTAssertEqual(Constants.PersistanceService.prefix, "com.pusher.sdk.interests")
-        XCTAssertEqual(Constants.PersistanceService.hashKey, "interestsHash")
+        XCTAssertEqual(PersistenceConstants.PersistenceService.prefix, "com.pusher.sdk.interests")
+        XCTAssertEqual(PersistenceConstants.PersistenceService.hashKey, "interestsHash")
     }
 
     func testDispatchQueueConstants() {

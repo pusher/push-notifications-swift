@@ -17,7 +17,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        UserDefaults(suiteName: Constants.UserDefaults.suiteName).map { userDefaults in
+        UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName).map { userDefaults in
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
         }
 
@@ -28,7 +28,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         OHHTTPStubs.removeAllStubs()
         super.tearDown()
 
-        UserDefaults(suiteName: Constants.UserDefaults.suiteName).map { userDefaults in
+        UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName).map { userDefaults in
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
         }
     }

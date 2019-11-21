@@ -12,7 +12,7 @@ class DeviceInterestsTest: XCTestCase {
             TestAPIClientHelper().deleteDevice(instanceId: instanceId, deviceId: deviceId)
         }
 
-        UserDefaults(suiteName: Constants.UserDefaults.suiteName).map { userDefaults in
+        UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName).map { userDefaults in
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
         }
 
@@ -24,7 +24,7 @@ class DeviceInterestsTest: XCTestCase {
             TestAPIClientHelper().deleteDevice(instanceId: instanceId, deviceId: deviceId)
         }
 
-        UserDefaults(suiteName: Constants.UserDefaults.suiteName).map { userDefaults in
+        UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName).map { userDefaults in
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
         }
 
@@ -105,7 +105,7 @@ class DeviceInterestsTest: XCTestCase {
             .toEventually(equal(["panda", "zebra"]), timeout: 10)
 
         // Clearing local storage to pretend that SDK didn't start.
-        UserDefaults(suiteName: Constants.UserDefaults.suiteName).map { userDefaults in
+        UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName).map { userDefaults in
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
         }
 

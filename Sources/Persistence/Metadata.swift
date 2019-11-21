@@ -5,7 +5,7 @@ public struct Metadata: Equatable, Codable {
     let iosVersion: String?
     let macosVersion: String?
 
-    private static let userDefaults = UserDefaults(suiteName: Constants.UserDefaults.suiteName)
+    private static let userDefaults = UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName)
 
     static func getCurrentMetadata() -> Metadata {
         let sdkVersion = SDK.version
@@ -19,22 +19,22 @@ public struct Metadata: Equatable, Codable {
     }
 
     static func save(metadata: Metadata) {
-        userDefaults?.set(metadata.sdkVersion, forKey: Constants.UserDefaults.metadataSDKVersion)
-        userDefaults?.set(metadata.iosVersion, forKey: Constants.UserDefaults.metadataiOSVersion)
-        userDefaults?.set(metadata.macosVersion, forKey: Constants.UserDefaults.metadataMacOSVersion)
+        userDefaults?.set(metadata.sdkVersion, forKey: PersistenceConstants.UserDefaults.metadataSDKVersion)
+        userDefaults?.set(metadata.iosVersion, forKey: PersistenceConstants.UserDefaults.metadataiOSVersion)
+        userDefaults?.set(metadata.macosVersion, forKey: PersistenceConstants.UserDefaults.metadataMacOSVersion)
     }
 
     static func load() -> Metadata {
         return Metadata(
-            sdkVersion: userDefaults?.string(forKey: Constants.UserDefaults.metadataSDKVersion),
-            iosVersion: userDefaults?.string(forKey: Constants.UserDefaults.metadataiOSVersion),
-            macosVersion: userDefaults?.string(forKey: Constants.UserDefaults.metadataMacOSVersion)
+            sdkVersion: userDefaults?.string(forKey: PersistenceConstants.UserDefaults.metadataSDKVersion),
+            iosVersion: userDefaults?.string(forKey: PersistenceConstants.UserDefaults.metadataiOSVersion),
+            macosVersion: userDefaults?.string(forKey: PersistenceConstants.UserDefaults.metadataMacOSVersion)
         )
     }
 
     static func delete() {
-        userDefaults?.removeObject(forKey: Constants.UserDefaults.metadataSDKVersion)
-        userDefaults?.removeObject(forKey: Constants.UserDefaults.metadataiOSVersion)
-        userDefaults?.removeObject(forKey: Constants.UserDefaults.metadataMacOSVersion)
+        userDefaults?.removeObject(forKey: PersistenceConstants.UserDefaults.metadataSDKVersion)
+        userDefaults?.removeObject(forKey: PersistenceConstants.UserDefaults.metadataiOSVersion)
+        userDefaults?.removeObject(forKey: PersistenceConstants.UserDefaults.metadataMacOSVersion)
     }
 }

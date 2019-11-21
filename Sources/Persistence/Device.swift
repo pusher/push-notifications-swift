@@ -4,30 +4,30 @@ struct Device: Decodable {
     var id: String
     var initialInterestSet: Set<String>?
 
-    private static let userDefaults = UserDefaults(suiteName: Constants.UserDefaults.suiteName)
+    private static let userDefaults = UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName)
 
     static func persist(_ deviceId: String) {
-        userDefaults?.set(deviceId, forKey: Constants.UserDefaults.deviceId)
+        userDefaults?.set(deviceId, forKey: PersistenceConstants.UserDefaults.deviceId)
     }
 
     static func delete() {
-        userDefaults?.removeObject(forKey: Constants.UserDefaults.deviceId)
+        userDefaults?.removeObject(forKey: PersistenceConstants.UserDefaults.deviceId)
     }
 
     static func persistAPNsToken(token: String) {
-        userDefaults?.set(token, forKey: Constants.UserDefaults.deviceAPNsToken)
+        userDefaults?.set(token, forKey: PersistenceConstants.UserDefaults.deviceAPNsToken)
     }
 
     static func deleteAPNsToken() {
-        userDefaults?.removeObject(forKey: Constants.UserDefaults.deviceAPNsToken)
+        userDefaults?.removeObject(forKey: PersistenceConstants.UserDefaults.deviceAPNsToken)
     }
 
     static func getDeviceId() -> String? {
-        return userDefaults?.string(forKey: Constants.UserDefaults.deviceId)
+        return userDefaults?.string(forKey: PersistenceConstants.UserDefaults.deviceId)
     }
 
     static func getAPNsToken() -> String? {
-        return userDefaults?.string(forKey: Constants.UserDefaults.deviceAPNsToken)
+        return userDefaults?.string(forKey: PersistenceConstants.UserDefaults.deviceAPNsToken)
     }
 
     static func idAlreadyPresent() -> Bool {

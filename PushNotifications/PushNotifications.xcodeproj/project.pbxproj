@@ -83,6 +83,7 @@
 		A1F122E82237C9D400F7D766 /* PushNotificationsAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F122E72237C9D400F7D766 /* PushNotificationsAPIError.swift */; };
 		D323BB812385992800A618F4 /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D323BB802385992800A618F4 /* TestHelper.swift */; };
 		D323BB832385AAAE00A618F4 /* InstanceId.swift in Sources */ = {isa = PBXBuildFile; fileRef = D323BB822385AAAE00A618F4 /* InstanceId.swift */; };
+		D37C57232386B0A900F9EA90 /* PersistenceConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37C57222386B0A900F9EA90 /* PersistenceConstants.swift */; };
 		D3FBCEA5238555C400CD9B8F /* PushNotificationsStatic.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FBCEA4238555C400CD9B8F /* PushNotificationsStatic.swift */; };
 /* End PBXBuildFile section */
 
@@ -179,6 +180,7 @@
 		A1F122E72237C9D400F7D766 /* PushNotificationsAPIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsAPIError.swift; sourceTree = "<group>"; };
 		D323BB802385992800A618F4 /* TestHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
 		D323BB822385AAAE00A618F4 /* InstanceId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstanceId.swift; sourceTree = "<group>"; };
+		D37C57222386B0A900F9EA90 /* PersistenceConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceConstants.swift; sourceTree = "<group>"; };
 		D3FBCEA4238555C400CD9B8F /* PushNotificationsStatic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsStatic.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -213,6 +215,7 @@
 				A10552EC2028A934001E45D1 /* Metadata.swift */,
 				A126312222CA705600DDAD28 /* ServerSyncJobStore.swift */,
 				A126312622CB726900DDAD28 /* ServerSyncJob.swift */,
+				D37C57222386B0A900F9EA90 /* PersistenceConstants.swift */,
 			);
 			name = Persistence;
 			path = ../../Sources/Persistence;
@@ -530,6 +533,7 @@
 				A1F122E42237C90600F7D766 /* NetworkService.swift in Sources */,
 				A1DAD62E2020CAE7001497B5 /* SystemVersion.swift in Sources */,
 				A104B3A120F75C9000587100 /* Array+CalculateMD5Hash.swift in Sources */,
+				D37C57232386B0A900F9EA90 /* PersistenceConstants.swift in Sources */,
 				A1EFF5C9207B7E78006C3004 /* RemoteNotificationType.swift in Sources */,
 				A19ECF841FCF099200688DAF /* PersistenceService.swift in Sources */,
 				A10552ED2028A934001E45D1 /* Metadata.swift in Sources */,

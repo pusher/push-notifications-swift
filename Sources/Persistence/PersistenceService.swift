@@ -2,7 +2,7 @@ import Foundation
 
 struct PersistenceService: InterestPersistable, UserPersistable, PushNotificationsInstancePersistable {
     let service: UserDefaults
-    private let prefix = Constants.PersistanceService.prefix
+    private let prefix = PersistenceConstants.PersistenceService.prefix
 
     func persist(interest: String) -> Bool {
         guard !self.interestExists(interest: interest) else {
@@ -34,16 +34,16 @@ struct PersistenceService: InterestPersistable, UserPersistable, PushNotificatio
             return false
         }
 
-        service.set(userId, forKey: Constants.PersistanceService.userId)
+        service.set(userId, forKey: PersistenceConstants.PersistenceService.userId)
         return true
     }
 
     func getUserId() -> String? {
-        return service.object(forKey: Constants.PersistanceService.userId) as? String
+        return service.object(forKey: PersistenceConstants.PersistenceService.userId) as? String
     }
 
     func removeUserId() {
-        service.removeObject(forKey: Constants.PersistanceService.userId)
+        service.removeObject(forKey: PersistenceConstants.PersistenceService.userId)
     }
 
     func remove(interest: String) -> Bool {
@@ -68,11 +68,11 @@ struct PersistenceService: InterestPersistable, UserPersistable, PushNotificatio
     }
 
     func persistServerConfirmedInterestsHash(_ hash: String) {
-        service.set(hash, forKey: Constants.PersistanceService.hashKey)
+        service.set(hash, forKey: PersistenceConstants.PersistenceService.hashKey)
     }
 
     func getServerConfirmedInterestsHash() -> String {
-        return service.value(forKey: Constants.PersistanceService.hashKey) as? String ?? ""
+        return service.value(forKey: PersistenceConstants.PersistenceService.hashKey) as? String ?? ""
     }
 
     private func interestExists(interest: String) -> Bool {
@@ -80,7 +80,7 @@ struct PersistenceService: InterestPersistable, UserPersistable, PushNotificatio
     }
 
     private func userIdExists(userId: String) -> Bool {
-        return service.object(forKey: Constants.PersistanceService.userId) != nil
+        return service.object(forKey: PersistenceConstants.PersistenceService.userId) != nil
     }
 
     private func prefixInterest(_ interest: String) -> String {
@@ -96,23 +96,23 @@ struct PersistenceService: InterestPersistable, UserPersistable, PushNotificatio
     }
 
     func setStartJobHasBeenEnqueued(flag: Bool) {
-        service.set(flag, forKey: Constants.PushNotificationsInstancePersistence.startJob)
+        service.set(flag, forKey: PersistenceConstants.PushNotificationsInstancePersistence.startJob)
     }
 
     func getStartJobHasBeenEnqueued() -> Bool {
-        return service.object(forKey: Constants.PushNotificationsInstancePersistence.startJob) as? Bool ?? false
+        return service.object(forKey: PersistenceConstants.PushNotificationsInstancePersistence.startJob) as? Bool ?? false
     }
 
     func setUserIdHasBeenCalledWith(userId: String) {
-        service.set(userId, forKey: Constants.PushNotificationsInstancePersistence.userId)
+        service.set(userId, forKey: PersistenceConstants.PushNotificationsInstancePersistence.userId)
     }
 
     func getUserIdPreviouslyCalledWith() -> String? {
-        return service.object(forKey: Constants.PushNotificationsInstancePersistence.userId) as? String
+        return service.object(forKey: PersistenceConstants.PushNotificationsInstancePersistence.userId) as? String
     }
 
     func clear() {
-        service.removeObject(forKey: Constants.PushNotificationsInstancePersistence.startJob)
-        service.removeObject(forKey: Constants.PushNotificationsInstancePersistence.userId)
+        service.removeObject(forKey: PersistenceConstants.PushNotificationsInstancePersistence.startJob)
+        service.removeObject(forKey: PersistenceConstants.PushNotificationsInstancePersistence.userId)
     }
 }

@@ -4,7 +4,7 @@ import XCTest
 class InstanceTests: XCTestCase {
     override func setUp() {
         super.setUp()
-        UserDefaults(suiteName: Constants.UserDefaults.suiteName)?.removeObject(forKey: Constants.UserDefaults.instanceId)
+        UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName)?.removeObject(forKey: PersistenceConstants.UserDefaults.instanceId)
     }
     func testInstanceIdWasSaved() {
         XCTAssertNoThrow(Instance.persist("abcd"))
