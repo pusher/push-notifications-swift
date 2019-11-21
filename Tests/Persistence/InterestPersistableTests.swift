@@ -3,7 +3,7 @@ import XCTest
 
 class InterestPersistableTests: XCTestCase {
 
-    var persistenceService: InterestPersistable!
+    var persistenceService: PersistenceService!
 
     override func setUp() {
         super.setUp()

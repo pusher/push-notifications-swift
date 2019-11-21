@@ -48,7 +48,6 @@
 		A144AB4F1F9E3DA3009F0040 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB471F9E3DA2009F0040 /* Device.swift */; };
 		A144AB501F9E3DA3009F0040 /* PushNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB481F9E3DA2009F0040 /* PushNotifications.swift */; };
 		A144AB511F9E3DA3009F0040 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB491F9E3DA3009F0040 /* HTTPMethod.swift */; };
-		A1482A542180A47900F19A4E /* UserPersistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1482A532180A47900F19A4E /* UserPersistable.swift */; };
 		A1482A582181F3CD00F19A4E /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1482A572181F3CD00F19A4E /* Result.swift */; };
 		A1504E17206B9D98002D1E74 /* EventTypeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1504E16206B9D98002D1E74 /* EventTypeHandler.swift */; };
 		A155BFBD1F9E38040070A609 /* PushNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A155BFB31F9E38040070A609 /* PushNotifications.framework */; };
@@ -56,7 +55,6 @@
 		A16782551FA0EA2D00A193DF /* Reason.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16782541FA0EA2C00A193DF /* Reason.swift */; };
 		A182088D2014C6F4007D86C6 /* Array+ContainsSameElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = A182088C2014C6F4007D86C6 /* Array+ContainsSameElements.swift */; };
 		A19B15D32189E4FC008E6DB5 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19B15D22189E4FC008E6DB5 /* Token.swift */; };
-		A19ECF831FCF099200688DAF /* InterestPersistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19ECF811FCF099100688DAF /* InterestPersistable.swift */; };
 		A19ECF841FCF099200688DAF /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19ECF821FCF099100688DAF /* PersistenceService.swift */; };
 		A1AC401520FDFF1E002E6128 /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AC401420FDFF1E002E6128 /* MD5.swift */; };
 		A1B344432018BC0200481BDF /* InterestValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B344412018BC0100481BDF /* InterestValidationError.swift */; };
@@ -68,7 +66,6 @@
 		A1D2AC3C22560A4300AF4871 /* ClearAllStateTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D2AC3B22560A4300AF4871 /* ClearAllStateTest.swift */; };
 		A1D2AC3D22560D3E00AF4871 /* String+HexStringToData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D2AC372254F7EE00AF4871 /* String+HexStringToData.swift */; };
 		A1D2AC3F225653A600AF4871 /* SetUserIdTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D2AC3E225653A600AF4871 /* SetUserIdTest.swift */; };
-		A1D2AC4122565FE400AF4871 /* PushNotificationsInstancePersistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D2AC4022565FE400AF4871 /* PushNotificationsInstancePersistable.swift */; };
 		A1DAD62E2020CAE7001497B5 /* SystemVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DAD62D2020CAE7001497B5 /* SystemVersion.swift */; };
 		A1E78E312020AEF400DD94B2 /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E78E302020AEF400DD94B2 /* Register.swift */; };
 		A1E8000A201A213000467EB9 /* ReportEventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E80009201A213000467EB9 /* ReportEventType.swift */; };
@@ -140,7 +137,6 @@
 		A144AB471F9E3DA2009F0040 /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		A144AB481F9E3DA2009F0040 /* PushNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PushNotifications.swift; path = ../../Sources/PushNotifications.swift; sourceTree = "<group>"; };
 		A144AB491F9E3DA3009F0040 /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HTTPMethod.swift; path = ../../Sources/HTTPMethod.swift; sourceTree = "<group>"; };
-		A1482A532180A47900F19A4E /* UserPersistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPersistable.swift; sourceTree = "<group>"; };
 		A1482A572181F3CD00F19A4E /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Result.swift; path = ../../Sources/Result.swift; sourceTree = "<group>"; };
 		A1504E16206B9D98002D1E74 /* EventTypeHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventTypeHandler.swift; path = ../../Sources/EventTypeHandler.swift; sourceTree = "<group>"; };
 		A155BFB31F9E38040070A609 /* PushNotifications.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PushNotifications.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -151,7 +147,6 @@
 		A16782541FA0EA2C00A193DF /* Reason.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reason.swift; path = ../../Sources/Reason.swift; sourceTree = "<group>"; };
 		A182088C2014C6F4007D86C6 /* Array+ContainsSameElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Array+ContainsSameElements.swift"; path = "../../Sources/Array+ContainsSameElements.swift"; sourceTree = "<group>"; };
 		A19B15D22189E4FC008E6DB5 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Token.swift; path = ../../Sources/Token.swift; sourceTree = "<group>"; };
-		A19ECF811FCF099100688DAF /* InterestPersistable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterestPersistable.swift; sourceTree = "<group>"; };
 		A19ECF821FCF099100688DAF /* PersistenceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
 		A1AC401420FDFF1E002E6128 /* MD5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MD5.swift; path = ../../Sources/MD5.swift; sourceTree = "<group>"; };
 		A1B344412018BC0100481BDF /* InterestValidationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterestValidationError.swift; path = ../../Sources/InterestValidationError.swift; sourceTree = "<group>"; };
@@ -164,7 +159,6 @@
 		A1D2AC39225602B800AF4871 /* StopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopTests.swift; sourceTree = "<group>"; };
 		A1D2AC3B22560A4300AF4871 /* ClearAllStateTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearAllStateTest.swift; sourceTree = "<group>"; };
 		A1D2AC3E225653A600AF4871 /* SetUserIdTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUserIdTest.swift; sourceTree = "<group>"; };
-		A1D2AC4022565FE400AF4871 /* PushNotificationsInstancePersistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PushNotificationsInstancePersistable.swift; path = ../../Sources/PushNotificationsInstancePersistable.swift; sourceTree = "<group>"; };
 		A1DAD62D2020CAE7001497B5 /* SystemVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SystemVersion.swift; path = ../../Sources/SystemVersion.swift; sourceTree = "<group>"; };
 		A1E78E302020AEF400DD94B2 /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Register.swift; path = ../../Sources/Register.swift; sourceTree = "<group>"; };
 		A1E80009201A213000467EB9 /* ReportEventType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportEventType.swift; path = ../../Sources/ReportEventType.swift; sourceTree = "<group>"; };
@@ -210,8 +204,6 @@
 				A108B0CE2237FBF8007FCB2D /* DeviceStateStore.swift */,
 				A144AB471F9E3DA2009F0040 /* Device.swift */,
 				A19ECF821FCF099100688DAF /* PersistenceService.swift */,
-				A19ECF811FCF099100688DAF /* InterestPersistable.swift */,
-				A1482A532180A47900F19A4E /* UserPersistable.swift */,
 				A10552EC2028A934001E45D1 /* Metadata.swift */,
 				A126312222CA705600DDAD28 /* ServerSyncJobStore.swift */,
 				A126312622CB726900DDAD28 /* ServerSyncJob.swift */,
@@ -308,7 +300,6 @@
 				A1DAD62D2020CAE7001497B5 /* SystemVersion.swift */,
 				A19B15D22189E4FC008E6DB5 /* Token.swift */,
 				A1327BDE2178EB62001483E1 /* TokenProvider.swift */,
-				A1D2AC4022565FE400AF4871 /* PushNotificationsInstancePersistable.swift */,
 			);
 			path = PushNotifications;
 			sourceTree = "<group>";
@@ -517,7 +508,6 @@
 				D3FBCEA5238555C400CD9B8F /* PushNotificationsStatic.swift in Sources */,
 				A144AB4C1F9E3DA3009F0040 /* DeviceTokenHelper.swift in Sources */,
 				A140FFD12020BE5700931AF6 /* Encodable+Encode.swift in Sources */,
-				A1D2AC4122565FE400AF4871 /* PushNotificationsInstancePersistable.swift in Sources */,
 				A182088D2014C6F4007D86C6 /* Array+ContainsSameElements.swift in Sources */,
 				A138645B212C5057009FE29D /* Constants.swift in Sources */,
 				A1EB82FB225B7FA600D63F7C /* ServerSyncEvent.swift in Sources */,
@@ -526,7 +516,6 @@
 				A1F0E942219B18B800D32363 /* PushNotificationsError.swift in Sources */,
 				A1327BE02178EB62001483E1 /* AuthData.swift in Sources */,
 				A126312722CB726900DDAD28 /* ServerSyncJob.swift in Sources */,
-				A19ECF831FCF099200688DAF /* InterestPersistable.swift in Sources */,
 				D323BB832385AAAE00A618F4 /* InstanceId.swift in Sources */,
 				A1482A582181F3CD00F19A4E /* Result.swift in Sources */,
 				A1D2AC3D22560D3E00AF4871 /* String+HexStringToData.swift in Sources */,
@@ -537,7 +526,6 @@
 				A1EFF5C9207B7E78006C3004 /* RemoteNotificationType.swift in Sources */,
 				A19ECF841FCF099200688DAF /* PersistenceService.swift in Sources */,
 				A10552ED2028A934001E45D1 /* Metadata.swift in Sources */,
-				A1482A542180A47900F19A4E /* UserPersistable.swift in Sources */,
 				A144AB511F9E3DA3009F0040 /* HTTPMethod.swift in Sources */,
 				A1AC401520FDFF1E002E6128 /* MD5.swift in Sources */,
 				A144AB501F9E3DA3009F0040 /* PushNotifications.swift in Sources */,

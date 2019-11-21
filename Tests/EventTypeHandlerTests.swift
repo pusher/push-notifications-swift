@@ -108,7 +108,7 @@ class EventTypeHandlerTests: XCTestCase {
     }
 
     func testUserIdNotEmpty() {
-        let persistenceService: UserPersistable = PersistenceService(service: UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName)!)
+        let persistenceService = PersistenceService(service: UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName)!)
         XCTAssertTrue(persistenceService.setUserId(userId: "denis-s"))
 
         let userInfo = ["aps": ["content-available": 1], "data": ["pusher": ["instanceId": "1b880590-6301-4bb5-b34f-45db1c5f5644", "publishId": "pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df"]]]

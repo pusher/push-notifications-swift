@@ -3,7 +3,7 @@ import XCTest
 
 class UserPersistableTests: XCTestCase {
 
-    var persistenceService: UserPersistable!
+    var persistenceService: PersistenceService!
 
     override func setUp() {
             super.setUp()

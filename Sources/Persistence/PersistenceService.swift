@@ -1,6 +1,6 @@
 import Foundation
 
-struct PersistenceService: InterestPersistable, UserPersistable, PushNotificationsInstancePersistable {
+struct PersistenceService {
     let service: UserDefaults
     private let prefix = PersistenceConstants.PersistenceService.prefix
 
