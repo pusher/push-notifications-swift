@@ -6,11 +6,10 @@ class StopTests: XCTestCase {
     // Real production instance.
     let instanceId = "1b880590-6301-4bb5-b34f-45db1c5f5644"
     let validToken = "notadevicetoken-apns-StopTests".data(using: .utf8)!
+    let deviceStateStore = DeviceStateStore()
 
     override func setUp() {
-        if let deviceId = Device.getDeviceId() {
-            TestAPIClientHelper().deleteDevice(instanceId: instanceId, deviceId: deviceId)
-        }
+        TestHelper().setUpDeviceId(instanceId: instanceId)
 
         UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName).map { userDefaults in
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
@@ -20,9 +19,7 @@ class StopTests: XCTestCase {
     }
 
     override func tearDown() {
-        if let deviceId = Device.getDeviceId() {
-            TestAPIClientHelper().deleteDevice(instanceId: instanceId, deviceId: deviceId)
-        }
+        TestHelper().tearDownDeviceId(instanceId: instanceId)
 
         UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName).map { userDefaults in
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
@@ -36,8 +33,8 @@ class StopTests: XCTestCase {
         pushNotifications.start()
         pushNotifications.registerDeviceToken(validToken)
 
-        expect(Device.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
-        let deviceId = Device.getDeviceId()!
+        expect(self.deviceStateStore.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        let deviceId = self.deviceStateStore.getDeviceId()!
 
         let exp = expectation(description: "Stop completion handler must be called")
         pushNotifications.stop {
@@ -55,7 +52,7 @@ class StopTests: XCTestCase {
         pushNotifications.start()
         pushNotifications.registerDeviceToken(validToken)
 
-        expect(Device.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        expect(self.deviceStateStore.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
 
         pushNotifications.stop { }
 
@@ -67,15 +64,15 @@ class StopTests: XCTestCase {
         pushNotifications.start()
         pushNotifications.registerDeviceToken(validToken)
 
-        expect(Device.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        expect(self.deviceStateStore.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
 
         pushNotifications.stop { }
 
-        expect(Device.getDeviceId()).toEventually(beNil(), timeout: 10)
+        expect(self.deviceStateStore.getDeviceId()).toEventually(beNil(), timeout: 10)
 
         pushNotifications.start()
         pushNotifications.registerDeviceToken(validToken)
 
-        expect(Device.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        expect(self.deviceStateStore.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
     }
 }

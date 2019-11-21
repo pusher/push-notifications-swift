@@ -133,6 +133,36 @@ public class DeviceStateStore {
         service.removeObject(forKey: PersistenceConstants.PushNotificationsInstancePersistence.userId)
     }
     
+    // MARK: Device
+    func persistDeviceId(_ deviceId: String) {
+        service.set(deviceId, forKey: PersistenceConstants.UserDefaults.deviceId)
+    }
+    
+    func deleteDeviceId() {
+        service.removeObject(forKey: PersistenceConstants.UserDefaults.deviceId)
+    }
+    
+    func deviceIdAlreadyPresent() -> Bool {
+        return self.getDeviceId() != nil
+    }
+    
+    func getDeviceId() -> String? {
+        return service.string(forKey: PersistenceConstants.UserDefaults.deviceId)
+    }
+    
+    // MARK: APNS Token
+    func persistAPNsToken(token: String) {
+        service.set(token, forKey: PersistenceConstants.UserDefaults.deviceAPNsToken)
+    }
+    
+    func deleteAPNsToken() {
+        service.removeObject(forKey: PersistenceConstants.UserDefaults.deviceAPNsToken)
+    }
+    
+    func getAPNsToken() -> String? {
+        return service.string(forKey: PersistenceConstants.UserDefaults.deviceAPNsToken)
+    }
+
     // MARK: Deletion
     func clear() {
         self.removeFromPersistanceStore(prefix: PersistenceConstants.PersistenceService.globalScopeId)

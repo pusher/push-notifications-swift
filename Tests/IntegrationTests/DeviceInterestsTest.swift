@@ -6,11 +6,10 @@ class DeviceInterestsTest: XCTestCase {
     // Real production instance.
     let instanceId = "1b880590-6301-4bb5-b34f-45db1c5f5644"
     let validToken = "notadevicetoken-apns-DeviceInterestsTest".data(using: .utf8)!
+    let deviceStateStore = DeviceStateStore()
 
     override func setUp() {
-        if let deviceId = Device.getDeviceId() {
-            TestAPIClientHelper().deleteDevice(instanceId: instanceId, deviceId: deviceId)
-        }
+        TestHelper().setUpDeviceId(instanceId: instanceId)
 
         UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName).map { userDefaults in
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
@@ -20,9 +19,7 @@ class DeviceInterestsTest: XCTestCase {
     }
 
     override func tearDown() {
-        if let deviceId = Device.getDeviceId() {
-            TestAPIClientHelper().deleteDevice(instanceId: instanceId, deviceId: deviceId)
-        }
+        TestHelper().tearDownDeviceId(instanceId: instanceId)
 
         UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName).map { userDefaults in
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
@@ -82,8 +79,8 @@ class DeviceInterestsTest: XCTestCase {
         pushNotifications.start()
         pushNotifications.registerDeviceToken(validToken)
 
-        expect(Device.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
-        let deviceId = Device.getDeviceId()!
+        expect(self.deviceStateStore.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        let deviceId = self.deviceStateStore.getDeviceId()!
 
         expect(TestAPIClientHelper().getDeviceInterests(instanceId: self.instanceId, deviceId: deviceId))
             .toEventually(equal(["panda"]), timeout: 10)
@@ -98,8 +95,8 @@ class DeviceInterestsTest: XCTestCase {
         pushNotifications.start()
         pushNotifications.registerDeviceToken(validToken)
 
-        expect(Device.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
-        let deviceId = Device.getDeviceId()!
+        expect(self.deviceStateStore.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        let deviceId = self.deviceStateStore.getDeviceId()!
 
         expect(TestAPIClientHelper().getDeviceInterests(instanceId: self.instanceId, deviceId: deviceId))
             .toEventually(equal(["panda", "zebra"]), timeout: 10)
@@ -134,8 +131,8 @@ class DeviceInterestsTest: XCTestCase {
         pushNotifications2.start()
         pushNotifications2.registerDeviceToken(validToken)
 
-        expect(Device.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
-        let deviceId2 = Device.getDeviceId()!
+        expect(self.deviceStateStore.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        let deviceId2 = self.deviceStateStore.getDeviceId()!
         XCTAssertEqual(deviceId, deviceId2)
 
         expect(TestAPIClientHelper().getDeviceInterests(instanceId: self.instanceId, deviceId: deviceId2))

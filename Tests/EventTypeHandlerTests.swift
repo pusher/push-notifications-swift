@@ -5,11 +5,11 @@ class EventTypeHandlerTests: XCTestCase {
     
     override func setUp() {
         // we extract the device id when parsing events, we need to make sure this exists for all the tests
-        Device.persist("abcd")
+        DeviceStateStore().persistDeviceId("abcd")
     }
     
     override func tearDown() {
-        Device.delete()
+        DeviceStateStore().deleteDeviceId()
         super.tearDown()
     }
 

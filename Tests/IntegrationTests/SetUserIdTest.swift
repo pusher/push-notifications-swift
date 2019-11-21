@@ -9,9 +9,7 @@ class SetUserIdTest: XCTestCase {
     let validCucasJWTToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjQ3MDc5OTIzMDIsImlzcyI6Imh0dHBzOi8vMWI4ODA1OTAtNjMwMS00YmI1LWIzNGYtNDVkYjFjNWY1NjQ0LnB1c2hub3RpZmljYXRpb25zLnB1c2hlci5jb20iLCJzdWIiOiJjdWNhcyJ9.CTtrDXh7vae3rSSKBKf5X0y4RQpFg7YvIlirmBQqJn4"
 
     override func setUp() {
-        if let deviceId = Device.getDeviceId() {
-            TestAPIClientHelper().deleteDevice(instanceId: instanceId, deviceId: deviceId)
-        }
+        TestHelper().setUpDeviceId(instanceId: instanceId)
 
         UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName).map { userDefaults in
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
@@ -21,9 +19,7 @@ class SetUserIdTest: XCTestCase {
     }
 
     override func tearDown() {
-        if let deviceId = Device.getDeviceId() {
-            TestAPIClientHelper().deleteDevice(instanceId: instanceId, deviceId: deviceId)
-        }
+        TestHelper().tearDownDeviceId(instanceId: instanceId)
 
         UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName).map { userDefaults in
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
@@ -37,8 +33,8 @@ class SetUserIdTest: XCTestCase {
         pushNotifications.start()
         pushNotifications.registerDeviceToken(validToken)
 
-        expect(Device.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
-        let deviceId = Device.getDeviceId()!
+        expect(DeviceStateStore().getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        let deviceId = DeviceStateStore().getDeviceId()!
 
         let tokenProvider = StubTokenProvider(jwt: validCucasJWTToken, error: nil)
         pushNotifications.setUserId("cucas", tokenProvider: tokenProvider) { _ in }

@@ -3,8 +3,9 @@ import XCTest
 
 class DeviceTests: XCTestCase {
     func testPersist() {
-        Device.persist("abcd")
-        let deviceId = Device.getDeviceId()
+        let deviceStateStore = DeviceStateStore()
+        deviceStateStore.persistDeviceId("abcd")
+        let deviceId = deviceStateStore.getDeviceId()
 
         XCTAssertNotNil(deviceId)
         XCTAssert("abcd" == deviceId)

@@ -15,7 +15,7 @@ struct EventTypeHandler {
         guard
             let instanceId = InstanceId(userInfo: userInfo).id,
             let publishId = PublishId(userInfo: userInfo).id,
-            let deviceId = Device.getDeviceId()
+            let deviceId = DeviceStateStore().getDeviceId()
         else {
             return nil
         }
@@ -64,16 +64,17 @@ struct EventTypeHandler {
     #endif
     #if os(OSX)
     static func getNotificationEventType(userInfo: [AnyHashable: Any]) -> OpenEventType? {
+        let deviceStateStore = DeviceStateStore()
         let timestampSecs = UInt(Date().timeIntervalSince1970)
         guard
             let instanceId = InstanceId(userInfo: userInfo).id,
             let publishId = PublishId(userInfo: userInfo).id,
-            let deviceId = Device.getDeviceId()
+            let deviceId = deviceStateStore.getDeviceId()
         else {
             return nil
         }
 
-        let userId = DeviceStateStore().getUserId()
+        let userId = deviceStateStore.getUserId()
 
         return OpenEventType(instanceId: instanceId, publishId: publishId, deviceId: deviceId, userId: userId, timestampSecs: timestampSecs)
     }

@@ -321,15 +321,15 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         serverSyncProcessHandler.jobQueue.append(startJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
 
-        XCTAssertNotNil(Device.getDeviceId())
-        XCTAssertNotNil(Device.getAPNsToken())
+        XCTAssertNotNil(self.deviceStateStore.getDeviceId())
+        XCTAssertNotNil(self.deviceStateStore.getAPNsToken())
 
         let stopJob = ServerSyncJob.StopJob
         serverSyncProcessHandler.jobQueue.append(stopJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: stopJob)
 
-        XCTAssertNil(Device.getDeviceId())
-        XCTAssertNil(Device.getAPNsToken())
+        XCTAssertNil(self.deviceStateStore.getDeviceId())
+        XCTAssertNil(self.deviceStateStore.getAPNsToken())
     }
 
     func testThatSubscribingUnsubscribingAndSetSubscriptionsWillTriggerTheAPI() {
@@ -420,14 +420,14 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         serverSyncProcessHandler.jobQueue.append(startJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
 
-        XCTAssertNotNil(Device.getDeviceId())
-        XCTAssertNotNil(Device.getAPNsToken())
+        XCTAssertNotNil(self.deviceStateStore.getDeviceId())
+        XCTAssertNotNil(self.deviceStateStore.getAPNsToken())
 
         let subscribeJob = ServerSyncJob.SubscribeJob(interest: "hello", localInterestsChanged: true)
         serverSyncProcessHandler.jobQueue.append(subscribeJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: subscribeJob)
 
-        XCTAssertEqual(Device.getDeviceId(), newDeviceId)
+        XCTAssertEqual(self.deviceStateStore.getDeviceId(), newDeviceId)
     }
 
     func testDeviceRecreationShouldClearPreviousUserIdIfTokenProviderIsMissing() {
@@ -467,14 +467,14 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         serverSyncProcessHandler.jobQueue.append(startJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
 
-        XCTAssertNotNil(Device.getDeviceId())
-        XCTAssertNotNil(Device.getAPNsToken())
+        XCTAssertNotNil(self.deviceStateStore.getDeviceId())
+        XCTAssertNotNil(self.deviceStateStore.getAPNsToken())
 
         let subscribeJob = ServerSyncJob.SubscribeJob(interest: "hello", localInterestsChanged: true)
         serverSyncProcessHandler.jobQueue.append(subscribeJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: subscribeJob)
 
-        XCTAssertEqual(Device.getDeviceId(), newDeviceId)
+        XCTAssertEqual(self.deviceStateStore.getDeviceId(), newDeviceId)
         XCTAssertNil(self.deviceStateStore.getUserId())
     }
 

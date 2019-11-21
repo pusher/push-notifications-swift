@@ -8,9 +8,7 @@ class DeviceRegistrationTests: XCTestCase {
     let validToken = "notadevicetoken-apns-DeviceRegistrationTests".data(using: .utf8)!
 
     override func setUp() {
-        if let deviceId = Device.getDeviceId() {
-            TestAPIClientHelper().deleteDevice(instanceId: instanceId, deviceId: deviceId)
-        }
+        TestHelper().setUpDeviceId(instanceId: instanceId)
 
         UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName).map { userDefaults in
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
@@ -20,9 +18,7 @@ class DeviceRegistrationTests: XCTestCase {
     }
 
     override func tearDown() {
-        if let deviceId = Device.getDeviceId() {
-            TestAPIClientHelper().deleteDevice(instanceId: instanceId, deviceId: deviceId)
-        }
+        TestHelper().tearDownDeviceId(instanceId: instanceId)
 
         UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName).map { userDefaults in
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
@@ -37,6 +33,6 @@ class DeviceRegistrationTests: XCTestCase {
 
         pushNotifications.registerDeviceToken(validToken)
 
-        expect(Device.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        expect(DeviceStateStore().getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
     }
 }

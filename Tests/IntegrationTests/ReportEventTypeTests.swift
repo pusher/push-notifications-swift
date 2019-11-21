@@ -8,9 +8,7 @@ class ReportEventTypeTests: XCTestCase {
     let validToken = "notadevicetoken-apns-ReportEventTypeTests".data(using: .utf8)!
 
     override func setUp() {
-        if let deviceId = Device.getDeviceId() {
-            TestAPIClientHelper().deleteDevice(instanceId: instanceId, deviceId: deviceId)
-        }
+        TestHelper().setUpDeviceId(instanceId: instanceId)
 
         UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName).map { userDefaults in
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
@@ -20,9 +18,7 @@ class ReportEventTypeTests: XCTestCase {
     }
 
     override func tearDown() {
-        if let deviceId = Device.getDeviceId() {
-            TestAPIClientHelper().deleteDevice(instanceId: instanceId, deviceId: deviceId)
-        }
+        TestHelper().tearDownDeviceId(instanceId: instanceId)
 
         UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName).map { userDefaults in
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
@@ -37,7 +33,7 @@ class ReportEventTypeTests: XCTestCase {
 
         pushNotifications.registerDeviceToken(validToken)
 
-        expect(Device.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        expect(DeviceStateStore().getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
 
         let userInfo = ["aps": ["alert": ["title": "Hello", "body": "Hello, world!"], "content-available": 1], "data": ["pusher": ["publishId": "pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df"]]]
 

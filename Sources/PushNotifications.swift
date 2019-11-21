@@ -213,7 +213,7 @@ import Foundation
      */
     /// - Tag: clearAllState
     @objc public func clearAllState(completion: @escaping () -> Void) {
-        let storedAPNsToken = Device.getAPNsToken()
+        let storedAPNsToken = self.deviceStateStore.getAPNsToken()
         let hasStartAlreadyBeenCalled = self.startHasBeenCalledThisSession
         self.stop(completion: completion)
 
@@ -241,7 +241,7 @@ import Foundation
             return
         }
 
-        Device.persistAPNsToken(token: deviceToken.hexadecimalRepresentation())
+        self.deviceStateStore.persistAPNsToken(token: deviceToken.hexadecimalRepresentation())
 
         // TODO: Handle Token Refresh support
         self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken.hexadecimalRepresentation()))

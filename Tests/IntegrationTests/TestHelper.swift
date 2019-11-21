@@ -1,12 +1,5 @@
-//
-//  TestHelper.swift
-//  PushNotificationsTests
-//
-//  Created by Danielle Vass on 20/11/2019.
-//  Copyright © 2019 Pusher. All rights reserved.
-//
-
 import Foundation
+@testable import PushNotifications
 
 struct TestHelper {
 
@@ -14,6 +7,18 @@ struct TestHelper {
         let url = try! FileManager.default.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
         let filePath = url.appendingPathComponent("syncJobStore")
         try? FileManager.default.removeItem(atPath:  filePath.relativePath)
+    }
+    
+    func setUpDeviceId(instanceId: String) {
+        if let deviceId = DeviceStateStore().getDeviceId() {
+            TestAPIClientHelper().deleteDevice(instanceId: instanceId, deviceId: deviceId)
+        }
+    }
+    
+    func tearDownDeviceId(instanceId: String) {
+        if let deviceId = DeviceStateStore().getDeviceId() {
+           TestAPIClientHelper().deleteDevice(instanceId: instanceId, deviceId: deviceId)
+       }
     }
     
 }
