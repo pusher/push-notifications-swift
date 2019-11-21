@@ -8,6 +8,7 @@ class ServerSyncProcessHandler {
     private let getTokenProvider: () -> TokenProvider?
     private let handleServerSyncEvent: (ServerSyncEvent) -> Void
     public var jobQueue: ServerSyncJobStore = ServerSyncJobStore()
+    private let deviceStateStore = DeviceStateStore()
 
     init(instanceId: String, getTokenProvider: @escaping () -> TokenProvider?, handleServerSyncEvent: @escaping (ServerSyncEvent) -> Void) {
         self.instanceId = instanceId
@@ -91,9 +92,9 @@ class ServerSyncProcessHandler {
                     }
                 }
 
-                let localInterestsWillChange = Set(DeviceStateStore().getInterests() ?? []) != interestsSet
+                let localInterestsWillChange = Set(self.deviceStateStore.getInterests() ?? []) != interestsSet
                 if localInterestsWillChange {
-                    DeviceStateStore().persistInterests(Array(interestsSet))
+                    self.deviceStateStore.persistInterests(Array(interestsSet))
                     self.handleServerSyncEvent(.InterestsChangedEvent(interests: Array(interestsSet)))
                 }
 
@@ -102,7 +103,7 @@ class ServerSyncProcessHandler {
                 Device.persist(device.id)
             }
 
-            let localInterests = DeviceStateStore().getInterests() ?? []
+            let localInterests = self.deviceStateStore.getInterests() ?? []
             let remoteInterestsWillChange = Set(localInterests) != device.initialInterestSet ?? Set()
             if remoteInterestsWillChange {
                 // We don't care about the result at this point.
@@ -121,8 +122,8 @@ class ServerSyncProcessHandler {
         Device.delete()
         Device.deleteAPNsToken()
         Metadata.delete()
-        DeviceStateStore().persistServerConfirmedInterestsHash("")
-        DeviceStateStore().removeUserId()
+        self.deviceStateStore.persistServerConfirmedInterestsHash("")
+        self.deviceStateStore.removeUserId()
         self.handleServerSyncEvent(.StopEvent)
     }
 
@@ -135,13 +136,13 @@ class ServerSyncProcessHandler {
             }
         }
 
-        let localInterests = DeviceStateStore().getInterests() ?? []
+        let localInterests = self.deviceStateStore.getInterests() ?? []
         let localInterestsHash = localInterests.calculateMD5Hash()
 
-        if localInterestsHash != DeviceStateStore().getServerConfirmedInterestsHash() {
+        if localInterestsHash != self.deviceStateStore.getServerConfirmedInterestsHash() {
             let result = self.networkService.setSubscriptions(instanceId: self.instanceId, deviceId: Device.getDeviceId()!, interests: localInterests, retryStrategy: JustDont())
             if case .value(()) = result {
-                DeviceStateStore().persistServerConfirmedInterestsHash(localInterestsHash)
+                self.deviceStateStore.persistServerConfirmedInterestsHash(localInterestsHash)
             }
         }
     }
@@ -202,14 +203,14 @@ class ServerSyncProcessHandler {
             let localIntersets: [String] = DeviceStateStore.synchronize {
                 Device.persist(device.id)
                 Device.persistAPNsToken(token: token)
-                return DeviceStateStore().getInterests() ?? []
+                return self.deviceStateStore.getInterests() ?? []
             }
 
             if !localIntersets.isEmpty {
                 _ = self.networkService.setSubscriptions(instanceId: self.instanceId, deviceId: device.id, interests: localIntersets, retryStrategy: WithInfiniteExpBackoff())
             }
 
-            if let userId = DeviceStateStore().getUserId() {
+            if let userId = self.deviceStateStore.getUserId() {
                 let tokenProvider = self.getTokenProvider()
                 if tokenProvider == nil {
                     // Any failures during this process are equivalent to de-authing the user e.g. setUserId(null)
@@ -217,14 +218,14 @@ class ServerSyncProcessHandler {
                     // If the user session is still valid, there should be a setUserId in the backlog
 
                     print("[PushNotifications]: Warning - Failed to set the user id due token provider not being present")
-                    DeviceStateStore().removeUserId()
+                    self.deviceStateStore.removeUserId()
                 } else {
                     let semaphore = DispatchSemaphore(value: 0)
                     do {
                         try tokenProvider!.fetchToken(userId: userId, completionHandler: { jwt, error in
                             if error != nil {
                                 print("[PushNotifications]: Warning - Unexpected customer error: \(error!.localizedDescription)")
-                                DeviceStateStore().removeUserId()
+                                self.deviceStateStore.removeUserId()
                                 semaphore.signal()
                                 return
                             }
@@ -233,10 +234,10 @@ class ServerSyncProcessHandler {
 
                             switch result {
                             case .value:
-                                DeviceStateStore().setUserId(userId: userId)
+                                self.deviceStateStore.setUserId(userId: userId)
                             case .error(let error):
                                 print("[PushNotifications]: Warning - Unexpected error: \(error.getErrorMessage())")
-                                DeviceStateStore().removeUserId()
+                                self.deviceStateStore.removeUserId()
                                 semaphore.signal()
                                 return
                             }
@@ -246,7 +247,7 @@ class ServerSyncProcessHandler {
                         semaphore.wait()
                     } catch (let error) {
                         print("[PushNotifications]: Warning - Unexpected error: \(error.localizedDescription)")
-                        DeviceStateStore().removeUserId()
+                        self.deviceStateStore.removeUserId()
                     }
                 }
             }
@@ -276,7 +277,7 @@ class ServerSyncProcessHandler {
 
                 switch result {
                 case .value:
-                    DeviceStateStore().setUserId(userId: userId)
+                    self.deviceStateStore.setUserId(userId: userId)
                     self.handleServerSyncEvent(.UserIdSetEvent(userId: userId, error: nil))
                 case .error(let error):
                     let error = TokenProviderError.error("[PushNotifications] - Error when synchronising with server: \(error)")
