@@ -854,7 +854,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
 
         let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
 
-        let serverSyncProcessHandler = ServerSyncProcessHandler(getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
         serverSyncProcessHandler.jobQueue.append(startJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
 
