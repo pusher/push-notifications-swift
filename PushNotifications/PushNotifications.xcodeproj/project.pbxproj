@@ -79,6 +79,7 @@
 		D323BB812385992800A618F4 /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D323BB802385992800A618F4 /* TestHelper.swift */; };
 		D323BB832385AAAE00A618F4 /* InstanceId.swift in Sources */ = {isa = PBXBuildFile; fileRef = D323BB822385AAAE00A618F4 /* InstanceId.swift */; };
 		D37C57232386B0A900F9EA90 /* PersistenceConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37C57222386B0A900F9EA90 /* PersistenceConstants.swift */; };
+		D37C572723882EDF00F9EA90 /* InstanceDeviceStateStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37C572623882EDF00F9EA90 /* InstanceDeviceStateStoreTests.swift */; };
 		D3FBCEA5238555C400CD9B8F /* PushNotificationsStatic.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FBCEA4238555C400CD9B8F /* PushNotificationsStatic.swift */; };
 /* End PBXBuildFile section */
 
@@ -171,6 +172,7 @@
 		D323BB802385992800A618F4 /* TestHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
 		D323BB822385AAAE00A618F4 /* InstanceId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstanceId.swift; sourceTree = "<group>"; };
 		D37C57222386B0A900F9EA90 /* PersistenceConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceConstants.swift; sourceTree = "<group>"; };
+		D37C572623882EDF00F9EA90 /* InstanceDeviceStateStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstanceDeviceStateStoreTests.swift; sourceTree = "<group>"; };
 		D3FBCEA4238555C400CD9B8F /* PushNotificationsStatic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsStatic.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -223,6 +225,7 @@
 				A108B1012237FE4C007FCB2D /* DeviceTests.swift */,
 				A108B1022237FE4C007FCB2D /* InterestPersistableTests.swift */,
 				A108B1032237FE4C007FCB2D /* UserPersistableTests.swift */,
+				D37C572623882EDF00F9EA90 /* InstanceDeviceStateStoreTests.swift */,
 			);
 			name = Persistence;
 			path = ../../Tests/Persistence;
@@ -549,6 +552,7 @@
 				A108B0F92237FD51007FCB2D /* DeviceTokenHelperTests.swift in Sources */,
 				A1D2AC3A225602B800AF4871 /* StopTests.swift in Sources */,
 				A108B0F72237FD51007FCB2D /* SystemVersionTests.swift in Sources */,
+				D37C572723882EDF00F9EA90 /* InstanceDeviceStateStoreTests.swift in Sources */,
 				A108B0F02237FD51007FCB2D /* BeamsTokenProviderTests.swift in Sources */,
 				A108B1062237FE4D007FCB2D /* InterestPersistableTests.swift in Sources */,
 				A1D2AC3C22560A4300AF4871 /* ClearAllStateTest.swift in Sources */,
