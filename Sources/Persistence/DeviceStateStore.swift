@@ -7,7 +7,7 @@ public class InstanceDeviceStateStore {
 
     init(_ instanceId: String?) {
         self.instanceId = instanceId
-        self.service = UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName(instanceId: nil))!
+        self.service = UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName(instanceId: instanceId))!
     }
     
     public static func synchronize<T>(f: () -> T) -> T {
@@ -213,7 +213,7 @@ public class InstanceDeviceStateStore {
 
     // MARK: Deletion
     func clear() {
-        self.removeFromPersistanceStore(prefix: PersistenceConstants.PersistenceService.globalScopeId)
+        self.removeFromPersistanceStore(prefix: "")
     }
 
 }

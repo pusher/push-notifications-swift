@@ -8,21 +8,13 @@ class ApplicationStartTests: XCTestCase {
     let validToken = "notadevicetoken-apns-ApplicationStartTests".data(using: .utf8)!
 
     override func setUp() {
-        TestHelper().setUpDeviceId(instanceId: instanceId)
-
-        UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName(instanceId: nil)).map { userDefaults in
-            Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
-        }
-        TestHelper().removeSyncjobStore()
+        super.setUp()
+        TestHelper().clearEverything(instanceId: instanceId)
     }
 
     override func tearDown() {
-        TestHelper().tearDownDeviceId(instanceId: instanceId)
-
-        UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName(instanceId: nil)).map { userDefaults in
-            Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
-        }
-        TestHelper().removeSyncjobStore()
+        TestHelper().clearEverything(instanceId: instanceId)
+        super.tearDown()
     }
 
     func testApplicationStartWillSyncInterests() {

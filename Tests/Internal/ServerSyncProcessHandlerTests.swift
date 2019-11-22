@@ -18,20 +18,13 @@ class ServerSyncProcessHandlerTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName(instanceId: nil)).map { userDefaults in
-            Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
-        }
-
-        self.deviceStateStore.persistInstanceId(instanceId)
+        TestHelper().clearEverything(instanceId: instanceId)
     }
 
     override func tearDown() {
         OHHTTPStubs.removeAllStubs()
+        TestHelper().clearEverything(instanceId: instanceId)
         super.tearDown()
-
-        UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName(instanceId: nil)).map { userDefaults in
-            Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
-        }
     }
 
     func testStartJob() {

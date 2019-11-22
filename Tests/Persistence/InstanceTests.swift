@@ -4,14 +4,14 @@ import XCTest
 class InstanceTests: XCTestCase {
     override func setUp() {
         super.setUp()
-        UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName(instanceId: nil))?.removeObject(forKey: PersistenceConstants.UserDefaults.instanceId)
+        UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName(instanceId: TestHelper.instanceId))?.removeObject(forKey: PersistenceConstants.UserDefaults.instanceId)
     }
     func testInstanceIdWasSaved() {
-        let deviceStateStore = InstanceDeviceStateStore("abcd")
-        XCTAssertNoThrow(deviceStateStore.persistInstanceId("abcd"))
+        let deviceStateStore = InstanceDeviceStateStore(TestHelper.instanceId)
+        XCTAssertNoThrow(deviceStateStore.persistInstanceId(TestHelper.instanceId))
         let instanceId = deviceStateStore.getInstanceId()
 
         XCTAssertNotNil(instanceId)
-        XCTAssert("abcd" == instanceId)
+        XCTAssert(TestHelper.instanceId == instanceId)
     }
 }

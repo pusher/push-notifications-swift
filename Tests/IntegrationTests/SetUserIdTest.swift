@@ -9,23 +9,13 @@ class SetUserIdTest: XCTestCase {
     let validCucasJWTToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjQ3MDc5OTIzMDIsImlzcyI6Imh0dHBzOi8vMWI4ODA1OTAtNjMwMS00YmI1LWIzNGYtNDVkYjFjNWY1NjQ0LnB1c2hub3RpZmljYXRpb25zLnB1c2hlci5jb20iLCJzdWIiOiJjdWNhcyJ9.CTtrDXh7vae3rSSKBKf5X0y4RQpFg7YvIlirmBQqJn4"
 
     override func setUp() {
-        TestHelper().setUpDeviceId(instanceId: instanceId)
-
-        UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName(instanceId: nil)).map { userDefaults in
-            Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
-        }
-
-       TestHelper().removeSyncjobStore()
+        super.setUp()
+        TestHelper().clearEverything(instanceId: instanceId)
     }
 
     override func tearDown() {
-        TestHelper().tearDownDeviceId(instanceId: instanceId)
-
-        UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName(instanceId: nil)).map { userDefaults in
-            Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
-        }
-
-        TestHelper().removeSyncjobStore()
+        TestHelper().clearEverything(instanceId: instanceId)
+        super.tearDown()
     }
 
     func testSetUserIdShouldAssociateThisDeviceWithUserOnTheServer() {
