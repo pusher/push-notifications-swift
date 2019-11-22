@@ -2,7 +2,7 @@ import Foundation
 
 public class DeviceStateStore {
     static let queue = DispatchQueue(label: "deviceStateStoreQueue")
-    let service: UserDefaults = UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName)!
+    let service: UserDefaults = UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName(instanceId: nil))!
     
     public static func synchronize<T>(f: () -> T) -> T {
         var result: T?

@@ -2,7 +2,14 @@ import Foundation
 
 struct PersistenceConstants {
     struct UserDefaults {
-        static let suiteName = "PushNotifications"
+        static func suiteName(instanceId: String?) -> String {
+            if instanceId == nil {
+                return "PushNotifications"
+            } else {
+                return "PushNotifications.\(instanceId!)"
+            }
+        }
+        
         static let metadataSDKVersion = "com.pusher.sdk.metadata.sdkVersion"
         static let metadataiOSVersion = "com.pusher.sdk.metadata.iosVersion"
         static let metadataMacOSVersion = "com.pusher.sdk.metadata.macosVersion"

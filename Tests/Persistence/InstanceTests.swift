@@ -4,7 +4,7 @@ import XCTest
 class InstanceTests: XCTestCase {
     override func setUp() {
         super.setUp()
-        UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName)?.removeObject(forKey: PersistenceConstants.UserDefaults.instanceId)
+        UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName(instanceId: nil))?.removeObject(forKey: PersistenceConstants.UserDefaults.instanceId)
     }
     func testInstanceIdWasSaved() {
         let deviceStateStore = DeviceStateStore()

@@ -11,7 +11,7 @@ class SetUserIdTest: XCTestCase {
     override func setUp() {
         TestHelper().setUpDeviceId(instanceId: instanceId)
 
-        UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName).map { userDefaults in
+        UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName(instanceId: nil)).map { userDefaults in
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
         }
 
@@ -21,7 +21,7 @@ class SetUserIdTest: XCTestCase {
     override func tearDown() {
         TestHelper().tearDownDeviceId(instanceId: instanceId)
 
-        UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName).map { userDefaults in
+        UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName(instanceId: nil)).map { userDefaults in
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
         }
 

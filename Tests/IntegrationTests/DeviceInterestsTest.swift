@@ -11,7 +11,7 @@ class DeviceInterestsTest: XCTestCase {
     override func setUp() {
         TestHelper().setUpDeviceId(instanceId: instanceId)
 
-        UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName).map { userDefaults in
+        UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName(instanceId: nil)).map { userDefaults in
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
         }
 
@@ -21,7 +21,7 @@ class DeviceInterestsTest: XCTestCase {
     override func tearDown() {
         TestHelper().tearDownDeviceId(instanceId: instanceId)
 
-        UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName).map { userDefaults in
+        UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName(instanceId: nil)).map { userDefaults in
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
         }
 
@@ -102,7 +102,7 @@ class DeviceInterestsTest: XCTestCase {
             .toEventually(equal(["panda", "zebra"]), timeout: 10)
 
         // Clearing local storage to pretend that SDK didn't start.
-        UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName).map { userDefaults in
+        UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName(instanceId: nil)).map { userDefaults in
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
         }
 

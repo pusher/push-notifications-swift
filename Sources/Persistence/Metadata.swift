@@ -5,7 +5,7 @@ public struct Metadata: Equatable, Codable {
     let iosVersion: String?
     let macosVersion: String?
 
-    private static let userDefaults = UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName)
+    private static let userDefaults = UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName(instanceId: nil))
 
     static func getCurrentMetadata() -> Metadata {
         let sdkVersion = SDK.version

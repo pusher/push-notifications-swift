@@ -7,13 +7,13 @@ class InterestPersistableTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        UserDefaults.standard.removePersistentDomain(forName: PersistenceConstants.UserDefaults.suiteName)
+        UserDefaults.standard.removePersistentDomain(forName: PersistenceConstants.UserDefaults.suiteName(instanceId: nil))
         self.deviceStateStore = DeviceStateStore()
     }
 
     override func tearDown() {
         self.deviceStateStore = nil
-        UserDefaults.standard.removePersistentDomain(forName: PersistenceConstants.UserDefaults.suiteName)
+        UserDefaults.standard.removePersistentDomain(forName: PersistenceConstants.UserDefaults.suiteName(instanceId: nil))
         super.tearDown()
     }
 
