@@ -10,7 +10,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
     let noTokenProvider: () -> TokenProvider? = {
         return nil
     }
-    let deviceStateStore = DeviceStateStore()
+    let deviceStateStore = InstanceDeviceStateStore("8a070eaa-033f-46d6-bb90-f4c15acc47e1")
 
     let ignoreServerSyncEvent: (ServerSyncEvent) -> Void = { _ in
         return

@@ -33,6 +33,6 @@ class DeviceRegistrationTests: XCTestCase {
 
         pushNotifications.registerDeviceToken(validToken)
 
-        expect(DeviceStateStore().getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        expect(InstanceDeviceStateStore(self.instanceId).getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
     }
 }

@@ -10,13 +10,13 @@ struct TestHelper {
     }
     
     func setUpDeviceId(instanceId: String) {
-        if let deviceId = DeviceStateStore().getDeviceId() {
+        if let deviceId = InstanceDeviceStateStore(nil).getDeviceId() {
             TestAPIClientHelper().deleteDevice(instanceId: instanceId, deviceId: deviceId)
         }
     }
     
     func tearDownDeviceId(instanceId: String) {
-        if let deviceId = DeviceStateStore().getDeviceId() {
+        if let deviceId = InstanceDeviceStateStore(nil).getDeviceId() {
            TestAPIClientHelper().deleteDevice(instanceId: instanceId, deviceId: deviceId)
        }
     }

@@ -3,7 +3,7 @@ import XCTest
 
 class DeviceTests: XCTestCase {
     func testPersist() {
-        let deviceStateStore = DeviceStateStore()
+        let deviceStateStore = InstanceDeviceStateStore(nil)
         deviceStateStore.persistDeviceId("abcd")
         let deviceId = deviceStateStore.getDeviceId()
 

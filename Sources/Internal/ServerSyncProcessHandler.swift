@@ -8,10 +8,11 @@ class ServerSyncProcessHandler {
     private let getTokenProvider: () -> TokenProvider?
     private let handleServerSyncEvent: (ServerSyncEvent) -> Void
     public var jobQueue: ServerSyncJobStore = ServerSyncJobStore()
-    private let deviceStateStore = DeviceStateStore()
+    private let deviceStateStore: InstanceDeviceStateStore
 
     init(instanceId: String, getTokenProvider: @escaping () -> TokenProvider?, handleServerSyncEvent: @escaping (ServerSyncEvent) -> Void) {
         self.instanceId = instanceId
+        self.deviceStateStore = InstanceDeviceStateStore(instanceId)
         self.getTokenProvider = getTokenProvider
         self.handleServerSyncEvent = handleServerSyncEvent
         self.sendMessageQueue = DispatchQueue(label: "sendMessageQueue")
@@ -44,7 +45,7 @@ class ServerSyncProcessHandler {
     }
 
     private func hasStarted() -> Bool {
-        return DeviceStateStore.synchronize {
+        return InstanceDeviceStateStore.synchronize {
             return self.deviceStateStore.deviceIdAlreadyPresent()
         }
     }
@@ -60,7 +61,7 @@ class ServerSyncProcessHandler {
             return
         case .value(let device):
             var outstandingJobs: [ServerSyncJob] = []
-            DeviceStateStore.synchronize {
+            InstanceDeviceStateStore.synchronize {
                 // Replay sub/unsub/setsub operations in job queue over initial interest set
                 var interestsSet = device.initialInterestSet ?? Set<String>()
 
@@ -200,7 +201,7 @@ class ServerSyncProcessHandler {
             print("[PushNotifications]: Unrecoverable error when registering device with Pusher Beams (Reason - \(error.getErrorMessage()))")
             return false
         case .value(let device):
-            let localIntersets: [String] = DeviceStateStore.synchronize {
+            let localIntersets: [String] = InstanceDeviceStateStore.synchronize {
                 self.deviceStateStore.persistDeviceId(device.id)
                 self.deviceStateStore.persistAPNsToken(token: token)
                 return self.deviceStateStore.getInterests() ?? []

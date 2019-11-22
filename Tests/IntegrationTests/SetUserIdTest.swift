@@ -33,8 +33,8 @@ class SetUserIdTest: XCTestCase {
         pushNotifications.start()
         pushNotifications.registerDeviceToken(validToken)
 
-        expect(DeviceStateStore().getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
-        let deviceId = DeviceStateStore().getDeviceId()!
+        expect(InstanceDeviceStateStore(self.instanceId).getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        let deviceId = InstanceDeviceStateStore(self.instanceId).getDeviceId()!
 
         let tokenProvider = StubTokenProvider(jwt: validCucasJWTToken, error: nil)
         pushNotifications.setUserId("cucas", tokenProvider: tokenProvider) { _ in }

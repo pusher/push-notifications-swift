@@ -6,7 +6,7 @@ class StopTests: XCTestCase {
     // Real production instance.
     let instanceId = "1b880590-6301-4bb5-b34f-45db1c5f5644"
     let validToken = "notadevicetoken-apns-StopTests".data(using: .utf8)!
-    let deviceStateStore = DeviceStateStore()
+    let deviceStateStore = InstanceDeviceStateStore("1b880590-6301-4bb5-b34f-45db1c5f5644")
 
     override func setUp() {
         TestHelper().setUpDeviceId(instanceId: instanceId)

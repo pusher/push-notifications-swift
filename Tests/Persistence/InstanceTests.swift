@@ -7,7 +7,7 @@ class InstanceTests: XCTestCase {
         UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName(instanceId: nil))?.removeObject(forKey: PersistenceConstants.UserDefaults.instanceId)
     }
     func testInstanceIdWasSaved() {
-        let deviceStateStore = DeviceStateStore()
+        let deviceStateStore = InstanceDeviceStateStore("abcd")
         XCTAssertNoThrow(deviceStateStore.persistInstanceId("abcd"))
         let instanceId = deviceStateStore.getInstanceId()
 

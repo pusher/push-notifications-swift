@@ -10,10 +10,11 @@ import Foundation
 @objc public final class PushNotifications: NSObject {
     
     private let instanceId: String
-    private let deviceStateStore = DeviceStateStore()
+    private let deviceStateStore: InstanceDeviceStateStore
     
     init(instanceId: String) {
         self.instanceId = instanceId
+        self.deviceStateStore = InstanceDeviceStateStore(instanceId)
     }
     
     //! Returns a shared singleton PushNotifications object.
@@ -137,7 +138,7 @@ import Foundation
         PushNotifications.shared.tokenProvider = tokenProvider
 
         var localUserIdDifferent: Bool?
-        DeviceStateStore.synchronize {
+        InstanceDeviceStateStore.synchronize {
             if let userIdExists = self.deviceStateStore.getUserIdHasBeenCalledWith() {
                 localUserIdDifferent = userIdExists != userId
             } else {
@@ -184,7 +185,7 @@ import Foundation
      */
     /// - Tag: stop
     @objc public func stop(completion: @escaping () -> Void) {
-        let hadAnyInterests: Bool = DeviceStateStore.synchronize {
+        let hadAnyInterests: Bool = InstanceDeviceStateStore.synchronize {
             let hadAnyInterests = self.deviceStateStore.getInterests()?.isEmpty ?? false
             self.deviceStateStore.removeAllInterests()
 
@@ -262,7 +263,7 @@ import Foundation
             throw InvalidInterestError.invalidName(interest)
         }
 
-        let interestsChanged = DeviceStateStore.synchronize {
+        let interestsChanged = InstanceDeviceStateStore.synchronize {
             self.deviceStateStore.persistInterest(interest)
         }
 
@@ -288,7 +289,7 @@ import Foundation
             throw MultipleInvalidInterestsError.invalidNames(invalidInterests)
         }
 
-        let interestsChanged = DeviceStateStore.synchronize {
+        let interestsChanged = InstanceDeviceStateStore.synchronize {
             self.deviceStateStore.persistInterests(interests)
         }
 
@@ -313,7 +314,7 @@ import Foundation
             throw InvalidInterestError.invalidName(interest)
         }
 
-        let interestsChanged = DeviceStateStore.synchronize {
+        let interestsChanged = InstanceDeviceStateStore.synchronize {
             self.deviceStateStore.removeInterest(interest: interest)
         }
 
@@ -336,7 +337,7 @@ import Foundation
      */
     /// - Tag: getDeviceInterests
     @objc public func getDeviceInterests() -> [String]? {
-        return DeviceStateStore.synchronize {
+        return InstanceDeviceStateStore.synchronize {
             return self.deviceStateStore.getInterests()
         }
     }

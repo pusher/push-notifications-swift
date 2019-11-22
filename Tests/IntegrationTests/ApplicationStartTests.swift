@@ -31,14 +31,14 @@ class ApplicationStartTests: XCTestCase {
 
         pushNotifications.registerDeviceToken(validToken)
 
-        let deviceStateStore = DeviceStateStore()
+        let deviceStateStore = InstanceDeviceStateStore(self.instanceId)
         expect(deviceStateStore.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
         let deviceId = deviceStateStore.getDeviceId()!
 
         expect(TestAPIClientHelper().getDeviceInterests(instanceId: self.instanceId, deviceId: deviceId))
             .toEventually(equal([]), timeout: 10)
 
-        DeviceStateStore().persistInterests(["cucas", "panda", "potato"])
+        InstanceDeviceStateStore(self.instanceId).persistInterests(["cucas", "panda", "potato"])
         pushNotifications.start()
 
         expect(TestAPIClientHelper().getDeviceInterests(instanceId: self.instanceId, deviceId: deviceId))
