@@ -86,7 +86,7 @@ import Foundation
         }
 
         startHasBeenCalledThisSession = true
-        self.serverSyncHandler.sendMessage(serverSyncJob: .ApplicationStartJob(metadata: Metadata.getCurrentMetadata()))
+        self.serverSyncHandler.sendMessage(serverSyncJob: .ApplicationStartJob(metadata: self.deviceStateStore.getCurrentMetadata()))
     }
 
     /**

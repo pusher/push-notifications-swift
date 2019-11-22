@@ -52,7 +52,7 @@ class ServerSyncProcessHandler {
 
     private func processStartJob(instanceId: String, token: String) {
         // Register device with Error
-        let result = self.networkService.register(instanceId: instanceId, deviceToken: token, metadata: Metadata.getCurrentMetadata(), retryStrategy: WithInfiniteExpBackoff())
+        let result = self.networkService.register(instanceId: instanceId, deviceToken: token, metadata: self.deviceStateStore.getCurrentMetadata(), retryStrategy: WithInfiniteExpBackoff())
 
         switch result {
         case .error(let error):
@@ -122,18 +122,18 @@ class ServerSyncProcessHandler {
 //        Instance.delete()
         self.deviceStateStore.deleteDeviceId()
         self.deviceStateStore.deleteAPNsToken()
-        Metadata.delete()
+        self.deviceStateStore.deleteMetadata()
         self.deviceStateStore.persistServerConfirmedInterestsHash("")
         self.deviceStateStore.removeUserId()
         self.handleServerSyncEvent(.StopEvent)
     }
 
     private func processApplicationStartJob(metadata: Metadata) {
-        let localMetadata = Metadata.load()
+        let localMetadata = self.deviceStateStore.loadMetadata()
         if metadata != localMetadata {
             let result = self.networkService.syncMetadata(instanceId: self.instanceId, deviceId: self.deviceStateStore.getDeviceId()!, metadata: metadata, retryStrategy: JustDont())
             if case .value(()) = result {
-                Metadata.save(metadata: metadata)
+                self.deviceStateStore.saveMetadata(metadata: metadata)
             }
         }
 
@@ -194,7 +194,7 @@ class ServerSyncProcessHandler {
 
     private func recreateDevice(token: String) -> Bool {
         // Register device with Error
-        let result = self.networkService.register(instanceId: self.instanceId, deviceToken: token, metadata: Metadata.getCurrentMetadata(), retryStrategy: WithInfiniteExpBackoff())
+        let result = self.networkService.register(instanceId: self.instanceId, deviceToken: token, metadata: self.deviceStateStore.getCurrentMetadata(), retryStrategy: WithInfiniteExpBackoff())
 
         switch result {
         case .error(let error):

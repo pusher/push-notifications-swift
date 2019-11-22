@@ -177,6 +177,39 @@ public class InstanceDeviceStateStore {
     func getAPNsToken() -> String? {
         return service.string(forKey: PersistenceConstants.UserDefaults.deviceAPNsToken)
     }
+    
+    // MARK: Metadata
+    
+    func getCurrentMetadata() -> Metadata {
+        let sdkVersion = SDK.version
+        let systemVersion = SystemVersion.version
+
+        #if os(iOS)
+        return Metadata(sdkVersion: sdkVersion, iosVersion: systemVersion, macosVersion: nil)
+        #elseif os(OSX)
+        return Metadata(sdkVersion: sdkVersion, iosVersion: nil, macosVersion: systemVersion)
+        #endif
+    }
+
+    func saveMetadata(metadata: Metadata) {
+        service.set(metadata.sdkVersion, forKey: PersistenceConstants.UserDefaults.metadataSDKVersion)
+        service.set(metadata.iosVersion, forKey: PersistenceConstants.UserDefaults.metadataiOSVersion)
+        service.set(metadata.macosVersion, forKey: PersistenceConstants.UserDefaults.metadataMacOSVersion)
+    }
+
+    func loadMetadata() -> Metadata {
+        return Metadata(
+            sdkVersion: service.string(forKey: PersistenceConstants.UserDefaults.metadataSDKVersion),
+            iosVersion: service.string(forKey: PersistenceConstants.UserDefaults.metadataiOSVersion),
+            macosVersion: service.string(forKey: PersistenceConstants.UserDefaults.metadataMacOSVersion)
+        )
+    }
+
+    func deleteMetadata() {
+        service.removeObject(forKey: PersistenceConstants.UserDefaults.metadataSDKVersion)
+        service.removeObject(forKey: PersistenceConstants.UserDefaults.metadataiOSVersion)
+        service.removeObject(forKey: PersistenceConstants.UserDefaults.metadataMacOSVersion)
+    }
 
     // MARK: Deletion
     func clear() {
