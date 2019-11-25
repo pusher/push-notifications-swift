@@ -16,8 +16,6 @@ struct TestHelper {
         try? FileManager.default.removeItem(atPath:  filePath.relativePath)
         
         InstanceDeviceStateStore(instanceId).clear()
-    
-//        Thread.sleep(forTimeInterval: 1.0)
     }
     
 }
