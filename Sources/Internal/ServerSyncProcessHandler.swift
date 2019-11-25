@@ -52,7 +52,7 @@ class ServerSyncProcessHandler {
 
     private func processStartJob(instanceId: String, token: String) {
         // Register device with Error
-        let result = self.networkService.register(instanceId: instanceId, deviceToken: token, metadata: self.deviceStateStore.getCurrentMetadata(), retryStrategy: WithInfiniteExpBackoff())
+        let result = self.networkService.register(instanceId: instanceId, deviceToken: token, metadata: Metadata.getCurrent(), retryStrategy: WithInfiniteExpBackoff())
 
         switch result {
         case .error(let error):
@@ -194,7 +194,7 @@ class ServerSyncProcessHandler {
 
     private func recreateDevice(token: String) -> Bool {
         // Register device with Error
-        let result = self.networkService.register(instanceId: self.instanceId, deviceToken: token, metadata: self.deviceStateStore.getCurrentMetadata(), retryStrategy: WithInfiniteExpBackoff())
+        let result = self.networkService.register(instanceId: self.instanceId, deviceToken: token, metadata: Metadata.getCurrent(), retryStrategy: WithInfiniteExpBackoff())
 
         switch result {
         case .error(let error):

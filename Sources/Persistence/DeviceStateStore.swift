@@ -276,17 +276,6 @@ public class InstanceDeviceStateStore {
     }
     
     // MARK: Metadata
-    
-    func getCurrentMetadata() -> Metadata {
-        let sdkVersion = SDK.version
-        let systemVersion = SystemVersion.version
-
-        #if os(iOS)
-        return Metadata(sdkVersion: sdkVersion, iosVersion: systemVersion, macosVersion: nil)
-        #elseif os(OSX)
-        return Metadata(sdkVersion: sdkVersion, iosVersion: nil, macosVersion: systemVersion)
-        #endif
-    }
 
     func saveMetadata(metadata: Metadata) {
         service.set(metadata.sdkVersion, forKey: PersistenceConstants.UserDefaults.metadataSDKVersion)
