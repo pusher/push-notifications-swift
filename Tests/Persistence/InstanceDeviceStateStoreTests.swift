@@ -19,22 +19,31 @@ class InstanceDeviceStateStoreTests : XCTestCase {
     
     
     func testTwoInstancesDoNotIntefere() {
-        // set 1 instance up with some interests
+        // set 1 instance up with some interests and a device
         instanceDeviceStateStore1.persistInterests(["cat", "dog"])
+        instanceDeviceStateStore1.persistDeviceId("deviceId1")
         
-        // set 2nd instance up with different interests
+        // set 2nd instance up with different interests and a device
         instanceDeviceStateStore2.persistInterests(["banana", "apple", "pear"])
+        instanceDeviceStateStore2.persistDeviceId("deviceId2")
         
-        // check they're intefering
+        // check they're saved
         XCTAssertTrue((instanceDeviceStateStore1.getInterests()?.containsSameElements(as: ["cat", "dog"]))!)
         XCTAssertTrue((instanceDeviceStateStore2.getInterests()?.containsSameElements(as: ["banana", "apple", "pear"]))!)
+        
+        XCTAssertEqual(instanceDeviceStateStore1.getDeviceId(), "deviceId1")
+        XCTAssertEqual(instanceDeviceStateStore2.getDeviceId(), "deviceId2")
         
         // clear instance 1
         instanceDeviceStateStore1.clear()
         
-        // check instance 2 is okay
+        // check instance 1 is cleared and instance 2 is still okay
         XCTAssertEqual(instanceDeviceStateStore1.getInterests(), [])
         XCTAssertTrue((instanceDeviceStateStore2.getInterests()?.containsSameElements(as: ["banana", "apple", "pear"]))!)
+        
+        XCTAssertEqual(instanceDeviceStateStore1.getDeviceId(), nil)
+        XCTAssertEqual(instanceDeviceStateStore2.getDeviceId(), "deviceId2")
+        
     }
     
     
