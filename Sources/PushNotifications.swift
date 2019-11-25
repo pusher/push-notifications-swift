@@ -142,7 +142,7 @@ import Foundation
             if let userIdExists = self.deviceStateStore.getUserIdHasBeenCalledWith() {
                 localUserIdDifferent = userIdExists != userId
             } else {
-                self.deviceStateStore.setUserIdHasBeenCalledWith(userId: userId)
+                self.deviceStateStore.persistUserIdHasBeenCalledWith(userId: userId)
             }
         }
         switch localUserIdDifferent {

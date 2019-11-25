@@ -17,14 +17,14 @@ public class DeviceStateStore {
             }
             
             if let oldUserId = oldInstanceDSS.getUserId() {
-                newInstanceDSS.setUserId(userId: oldUserId)
+                newInstanceDSS.persistUserId(userId: oldUserId)
             }
             
             newInstanceDSS.persistServerConfirmedInterestsHash(oldInstanceDSS.getServerConfirmedInterestsHash())
-            newInstanceDSS.setStartJobHasBeenEnqueued(flag: oldInstanceDSS.getStartJobHasBeenEnqueued())
+            newInstanceDSS.persistStartJobHasBeenEnqueued(flag: oldInstanceDSS.getStartJobHasBeenEnqueued())
             
             if let oldSetUserIdHasBeenCalledWith = oldInstanceDSS.getUserIdHasBeenCalledWith() {
-                newInstanceDSS.setUserIdHasBeenCalledWith(userId: oldSetUserIdHasBeenCalledWith)
+                newInstanceDSS.persistUserIdHasBeenCalledWith(userId: oldSetUserIdHasBeenCalledWith)
             }
             
             if let oldDeviceId = oldInstanceDSS.getDeviceId() {
@@ -35,7 +35,7 @@ public class DeviceStateStore {
                 newInstanceDSS.persistAPNsToken(token: oldAPNsToken)
             }
             
-            newInstanceDSS.saveMetadata(metadata: oldInstanceDSS.loadMetadata())
+            newInstanceDSS.persistMetadata(metadata: oldInstanceDSS.getMetadata())
             
             self.persistInstanceId(instanceId)
             oldInstanceDSS.clear()
@@ -185,7 +185,7 @@ public class InstanceDeviceStateStore {
     }
     
     // MARK: User Id
-    func setUserId(userId: String) -> Bool {
+    func persistUserId(userId: String) -> Bool {
         guard !self.userIdExists(userId: userId) else {
             return false
         }
@@ -220,7 +220,7 @@ public class InstanceDeviceStateStore {
     
     
     // MARK: Start Job Has Been Enqueued
-    func setStartJobHasBeenEnqueued(flag: Bool) {
+    func persistStartJobHasBeenEnqueued(flag: Bool) {
         service.set(flag, forKey: PersistenceConstants.PushNotificationsInstancePersistence.startJob)
     }
     
@@ -233,7 +233,7 @@ public class InstanceDeviceStateStore {
     }
     
     // MARK: User Id Previously Called
-    func setUserIdHasBeenCalledWith(userId: String) {
+    func persistUserIdHasBeenCalledWith(userId: String) {
         service.set(userId, forKey: PersistenceConstants.PushNotificationsInstancePersistence.userId)
     }
     
@@ -277,13 +277,13 @@ public class InstanceDeviceStateStore {
     
     // MARK: Metadata
 
-    func saveMetadata(metadata: Metadata) {
+    func persistMetadata(metadata: Metadata) {
         service.set(metadata.sdkVersion, forKey: PersistenceConstants.UserDefaults.metadataSDKVersion)
         service.set(metadata.iosVersion, forKey: PersistenceConstants.UserDefaults.metadataiOSVersion)
         service.set(metadata.macosVersion, forKey: PersistenceConstants.UserDefaults.metadataMacOSVersion)
     }
 
-    func loadMetadata() -> Metadata {
+    func getMetadata() -> Metadata {
         return Metadata(
             sdkVersion: service.string(forKey: PersistenceConstants.UserDefaults.metadataSDKVersion),
             iosVersion: service.string(forKey: PersistenceConstants.UserDefaults.metadataiOSVersion),
@@ -291,7 +291,7 @@ public class InstanceDeviceStateStore {
         )
     }
 
-    func deleteMetadata() {
+    func removeMetadata() {
         service.removeObject(forKey: PersistenceConstants.UserDefaults.metadataSDKVersion)
         service.removeObject(forKey: PersistenceConstants.UserDefaults.metadataiOSVersion)
         service.removeObject(forKey: PersistenceConstants.UserDefaults.metadataMacOSVersion)

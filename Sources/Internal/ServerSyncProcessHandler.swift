@@ -122,18 +122,18 @@ class ServerSyncProcessHandler {
 //        Instance.delete()
         self.deviceStateStore.deleteDeviceId()
         self.deviceStateStore.deleteAPNsToken()
-        self.deviceStateStore.deleteMetadata()
+        self.deviceStateStore.removeMetadata()
         self.deviceStateStore.persistServerConfirmedInterestsHash("")
         self.deviceStateStore.removeUserId()
         self.handleServerSyncEvent(.StopEvent)
     }
 
     private func processApplicationStartJob(metadata: Metadata) {
-        let localMetadata = self.deviceStateStore.loadMetadata()
+        let localMetadata = self.deviceStateStore.getMetadata()
         if metadata != localMetadata {
             let result = self.networkService.syncMetadata(instanceId: self.instanceId, deviceId: self.deviceStateStore.getDeviceId()!, metadata: metadata, retryStrategy: JustDont())
             if case .value(()) = result {
-                self.deviceStateStore.saveMetadata(metadata: metadata)
+                self.deviceStateStore.persistMetadata(metadata: metadata)
             }
         }
 
@@ -214,7 +214,7 @@ class ServerSyncProcessHandler {
             if let userId = self.deviceStateStore.getUserId() {
                 let tokenProvider = self.getTokenProvider()
                 if tokenProvider == nil {
-                    // Any failures during this process are equivalent to de-authing the user e.g. setUserId(null)
+                    // Any failures during this process are equivalent to de-authing the user e.g. persistUserId(null)
                     // If the user session is indeed over, there should be a Stop in the backlog eventually
                     // If the user session is still valid, there should be a setUserId in the backlog
 
@@ -235,7 +235,7 @@ class ServerSyncProcessHandler {
 
                             switch result {
                             case .value:
-                                self.deviceStateStore.setUserId(userId: userId)
+                                self.deviceStateStore.persistUserId(userId: userId)
                             case .error(let error):
                                 print("[PushNotifications]: Warning - Unexpected error: \(error.getErrorMessage())")
                                 self.deviceStateStore.removeUserId()
@@ -278,7 +278,7 @@ class ServerSyncProcessHandler {
 
                 switch result {
                 case .value:
-                    self.deviceStateStore.setUserId(userId: userId)
+                    self.deviceStateStore.persistUserId(userId: userId)
                     self.handleServerSyncEvent(.UserIdSetEvent(userId: userId, error: nil))
                 case .error(let error):
                     let error = TokenProviderError.error("[PushNotifications] - Error when synchronising with server: \(error)")

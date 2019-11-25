@@ -19,7 +19,7 @@ class UserPersistableTests: XCTestCase {
     func testPersistUserThatWasNotSavedYet() {
         let userIdNotSetYet = self.deviceStateStore.getUserId()
         XCTAssertNil(userIdNotSetYet)
-        let persistenceOperation = self.deviceStateStore.setUserId(userId: "Johnny Cash")
+        let persistenceOperation = self.deviceStateStore.persistUserId(userId: "Johnny Cash")
         XCTAssertTrue(persistenceOperation)
         let userId = self.deviceStateStore.getUserId()
         XCTAssertNotNil(userId)
@@ -27,13 +27,13 @@ class UserPersistableTests: XCTestCase {
     }
 
     func testPersistUserThatIsAlreadySaved() {
-        _ = self.deviceStateStore.setUserId(userId: "Johnny Cash")
-        let persistenceOperation = self.deviceStateStore.setUserId(userId: "Johnny Cash")
+        _ = self.deviceStateStore.persistUserId(userId: "Johnny Cash")
+        let persistenceOperation = self.deviceStateStore.persistUserId(userId: "Johnny Cash")
         XCTAssertFalse(persistenceOperation)
     }
 
     func testPersistUserAndRemoveUser() {
-        let persistenceOperation = self.deviceStateStore.setUserId(userId: "Johnny Cash")
+        let persistenceOperation = self.deviceStateStore.persistUserId(userId: "Johnny Cash")
         XCTAssertTrue(persistenceOperation)
         let userId = self.deviceStateStore.getUserId()
         XCTAssertNotNil(userId)
