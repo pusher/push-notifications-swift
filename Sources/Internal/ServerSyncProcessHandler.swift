@@ -99,7 +99,6 @@ class ServerSyncProcessHandler {
                     self.handleServerSyncEvent(.InterestsChangedEvent(interests: Array(interestsSet)))
                 }
 
-                self.deviceStateStore.persistInstanceId(instanceId)
                 self.deviceStateStore.persistAPNsToken(token: token)
                 self.deviceStateStore.persistDeviceId(device.id)
             }

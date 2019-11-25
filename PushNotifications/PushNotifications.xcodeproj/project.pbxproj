@@ -28,7 +28,6 @@
 		A108B0F92237FD51007FCB2D /* DeviceTokenHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108B0E22237FD50007FCB2D /* DeviceTokenHelperTests.swift */; };
 		A108B0FB2237FD51007FCB2D /* PublishIdTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108B0E42237FD50007FCB2D /* PublishIdTests.swift */; };
 		A108B0FE2237FD51007FCB2D /* InterestsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108B0E72237FD51007FCB2D /* InterestsTests.swift */; };
-		A108B1042237FE4D007FCB2D /* InstanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108B1002237FE4C007FCB2D /* InstanceTests.swift */; };
 		A108B1052237FE4D007FCB2D /* DeviceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108B1012237FE4C007FCB2D /* DeviceTests.swift */; };
 		A108B1062237FE4D007FCB2D /* InterestPersistableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108B1022237FE4C007FCB2D /* InterestPersistableTests.swift */; };
 		A108B1072237FE4D007FCB2D /* UserPersistableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108B1032237FE4C007FCB2D /* UserPersistableTests.swift */; };
@@ -116,7 +115,6 @@
 		A108B0E22237FD50007FCB2D /* DeviceTokenHelperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceTokenHelperTests.swift; path = ../../Tests/DeviceTokenHelperTests.swift; sourceTree = "<group>"; };
 		A108B0E42237FD50007FCB2D /* PublishIdTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PublishIdTests.swift; path = ../../Tests/PublishIdTests.swift; sourceTree = "<group>"; };
 		A108B0E72237FD51007FCB2D /* InterestsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterestsTests.swift; path = ../../Tests/InterestsTests.swift; sourceTree = "<group>"; };
-		A108B1002237FE4C007FCB2D /* InstanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstanceTests.swift; sourceTree = "<group>"; };
 		A108B1012237FE4C007FCB2D /* DeviceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTests.swift; sourceTree = "<group>"; };
 		A108B1022237FE4C007FCB2D /* InterestPersistableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterestPersistableTests.swift; sourceTree = "<group>"; };
 		A108B1032237FE4C007FCB2D /* UserPersistableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPersistableTests.swift; sourceTree = "<group>"; };
@@ -223,7 +221,6 @@
 		A108B0FF2237FE4C007FCB2D /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
-				A108B1002237FE4C007FCB2D /* InstanceTests.swift */,
 				A108B1012237FE4C007FCB2D /* DeviceTests.swift */,
 				A108B1022237FE4C007FCB2D /* InterestPersistableTests.swift */,
 				A108B1032237FE4C007FCB2D /* UserPersistableTests.swift */,
@@ -568,7 +565,6 @@
 				A108B1052237FE4D007FCB2D /* DeviceTests.swift in Sources */,
 				A1D2AC342254E83900AF4871 /* DeviceInterestsTest.swift in Sources */,
 				A108B0F32237FD51007FCB2D /* ConstantsTests.swift in Sources */,
-				A108B1042237FE4D007FCB2D /* InstanceTests.swift in Sources */,
 				A108B0F42237FD51007FCB2D /* ArrayContainsSameElementsTests.swift in Sources */,
 				A108B0EB2237FD51007FCB2D /* FeatureFlagsTests.swift in Sources */,
 				A108B0E82237FD51007FCB2D /* AuthDataTests.swift in Sources */,
