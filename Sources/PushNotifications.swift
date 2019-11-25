@@ -24,7 +24,7 @@ import Foundation
 
     private var userIdCallbacks = Dictionary<String, [(Error?) -> Void]>()
     private var stopCallbacks = [() -> Void]()
-    private lazy var serverSyncHandler = ServerSyncProcessHandler(
+    private lazy var serverSyncHandler = ServerSyncProcessHandler.obtain(
         instanceId: self.instanceId,
         getTokenProvider: { return PushNotifications.shared.tokenProvider },
         handleServerSyncEvent: { [weak self] (event) in

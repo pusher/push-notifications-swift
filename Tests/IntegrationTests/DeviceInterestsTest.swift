@@ -97,6 +97,7 @@ class DeviceInterestsTest: XCTestCase {
         }
 
         // Creating new instance to pretend a fresh state
+        ServerSyncProcessHandler.destroy(instanceId: instanceId)
         let pushNotifications2 = PushNotifications(instanceId: instanceId)
         XCTAssertNoThrow(try pushNotifications2.removeDeviceInterest(interest: "panda"))
         XCTAssertNoThrow(try pushNotifications2.addDeviceInterest(interest: "lion"))
