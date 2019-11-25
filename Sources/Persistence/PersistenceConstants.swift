@@ -10,6 +10,7 @@ struct PersistenceConstants {
             }
         }
         
+        static let globalSuiteName = "PushNotificationsInstances"
         static let metadataSDKVersion = "com.pusher.sdk.metadata.sdkVersion"
         static let metadataiOSVersion = "com.pusher.sdk.metadata.iosVersion"
         static let metadataMacOSVersion = "com.pusher.sdk.metadata.macosVersion"
@@ -19,6 +20,7 @@ struct PersistenceConstants {
     }
 
     struct PersistenceService {
+        static let instanceIdsPrefix = "com.pusher.sdk.instanceIds"
         static let prefix = "com.pusher.sdk.interests"
         static let userId = "com.pusher.sdk.user.id"
         static let hashKey = "interestsHash"
