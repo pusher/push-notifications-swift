@@ -18,12 +18,12 @@ class ServerSyncProcessHandlerTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        TestHelper().clearEverything(instanceId: instanceId)
+        TestHelper.clearEverything(instanceId: instanceId)
     }
 
     override func tearDown() {
         OHHTTPStubs.removeAllStubs()
-        TestHelper().clearEverything(instanceId: instanceId)
+        TestHelper.clearEverything(instanceId: instanceId)
         super.tearDown()
     }
 
@@ -453,7 +453,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         }
 
         // Pretending we already stored the user id.
-        self.deviceStateStore.setUserId(userId: "cucas")
+        self.deviceStateStore.persistUserId(userId: "cucas")
 
         let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
         let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)

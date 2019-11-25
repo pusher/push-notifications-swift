@@ -86,7 +86,7 @@ import Foundation
         }
 
         startHasBeenCalledThisSession = true
-        self.serverSyncHandler.sendMessage(serverSyncJob: .ApplicationStartJob(metadata: self.deviceStateStore.getCurrentMetadata()))
+        self.serverSyncHandler.sendMessage(serverSyncJob: .ApplicationStartJob(metadata: Metadata.getCurrent()))
     }
 
     /**
@@ -142,7 +142,7 @@ import Foundation
             if let userIdExists = self.deviceStateStore.getUserIdHasBeenCalledWith() {
                 localUserIdDifferent = userIdExists != userId
             } else {
-                self.deviceStateStore.setUserIdHasBeenCalledWith(userId: userId)
+                self.deviceStateStore.persistUserIdHasBeenCalledWith(userId: userId)
             }
         }
         switch localUserIdDifferent {

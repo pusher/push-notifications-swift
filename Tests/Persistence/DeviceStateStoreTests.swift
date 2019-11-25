@@ -4,12 +4,12 @@ import XCTest
 class DeviceStateStoreTests : XCTestCase {
     override func setUp() {
         super.setUp()
-        TestHelper().clearEverything(instanceId: TestHelper.instanceId)
+        TestHelper.clearEverything(instanceId: TestHelper.instanceId)
     }
     
     override func tearDown() {
         super.tearDown()
-        TestHelper().clearEverything(instanceId: TestHelper.instanceId)
+        TestHelper.clearEverything(instanceId: TestHelper.instanceId)
     }
     
     func testInstanceIdsShouldRetrieveAndStoreInstancesCorrectly() {
@@ -47,13 +47,13 @@ class DeviceStateStoreTests : XCTestCase {
         // save things to the old storage
         let oldInstanceStorage = InstanceDeviceStateStore(nil)
         oldInstanceStorage.persistInterests(["lemon", "pomelo", "grapefruit"])
-        oldInstanceStorage.setUserId(userId: "danielle")
+        oldInstanceStorage.persistUserId(userId: "danielle")
         oldInstanceStorage.persistServerConfirmedInterestsHash("hash12345")
-        oldInstanceStorage.setStartJobHasBeenEnqueued(flag: true)
-        oldInstanceStorage.setUserIdHasBeenCalledWith(userId: "danielleHasBeenCalled")
+        oldInstanceStorage.persistStartJobHasBeenEnqueued(flag: true)
+        oldInstanceStorage.persistUserIdHasBeenCalledWith(userId: "danielleHasBeenCalled")
         oldInstanceStorage.persistDeviceId("daniellesDeviceId")
         oldInstanceStorage.persistAPNsToken(token: "daniellesAPNsToken")
-        oldInstanceStorage.saveMetadata(metadata: Metadata(sdkVersion: "123", iosVersion: "10.0", macosVersion: nil))
+        oldInstanceStorage.persistMetadata(metadata: Metadata(sdkVersion: "123", iosVersion: "10.0", macosVersion: nil))
         
         // get from the new device state store which should handle the migration for us
         let deviceStateStore = DeviceStateStore()
@@ -70,9 +70,9 @@ class DeviceStateStoreTests : XCTestCase {
         XCTAssertEqual(newInstanceStorage.getUserIdHasBeenCalledWith(), "danielleHasBeenCalled")
         XCTAssertEqual(newInstanceStorage.getDeviceId(), "daniellesDeviceId")
         XCTAssertEqual(newInstanceStorage.getAPNsToken(), "daniellesAPNsToken")
-        XCTAssertEqual(newInstanceStorage.loadMetadata().sdkVersion, "123")
-        XCTAssertEqual(newInstanceStorage.loadMetadata().iosVersion, "10.0")
-        XCTAssertEqual(newInstanceStorage.loadMetadata().macosVersion, nil)
+        XCTAssertEqual(newInstanceStorage.getMetadata().sdkVersion, "123")
+        XCTAssertEqual(newInstanceStorage.getMetadata().iosVersion, "10.0")
+        XCTAssertEqual(newInstanceStorage.getMetadata().macosVersion, nil)
         
         // assert that old reference is gone
         XCTAssertEqual(oldInstanceService.string(forKey: PersistenceConstants.UserDefaults.instanceId), nil)
