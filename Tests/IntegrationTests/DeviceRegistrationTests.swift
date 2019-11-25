@@ -9,11 +9,11 @@ class DeviceRegistrationTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        TestHelper().clearEverything(instanceId: instanceId)
+        TestHelper.clearEverything(instanceId: instanceId)
     }
 
     override func tearDown() {
-        TestHelper().clearEverything(instanceId: instanceId)
+        TestHelper.clearEverything(instanceId: instanceId)
         super.tearDown()
     }
 

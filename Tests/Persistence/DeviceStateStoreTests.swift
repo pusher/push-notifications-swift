@@ -4,12 +4,12 @@ import XCTest
 class DeviceStateStoreTests : XCTestCase {
     override func setUp() {
         super.setUp()
-        TestHelper().clearEverything(instanceId: TestHelper.instanceId)
+        TestHelper.clearEverything(instanceId: TestHelper.instanceId)
     }
     
     override func tearDown() {
         super.tearDown()
-        TestHelper().clearEverything(instanceId: TestHelper.instanceId)
+        TestHelper.clearEverything(instanceId: TestHelper.instanceId)
     }
     
     func testInstanceIdsShouldRetrieveAndStoreInstancesCorrectly() {

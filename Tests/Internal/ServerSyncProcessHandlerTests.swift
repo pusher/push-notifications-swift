@@ -18,12 +18,12 @@ class ServerSyncProcessHandlerTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        TestHelper().clearEverything(instanceId: instanceId)
+        TestHelper.clearEverything(instanceId: instanceId)
     }
 
     override func tearDown() {
         OHHTTPStubs.removeAllStubs()
-        TestHelper().clearEverything(instanceId: instanceId)
+        TestHelper.clearEverything(instanceId: instanceId)
         super.tearDown()
     }
 
