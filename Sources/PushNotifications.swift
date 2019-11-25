@@ -15,6 +15,7 @@ import Foundation
     init(instanceId: String) {
         self.instanceId = instanceId
         self.deviceStateStore = InstanceDeviceStateStore(instanceId)
+        DeviceStateStore().persistInstanceId(instanceId)
     }
     
     //! Returns a shared singleton PushNotifications object.
@@ -62,8 +63,6 @@ import Foundation
             print("[PushNotifications]: '\(instanceId)' is not a valid instance id.")
             return
         }
-
-        self.deviceStateStore.persistInstanceId(instanceId)
 
         // Detect from where the function is being called
         let wasCalledFromCorrectLocation = Thread.callStackSymbols.contains { stack in
