@@ -1,5 +1,102 @@
 import Foundation
 
+public class DeviceStateStore {
+    
+    let service: UserDefaults
+    
+    init() {
+        self.service = UserDefaults(suiteName: PersistenceConstants.UserDefaults.globalSuiteName)!
+        
+        let oldInstanceService = UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName(instanceId: nil))!
+        if let instanceId = oldInstanceService.string(forKey: PersistenceConstants.UserDefaults.instanceId) {
+            let oldInstanceDSS = InstanceDeviceStateStore(nil)
+            let newInstanceDSS = InstanceDeviceStateStore(instanceId)
+            
+            if let oldInterests = oldInstanceDSS.getInterests() {
+                newInstanceDSS.persistInterests(oldInterests)
+            }
+            
+            if let oldUserId = oldInstanceDSS.getUserId() {
+                newInstanceDSS.setUserId(userId: oldUserId)
+            }
+            
+            newInstanceDSS.persistServerConfirmedInterestsHash(oldInstanceDSS.getServerConfirmedInterestsHash())
+            newInstanceDSS.setStartJobHasBeenEnqueued(flag: oldInstanceDSS.getStartJobHasBeenEnqueued())
+            
+            if let oldSetUserIdHasBeenCalledWith = oldInstanceDSS.getUserIdHasBeenCalledWith() {
+                newInstanceDSS.setUserIdHasBeenCalledWith(userId: oldSetUserIdHasBeenCalledWith)
+            }
+            
+            if let oldDeviceId = oldInstanceDSS.getDeviceId() {
+                newInstanceDSS.persistDeviceId(oldDeviceId)
+            }
+            
+            if let oldAPNsToken = oldInstanceDSS.getAPNsToken() {
+                newInstanceDSS.persistAPNsToken(token: oldAPNsToken)
+            }
+            
+            newInstanceDSS.saveMetadata(metadata: oldInstanceDSS.loadMetadata())
+            
+            self.persistInstanceId(instanceId)
+            oldInstanceDSS.clear()
+        }
+    }
+    
+    // MARK: Instance Ids
+    func persistInstanceId(_ instanceId: String) {
+        guard !self.instanceIdExists(instanceId) else {
+            return
+        }
+        
+        service.set(instanceId, forKey: self.prefixInstanceId(instanceId))
+    }
+    
+    func removeInstanceId(instanceId: String) {
+        guard self.instanceIdExists(instanceId) else {
+            return
+        }
+        
+        service.removeObject(forKey: self.prefixInstanceId(instanceId))
+    }
+    
+    private func instanceIdExists(_ instanceId: String) -> Bool {
+        return service.object(forKey: self.prefixInstanceId(instanceId)) != nil
+    }
+    
+    private func prefixInstanceId(_ instanceId: String) -> String {
+        return "\(PersistenceConstants.PersistenceService.instanceIdsPrefix):\(instanceId)"
+    }
+    
+    func getInstanceIds() -> [String] {
+        return service.dictionaryRepresentation().filter { $0.key.hasPrefix(PersistenceConstants.PersistenceService.instanceIdsPrefix) }.map { String(describing: ($0.value)) }
+    }
+    
+    private func persistInstanceIds(_ instanceIds: [String]) {
+        let persistedInstanceIds = self.getInstanceIds()
+        guard persistedInstanceIds.sorted().elementsEqual(instanceIds.sorted()) else {
+            self.removeAllInstanceIds()
+            for instanceId in instanceIds {
+                _ = self.persistInstanceId(instanceId)
+            }
+            
+            return
+        }
+    }
+    
+    func removeAllInstanceIds() {
+        self.removeFromPersistanceStore(prefix: PersistenceConstants.PersistenceService.instanceIdsPrefix)
+    }
+    
+    private func removeFromPersistanceStore(prefix: String) {
+        for element in service.dictionaryRepresentation() {
+            if element.key.hasPrefix(prefix) {
+                service.removeObject(forKey: element.key)
+            }
+        }
+    }
+    
+}
+
 public class InstanceDeviceStateStore {
     static let queue = DispatchQueue(label: "deviceStateStoreQueue")
     let service: UserDefaults
