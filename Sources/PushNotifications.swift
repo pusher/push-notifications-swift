@@ -58,18 +58,6 @@ import Foundation
      */
     /// - Tag: start
     @objc public func start() {
-        let localInstanceId = self.deviceStateStore.getInstanceId()
-        if localInstanceId != nil && localInstanceId != instanceId {
-            let errorMessage = """
-            This device has already been registered with Pusher.
-            Push Notifications application with instance id: \(localInstanceId!).
-            If you would like to register this device to \(instanceId) please reinstall the application.
-            """
-
-            print("[PushNotifications]: \(errorMessage)")
-            return
-        }
-
         if UUID(uuidString: instanceId) == nil {
             print("[PushNotifications]: '\(instanceId)' is not a valid instance id.")
             return
