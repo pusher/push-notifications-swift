@@ -43,8 +43,5 @@ class InstanceDeviceStateStoreTests : XCTestCase {
         
         XCTAssertEqual(instanceDeviceStateStore1.getDeviceId(), nil)
         XCTAssertEqual(instanceDeviceStateStore2.getDeviceId(), "deviceId2")
-        
     }
-    
-    
 }
