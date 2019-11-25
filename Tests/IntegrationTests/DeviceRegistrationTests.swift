@@ -8,27 +8,13 @@ class DeviceRegistrationTests: XCTestCase {
     let validToken = "notadevicetoken-apns-DeviceRegistrationTests".data(using: .utf8)!
 
     override func setUp() {
-        if let deviceId = Device.getDeviceId() {
-            TestAPIClientHelper().deleteDevice(instanceId: instanceId, deviceId: deviceId)
-        }
-
-        UserDefaults(suiteName: Constants.UserDefaults.suiteName).map { userDefaults in
-            Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
-        }
-
-        TestHelper().removeSyncjobStore()
+        super.setUp()
+        TestHelper().clearEverything(instanceId: instanceId)
     }
 
     override func tearDown() {
-        if let deviceId = Device.getDeviceId() {
-            TestAPIClientHelper().deleteDevice(instanceId: instanceId, deviceId: deviceId)
-        }
-
-        UserDefaults(suiteName: Constants.UserDefaults.suiteName).map { userDefaults in
-            Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
-        }
-
-        TestHelper().removeSyncjobStore()
+        TestHelper().clearEverything(instanceId: instanceId)
+        super.tearDown()
     }
 
     func testStartRegisterDeviceTokenResultsInDeviceIdBeingStored() {
@@ -37,6 +23,6 @@ class DeviceRegistrationTests: XCTestCase {
 
         pushNotifications.registerDeviceToken(validToken)
 
-        expect(Device.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        expect(InstanceDeviceStateStore(self.instanceId).getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
     }
 }

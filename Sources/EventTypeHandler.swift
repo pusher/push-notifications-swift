@@ -14,14 +14,17 @@ struct EventTypeHandler {
 
         guard
             let instanceId = InstanceId(userInfo: userInfo).id,
-            let publishId = PublishId(userInfo: userInfo).id,
-            let deviceId = Device.getDeviceId()
+            let publishId = PublishId(userInfo: userInfo).id
         else {
             return nil
         }
+        
+        let deviceStateStore = InstanceDeviceStateStore(instanceId)
+        guard let deviceId = deviceStateStore.getDeviceId() else {
+            return nil
+        }
 
-        let persistenceService: UserPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
-        let userId = persistenceService.getUserId()
+        let userId = deviceStateStore.getUserId()
 
         switch applicationState {
         case .active:
@@ -43,14 +46,17 @@ struct EventTypeHandler {
 
         guard
             let instanceId = InstanceId(userInfo: userInfo).id,
-            let publishId = PublishId(userInfo: userInfo).id,
-            let deviceId = Device.getDeviceId()
+            let publishId = PublishId(userInfo: userInfo).id
         else {
             return nil
         }
+        
+        let deviceStateStore = InstanceDeviceStateStore(instanceId)
+        guard let deviceId = deviceStateStore.getDeviceId() else {
+            return nil
+        }
 
-        let persistenceService: UserPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
-        let userId = persistenceService.getUserId()
+        let userId = deviceStateStore.getUserId()
 
         switch applicationState {
         case .active:
@@ -69,14 +75,17 @@ struct EventTypeHandler {
         let timestampSecs = UInt(Date().timeIntervalSince1970)
         guard
             let instanceId = InstanceId(userInfo: userInfo).id,
-            let publishId = PublishId(userInfo: userInfo).id,
-            let deviceId = Device.getDeviceId()
+            let publishId = PublishId(userInfo: userInfo).id
         else {
             return nil
         }
+        
+        let deviceStateStore = InstanceDeviceStateStore(instanceId)
+        guard let deviceId = deviceStateStore.getDeviceId() else {
+            return nil
+        }
 
-        let persistenceService: UserPersistable = PersistenceService(service: UserDefaults(suiteName: Constants.UserDefaults.suiteName)!)
-        let userId = persistenceService.getUserId()
+        let userId = deviceStateStore.getUserId()
 
         return OpenEventType(instanceId: instanceId, publishId: publishId, deviceId: deviceId, userId: userId, timestampSecs: timestampSecs)
     }

@@ -10,6 +10,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
     let noTokenProvider: () -> TokenProvider? = {
         return nil
     }
+    let deviceStateStore = InstanceDeviceStateStore("8a070eaa-033f-46d6-bb90-f4c15acc47e1")
 
     let ignoreServerSyncEvent: (ServerSyncEvent) -> Void = { _ in
         return
@@ -17,20 +18,13 @@ class ServerSyncProcessHandlerTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        UserDefaults(suiteName: Constants.UserDefaults.suiteName).map { userDefaults in
-            Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
-        }
-
-        Instance.persist(instanceId)
+        TestHelper().clearEverything(instanceId: instanceId)
     }
 
     override func tearDown() {
         OHHTTPStubs.removeAllStubs()
+        TestHelper().clearEverything(instanceId: instanceId)
         super.tearDown()
-
-        UserDefaults(suiteName: Constants.UserDefaults.suiteName).map { userDefaults in
-            Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
-        }
     }
 
     func testStartJob() {
@@ -151,7 +145,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
             serverSyncProcessHandler.handleMessage(serverSyncJob: job)
         }
 
-        let localInterestsSet = Set(DeviceStateStore.interestsService.getSubscriptions() ?? [])
+        let localInterestsSet = Set(self.deviceStateStore.getInterests() ?? [])
         XCTAssertEqual(localInterestsSet, expectedInterestsSet)
 
         waitForExpectations(timeout: 1)
@@ -185,7 +179,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
             serverSyncProcessHandler.handleMessage(serverSyncJob: job)
         }
 
-        let localInterestsSet = Set(DeviceStateStore.interestsService.getSubscriptions() ?? [])
+        let localInterestsSet = Set(self.deviceStateStore.getInterests() ?? [])
         let expectedInterestsSet = Set(["cucas", "potatoes", "123", "interest-2"])
         XCTAssertEqual(localInterestsSet, expectedInterestsSet)
     }
@@ -226,7 +220,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
             serverSyncProcessHandler.handleMessage(serverSyncJob: job)
         }
 
-        let localInterestsSet = Set(DeviceStateStore.interestsService.getSubscriptions() ?? [])
+        let localInterestsSet = Set(self.deviceStateStore.getInterests() ?? [])
         let expectedInterestsSet = Set(["cucas", "potatoes", "123", "interest-2"])
         XCTAssertEqual(localInterestsSet, expectedInterestsSet)
 
@@ -265,7 +259,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
             serverSyncProcessHandler.handleMessage(serverSyncJob: job)
         }
 
-        let localInterestsSet = Set(DeviceStateStore.interestsService.getSubscriptions() ?? [])
+        let localInterestsSet = Set(self.deviceStateStore.getInterests() ?? [])
         let expectedInterestsSet = Set(["interest-x", "hello"])
         XCTAssertEqual(localInterestsSet, expectedInterestsSet)
 
@@ -320,15 +314,15 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         serverSyncProcessHandler.jobQueue.append(startJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
 
-        XCTAssertNotNil(Device.getDeviceId())
-        XCTAssertNotNil(Device.getAPNsToken())
+        XCTAssertNotNil(self.deviceStateStore.getDeviceId())
+        XCTAssertNotNil(self.deviceStateStore.getAPNsToken())
 
         let stopJob = ServerSyncJob.StopJob
         serverSyncProcessHandler.jobQueue.append(stopJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: stopJob)
 
-        XCTAssertNil(Device.getDeviceId())
-        XCTAssertNil(Device.getAPNsToken())
+        XCTAssertNil(self.deviceStateStore.getDeviceId())
+        XCTAssertNil(self.deviceStateStore.getAPNsToken())
     }
 
     func testThatSubscribingUnsubscribingAndSetSubscriptionsWillTriggerTheAPI() {
@@ -419,14 +413,14 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         serverSyncProcessHandler.jobQueue.append(startJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
 
-        XCTAssertNotNil(Device.getDeviceId())
-        XCTAssertNotNil(Device.getAPNsToken())
+        XCTAssertNotNil(self.deviceStateStore.getDeviceId())
+        XCTAssertNotNil(self.deviceStateStore.getAPNsToken())
 
         let subscribeJob = ServerSyncJob.SubscribeJob(interest: "hello", localInterestsChanged: true)
         serverSyncProcessHandler.jobQueue.append(subscribeJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: subscribeJob)
 
-        XCTAssertEqual(Device.getDeviceId(), newDeviceId)
+        XCTAssertEqual(self.deviceStateStore.getDeviceId(), newDeviceId)
     }
 
     func testDeviceRecreationShouldClearPreviousUserIdIfTokenProviderIsMissing() {
@@ -459,22 +453,22 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         }
 
         // Pretending we already stored the user id.
-        DeviceStateStore.usersService.setUserId(userId: "cucas")
+        self.deviceStateStore.setUserId(userId: "cucas")
 
         let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
         let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
         serverSyncProcessHandler.jobQueue.append(startJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
 
-        XCTAssertNotNil(Device.getDeviceId())
-        XCTAssertNotNil(Device.getAPNsToken())
+        XCTAssertNotNil(self.deviceStateStore.getDeviceId())
+        XCTAssertNotNil(self.deviceStateStore.getAPNsToken())
 
         let subscribeJob = ServerSyncJob.SubscribeJob(interest: "hello", localInterestsChanged: true)
         serverSyncProcessHandler.jobQueue.append(subscribeJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: subscribeJob)
 
-        XCTAssertEqual(Device.getDeviceId(), newDeviceId)
-        XCTAssertNil(DeviceStateStore.usersService.getUserId())
+        XCTAssertEqual(self.deviceStateStore.getDeviceId(), newDeviceId)
+        XCTAssertNil(self.deviceStateStore.getUserId())
     }
 
     func testMetadataSynchonizationWhenAppStarts() {
@@ -614,7 +608,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
 
         waitForExpectations(timeout: 1)
 
-        XCTAssertNotNil(DeviceStateStore.usersService.getUserId())
+        XCTAssertNotNil(self.deviceStateStore.getUserId())
     }
 
     func testSetUserIdSuccessCallbackIsCalled() {

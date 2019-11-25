@@ -3,42 +3,42 @@ import XCTest
 
 class UserPersistableTests: XCTestCase {
 
-    var persistenceService: UserPersistable!
+    var deviceStateStore: InstanceDeviceStateStore!
 
     override func setUp() {
             super.setUp()
-            self.persistenceService = PersistenceService(service: UserDefaults(suiteName: "Test")!)
+            UserDefaults.standard.removePersistentDomain(forName: PersistenceConstants.UserDefaults.suiteName(instanceId: TestHelper.instanceId))
+            self.deviceStateStore = InstanceDeviceStateStore(TestHelper.instanceId)
         }
 
     override func tearDown() {
-            self.persistenceService = nil
-            UserDefaults.standard.removePersistentDomain(forName: "Test")
+            UserDefaults.standard.removePersistentDomain(forName: PersistenceConstants.UserDefaults.suiteName(instanceId: TestHelper.instanceId))
             super.tearDown()
     }
 
     func testPersistUserThatWasNotSavedYet() {
-        let userIdNotSetYet = self.persistenceService.getUserId()
+        let userIdNotSetYet = self.deviceStateStore.getUserId()
         XCTAssertNil(userIdNotSetYet)
-        let persistenceOperation = self.persistenceService.setUserId(userId: "Johnny Cash")
+        let persistenceOperation = self.deviceStateStore.setUserId(userId: "Johnny Cash")
         XCTAssertTrue(persistenceOperation)
-        let userId = self.persistenceService.getUserId()
+        let userId = self.deviceStateStore.getUserId()
         XCTAssertNotNil(userId)
         XCTAssertEqual(userId, "Johnny Cash")
     }
 
     func testPersistUserThatIsAlreadySaved() {
-        _ = self.persistenceService.setUserId(userId: "Johnny Cash")
-        let persistenceOperation = self.persistenceService.setUserId(userId: "Johnny Cash")
+        _ = self.deviceStateStore.setUserId(userId: "Johnny Cash")
+        let persistenceOperation = self.deviceStateStore.setUserId(userId: "Johnny Cash")
         XCTAssertFalse(persistenceOperation)
     }
 
     func testPersistUserAndRemoveUser() {
-        let persistenceOperation = self.persistenceService.setUserId(userId: "Johnny Cash")
+        let persistenceOperation = self.deviceStateStore.setUserId(userId: "Johnny Cash")
         XCTAssertTrue(persistenceOperation)
-        let userId = self.persistenceService.getUserId()
+        let userId = self.deviceStateStore.getUserId()
         XCTAssertNotNil(userId)
         XCTAssertEqual(userId, "Johnny Cash")
-        self.persistenceService.removeUserId()
-        XCTAssertNil(self.persistenceService.getUserId())
+        self.deviceStateStore.removeUserId()
+        XCTAssertNil(self.deviceStateStore.getUserId())
     }
 }

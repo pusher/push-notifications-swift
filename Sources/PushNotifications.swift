@@ -10,9 +10,11 @@ import Foundation
 @objc public final class PushNotifications: NSObject {
     
     private let instanceId: String
+    private let deviceStateStore: InstanceDeviceStateStore
     
     init(instanceId: String) {
         self.instanceId = instanceId
+        self.deviceStateStore = InstanceDeviceStateStore(instanceId)
     }
     
     //! Returns a shared singleton PushNotifications object.
@@ -56,7 +58,7 @@ import Foundation
      */
     /// - Tag: start
     @objc public func start() {
-        let localInstanceId = Instance.getInstanceId()
+        let localInstanceId = self.deviceStateStore.getInstanceId()
         if localInstanceId != nil && localInstanceId != instanceId {
             let errorMessage = """
             This device has already been registered with Pusher.
@@ -73,7 +75,7 @@ import Foundation
             return
         }
 
-        Instance.persist(instanceId)
+        self.deviceStateStore.persistInstanceId(instanceId)
 
         // Detect from where the function is being called
         let wasCalledFromCorrectLocation = Thread.callStackSymbols.contains { stack in
@@ -84,7 +86,7 @@ import Foundation
         }
 
         startHasBeenCalledThisSession = true
-        self.serverSyncHandler.sendMessage(serverSyncJob: .ApplicationStartJob(metadata: Metadata.getCurrentMetadata()))
+        self.serverSyncHandler.sendMessage(serverSyncJob: .ApplicationStartJob(metadata: self.deviceStateStore.getCurrentMetadata()))
     }
 
     /**
@@ -136,11 +138,11 @@ import Foundation
         PushNotifications.shared.tokenProvider = tokenProvider
 
         var localUserIdDifferent: Bool?
-        DeviceStateStore.synchronize {
-            if let userIdExists = DeviceStateStore.pushNotificationsInstance.getUserIdPreviouslyCalledWith() {
+        InstanceDeviceStateStore.synchronize {
+            if let userIdExists = self.deviceStateStore.getUserIdHasBeenCalledWith() {
                 localUserIdDifferent = userIdExists != userId
             } else {
-                DeviceStateStore.pushNotificationsInstance.setUserIdHasBeenCalledWith(userId: userId)
+                self.deviceStateStore.setUserIdHasBeenCalledWith(userId: userId)
             }
         }
         switch localUserIdDifferent {
@@ -183,9 +185,9 @@ import Foundation
      */
     /// - Tag: stop
     @objc public func stop(completion: @escaping () -> Void) {
-        let hadAnyInterests: Bool = DeviceStateStore.synchronize {
-            let hadAnyInterests = DeviceStateStore.interestsService.getSubscriptions()?.isEmpty ?? false
-            DeviceStateStore.interestsService.removeAllSubscriptions()
+        let hadAnyInterests: Bool = InstanceDeviceStateStore.synchronize {
+            let hadAnyInterests = self.deviceStateStore.getInterests()?.isEmpty ?? false
+            self.deviceStateStore.removeAllInterests()
 
             return hadAnyInterests
         }
@@ -194,7 +196,8 @@ import Foundation
             self.interestsSetOnDeviceDidChange()
         }
 
-        DeviceStateStore.pushNotificationsInstance.clear()
+        self.deviceStateStore.removeStartJobHasBeenEnqueued()
+        self.deviceStateStore.removeUserIdHasBeenCalledWith()
 
         startHasBeenCalledThisSession = false
 
@@ -211,7 +214,7 @@ import Foundation
      */
     /// - Tag: clearAllState
     @objc public func clearAllState(completion: @escaping () -> Void) {
-        let storedAPNsToken = Device.getAPNsToken()
+        let storedAPNsToken = self.deviceStateStore.getAPNsToken()
         let hasStartAlreadyBeenCalled = self.startHasBeenCalledThisSession
         self.stop(completion: completion)
 
@@ -239,7 +242,7 @@ import Foundation
             return
         }
 
-        Device.persistAPNsToken(token: deviceToken.hexadecimalRepresentation())
+        self.deviceStateStore.persistAPNsToken(token: deviceToken.hexadecimalRepresentation())
 
         // TODO: Handle Token Refresh support
         self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken.hexadecimalRepresentation()))
@@ -260,8 +263,8 @@ import Foundation
             throw InvalidInterestError.invalidName(interest)
         }
 
-        let interestsChanged = DeviceStateStore.synchronize {
-            DeviceStateStore.interestsService.persist(interest: interest)
+        let interestsChanged = InstanceDeviceStateStore.synchronize {
+            self.deviceStateStore.persistInterest(interest)
         }
 
         self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.SubscribeJob(interest: interest, localInterestsChanged: interestsChanged))
@@ -286,8 +289,8 @@ import Foundation
             throw MultipleInvalidInterestsError.invalidNames(invalidInterests)
         }
 
-        let interestsChanged = DeviceStateStore.synchronize {
-            DeviceStateStore.interestsService.persist(interests: interests)
+        let interestsChanged = InstanceDeviceStateStore.synchronize {
+            self.deviceStateStore.persistInterests(interests)
         }
 
         self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.SetSubscriptions(interests: interests, localInterestsChanged: interestsChanged))
@@ -311,8 +314,8 @@ import Foundation
             throw InvalidInterestError.invalidName(interest)
         }
 
-        let interestsChanged = DeviceStateStore.synchronize {
-            DeviceStateStore.interestsService.remove(interest: interest)
+        let interestsChanged = InstanceDeviceStateStore.synchronize {
+            self.deviceStateStore.removeInterest(interest: interest)
         }
 
         self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.UnsubscribeJob(interest: interest, localInterestsChanged: interestsChanged))
@@ -334,8 +337,8 @@ import Foundation
      */
     /// - Tag: getDeviceInterests
     @objc public func getDeviceInterests() -> [String]? {
-        return DeviceStateStore.synchronize {
-            return DeviceStateStore.interestsService.getSubscriptions()
+        return InstanceDeviceStateStore.synchronize {
+            return self.deviceStateStore.getInterests()
         }
     }
 
