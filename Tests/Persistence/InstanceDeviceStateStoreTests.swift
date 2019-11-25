@@ -23,18 +23,18 @@ class InstanceDeviceStateStoreTests : XCTestCase {
         instanceDeviceStateStore1.persistInterests(["cat", "dog"])
         
         // set 2nd instance up with different interests
-        instanceDeviceStateStore2.persistInterests(["banana", "apple", "pears"])
+        instanceDeviceStateStore2.persistInterests(["banana", "apple", "pear"])
         
         // check they're intefering
         XCTAssertTrue((instanceDeviceStateStore1.getInterests()?.containsSameElements(as: ["cat", "dog"]))!)
-        XCTAssertTrue((instanceDeviceStateStore2.getInterests()?.containsSameElements(as: ["banana", "apple", "pears"]))!)
+        XCTAssertTrue((instanceDeviceStateStore2.getInterests()?.containsSameElements(as: ["banana", "apple", "pear"]))!)
         
         // clear instance 1
         instanceDeviceStateStore1.clear()
         
         // check instance 2 is okay
         XCTAssertEqual(instanceDeviceStateStore1.getInterests(), [])
-        XCTAssertTrue((instanceDeviceStateStore2.getInterests()?.containsSameElements(as: ["banana", "apple", "pears"]))!)
+        XCTAssertTrue((instanceDeviceStateStore2.getInterests()?.containsSameElements(as: ["banana", "apple", "pear"]))!)
     }
     
     
