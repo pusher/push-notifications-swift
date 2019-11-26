@@ -18,6 +18,6 @@ struct TestHelper {
         InstanceDeviceStateStore(instanceId).clear()
         DeviceStateStore().removeAllInstanceIds()
         ServerSyncProcessHandler.destroy(instanceId: instanceId)
+        ServerSyncEventHandler.destroy(instanceId: instanceId)
     }
-    
 }

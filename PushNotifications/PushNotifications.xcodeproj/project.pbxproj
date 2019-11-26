@@ -80,6 +80,8 @@
 		D37C57232386B0A900F9EA90 /* PersistenceConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37C57222386B0A900F9EA90 /* PersistenceConstants.swift */; };
 		D37C572723882EDF00F9EA90 /* InstanceDeviceStateStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37C572623882EDF00F9EA90 /* InstanceDeviceStateStoreTests.swift */; };
 		D37C5729238BED0700F9EA90 /* DeviceStateStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37C5728238BED0700F9EA90 /* DeviceStateStoreTests.swift */; };
+		D37C572B238D32D700F9EA90 /* MultipleClassInstanceSupportTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37C572A238D32D700F9EA90 /* MultipleClassInstanceSupportTest.swift */; };
+		D37C572D238D353100F9EA90 /* ServerSyncEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37C572C238D353100F9EA90 /* ServerSyncEventHandler.swift */; };
 		D3FBCEA5238555C400CD9B8F /* PushNotificationsStatic.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FBCEA4238555C400CD9B8F /* PushNotificationsStatic.swift */; };
 /* End PBXBuildFile section */
 
@@ -173,6 +175,8 @@
 		D37C57222386B0A900F9EA90 /* PersistenceConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceConstants.swift; sourceTree = "<group>"; };
 		D37C572623882EDF00F9EA90 /* InstanceDeviceStateStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstanceDeviceStateStoreTests.swift; sourceTree = "<group>"; };
 		D37C5728238BED0700F9EA90 /* DeviceStateStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceStateStoreTests.swift; sourceTree = "<group>"; };
+		D37C572A238D32D700F9EA90 /* MultipleClassInstanceSupportTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleClassInstanceSupportTest.swift; sourceTree = "<group>"; };
+		D37C572C238D353100F9EA90 /* ServerSyncEventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSyncEventHandler.swift; sourceTree = "<group>"; };
 		D3FBCEA4238555C400CD9B8F /* PushNotificationsStatic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsStatic.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -294,6 +298,7 @@
 				A1E80009201A213000467EB9 /* ReportEventType.swift */,
 				A1482A572181F3CD00F19A4E /* Result.swift */,
 				A140FFD62020C5E600931AF6 /* SDK.swift */,
+				D37C572C238D353100F9EA90 /* ServerSyncEventHandler.swift */,
 				A1DAD62D2020CAE7001497B5 /* SystemVersion.swift */,
 				A19B15D22189E4FC008E6DB5 /* Token.swift */,
 				A1327BDE2178EB62001483E1 /* TokenProvider.swift */,
@@ -339,6 +344,7 @@
 				A1424C1D225E061200BCE570 /* ReportEventTypeTests.swift */,
 				A1424C21225E20EA00BCE570 /* ApplicationStartTests.swift */,
 				D323BB802385992800A618F4 /* TestHelper.swift */,
+				D37C572A238D32D700F9EA90 /* MultipleClassInstanceSupportTest.swift */,
 			);
 			name = IntegrationTests;
 			path = ../../Tests/IntegrationTests;
@@ -537,6 +543,7 @@
 				A144AB4F1F9E3DA3009F0040 /* Device.swift in Sources */,
 				A1E8000A201A213000467EB9 /* ReportEventType.swift in Sources */,
 				A1E80015201A3DAC00467EB9 /* PublishId.swift in Sources */,
+				D37C572D238D353100F9EA90 /* ServerSyncEventHandler.swift in Sources */,
 				A1F122E62237C94600F7D766 /* RetryStrategy.swift in Sources */,
 				A16782551FA0EA2D00A193DF /* Reason.swift in Sources */,
 				A108B0CF2237FBF8007FCB2D /* DeviceStateStore.swift in Sources */,
@@ -564,6 +571,7 @@
 				A1424C1E225E061200BCE570 /* ReportEventTypeTests.swift in Sources */,
 				A108B1052237FE4D007FCB2D /* DeviceTests.swift in Sources */,
 				A1D2AC342254E83900AF4871 /* DeviceInterestsTest.swift in Sources */,
+				D37C572B238D32D700F9EA90 /* MultipleClassInstanceSupportTest.swift in Sources */,
 				A108B0F32237FD51007FCB2D /* ConstantsTests.swift in Sources */,
 				A108B0F42237FD51007FCB2D /* ArrayContainsSameElementsTests.swift in Sources */,
 				A108B0EB2237FD51007FCB2D /* FeatureFlagsTests.swift in Sources */,
