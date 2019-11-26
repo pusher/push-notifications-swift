@@ -18,8 +18,8 @@ class DeviceRegistrationTests: XCTestCase {
     }
 
     func testStartRegisterDeviceTokenResultsInDeviceIdBeingStored() {
-        let pushNotifications = PushNotifications.shared
-        pushNotifications.start(instanceId: instanceId)
+        let pushNotifications = PushNotifications(instanceId: instanceId)
+        pushNotifications.start()
 
         pushNotifications.registerDeviceToken(validToken)
 
