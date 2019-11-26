@@ -33,7 +33,7 @@ import Foundation
     
     private lazy var serverSyncHandler = ServerSyncProcessHandler.obtain(
         instanceId: self.instanceId,
-        getTokenProvider: { return PushNotifications.shared.tokenProvider },
+        getTokenProvider: { return PushNotifications.shared.tokenProvider[self.instanceId] },
         handleServerSyncEvent: { [weak self] (event) in
             self?.serverSyncEventHandler.handleEvent(event: event)
         }
@@ -109,7 +109,7 @@ import Foundation
             return
         }
 
-        PushNotifications.shared.tokenProvider = tokenProvider
+        PushNotifications.shared.tokenProvider[self.instanceId] = tokenProvider
 
         var localUserIdDifferent: Bool?
         InstanceDeviceStateStore.synchronize {

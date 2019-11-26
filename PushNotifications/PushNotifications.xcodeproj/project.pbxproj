@@ -82,6 +82,7 @@
 		D37C5729238BED0700F9EA90 /* DeviceStateStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37C5728238BED0700F9EA90 /* DeviceStateStoreTests.swift */; };
 		D37C572B238D32D700F9EA90 /* MultipleClassInstanceSupportTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37C572A238D32D700F9EA90 /* MultipleClassInstanceSupportTest.swift */; };
 		D37C572D238D353100F9EA90 /* ServerSyncEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37C572C238D353100F9EA90 /* ServerSyncEventHandler.swift */; };
+		D37C572F238D681F00F9EA90 /* MultipleInstanceSupportTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37C572E238D681F00F9EA90 /* MultipleInstanceSupportTest.swift */; };
 		D3FBCEA5238555C400CD9B8F /* PushNotificationsStatic.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FBCEA4238555C400CD9B8F /* PushNotificationsStatic.swift */; };
 /* End PBXBuildFile section */
 
@@ -177,6 +178,7 @@
 		D37C5728238BED0700F9EA90 /* DeviceStateStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceStateStoreTests.swift; sourceTree = "<group>"; };
 		D37C572A238D32D700F9EA90 /* MultipleClassInstanceSupportTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleClassInstanceSupportTest.swift; sourceTree = "<group>"; };
 		D37C572C238D353100F9EA90 /* ServerSyncEventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSyncEventHandler.swift; sourceTree = "<group>"; };
+		D37C572E238D681F00F9EA90 /* MultipleInstanceSupportTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleInstanceSupportTest.swift; sourceTree = "<group>"; };
 		D3FBCEA4238555C400CD9B8F /* PushNotificationsStatic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsStatic.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -345,6 +347,7 @@
 				A1424C21225E20EA00BCE570 /* ApplicationStartTests.swift */,
 				D323BB802385992800A618F4 /* TestHelper.swift */,
 				D37C572A238D32D700F9EA90 /* MultipleClassInstanceSupportTest.swift */,
+				D37C572E238D681F00F9EA90 /* MultipleInstanceSupportTest.swift */,
 			);
 			name = IntegrationTests;
 			path = ../../Tests/IntegrationTests;
@@ -572,6 +575,7 @@
 				A108B1052237FE4D007FCB2D /* DeviceTests.swift in Sources */,
 				A1D2AC342254E83900AF4871 /* DeviceInterestsTest.swift in Sources */,
 				D37C572B238D32D700F9EA90 /* MultipleClassInstanceSupportTest.swift in Sources */,
+				D37C572F238D681F00F9EA90 /* MultipleInstanceSupportTest.swift in Sources */,
 				A108B0F32237FD51007FCB2D /* ConstantsTests.swift in Sources */,
 				A108B0F42237FD51007FCB2D /* ArrayContainsSameElementsTests.swift in Sources */,
 				A108B0EB2237FD51007FCB2D /* FeatureFlagsTests.swift in Sources */,
