@@ -9,7 +9,7 @@ import Foundation
 
 @objc public final class PushNotifications: NSObject {
     
-    private let instanceId: String
+    internal let instanceId: String
     private let deviceStateStore: InstanceDeviceStateStore
     private let serverSyncEventHandler: ServerSyncEventHandler
     

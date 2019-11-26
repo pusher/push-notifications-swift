@@ -27,9 +27,15 @@ import Foundation
     @objc public static func start(instanceId: String) {
         if (instance == nil) {
             instance = PushNotifications(instanceId: instanceId)
+        } else if self.instance!.instanceId != instanceId {
+            print("PushNotifications.shared.start has been called before with a different instance id! before: \(self.instance!.instanceId), now: \(instanceId).")
+            print("If you want to use multiple instances, use `PushNotifications(instanceId: instanceId)` directly. For example:")
+            print("```")
+            print("   let pushNotifications1 = PushNotifications(instanceId: instanceId)")
+            print("   pushNotifications1.start()")
+            print("```")
         }
         instance?.start()
-        //todo: handle starting different instances
     }
     
     /**
