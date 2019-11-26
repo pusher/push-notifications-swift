@@ -30,7 +30,6 @@ import Foundation
         }
         instance?.start()
         //todo: handle starting different instances
-        
     }
     
     /**
@@ -134,10 +133,23 @@ import Foundation
      */
     /// - Tag: registerDeviceToken
     @objc public static func registerDeviceToken(_ deviceToken: Data) {
-        if let staticInstance = instance {
-            staticInstance.registerDeviceToken(deviceToken)
-        } else {
-            fatalError("PushNotifications.shared.start must have been called first")
+        let instances = DeviceStateStore().getInstanceIds()
+        var hasAnInstanceBeenStarted = false
+        
+        for instance in instances {
+            let instanceDeviceStateStore = InstanceDeviceStateStore(instance)
+            if instanceDeviceStateStore.getStartJobHasBeenEnqueued() {
+                hasAnInstanceBeenStarted = true
+                instanceDeviceStateStore.persistAPNsToken(token: deviceToken.hexadecimalRepresentation())
+                
+                // TODO: Handle Token Refresh support
+                ServerSyncProcessHandler.obtain(instanceId: instance)?
+                    .sendMessage(serverSyncJob: ServerSyncJob.StartJob(instanceId: instance, token: deviceToken.hexadecimalRepresentation()))
+            }
+        }
+        
+        if !hasAnInstanceBeenStarted {
+             print("[PushNotifications] - Something went wrong. Please make sure that you've called `start` before `registerDeviceToken`.")
         }
     }
     
