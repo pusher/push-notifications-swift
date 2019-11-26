@@ -1,9 +1,9 @@
 import Foundation
 
 class ServerSyncProcessHandler {
-    static let serverSyncHandlersQueue = DispatchQueue(label: "serverSyncHandlersQueue")
-    static var serverSyncHandlers = [String: ServerSyncProcessHandler]()
-    static func obtain(instanceId: String, getTokenProvider: @escaping () -> TokenProvider?, handleServerSyncEvent: @escaping (ServerSyncEvent) -> Void) -> ServerSyncProcessHandler {
+    private static let serverSyncHandlersQueue = DispatchQueue(label: "serverSyncHandlersQueue")
+    private static var serverSyncHandlers = [String: ServerSyncProcessHandler]()
+    internal static func obtain(instanceId: String, getTokenProvider: @escaping () -> TokenProvider?, handleServerSyncEvent: @escaping (ServerSyncEvent) -> Void) -> ServerSyncProcessHandler {
         serverSyncHandlersQueue.sync {
             if let handler = self.serverSyncHandlers[instanceId] {
                 return handler
@@ -12,6 +12,12 @@ class ServerSyncProcessHandler {
                 self.serverSyncHandlers[instanceId] = handler
                 return handler
             }
+        }
+    }
+    
+    internal static func obtain(instanceId: String) -> ServerSyncProcessHandler? {
+        serverSyncHandlersQueue.sync {
+            return self.serverSyncHandlers[instanceId]
         }
     }
 
