@@ -228,11 +228,24 @@ import Foundation
     /// - Tag: handleNotification
     @discardableResult
     @objc public static func handleNotification(userInfo: [AnyHashable: Any]) -> RemoteNotificationType {
-        if let staticInstance = instance {
-            return staticInstance.handleNotification(userInfo: userInfo)
-        } else {
-            fatalError("PushNotifications.shared.start must have been called first")
+        guard FeatureFlags.DeliveryTrackingEnabled else {
+            return .ShouldProcess
         }
+        
+        #if os(iOS)
+        let applicationState = UIApplication.shared.applicationState
+        guard let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo, applicationState: applicationState) else {
+            return .ShouldProcess
+        }
+        #elseif os(OSX)
+        guard let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo) else {
+            return .ShouldProcess
+        }
+        #endif
+        
+        let serverSyncProcessHandler = ServerSyncProcessHandler.obtain(instanceId: eventType.getInstanceId())
+        serverSyncProcessHandler?.sendMessage(serverSyncJob: .ReportEventJob(eventType: eventType))
+        
+        return EventTypeHandler.getRemoteNotificationType(userInfo)
     }
-    
 }
