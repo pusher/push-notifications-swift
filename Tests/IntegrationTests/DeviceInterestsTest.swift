@@ -77,6 +77,18 @@ class DeviceInterestsTest: XCTestCase {
     }
 
     func testLocalInterestsSetShouldBeMergedAfterDeviceRegistration() {
+        
+        class StubInterestsChanged: InterestsChangedDelegate {
+            let completion: ([String]) -> ()
+            init(completion: @escaping ([String]) -> ()) {
+                self.completion = completion
+            }
+
+            func interestsSetOnDeviceDidChange(interests: [String]) {
+                completion(interests)
+            }
+        }
+        
         // Creating device and setting interests to simulate preexisting device with interests.
         let pushNotifications = PushNotifications(instanceId: instanceId)
         XCTAssertNoThrow(try pushNotifications.addDeviceInterest(interest: "panda"))
@@ -95,31 +107,35 @@ class DeviceInterestsTest: XCTestCase {
         UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName(instanceId: self.instanceId)).map { userDefaults in
             Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
         }
+        ServerSyncProcessHandler.destroy(instanceId: instanceId)
+        ServerSyncEventHandler.destroy(instanceId: instanceId)
 
         // Creating new instance to pretend a fresh state
         let pushNotifications2 = PushNotifications(instanceId: instanceId)
         XCTAssertNoThrow(try pushNotifications2.removeDeviceInterest(interest: "panda"))
-        XCTAssertNoThrow(try pushNotifications2.addDeviceInterest(interest: "lion"))
-
-        class StubInterestsChanged: InterestsChangedDelegate {
-            let completion: ([String]) -> ()
-            init(completion: @escaping ([String]) -> ()) {
-                self.completion = completion
-            }
-
-            func interestsSetOnDeviceDidChange(interests: [String]) {
-                completion(interests)
-            }
-        }
-        let exp = expectation(description: "Interests changed called with ['zebra', 'lion']")
+        
+        let exp = expectation(description: "Interests changed called with ['lion']")
         let stubInterestsChanged = StubInterestsChanged(completion: { interests in
-            XCTAssertTrue(interests.containsSameElements(as: ["zebra", "lion"]))
+            XCTAssertTrue(interests.containsSameElements(as: ["lion"]))
             exp.fulfill()
         })
+
         pushNotifications2.delegate = stubInterestsChanged
+
+        XCTAssertNoThrow(try pushNotifications2.addDeviceInterest(interest: "lion"))
+        waitForExpectations(timeout: 10)
+        
+
+        let exp2 = expectation(description: "Interests changed called with ['zebra', 'lion']")
+        let stubInterestsChanged2 = StubInterestsChanged(completion: { interests in
+            XCTAssertTrue(interests.containsSameElements(as: ["zebra", "lion"]))
+            exp2.fulfill()
+        })
+        pushNotifications2.delegate = stubInterestsChanged2
 
         pushNotifications2.start()
         pushNotifications2.registerDeviceToken(validToken)
+        waitForExpectations(timeout: 10)
 
         expect(self.deviceStateStore.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
         let deviceId2 = self.deviceStateStore.getDeviceId()!
@@ -127,7 +143,6 @@ class DeviceInterestsTest: XCTestCase {
 
         expect(TestAPIClientHelper().getDeviceInterests(instanceId: self.instanceId, deviceId: deviceId2))
             .toEventually(contain("zebra", "lion"), timeout: 10)
-        waitForExpectations(timeout: 1)
     }
 
     func testInterestsSetDidChangeAndCallbackIsCalled() {

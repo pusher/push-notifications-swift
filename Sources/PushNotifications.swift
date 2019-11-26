@@ -11,46 +11,33 @@ import Foundation
     
     private let instanceId: String
     private let deviceStateStore: InstanceDeviceStateStore
+    private let serverSyncEventHandler: ServerSyncEventHandler
+    
+    // The object that acts as the delegate of push notifications.
+    public weak var delegate: InterestsChangedDelegate?
     
     init(instanceId: String) {
         self.instanceId = instanceId
         self.deviceStateStore = InstanceDeviceStateStore(instanceId)
+        self.serverSyncEventHandler = ServerSyncEventHandler.obtain(instanceId: instanceId)
+        
+        super.init()
+        serverSyncEventHandler.registerInterestsChangedDelegate({ [weak self] in return self?.delegate })
+
         DeviceStateStore().persistInstanceId(instanceId)
     }
     
     //! Returns a shared singleton PushNotifications object.
     /// - Tag: shared
     @objc public static let shared = PushNotificationStatic.self
-
-    private var userIdCallbacks = Dictionary<String, [(Error?) -> Void]>()
-    private var stopCallbacks = [() -> Void]()
-    private lazy var serverSyncHandler = ServerSyncProcessHandler(
+    
+    private lazy var serverSyncHandler = ServerSyncProcessHandler.obtain(
         instanceId: self.instanceId,
         getTokenProvider: { return PushNotifications.shared.tokenProvider },
         handleServerSyncEvent: { [weak self] (event) in
-            DispatchQueue.main.async {
-                switch event {
-                case .InterestsChangedEvent(let interests):
-                    self?.delegate?.interestsSetOnDeviceDidChange(interests: interests)
-                case .UserIdSetEvent(let userId, let error):
-                    if !(self?.userIdCallbacks[userId]?.isEmpty ?? true) {
-                        if let completion = self?.userIdCallbacks[userId]?.removeFirst() {
-                            completion(error)
-                        }
-                    }
-                case .StopEvent:
-                    if !(self?.stopCallbacks.isEmpty ?? true) {
-                        if let completion = self?.stopCallbacks.removeFirst() {
-                            completion()
-                        }
-                    }
-                }
-            }
+            self?.serverSyncEventHandler.handleEvent(event: event)
         }
     )
-
-    // The object that acts as the delegate of push notifications.
-    public weak var delegate: InterestsChangedDelegate?
 
     private var startHasBeenCalledThisSession = false
 
@@ -152,10 +139,10 @@ import Foundation
             completion(error)
         }
 
-        if let callbacks = self.userIdCallbacks[userId] {
-            self.userIdCallbacks[userId] = callbacks + [wrapperCompletion]
+        if let callbacks = self.serverSyncEventHandler.userIdCallbacks[userId] {
+            self.serverSyncEventHandler.userIdCallbacks[userId] = callbacks + [wrapperCompletion]
         } else {
-            self.userIdCallbacks[userId] = [wrapperCompletion]
+            self.serverSyncEventHandler.userIdCallbacks[userId] = [wrapperCompletion]
         }
         self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.SetUserIdJob(userId: userId))
     }
@@ -188,7 +175,7 @@ import Foundation
 
         startHasBeenCalledThisSession = false
 
-        self.stopCallbacks.append(completion)
+        self.serverSyncEventHandler.stopCallbacks.append(completion)
         self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.StopJob)
     }
 
@@ -331,13 +318,12 @@ import Foundation
 
     private func interestsSetOnDeviceDidChange() {
         guard
-            let delegate = delegate,
             let interests = self.getDeviceInterests()
         else {
             return
         }
 
-        return delegate.interestsSetOnDeviceDidChange(interests: interests)
+        self.serverSyncEventHandler.handleEvent(event: .InterestsChangedEvent(interests: interests))
     }
 
     /**

@@ -1,6 +1,27 @@
 import Foundation
 
 class ServerSyncProcessHandler {
+    static let serverSyncHandlersQueue = DispatchQueue(label: "serverSyncHandlersQueue")
+    static var serverSyncHandlers = [String: ServerSyncProcessHandler]()
+    static func obtain(instanceId: String, getTokenProvider: @escaping () -> TokenProvider?, handleServerSyncEvent: @escaping (ServerSyncEvent) -> Void) -> ServerSyncProcessHandler {
+        serverSyncHandlersQueue.sync {
+            if let handler = self.serverSyncHandlers[instanceId] {
+                return handler
+            } else {
+                let handler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: getTokenProvider, handleServerSyncEvent: handleServerSyncEvent)
+                self.serverSyncHandlers[instanceId] = handler
+                return handler
+            }
+        }
+    }
+
+    // used only for testing purposes
+    internal static func destroy(instanceId: String) {
+        serverSyncHandlersQueue.sync {
+            self.serverSyncHandlers.removeValue(forKey: instanceId)
+        }
+    }
+    
     private let instanceId: String
     private let sendMessageQueue: DispatchQueue
     private let handleMessageQueue: DispatchQueue
@@ -10,7 +31,7 @@ class ServerSyncProcessHandler {
     public var jobQueue: ServerSyncJobStore = ServerSyncJobStore()
     private let deviceStateStore: InstanceDeviceStateStore
 
-    init(instanceId: String, getTokenProvider: @escaping () -> TokenProvider?, handleServerSyncEvent: @escaping (ServerSyncEvent) -> Void) {
+    internal init(instanceId: String, getTokenProvider: @escaping () -> TokenProvider?, handleServerSyncEvent: @escaping (ServerSyncEvent) -> Void) {
         self.instanceId = instanceId
         self.deviceStateStore = InstanceDeviceStateStore(instanceId)
         self.getTokenProvider = getTokenProvider
