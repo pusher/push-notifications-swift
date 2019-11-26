@@ -82,6 +82,21 @@ class MultipleClassInstanceSupportTest: XCTestCase {
         waitForExpectations(timeout: 1)
     }
     
+    func testClearAllOnSameInstanceWorks() {
+        let pushNotifications1 = PushNotifications(instanceId: TestHelper.instanceId)
+        let pushNotifications2 = PushNotifications(instanceId: TestHelper.instanceId)
+        
+        pushNotifications1.start()
+        pushNotifications1.registerDeviceToken(validToken)
+
+        expect(self.deviceStateStore.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        let deviceId = self.deviceStateStore.getDeviceId()!
+        
+        pushNotifications2.clearAllState { }
+        
+        expect(self.deviceStateStore.getDeviceId()).toEventuallyNot(be(deviceId), timeout: 10)
+    }
+    
     class StubTokenProvider: TokenProvider {
         private let jwt: String
         private let error: Error?

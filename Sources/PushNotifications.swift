@@ -190,7 +190,7 @@ import Foundation
     /// - Tag: clearAllState
     @objc public func clearAllState(completion: @escaping () -> Void) {
         let storedAPNsToken = self.deviceStateStore.getAPNsToken()
-        let hasStartAlreadyBeenCalled = self.startHasBeenCalledThisSession
+        let hasStartAlreadyBeenCalled = self.deviceStateStore.getStartJobHasBeenEnqueued()
         self.stop(completion: completion)
 
         if hasStartAlreadyBeenCalled {
