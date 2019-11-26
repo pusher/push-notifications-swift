@@ -14,7 +14,7 @@ import Foundation
     }
     
     private static var instance: PushNotifications?
-    internal static var tokenProvider: TokenProvider?
+    internal static var tokenProvider = Dictionary<String, TokenProvider>()
     
     /**
      Start PushNotifications service.
