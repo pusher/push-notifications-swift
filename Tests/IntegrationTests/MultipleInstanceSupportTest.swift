@@ -56,6 +56,19 @@ class MultipleInstanceSupportTest: XCTestCase {
         .toEventually(equal("jess"), timeout: 30)
     }
     
+    func testMultipleDeviceTokenRegistrationAffectsAllStartedInstances() {
+        let pni1 = PushNotifications(instanceId: TestHelper.instanceId)
+        let pni2 = PushNotifications(instanceId: TestHelper.instanceId2)
+        
+        pni1.start()
+        pni2.start()
+        
+        pni1.registerDeviceToken(validAPNsToken)
+        
+        expect(InstanceDeviceStateStore(TestHelper.instanceId).getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        expect(InstanceDeviceStateStore(TestHelper.instanceId2).getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+    }
+    
     class StubTokenProvider: TokenProvider {
         private let jwt: String
         private let error: Error?

@@ -60,6 +60,7 @@ import Foundation
         }
 
         startHasBeenCalledThisSession = true
+        deviceStateStore.persistStartJobHasBeenEnqueued(flag: true)
         self.serverSyncHandler.sendMessage(serverSyncJob: .ApplicationStartJob(metadata: Metadata.getCurrent()))
     }
 
@@ -211,15 +212,7 @@ import Foundation
      */
     /// - Tag: registerDeviceToken
     @objc public func registerDeviceToken(_ deviceToken: Data) {
-        if !startHasBeenCalledThisSession {
-            print("[PushNotifications] - Something went wrong. Please make sure that you've called `start` before `registerDeviceToken`.")
-            return
-        }
-
-        self.deviceStateStore.persistAPNsToken(token: deviceToken.hexadecimalRepresentation())
-
-        // TODO: Handle Token Refresh support
-        self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken.hexadecimalRepresentation()))
+        PushNotificationStatic.registerDeviceToken(deviceToken)
     }
 
     /**
