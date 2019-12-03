@@ -56,6 +56,67 @@ class MultipleInstanceSupportTest: XCTestCase {
         .toEventually(equal("jess"), timeout: 30)
     }
     
+    func testStoppingOneShouldNotStopTheOther() {
+        let pni1 = PushNotifications(instanceId: TestHelper.instanceId)
+        let pni2 = PushNotifications(instanceId: TestHelper.instanceId2)
+        
+        pni1.start()
+        pni2.start()
+        
+        pni1.registerDeviceToken(validAPNsToken)
+        pni2.registerDeviceToken(validAPNsToken)
+        
+        expect(InstanceDeviceStateStore(TestHelper.instanceId).getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        expect(InstanceDeviceStateStore(TestHelper.instanceId2).getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        
+        pni1.stop { }
+        
+        expect(InstanceDeviceStateStore(TestHelper.instanceId).getDeviceId()).toEventually(beNil(), timeout: 10)
+        expect(InstanceDeviceStateStore(TestHelper.instanceId2).getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+    }
+    
+    func testInterestsShouldNotAffectEachOther() {
+        let pni1 = PushNotifications(instanceId: TestHelper.instanceId)
+        let pni2 = PushNotifications(instanceId: TestHelper.instanceId2)
+        
+        pni1.start()
+        pni2.start()
+        
+        pni1.registerDeviceToken(validAPNsToken)
+        pni2.registerDeviceToken(validAPNsToken)
+        
+        expect(InstanceDeviceStateStore(TestHelper.instanceId).getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        expect(InstanceDeviceStateStore(TestHelper.instanceId2).getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        
+        let device1 = InstanceDeviceStateStore(TestHelper.instanceId).getDeviceId()!
+        let device2 = InstanceDeviceStateStore(TestHelper.instanceId2).getDeviceId()!
+        
+        try! pni1.setDeviceInterests(interests: ["carrot", "sweetcorn", "pea"])
+        try! pni2.setDeviceInterests(interests: ["pizza", "burger", "chip"])
+        
+        XCTAssertTrue(pni1.getDeviceInterests()!.containsSameElements(as: ["carrot", "sweetcorn", "pea"]))
+        XCTAssertTrue(pni2.getDeviceInterests()!.containsSameElements(as: ["pizza", "burger", "chip"]))
+        
+        expect(TestAPIClientHelper().getDeviceInterests(instanceId: TestHelper.instanceId, deviceId: device1))
+            .toEventually(contain("carrot", "sweetcorn", "pea"), timeout: 10)
+        expect(TestAPIClientHelper().getDeviceInterests(instanceId: TestHelper.instanceId2, deviceId: device2))
+            .toEventually(contain("pizza", "burger", "chip"), timeout: 10)
+        
+        try! pni1.addDeviceInterest(interest: "okra")
+        try! pni1.removeDeviceInterest(interest: "sweetcorn")
+        try! pni2.addDeviceInterest(interest: "hotdog")
+        try! pni2.removeDeviceInterest(interest: "burger")
+        
+        XCTAssertTrue(pni1.getDeviceInterests()!.containsSameElements(as: ["carrot", "okra", "pea"]))
+        XCTAssertTrue(pni2.getDeviceInterests()!.containsSameElements(as: ["pizza", "hotdog", "chip"]))
+        
+        expect(TestAPIClientHelper().getDeviceInterests(instanceId: TestHelper.instanceId, deviceId: device1))
+            .toEventually(contain("carrot", "okra", "pea"), timeout: 10)
+        expect(TestAPIClientHelper().getDeviceInterests(instanceId: TestHelper.instanceId2, deviceId: device2))
+            .toEventually(contain("pizza", "hotdog", "chip"), timeout: 10)
+        
+    }
+    
     func testMultipleDeviceTokenRegistrationAffectsAllStartedInstances() {
         let pni1 = PushNotifications(instanceId: TestHelper.instanceId)
         let pni2 = PushNotifications(instanceId: TestHelper.instanceId2)
