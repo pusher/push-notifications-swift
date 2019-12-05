@@ -50,7 +50,7 @@ class ServerSyncJobStoreTests : XCTestCase {
         let url = try! FileManager.default.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
         let filePath = url.appendingPathComponent("syncJobStore")
         let contents = "[invalid_json // lol]"
-        try? FileManager.default.createFile(atPath: filePath.relativePath, contents: contents.toData()!)
+        FileManager.default.createFile(atPath: filePath.relativePath, contents: contents.toData()!)
         
         let jobstore = ServerSyncJobStore()
         
@@ -58,15 +58,25 @@ class ServerSyncJobStoreTests : XCTestCase {
         XCTAssertEqual(jobstore.toList().count, 0)
     }
     
-    func testCorruptedEventShouldDropAllRequests() {
+    func testCorruptedEventShouldNotDropAllRequests() {
         let url = try! FileManager.default.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
         let filePath = url.appendingPathComponent("syncJobStore")
         let contents = "[{\"userIdKey\":\"danielle\",\"discriminator\":6},{\"discriminator\":7000}]"
-        try? FileManager.default.createFile(atPath: filePath.relativePath, contents: contents.toData()!)
+        FileManager.default.createFile(atPath: filePath.relativePath, contents: contents.data(using: .utf8)!)
         
-        var jobstore = ServerSyncJobStore()
-        XCTAssertTrue(jobstore.isEmpty)
-        XCTAssertEqual(jobstore.toList().count, 0)
+        let jobstore = ServerSyncJobStore()
+        XCTAssertFalse(jobstore.isEmpty)
+        XCTAssertEqual(jobstore.toList().count, 1)
     }
     
+    func testReportMissingInstanceIdEventShouldNotDropAllRequests() {
+          let url = try! FileManager.default.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+          let filePath = url.appendingPathComponent("syncJobStore")
+          let contents = "[{\"userIdKey\":\"danielle\",\"discriminator\":6},{\"openEventTypeKey\":{\"deviceId\":\"192031231\",\"timestampSecs\":12,\"event\":\"Open\",\"publishId\":\"13u190231\"},\"discriminator\":7}]"
+          FileManager.default.createFile(atPath: filePath.relativePath, contents: contents.data(using: .utf8)!)
+          
+          let jobstore = ServerSyncJobStore()
+          XCTAssertFalse(jobstore.isEmpty)
+          XCTAssertEqual(jobstore.toList().count, 1)
+      }
 }
