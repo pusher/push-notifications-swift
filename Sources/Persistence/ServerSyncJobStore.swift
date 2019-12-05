@@ -9,7 +9,8 @@ struct ServerSyncJobStore {
     init() {
         self.jobStoreArray = self.loadOperations()
     }
-    
+
+    // https://stackoverflow.com/a/46369152
     private struct FailableDecodable<Base : Decodable> : Decodable {
         let base: Base?
         
