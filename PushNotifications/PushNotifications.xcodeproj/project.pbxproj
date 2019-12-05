@@ -75,6 +75,7 @@
 		A1F122E42237C90600F7D766 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F122E22237C90500F7D766 /* NetworkService.swift */; };
 		A1F122E62237C94600F7D766 /* RetryStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F122E52237C94600F7D766 /* RetryStrategy.swift */; };
 		A1F122E82237C9D400F7D766 /* PushNotificationsAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F122E72237C9D400F7D766 /* PushNotificationsAPIError.swift */; };
+		D30750BA239919D5008F0C53 /* ServerSyncJobStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30750B9239919D5008F0C53 /* ServerSyncJobStoreTests.swift */; };
 		D323BB812385992800A618F4 /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D323BB802385992800A618F4 /* TestHelper.swift */; };
 		D323BB832385AAAE00A618F4 /* InstanceId.swift in Sources */ = {isa = PBXBuildFile; fileRef = D323BB822385AAAE00A618F4 /* InstanceId.swift */; };
 		D37C57232386B0A900F9EA90 /* PersistenceConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37C57222386B0A900F9EA90 /* PersistenceConstants.swift */; };
@@ -171,6 +172,7 @@
 		A1F122E22237C90500F7D766 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		A1F122E52237C94600F7D766 /* RetryStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryStrategy.swift; sourceTree = "<group>"; };
 		A1F122E72237C9D400F7D766 /* PushNotificationsAPIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsAPIError.swift; sourceTree = "<group>"; };
+		D30750B9239919D5008F0C53 /* ServerSyncJobStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSyncJobStoreTests.swift; sourceTree = "<group>"; };
 		D323BB802385992800A618F4 /* TestHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
 		D323BB822385AAAE00A618F4 /* InstanceId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstanceId.swift; sourceTree = "<group>"; };
 		D37C57222386B0A900F9EA90 /* PersistenceConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceConstants.swift; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 				A108B1032237FE4C007FCB2D /* UserPersistableTests.swift */,
 				D37C572623882EDF00F9EA90 /* InstanceDeviceStateStoreTests.swift */,
 				D37C5728238BED0700F9EA90 /* DeviceStateStoreTests.swift */,
+				D30750B9239919D5008F0C53 /* ServerSyncJobStoreTests.swift */,
 			);
 			name = Persistence;
 			path = ../../Tests/Persistence;
@@ -565,6 +568,7 @@
 				D37C572723882EDF00F9EA90 /* InstanceDeviceStateStoreTests.swift in Sources */,
 				A108B0F02237FD51007FCB2D /* BeamsTokenProviderTests.swift in Sources */,
 				A108B1062237FE4D007FCB2D /* InterestPersistableTests.swift in Sources */,
+				D30750BA239919D5008F0C53 /* ServerSyncJobStoreTests.swift in Sources */,
 				A1D2AC3C22560A4300AF4871 /* ClearAllStateTest.swift in Sources */,
 				A108B0F62237FD51007FCB2D /* SDKTests.swift in Sources */,
 				A1D2AC362254EF0900AF4871 /* TestAPIClientHelper.swift in Sources */,

@@ -128,7 +128,6 @@ class EventTypeHandlerTests: XCTestCase {
         XCTAssertNil(eventType.userId)
         XCTAssertEqual(eventType.userId, nil)
     }
-    #endif
 
     func testItIsInternalNotification() {
         let userInfo = ["aps" : ["alert": ["title": "Hello", "body": "Hello, world!"], "content-available": 1], "data": ["pusher": ["instanceId": "1b880590-6301-4bb5-b34f-45db1c5f5644", "publishId": "pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df", "userShouldIgnore": true]]]
@@ -143,4 +142,17 @@ class EventTypeHandlerTests: XCTestCase {
         let remoteNotificationType = EventTypeHandler.getRemoteNotificationType(userInfo)
         XCTAssertTrue(remoteNotificationType == .ShouldProcess)
     }
+    
+    func testMissingInstanceIdReturnsNil() {
+        let userInfo = ["aps": ["content-available": 1], "data": ["pusher": ["publishId": "pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df", "userId": nil]]]
+        let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo)
+        XCTAssertNil(eventType)
+    }
+    
+    func testMissingPublishIdReturnsNil() {
+        let userInfo = ["aps": ["content-available": 1], "data": ["pusher": ["instanceId": "1b880590-6301-4bb5-b34f-45db1c5f5644", "userId": nil]]]
+        let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo)
+        XCTAssertNil(eventType)
+    }
+    #endif
 }
