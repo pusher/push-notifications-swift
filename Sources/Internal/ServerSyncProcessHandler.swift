@@ -34,7 +34,7 @@ class ServerSyncProcessHandler {
     private let networkService: NetworkService
     private let getTokenProvider: () -> TokenProvider?
     private let handleServerSyncEvent: (ServerSyncEvent) -> Void
-    public var jobQueue: ServerSyncJobStore = ServerSyncJobStore()
+    public var jobQueue: ServerSyncJobStore
     private let deviceStateStore: InstanceDeviceStateStore
 
     internal init(instanceId: String, getTokenProvider: @escaping () -> TokenProvider?, handleServerSyncEvent: @escaping (ServerSyncEvent) -> Void) {
@@ -46,6 +46,7 @@ class ServerSyncProcessHandler {
         self.handleMessageQueue = DispatchQueue(label: "handleMessageQueue")
         let session = URLSession(configuration: .ephemeral)
         self.networkService = NetworkService(session: session)
+        self.jobQueue = ServerSyncJobStore(instanceId: self.instanceId)
 
         self.jobQueue.toList().forEach { job in
             switch job {

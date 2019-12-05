@@ -12,7 +12,7 @@ struct TestHelper {
         }
         
         let url = try! FileManager.default.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-        let filePath = url.appendingPathComponent("syncJobStore")
+        let filePath = url.appendingPathComponent("\(instanceId)-syncJobStore")
         try? FileManager.default.removeItem(atPath:  filePath.relativePath)
         
         InstanceDeviceStateStore(instanceId).clear()

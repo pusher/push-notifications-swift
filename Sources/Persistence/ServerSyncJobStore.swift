@@ -1,12 +1,16 @@
 import Foundation
 
 struct ServerSyncJobStore {
-    private let syncJobStoreFileName = "syncJobStore"
+    private let instanceId: String
+    private let syncJobStoreFileName: String
     private let fileManager = FileManager.default
     private var jobStoreArray: [ServerSyncJob] = []
     private let syncJobStoreQueue = DispatchQueue(label: "syncJobStoreQueue")
 
-    init() {
+    init(instanceId: String) {
+        self.instanceId = instanceId
+        self.syncJobStoreFileName = "\(self.instanceId)-syncJobStore"
+        
         self.jobStoreArray = self.loadOperations()
     }
 
