@@ -16,7 +16,7 @@ import Foundation
     // The object that acts as the delegate of push notifications.
     public weak var delegate: InterestsChangedDelegate?
     
-    init(instanceId: String) {
+    public init(instanceId: String) {
         self.instanceId = instanceId
         self.deviceStateStore = InstanceDeviceStateStore(instanceId)
         self.serverSyncEventHandler = ServerSyncEventHandler.obtain(instanceId: instanceId)
