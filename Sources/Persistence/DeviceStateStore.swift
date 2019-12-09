@@ -98,7 +98,7 @@ public class DeviceStateStore {
 }
 
 public class InstanceDeviceStateStore {
-    static let queue = DispatchQueue(label: "deviceStateStoreQueue")
+    static let queue = DispatchQueue(label: "com.pusher.beams.deviceStateStoreQueue")
     let service: UserDefaults
     let instanceId: String?
 

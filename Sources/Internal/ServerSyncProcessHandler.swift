@@ -1,7 +1,7 @@
 import Foundation
 
 class ServerSyncProcessHandler {
-    private static let serverSyncHandlersQueue = DispatchQueue(label: "serverSyncHandlersQueue")
+    private static let serverSyncHandlersQueue = DispatchQueue(label: "com.pusher.beams.serverSyncHandlersQueue")
     private static var serverSyncHandlers = [String: ServerSyncProcessHandler]()
     internal static func obtain(instanceId: String, getTokenProvider: @escaping () -> TokenProvider?, handleServerSyncEvent: @escaping (ServerSyncEvent) -> Void) -> ServerSyncProcessHandler {
         serverSyncHandlersQueue.sync {
@@ -42,8 +42,8 @@ class ServerSyncProcessHandler {
         self.deviceStateStore = InstanceDeviceStateStore(instanceId)
         self.getTokenProvider = getTokenProvider
         self.handleServerSyncEvent = handleServerSyncEvent
-        self.sendMessageQueue = DispatchQueue(label: "sendMessageQueue")
-        self.handleMessageQueue = DispatchQueue(label: "handleMessageQueue")
+        self.sendMessageQueue = DispatchQueue(label: "com.pusher.beams.sendMessageQueue")
+        self.handleMessageQueue = DispatchQueue(label: "com.pusher.beams.handleMessageQueue")
         let session = URLSession(configuration: .ephemeral)
         self.networkService = NetworkService(session: session)
         self.jobQueue = ServerSyncJobStore(instanceId: self.instanceId)

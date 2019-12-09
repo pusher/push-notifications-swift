@@ -5,7 +5,7 @@ struct ServerSyncJobStore {
     private let syncJobStoreFileName: String
     private let fileManager = FileManager.default
     private var jobStoreArray: [ServerSyncJob] = []
-    private let syncJobStoreQueue = DispatchQueue(label: "syncJobStoreQueue")
+    private let syncJobStoreQueue = DispatchQueue(label: "com.pusher.beams.syncJobStoreQueue")
 
     init(instanceId: String) {
         self.instanceId = instanceId
