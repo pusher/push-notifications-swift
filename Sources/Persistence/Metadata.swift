@@ -5,7 +5,7 @@ public struct Metadata: Equatable, Codable {
     let iosVersion: String?
     let macosVersion: String?
     
-    static func getCurrent() -> Metadata {
+    internal static var current: Metadata = {
         let sdkVersion = SDK.version
         let systemVersion = SystemVersion.version
 
@@ -14,5 +14,5 @@ public struct Metadata: Equatable, Codable {
         #elseif os(OSX)
         return Metadata(sdkVersion: sdkVersion, iosVersion: nil, macosVersion: systemVersion)
         #endif
-    }
+    }()
 }

@@ -61,7 +61,7 @@ import Foundation
 
         startHasBeenCalledThisSession = true
         deviceStateStore.persistStartJobHasBeenEnqueued(flag: true)
-        self.serverSyncHandler.sendMessage(serverSyncJob: .ApplicationStartJob(metadata: Metadata.getCurrent()))
+        self.serverSyncHandler.sendMessage(serverSyncJob: .ApplicationStartJob(metadata: Metadata.current))
     }
 
     /**
