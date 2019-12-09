@@ -2,7 +2,7 @@ import Foundation
 
 internal class ServerSyncEventHandler {
     
-    static let serverSyncEventHandlersQueue = DispatchQueue(label: "serverSyncEventHandlersQueue")
+    static let serverSyncEventHandlersQueue = DispatchQueue(label: "com.pusher.beams.server-sync-event-handlers-queue")
     static var serverSyncEventHandlers = [String: ServerSyncEventHandler]()
     
     static func obtain(instanceId: String) -> ServerSyncEventHandler {
