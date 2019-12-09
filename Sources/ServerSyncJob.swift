@@ -39,8 +39,15 @@ extension ServerSyncJob: Codable {
         case deliveryEventTypeKey
     }
     
-    private enum ServerSyncJobError: Error {
+    private enum ServerSyncJobError: LocalizedError {
         case ParseError(reason: String)
+        
+        public var errorDescription: String? {
+            switch self {
+            case .ParseError(let reason):
+                return NSLocalizedString("Parsing error", comment: reason)
+            }
+        }
     }
 
     init(from decoder: Decoder) throws {
