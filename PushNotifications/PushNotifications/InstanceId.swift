@@ -1,11 +1,15 @@
 import Foundation
 
 struct InstanceId {
-    let id: String?
+    let id: String
 
-    init(userInfo: [AnyHashable: Any]) {
+    init?(userInfo: [AnyHashable: Any]) {
         let data = userInfo["data"] as? [String: Any]
         let pusher = data?["pusher"] as? [String: Any]
-        self.id = pusher?["instanceId"] as? String
+        if let instanceId = pusher?["instanceId"] as? String {
+            self.id = instanceId
+        } else {
+            return nil
+        }
     }
 }

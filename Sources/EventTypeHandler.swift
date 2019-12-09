@@ -13,7 +13,7 @@ struct EventTypeHandler {
         let hasData = EventTypeHandler.hasData(userInfo)
 
         guard
-            let instanceId = InstanceId(userInfo: userInfo).id,
+            let instanceId = InstanceId(userInfo: userInfo)?.id,
             let publishId = PublishId(userInfo: userInfo).id
         else {
             return nil
@@ -45,7 +45,7 @@ struct EventTypeHandler {
         let hasData = EventTypeHandler.hasData(userInfo)
 
         guard
-            let instanceId = InstanceId(userInfo: userInfo).id,
+            let instanceId = InstanceId(userInfo: userInfo)?.id,
             let publishId = PublishId(userInfo: userInfo).id
         else {
             return nil
@@ -74,7 +74,7 @@ struct EventTypeHandler {
     static func getNotificationEventType(userInfo: [AnyHashable: Any]) -> OpenEventType? {
         let timestampSecs = UInt(Date().timeIntervalSince1970)
         guard
-            let instanceId = InstanceId(userInfo: userInfo).id,
+            let instanceId = InstanceId(userInfo: userInfo)?.id,
             let publishId = PublishId(userInfo: userInfo).id
         else {
             return nil
