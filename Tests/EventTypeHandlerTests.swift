@@ -4,6 +4,8 @@ import XCTest
 class EventTypeHandlerTests: XCTestCase {
     
     override func setUp() {
+        super.setUp()
+        
         // we extract the device id when parsing events, we need to make sure this exists for all the tests
         InstanceDeviceStateStore(TestHelper.instanceId).persistDeviceId("abcd")
     }
