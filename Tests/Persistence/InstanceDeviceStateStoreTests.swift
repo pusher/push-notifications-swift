@@ -8,7 +8,8 @@ class InstanceDeviceStateStoreTests : XCTestCase {
     
     override func setUp() {
         super.setUp()
-        
+        instanceDeviceStateStore1.clear()
+        instanceDeviceStateStore2.clear()
     }
     
     override func tearDown() {
