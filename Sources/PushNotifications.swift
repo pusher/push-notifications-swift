@@ -73,7 +73,7 @@ import Foundation
      */
     /// - Tag: register
     @objc public func registerForRemoteNotifications() {
-        self.registerForPushNotifications(options: [.alert, .sound, .badge])
+        PushNotificationStatic.registerForRemoteNotifications()
     }
     #if os(iOS)
     /**
@@ -83,7 +83,7 @@ import Foundation
      */
     /// - Tag: registerOptions
     @objc public func registerForRemoteNotifications(options: UNAuthorizationOptions) {
-        self.registerForPushNotifications(options: options)
+        PushNotificationStatic.registerForRemoteNotifications(options: options)
     }
     #elseif os(OSX)
     /**
@@ -92,7 +92,7 @@ import Foundation
      - Parameter options: A bit mask specifying the types of notifications the app accepts. See [NSApplication.RemoteNotificationType](https://developer.apple.com/documentation/appkit/nsapplication.remotenotificationtype) for valid bit-mask values.
      */
     @objc public func registerForRemoteNotifications(options: NSApplication.RemoteNotificationType) {
-        self.registerForPushNotifications(options: options)
+        PushNotificationStatic.registerForRemoteNotifications(options: options)
     }
     #endif
 
@@ -339,25 +339,6 @@ import Foundation
     private func validateInterestNames(_ interests: [String]) -> [String]? {
         return interests.filter { !self.validateInterestName($0) }
     }
-
-    #if os(iOS)
-    private func registerForPushNotifications(options: UNAuthorizationOptions) {
-        UNUserNotificationCenter.current().requestAuthorization(options: options) { (granted, error) in
-            if granted {
-                DispatchQueue.main.async {
-                    UIApplication.shared.registerForRemoteNotifications()
-                }
-            }
-            if let error = error {
-                print("[PushNotifications] - \(error.localizedDescription)")
-            }
-        }
-    }
-    #elseif os(OSX)
-    private func registerForPushNotifications(options: NSApplication.RemoteNotificationType) {
-        NSApplication.shared.registerForRemoteNotifications(matching: options)
-    }
-    #endif
 }
 
 /**
