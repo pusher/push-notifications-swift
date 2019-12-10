@@ -7,7 +7,7 @@ import NotificationCenter
 #endif
 import Foundation
 
-@objc public final class PushNotificationStatic: NSObject {
+@objc public final class PushNotificationsStatic: NSObject {
     
     private override init() {
         // prevent other people initialising us
@@ -47,11 +47,7 @@ import Foundation
      */
     /// - Tag: register
     @objc public static func registerForRemoteNotifications() {
-        if let staticInstance = instance {
-            staticInstance.registerForRemoteNotifications()
-        } else {
-            fatalError("PushNotifications.shared.start must have been called first")
-        }
+        self.registerForPushNotifications(options: [.alert, .sound, .badge])
     }
     
     #if os(iOS)
@@ -62,11 +58,7 @@ import Foundation
      */
     /// - Tag: registerOptions
     @objc public static func registerForRemoteNotifications(options: UNAuthorizationOptions) {
-        if let staticInstance = instance {
-            staticInstance.registerForRemoteNotifications(options: options)
-        } else {
-            fatalError("PushNotifications.shared.start must have been called first")
-        }
+        self.registerForPushNotifications(options: options)
     }
     #elseif os(OSX)
     /**
@@ -75,11 +67,26 @@ import Foundation
      - Parameter options: A bit mask specifying the types of notifications the app accepts. See [NSApplication.RemoteNotificationType](https://developer.apple.com/documentation/appkit/nsapplication.remotenotificationtype) for valid bit-mask values.
      */
     @objc public static func registerForRemoteNotifications(options: NSApplication.RemoteNotificationType) {
-        if let staticInstance = instance {
-            staticInstance.registerForRemoteNotifications(options: options)
-        } else {
-            fatalError("PushNotifications.shared.start must have been called first")
+        self.registerForPushNotifications(options: options)
+    }
+    #endif
+    
+    #if os(iOS)
+    private static func registerForPushNotifications(options: UNAuthorizationOptions) {
+        UNUserNotificationCenter.current().requestAuthorization(options: options) { (granted, error) in
+            if granted {
+                DispatchQueue.main.async {
+                    UIApplication.shared.registerForRemoteNotifications()
+                }
+            }
+            if let error = error {
+                print("[PushNotifications] - \(error.localizedDescription)")
+            }
         }
+    }
+    #elseif os(OSX)
+    private static func registerForPushNotifications(options: NSApplication.RemoteNotificationType) {
+        NSApplication.shared.registerForRemoteNotifications(matching: options)
     }
     #endif
     
