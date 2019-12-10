@@ -8,7 +8,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         self.pushNotifications.start(instanceId: "YOUR_INSTANCE_ID") // Can be found here: https://dash.pusher.com
-        try! self.pushNotifications.removeDeviceInterest(interest: "debug-test")
+        try! self.pushNotifications.addDeviceInterest(interest: "debug-test")
         self.pushNotifications.registerForRemoteNotifications()
 
         return true

@@ -76,6 +76,24 @@ Continue following the steps below depending on the platform that you're buildin
 - If you're building for OS X, follow [this](https://github.com/Carthage/Carthage#if-youre-building-for-os-x) guide.
 - If you're building for iOS, tvOS, or watchOS, follow [this](https://github.com/Carthage/Carthage#if-youre-building-for-ios-tvos-or-watchos) guide.
 
+## Migrating from 2.x.x to 3.x.x
+
+We now require you to start beams before you can use the library, for example to register any interests. This means the following code would no longer work and log an error to the console:
+
+```Swift
+try! PushNotifications.shared.addDeviceInterest("donuts")
+PushNotifications.shared.start("YOUR_INSTANCE_ID")
+```
+
+You now need to replace it with the following:
+
+```Swift
+PushNotifications.shared.start("YOUR_INSTANCE_ID")
+try! PushNotifications.shared.addDeviceInterest("donuts")
+```
+
+We recommend start is always called in the `application didFinishLaunchingWithOptions` callback. Note that you can still control when you show the request for push notification prompt, start does not call this prompt.
+
 ## Running Tests
 
 ### Generating Test Coverage Reports

@@ -8,70 +8,48 @@ import NotificationCenter
 import Foundation
 
 @objc public final class PushNotifications: NSObject {
-    //! Returns a shared singleton PushNotifications object.
-    /// - Tag: shared
-    @objc public static let shared = PushNotifications()
-
-    private var tokenProvider: TokenProvider?
-
-    private var userIdCallbacks = Dictionary<String, [(Error?) -> Void]>()
-    private var stopCallbacks = [() -> Void]()
-    private lazy var serverSyncHandler = ServerSyncProcessHandler(
-        getTokenProvider: { return PushNotifications.shared.tokenProvider },
-        handleServerSyncEvent: { [weak self] (event) in
-            DispatchQueue.main.async {
-                switch event {
-                case .InterestsChangedEvent(let interests):
-                    self?.delegate?.interestsSetOnDeviceDidChange(interests: interests)
-                case .UserIdSetEvent(let userId, let error):
-                    if !(self?.userIdCallbacks[userId]?.isEmpty ?? true) {
-                        if let completion = self?.userIdCallbacks[userId]?.removeFirst() {
-                            completion(error)
-                        }
-                    }
-                case .StopEvent:
-                    if !(self?.stopCallbacks.isEmpty ?? true) {
-                        if let completion = self?.stopCallbacks.removeFirst() {
-                            completion()
-                        }
-                    }
-                }
-            }
-        }
-    )
-
+    
+    internal let instanceId: String
+    private let deviceStateStore: InstanceDeviceStateStore
+    private let serverSyncEventHandler: ServerSyncEventHandler
+    
     // The object that acts as the delegate of push notifications.
     public weak var delegate: InterestsChangedDelegate?
+    
+    public init(instanceId: String) {
+        self.instanceId = instanceId
+        self.deviceStateStore = InstanceDeviceStateStore(instanceId)
+        self.serverSyncEventHandler = ServerSyncEventHandler.obtain(instanceId: instanceId)
+        
+        super.init()
+        serverSyncEventHandler.registerInterestsChangedDelegate({ [weak self] in return self?.delegate })
+
+        DeviceStateStore().persistInstanceId(instanceId)
+    }
+    
+    //! Returns a shared singleton PushNotifications object.
+    /// - Tag: shared
+    @objc public static let shared = PushNotificationStatic.self
+    
+    private lazy var serverSyncHandler = ServerSyncProcessHandler.obtain(
+        instanceId: self.instanceId,
+        getTokenProvider: { return PushNotifications.shared.tokenProvider[self.instanceId] },
+        handleServerSyncEvent: { [weak self] (event) in
+            self?.serverSyncEventHandler.handleEvent(event: event)
+        }
+    )
 
     private var startHasBeenCalledThisSession = false
 
     /**
      Start PushNotifications service.
-
-     - Parameter instanceId: PushNotifications instance id.
-
-     - Precondition: `instanceId` should not be nil.
      */
     /// - Tag: start
-    @objc public func start(instanceId: String) {
-        let localInstanceId = Instance.getInstanceId()
-        if localInstanceId != nil && localInstanceId != instanceId {
-            let errorMessage = """
-            This device has already been registered with Pusher.
-            Push Notifications application with instance id: \(localInstanceId!).
-            If you would like to register this device to \(instanceId) please reinstall the application.
-            """
-
-            print("[PushNotifications]: \(errorMessage)")
-            return
-        }
-
+    @objc public func start() {
         if UUID(uuidString: instanceId) == nil {
             print("[PushNotifications]: '\(instanceId)' is not a valid instance id.")
             return
         }
-
-        Instance.persist(instanceId)
 
         // Detect from where the function is being called
         let wasCalledFromCorrectLocation = Thread.callStackSymbols.contains { stack in
@@ -82,7 +60,8 @@ import Foundation
         }
 
         startHasBeenCalledThisSession = true
-        self.serverSyncHandler.sendMessage(serverSyncJob: .ApplicationStartJob(metadata: Metadata.getCurrentMetadata()))
+        deviceStateStore.persistStartJobHasBeenEnqueued(flag: true)
+        self.serverSyncHandler.sendMessage(serverSyncJob: .ApplicationStartJob(metadata: Metadata.current))
     }
 
     /**
@@ -131,14 +110,14 @@ import Foundation
             return
         }
 
-        PushNotifications.shared.tokenProvider = tokenProvider
+        PushNotifications.shared.tokenProvider[self.instanceId] = tokenProvider
 
         var localUserIdDifferent: Bool?
-        DeviceStateStore.synchronize {
-            if let userIdExists = DeviceStateStore.pushNotificationsInstance.getUserIdPreviouslyCalledWith() {
+        InstanceDeviceStateStore.synchronize {
+            if let userIdExists = self.deviceStateStore.getUserIdHasBeenCalledWith() {
                 localUserIdDifferent = userIdExists != userId
             } else {
-                DeviceStateStore.pushNotificationsInstance.setUserIdHasBeenCalledWith(userId: userId)
+                self.deviceStateStore.persistUserIdHasBeenCalledWith(userId: userId)
             }
         }
         switch localUserIdDifferent {
@@ -161,10 +140,10 @@ import Foundation
             completion(error)
         }
 
-        if let callbacks = self.userIdCallbacks[userId] {
-            self.userIdCallbacks[userId] = callbacks + [wrapperCompletion]
+        if let callbacks = self.serverSyncEventHandler.userIdCallbacks[userId] {
+            self.serverSyncEventHandler.userIdCallbacks[userId] = callbacks + [wrapperCompletion]
         } else {
-            self.userIdCallbacks[userId] = [wrapperCompletion]
+            self.serverSyncEventHandler.userIdCallbacks[userId] = [wrapperCompletion]
         }
         self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.SetUserIdJob(userId: userId))
     }
@@ -181,9 +160,9 @@ import Foundation
      */
     /// - Tag: stop
     @objc public func stop(completion: @escaping () -> Void) {
-        let hadAnyInterests: Bool = DeviceStateStore.synchronize {
-            let hadAnyInterests = DeviceStateStore.interestsService.getSubscriptions()?.isEmpty ?? false
-            DeviceStateStore.interestsService.removeAllSubscriptions()
+        let hadAnyInterests: Bool = InstanceDeviceStateStore.synchronize {
+            let hadAnyInterests = self.deviceStateStore.getInterests()?.isEmpty ?? false
+            self.deviceStateStore.removeAllInterests()
 
             return hadAnyInterests
         }
@@ -192,11 +171,12 @@ import Foundation
             self.interestsSetOnDeviceDidChange()
         }
 
-        DeviceStateStore.pushNotificationsInstance.clear()
+        self.deviceStateStore.removeStartJobHasBeenEnqueued()
+        self.deviceStateStore.removeUserIdHasBeenCalledWith()
 
         startHasBeenCalledThisSession = false
 
-        self.stopCallbacks.append(completion)
+        self.serverSyncEventHandler.stopCallbacks.append(completion)
         self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.StopJob)
     }
 
@@ -209,12 +189,12 @@ import Foundation
      */
     /// - Tag: clearAllState
     @objc public func clearAllState(completion: @escaping () -> Void) {
-        let instanceId = Instance.getInstanceId()
-        let storedAPNsToken = Device.getAPNsToken()
+        let storedAPNsToken = self.deviceStateStore.getAPNsToken()
+        let hasStartAlreadyBeenCalled = self.deviceStateStore.getStartJobHasBeenEnqueued()
         self.stop(completion: completion)
 
-        if instanceId != nil {
-            self.start(instanceId: instanceId!)
+        if hasStartAlreadyBeenCalled {
+            self.start()
             if let apnsToken = storedAPNsToken {
                 // Since we already had the token, we're forcing new device creation.
                 self.registerDeviceToken(apnsToken.hexStringToData()!)
@@ -232,17 +212,7 @@ import Foundation
      */
     /// - Tag: registerDeviceToken
     @objc public func registerDeviceToken(_ deviceToken: Data) {
-        guard
-            let instanceId = Instance.getInstanceId()
-        else {
-            print("[PushNotifications] - Something went wrong. Please make sure that you've called `start` before `registerDeviceToken`.")
-            return
-        }
-
-        Device.persistAPNsToken(token: deviceToken.hexadecimalRepresentation())
-
-        // TODO: Handle Token Refresh support
-        self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken.hexadecimalRepresentation()))
+        PushNotificationStatic.registerDeviceToken(deviceToken)
     }
 
     /**
@@ -260,8 +230,8 @@ import Foundation
             throw InvalidInterestError.invalidName(interest)
         }
 
-        let interestsChanged = DeviceStateStore.synchronize {
-            DeviceStateStore.interestsService.persist(interest: interest)
+        let interestsChanged = InstanceDeviceStateStore.synchronize {
+            self.deviceStateStore.persistInterest(interest)
         }
 
         self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.SubscribeJob(interest: interest, localInterestsChanged: interestsChanged))
@@ -286,8 +256,8 @@ import Foundation
             throw MultipleInvalidInterestsError.invalidNames(invalidInterests)
         }
 
-        let interestsChanged = DeviceStateStore.synchronize {
-            DeviceStateStore.interestsService.persist(interests: interests)
+        let interestsChanged = InstanceDeviceStateStore.synchronize {
+            self.deviceStateStore.persistInterests(interests)
         }
 
         self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.SetSubscriptions(interests: interests, localInterestsChanged: interestsChanged))
@@ -311,8 +281,8 @@ import Foundation
             throw InvalidInterestError.invalidName(interest)
         }
 
-        let interestsChanged = DeviceStateStore.synchronize {
-            DeviceStateStore.interestsService.remove(interest: interest)
+        let interestsChanged = InstanceDeviceStateStore.synchronize {
+            self.deviceStateStore.removeInterest(interest: interest)
         }
 
         self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.UnsubscribeJob(interest: interest, localInterestsChanged: interestsChanged))
@@ -334,20 +304,19 @@ import Foundation
      */
     /// - Tag: getDeviceInterests
     @objc public func getDeviceInterests() -> [String]? {
-        return DeviceStateStore.synchronize {
-            return DeviceStateStore.interestsService.getSubscriptions()
+        return InstanceDeviceStateStore.synchronize {
+            return self.deviceStateStore.getInterests()
         }
     }
 
     private func interestsSetOnDeviceDidChange() {
         guard
-            let delegate = delegate,
             let interests = self.getDeviceInterests()
         else {
             return
         }
 
-        return delegate.interestsSetOnDeviceDidChange(interests: interests)
+        self.serverSyncEventHandler.handleEvent(event: .InterestsChangedEvent(interests: interests))
     }
 
     /**
@@ -358,23 +327,7 @@ import Foundation
     /// - Tag: handleNotification
     @discardableResult
     @objc public func handleNotification(userInfo: [AnyHashable: Any]) -> RemoteNotificationType {
-        guard FeatureFlags.DeliveryTrackingEnabled else {
-            return .ShouldProcess
-        }
-
-        #if os(iOS)
-            let applicationState = UIApplication.shared.applicationState
-            guard let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo, applicationState: applicationState) else {
-                return .ShouldProcess
-            }
-        #elseif os(OSX)
-            guard let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo) else {
-                return .ShouldProcess
-            }
-        #endif
-
-        self.serverSyncHandler.sendMessage(serverSyncJob: .ReportEventJob(eventType: eventType))
-        return EventTypeHandler.getRemoteNotificationType(userInfo)
+        return PushNotificationStatic.handleNotification(userInfo: userInfo)
     }
 
     private func validateInterestName(_ interest: String) -> Bool {

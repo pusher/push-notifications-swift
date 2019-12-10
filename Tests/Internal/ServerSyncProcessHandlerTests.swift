@@ -10,6 +10,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
     let noTokenProvider: () -> TokenProvider? = {
         return nil
     }
+    let deviceStateStore = InstanceDeviceStateStore("8a070eaa-033f-46d6-bb90-f4c15acc47e1")
 
     let ignoreServerSyncEvent: (ServerSyncEvent) -> Void = { _ in
         return
@@ -17,20 +18,13 @@ class ServerSyncProcessHandlerTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        UserDefaults(suiteName: Constants.UserDefaults.suiteName).map { userDefaults in
-            Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
-        }
-
-        Instance.persist(instanceId)
+        TestHelper.clearEverything(instanceId: instanceId)
     }
 
     override func tearDown() {
         OHHTTPStubs.removeAllStubs()
+        TestHelper.clearEverything(instanceId: instanceId)
         super.tearDown()
-
-        UserDefaults(suiteName: Constants.UserDefaults.suiteName).map { userDefaults in
-            Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
-        }
     }
 
     func testStartJob() {
@@ -48,7 +42,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         }
 
         let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
-        let serverSyncProcessHandler = ServerSyncProcessHandler(getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
         serverSyncProcessHandler.jobQueue.append(startJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
 
@@ -79,7 +73,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         }
 
         let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
-        let serverSyncProcessHandler = ServerSyncProcessHandler(getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
         serverSyncProcessHandler.jobQueue.append(startJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
 
@@ -99,7 +93,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
             return OHHTTPStubsResponse(jsonObject: [], statusCode: 500, headers: nil)
         }
 
-        let serverSyncProcessHandler = ServerSyncProcessHandler(getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
         let jobs = [ServerSyncJob.RefreshTokenJob(newToken: "1"), ServerSyncJob.SubscribeJob(interest: "abc", localInterestsChanged: true), ServerSyncJob.UnsubscribeJob(interest: "12", localInterestsChanged: true)]
 
         for job in jobs {
@@ -145,13 +139,13 @@ class ServerSyncProcessHandlerTests: XCTestCase {
             return
         }
 
-        let serverSyncProcessHandler = ServerSyncProcessHandler(getTokenProvider: noTokenProvider, handleServerSyncEvent: handleServerSyncEvent)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: handleServerSyncEvent)
         for job in jobs {
             serverSyncProcessHandler.jobQueue.append(job)
             serverSyncProcessHandler.handleMessage(serverSyncJob: job)
         }
 
-        let localInterestsSet = Set(DeviceStateStore.interestsService.getSubscriptions() ?? [])
+        let localInterestsSet = Set(self.deviceStateStore.getInterests() ?? [])
         XCTAssertEqual(localInterestsSet, expectedInterestsSet)
 
         waitForExpectations(timeout: 1)
@@ -179,13 +173,13 @@ class ServerSyncProcessHandlerTests: XCTestCase {
             ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
         ]
 
-        let serverSyncProcessHandler = ServerSyncProcessHandler(getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
         for job in jobs {
             serverSyncProcessHandler.jobQueue.append(job)
             serverSyncProcessHandler.handleMessage(serverSyncJob: job)
         }
 
-        let localInterestsSet = Set(DeviceStateStore.interestsService.getSubscriptions() ?? [])
+        let localInterestsSet = Set(self.deviceStateStore.getInterests() ?? [])
         let expectedInterestsSet = Set(["cucas", "potatoes", "123", "interest-2"])
         XCTAssertEqual(localInterestsSet, expectedInterestsSet)
     }
@@ -220,13 +214,13 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         ]
 
 
-        let serverSyncProcessHandler = ServerSyncProcessHandler(getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
         for job in jobs {
             serverSyncProcessHandler.jobQueue.append(job)
             serverSyncProcessHandler.handleMessage(serverSyncJob: job)
         }
 
-        let localInterestsSet = Set(DeviceStateStore.interestsService.getSubscriptions() ?? [])
+        let localInterestsSet = Set(self.deviceStateStore.getInterests() ?? [])
         let expectedInterestsSet = Set(["cucas", "potatoes", "123", "interest-2"])
         XCTAssertEqual(localInterestsSet, expectedInterestsSet)
 
@@ -259,13 +253,13 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         ]
 
 
-        let serverSyncProcessHandler = ServerSyncProcessHandler(getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
         for job in jobs {
             serverSyncProcessHandler.jobQueue.append(job)
             serverSyncProcessHandler.handleMessage(serverSyncJob: job)
         }
 
-        let localInterestsSet = Set(DeviceStateStore.interestsService.getSubscriptions() ?? [])
+        let localInterestsSet = Set(self.deviceStateStore.getInterests() ?? [])
         let expectedInterestsSet = Set(["interest-x", "hello"])
         XCTAssertEqual(localInterestsSet, expectedInterestsSet)
 
@@ -290,7 +284,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         ]
 
 
-        let serverSyncProcessHandler = ServerSyncProcessHandler(getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
         for job in jobs {
             serverSyncProcessHandler.jobQueue.append(job)
             serverSyncProcessHandler.handleMessage(serverSyncJob: job)
@@ -316,19 +310,19 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         }
 
         let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
-        let serverSyncProcessHandler = ServerSyncProcessHandler(getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
         serverSyncProcessHandler.jobQueue.append(startJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
 
-        XCTAssertNotNil(Device.getDeviceId())
-        XCTAssertNotNil(Device.getAPNsToken())
+        XCTAssertNotNil(self.deviceStateStore.getDeviceId())
+        XCTAssertNotNil(self.deviceStateStore.getAPNsToken())
 
         let stopJob = ServerSyncJob.StopJob
         serverSyncProcessHandler.jobQueue.append(stopJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: stopJob)
 
-        XCTAssertNil(Device.getDeviceId())
-        XCTAssertNil(Device.getAPNsToken())
+        XCTAssertNil(self.deviceStateStore.getDeviceId())
+        XCTAssertNil(self.deviceStateStore.getAPNsToken())
     }
 
     func testThatSubscribingUnsubscribingAndSetSubscriptionsWillTriggerTheAPI() {
@@ -373,7 +367,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
             ServerSyncJob.SetSubscriptions(interests: ["1", "2"], localInterestsChanged: true)
         ]
 
-        let serverSyncProcessHandler = ServerSyncProcessHandler(getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
         for job in jobs {
             serverSyncProcessHandler.jobQueue.append(job)
             serverSyncProcessHandler.handleMessage(serverSyncJob: job)
@@ -415,18 +409,18 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         }
 
         let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
-        let serverSyncProcessHandler = ServerSyncProcessHandler(getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
         serverSyncProcessHandler.jobQueue.append(startJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
 
-        XCTAssertNotNil(Device.getDeviceId())
-        XCTAssertNotNil(Device.getAPNsToken())
+        XCTAssertNotNil(self.deviceStateStore.getDeviceId())
+        XCTAssertNotNil(self.deviceStateStore.getAPNsToken())
 
         let subscribeJob = ServerSyncJob.SubscribeJob(interest: "hello", localInterestsChanged: true)
         serverSyncProcessHandler.jobQueue.append(subscribeJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: subscribeJob)
 
-        XCTAssertEqual(Device.getDeviceId(), newDeviceId)
+        XCTAssertEqual(self.deviceStateStore.getDeviceId(), newDeviceId)
     }
 
     func testDeviceRecreationShouldClearPreviousUserIdIfTokenProviderIsMissing() {
@@ -459,22 +453,22 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         }
 
         // Pretending we already stored the user id.
-        DeviceStateStore.usersService.setUserId(userId: "cucas")
+        self.deviceStateStore.persistUserId(userId: "cucas")
 
         let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
-        let serverSyncProcessHandler = ServerSyncProcessHandler(getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
         serverSyncProcessHandler.jobQueue.append(startJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
 
-        XCTAssertNotNil(Device.getDeviceId())
-        XCTAssertNotNil(Device.getAPNsToken())
+        XCTAssertNotNil(self.deviceStateStore.getDeviceId())
+        XCTAssertNotNil(self.deviceStateStore.getAPNsToken())
 
         let subscribeJob = ServerSyncJob.SubscribeJob(interest: "hello", localInterestsChanged: true)
         serverSyncProcessHandler.jobQueue.append(subscribeJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: subscribeJob)
 
-        XCTAssertEqual(Device.getDeviceId(), newDeviceId)
-        XCTAssertNil(DeviceStateStore.usersService.getUserId())
+        XCTAssertEqual(self.deviceStateStore.getDeviceId(), newDeviceId)
+        XCTAssertNil(self.deviceStateStore.getUserId())
     }
 
     func testMetadataSynchonizationWhenAppStarts() {
@@ -502,7 +496,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
         let metadata = Metadata(sdkVersion: "123", iosVersion: "11", macosVersion: nil)
         let applicationStartJob = ServerSyncJob.ApplicationStartJob(metadata: metadata)
-        let serverSyncProcessHandler = ServerSyncProcessHandler(getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
         serverSyncProcessHandler.jobQueue.append(startJob)
         serverSyncProcessHandler.jobQueue.append(applicationStartJob)
         serverSyncProcessHandler.jobQueue.append(applicationStartJob)
@@ -554,7 +548,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
         let metadata = Metadata(sdkVersion: "123", iosVersion: "11", macosVersion: nil)
         let applicationStartJob = ServerSyncJob.ApplicationStartJob(metadata: metadata)
-        let serverSyncProcessHandler = ServerSyncProcessHandler(getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
         serverSyncProcessHandler.jobQueue.append(startJob)
         serverSyncProcessHandler.jobQueue.append(applicationStartJob)
         serverSyncProcessHandler.jobQueue.append(applicationStartJob)
@@ -595,6 +589,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         let setUserIdJob = ServerSyncJob.SetUserIdJob(userId: "cucas")
         let tokenProvider = StubTokenProvider(jwt: "dummy-jwt", error: nil)
         let serverSyncProcessHandler = ServerSyncProcessHandler(
+            instanceId: instanceId,
             getTokenProvider: { return tokenProvider },
             handleServerSyncEvent: { _ in return }
         )
@@ -613,7 +608,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
 
         waitForExpectations(timeout: 1)
 
-        XCTAssertNotNil(DeviceStateStore.usersService.getUserId())
+        XCTAssertNotNil(self.deviceStateStore.getUserId())
     }
 
     func testSetUserIdSuccessCallbackIsCalled() {
@@ -633,6 +628,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         let exp = expectation(description: "Callback should be called")
 
         let serverSyncProcessHandler = ServerSyncProcessHandler(
+            instanceId: instanceId,
             getTokenProvider: { return tokenProvider },
             handleServerSyncEvent: { event in
                 switch event {
@@ -673,6 +669,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         let exp = expectation(description: "Callback should be called")
 
         let serverSyncProcessHandler = ServerSyncProcessHandler(
+            instanceId: instanceId,
             getTokenProvider: { return nil },
             handleServerSyncEvent: { event in
                 switch event {
@@ -715,6 +712,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         let exp = expectation(description: "Callback should be called")
 
         let serverSyncProcessHandler = ServerSyncProcessHandler(
+            instanceId: instanceId,
             getTokenProvider: { return tokenProvider },
             handleServerSyncEvent: { event in
                 switch event {
@@ -757,6 +755,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         let exp = expectation(description: "Callback should be called")
 
         let serverSyncProcessHandler = ServerSyncProcessHandler(
+            instanceId: instanceId,
             getTokenProvider: { return tokenProvider },
             handleServerSyncEvent: { event in
                 switch event {
@@ -799,6 +798,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         let exp = expectation(description: "Callback should be called")
 
         let serverSyncProcessHandler = ServerSyncProcessHandler(
+            instanceId: instanceId,
             getTokenProvider: { return tokenProvider },
             handleServerSyncEvent: { event in
                 switch event {
@@ -848,11 +848,11 @@ class ServerSyncProcessHandlerTests: XCTestCase {
 
         let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
 
-        let serverSyncProcessHandler = ServerSyncProcessHandler(getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
         serverSyncProcessHandler.jobQueue.append(startJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
 
-        let userInfo = ["aps": ["alert": ["title": "Hello", "body": "Hello, world!"], "content-available": 1], "data": ["pusher": ["publishId": "pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df"]]]
+        let userInfo = ["aps": ["alert": ["title": "Hello", "body": "Hello, world!"], "content-available": 1], "data": ["pusher": ["instanceId": "8a070eaa-033f-46d6-bb90-f4c15acc47e1", "publishId": "pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df"]]]
         let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo, applicationState: .active) as! DeliveryEventType
 
         let trackEventJob = ServerSyncJob.ReportEventJob(eventType: eventType)

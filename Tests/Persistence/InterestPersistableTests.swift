@@ -3,62 +3,63 @@ import XCTest
 
 class InterestPersistableTests: XCTestCase {
 
-    var persistenceService: InterestPersistable!
+    var deviceStateStore: InstanceDeviceStateStore!
 
     override func setUp() {
         super.setUp()
-        self.persistenceService = PersistenceService(service: UserDefaults(suiteName: "Test")!)
+        UserDefaults.standard.removePersistentDomain(forName: PersistenceConstants.UserDefaults.suiteName(instanceId: TestHelper.instanceId))
+        self.deviceStateStore = InstanceDeviceStateStore(TestHelper.instanceId)
     }
 
     override func tearDown() {
-        self.persistenceService = nil
-        UserDefaults.standard.removePersistentDomain(forName: "Test")
+        self.deviceStateStore = nil
+        UserDefaults.standard.removePersistentDomain(forName: PersistenceConstants.UserDefaults.suiteName(instanceId: TestHelper.instanceId))
         super.tearDown()
     }
 
     func testPersistInterestThatWasNotSavedYet() {
-        let persistenceOperation = self.persistenceService.persist(interest: "tech")
+        let persistenceOperation = self.deviceStateStore.persistInterest("tech")
         XCTAssertTrue(persistenceOperation)
     }
 
     func testPersistInterestThatIsAlreadySaved() {
-        _ = self.persistenceService.persist(interest: "tech")
-        let persistenceOperation = self.persistenceService.persist(interest: "tech")
+        _ = self.deviceStateStore.persistInterest("tech")
+        let persistenceOperation = self.deviceStateStore.persistInterest("tech")
         XCTAssertFalse(persistenceOperation)
     }
 
     func testPersistInterestsThatWereNotSavedYet() {
         let interests = ["a", "b", "c", "d", "e"]
-        self.persistenceService.persist(interests: interests)
-        let storedInterests = self.persistenceService.getSubscriptions()
+        self.deviceStateStore.persistInterests(interests)
+        let storedInterests = self.deviceStateStore.getInterests()
         XCTAssertNotNil(storedInterests!)
         XCTAssertTrue(interests.containsSameElements(as: storedInterests!))
     }
 
     func testRemoveInterestFromTheStorage() {
-        let removeOperation = self.persistenceService.remove(interest: "tech")
+        let removeOperation = self.deviceStateStore.removeInterest(interest: "tech")
         XCTAssertFalse(removeOperation)
     }
 
     func testRemoveExistingInterestFromTheStorage() {
-        _ = self.persistenceService.persist(interest: "tech")
-        let removeOperation = self.persistenceService.remove(interest: "tech")
+        _ = self.deviceStateStore.persistInterest("tech")
+        let removeOperation = self.deviceStateStore.removeInterest(interest: "tech")
         XCTAssertTrue(removeOperation)
     }
 
     func testRemoveAllInterests() {
-        _ = self.persistenceService.persist(interests: ["a", "b", "c", "d", "e"])
-        self.persistenceService.removeAllSubscriptions()
-        let interests = self.persistenceService.getSubscriptions()
+        _ = self.deviceStateStore.persistInterests(["a", "b", "c", "d", "e"])
+        self.deviceStateStore.removeAllInterests()
+        let interests = self.deviceStateStore.getInterests()
         XCTAssertEqual(interests!, [])
     }
 
     func testPersistInterestAndBatchSaveInterests() {
-        let persistenceOperation = self.persistenceService.persist(interest: "interest")
+        let persistenceOperation = self.deviceStateStore.persistInterest("interest")
         XCTAssertTrue(persistenceOperation)
         let interests = ["a", "b", "c", "d", "e"]
-        self.persistenceService.persist(interests: interests)
-        let storedInterests = self.persistenceService.getSubscriptions()
+        self.deviceStateStore.persistInterests(interests)
+        let storedInterests = self.deviceStateStore.getInterests()
         XCTAssertNotNil(storedInterests!)
         XCTAssert(storedInterests?.count == 5)
         XCTAssertTrue(interests.containsSameElements(as: storedInterests!))
@@ -66,9 +67,9 @@ class InterestPersistableTests: XCTestCase {
 
     func testBatchSaveInterestsAndPersistAnotherInterest() {
         let interests = ["a", "b", "c", "d", "e"]
-        self.persistenceService.persist(interests: interests)
-        let persistenceOperation = self.persistenceService.persist(interest: "interest")
-        let storedInterests = self.persistenceService.getSubscriptions()
+        self.deviceStateStore.persistInterests(interests)
+        let persistenceOperation = self.deviceStateStore.persistInterest("interest")
+        let storedInterests = self.deviceStateStore.getInterests()
         XCTAssertNotNil(storedInterests!)
         XCTAssertTrue(persistenceOperation)
         XCTAssert(storedInterests?.count == 6)
@@ -77,39 +78,39 @@ class InterestPersistableTests: XCTestCase {
 
     func testBatchSaveInterestsAndSaveExistingInterest() {
         let interests = ["a", "b", "c"]
-        self.persistenceService.persist(interests: interests)
-        let persistenceOperation = self.persistenceService.persist(interest: "a")
+        self.deviceStateStore.persistInterests(interests)
+        let persistenceOperation = self.deviceStateStore.persistInterest("a")
         XCTAssertFalse(persistenceOperation)
-        let storedInterests = self.persistenceService.getSubscriptions()
+        let storedInterests = self.deviceStateStore.getInterests()
         XCTAssert(storedInterests?.count == 3)
         XCTAssertTrue(storedInterests!.containsSameElements(as: interests))
     }
 
     func testBatchSaveSameInterestsTwice() {
         let interests = ["a", "b", "c"]
-        let persistenceOperation = self.persistenceService.persist(interests: interests)
+        let persistenceOperation = self.deviceStateStore.persistInterests(interests)
         XCTAssertTrue(persistenceOperation)
-        let persistSameInterestSetAgain = self.persistenceService.persist(interests: interests)
+        let persistSameInterestSetAgain = self.deviceStateStore.persistInterests(interests)
         XCTAssertFalse(persistSameInterestSetAgain)
     }
 
     func testPersistInterestWithALongName() {
         let interestWithALongName = "cs3pbizT,UjWwYXfguIm@y=l730QOOJvPfWV@W0_h2_IO8mkEzeS1JXwC@nHJDuZwbrgtsCVXAA3=9CIkQW69,.4d6Cs5Ny_gRALxAj3YlXEk674SGiqWgX:T74M6yQAqWfSGSJT.unKgg3J0ZqiQng__2V8ladmfVNw"
-        let persistenceOperation = self.persistenceService.persist(interest: interestWithALongName)
+        let persistenceOperation = self.deviceStateStore.persistInterest(interestWithALongName)
         XCTAssertTrue(persistenceOperation)
-        let storedInterests = self.persistenceService.getSubscriptions()
+        let storedInterests = self.deviceStateStore.getInterests()
         XCTAssertNotNil(storedInterests!)
         XCTAssertTrue(storedInterests?.count == 1)
         XCTAssertTrue(storedInterests!.containsSameElements(as: [interestWithALongName]))
     }
 
     func testInterestsHash() {
-        self.persistenceService.persistServerConfirmedInterestsHash("749e2830366ba863f796cdf5e281662f")
+        self.deviceStateStore.persistServerConfirmedInterestsHash("749e2830366ba863f796cdf5e281662f")
 
-        XCTAssertEqual(self.persistenceService.getServerConfirmedInterestsHash(), "749e2830366ba863f796cdf5e281662f")
+        XCTAssertEqual(self.deviceStateStore.getServerConfirmedInterestsHash(), "749e2830366ba863f796cdf5e281662f")
     }
 
     func testNilInterestsHash() {
-        XCTAssertEqual(self.persistenceService.getServerConfirmedInterestsHash(), "")
+        XCTAssertEqual(self.deviceStateStore.getServerConfirmedInterestsHash(), "")
     }
 }

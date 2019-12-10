@@ -1,20 +1,52 @@
 import Foundation
 
 class ServerSyncProcessHandler {
+    private static let serverSyncHandlersQueue = DispatchQueue(label: "com.pusher.beams.serverSyncHandlersQueue")
+    private static var serverSyncHandlers = [String: ServerSyncProcessHandler]()
+    internal static func obtain(instanceId: String, getTokenProvider: @escaping () -> TokenProvider?, handleServerSyncEvent: @escaping (ServerSyncEvent) -> Void) -> ServerSyncProcessHandler {
+        serverSyncHandlersQueue.sync {
+            if let handler = self.serverSyncHandlers[instanceId] {
+                return handler
+            } else {
+                let handler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: getTokenProvider, handleServerSyncEvent: handleServerSyncEvent)
+                self.serverSyncHandlers[instanceId] = handler
+                return handler
+            }
+        }
+    }
+    
+    internal static func obtain(instanceId: String) -> ServerSyncProcessHandler? {
+        serverSyncHandlersQueue.sync {
+            return self.serverSyncHandlers[instanceId]
+        }
+    }
+
+    // used only for testing purposes
+    internal static func destroy(instanceId: String) {
+        serverSyncHandlersQueue.sync {
+            self.serverSyncHandlers.removeValue(forKey: instanceId)
+        }
+    }
+    
+    private let instanceId: String
     private let sendMessageQueue: DispatchQueue
     private let handleMessageQueue: DispatchQueue
     private let networkService: NetworkService
     private let getTokenProvider: () -> TokenProvider?
     private let handleServerSyncEvent: (ServerSyncEvent) -> Void
-    public var jobQueue: ServerSyncJobStore = ServerSyncJobStore()
+    public var jobQueue: ServerSyncJobStore
+    private let deviceStateStore: InstanceDeviceStateStore
 
-    init(getTokenProvider: @escaping () -> TokenProvider?, handleServerSyncEvent: @escaping (ServerSyncEvent) -> Void) {
+    internal init(instanceId: String, getTokenProvider: @escaping () -> TokenProvider?, handleServerSyncEvent: @escaping (ServerSyncEvent) -> Void) {
+        self.instanceId = instanceId
+        self.deviceStateStore = InstanceDeviceStateStore(instanceId)
         self.getTokenProvider = getTokenProvider
         self.handleServerSyncEvent = handleServerSyncEvent
-        self.sendMessageQueue = DispatchQueue(label: "sendMessageQueue")
-        self.handleMessageQueue = DispatchQueue(label: "handleMessageQueue")
+        self.sendMessageQueue = DispatchQueue(label: "com.pusher.beams.sendMessageQueue")
+        self.handleMessageQueue = DispatchQueue(label: "com.pusher.beams.handleMessageQueue")
         let session = URLSession(configuration: .ephemeral)
         self.networkService = NetworkService(session: session)
+        self.jobQueue = ServerSyncJobStore(instanceId: self.instanceId)
 
         self.jobQueue.toList().forEach { job in
             switch job {
@@ -41,14 +73,14 @@ class ServerSyncProcessHandler {
     }
 
     private func hasStarted() -> Bool {
-        return DeviceStateStore.synchronize {
-            return Device.idAlreadyPresent()
+        return InstanceDeviceStateStore.synchronize {
+            return self.deviceStateStore.deviceIdAlreadyPresent()
         }
     }
 
     private func processStartJob(instanceId: String, token: String) {
         // Register device with Error
-        let result = self.networkService.register(instanceId: instanceId, deviceToken: token, metadata: Metadata.getCurrentMetadata(), retryStrategy: WithInfiniteExpBackoff())
+        let result = self.networkService.register(instanceId: instanceId, deviceToken: token, metadata: Metadata.current, retryStrategy: WithInfiniteExpBackoff())
 
         switch result {
         case .error(let error):
@@ -57,7 +89,7 @@ class ServerSyncProcessHandler {
             return
         case .value(let device):
             var outstandingJobs: [ServerSyncJob] = []
-            DeviceStateStore.synchronize {
+            InstanceDeviceStateStore.synchronize {
                 // Replay sub/unsub/setsub operations in job queue over initial interest set
                 var interestsSet = device.initialInterestSet ?? Set<String>()
 
@@ -89,22 +121,21 @@ class ServerSyncProcessHandler {
                     }
                 }
 
-                let localInterestsWillChange = Set(DeviceStateStore.interestsService.getSubscriptions() ?? []) != interestsSet
+                let localInterestsWillChange = Set(self.deviceStateStore.getInterests() ?? []) != interestsSet
                 if localInterestsWillChange {
-                    DeviceStateStore.interestsService.persist(interests: Array(interestsSet))
+                    self.deviceStateStore.persistInterests(Array(interestsSet))
                     self.handleServerSyncEvent(.InterestsChangedEvent(interests: Array(interestsSet)))
                 }
 
-                Instance.persist(instanceId)
-                Device.persistAPNsToken(token: token)
-                Device.persist(device.id)
+                self.deviceStateStore.persistAPNsToken(token: token)
+                self.deviceStateStore.persistDeviceId(device.id)
             }
 
-            let localInterests = DeviceStateStore.interestsService.getSubscriptions() ?? []
+            let localInterests = self.deviceStateStore.getInterests() ?? []
             let remoteInterestsWillChange = Set(localInterests) != device.initialInterestSet ?? Set()
             if remoteInterestsWillChange {
                 // We don't care about the result at this point.
-                _ = self.networkService.setSubscriptions(instanceId: Instance.getInstanceId()!, deviceId: device.id, interests: localInterests, retryStrategy: WithInfiniteExpBackoff())
+                _ = self.networkService.setSubscriptions(instanceId: self.instanceId, deviceId: device.id, interests: localInterests, retryStrategy: WithInfiniteExpBackoff())
             }
 
             for job in outstandingJobs {
@@ -114,32 +145,32 @@ class ServerSyncProcessHandler {
     }
 
     private func processStopJob() {
-        _ = self.networkService.deleteDevice(instanceId: Instance.getInstanceId()!, deviceId: Device.getDeviceId()!, retryStrategy: WithInfiniteExpBackoff())
+        _ = self.networkService.deleteDevice(instanceId: self.instanceId, deviceId: self.deviceStateStore.getDeviceId()!, retryStrategy: WithInfiniteExpBackoff())
 //        Instance.delete()
-        Device.delete()
-        Device.deleteAPNsToken()
-        Metadata.delete()
-        DeviceStateStore.interestsService.persistServerConfirmedInterestsHash("")
-        DeviceStateStore.usersService.removeUserId()
+        self.deviceStateStore.deleteDeviceId()
+        self.deviceStateStore.deleteAPNsToken()
+        self.deviceStateStore.removeMetadata()
+        self.deviceStateStore.persistServerConfirmedInterestsHash("")
+        self.deviceStateStore.removeUserId()
         self.handleServerSyncEvent(.StopEvent)
     }
 
     private func processApplicationStartJob(metadata: Metadata) {
-        let localMetadata = Metadata.load()
+        let localMetadata = self.deviceStateStore.getMetadata()
         if metadata != localMetadata {
-            let result = self.networkService.syncMetadata(instanceId: Instance.getInstanceId()!, deviceId: Device.getDeviceId()!, metadata: metadata, retryStrategy: JustDont())
+            let result = self.networkService.syncMetadata(instanceId: self.instanceId, deviceId: self.deviceStateStore.getDeviceId()!, metadata: metadata, retryStrategy: JustDont())
             if case .value(()) = result {
-                Metadata.save(metadata: metadata)
+                self.deviceStateStore.persistMetadata(metadata: metadata)
             }
         }
 
-        let localInterests = DeviceStateStore.interestsService.getSubscriptions() ?? []
+        let localInterests = self.deviceStateStore.getInterests() ?? []
         let localInterestsHash = localInterests.calculateMD5Hash()
 
-        if localInterestsHash != DeviceStateStore.interestsService.getServerConfirmedInterestsHash() {
-            let result = self.networkService.setSubscriptions(instanceId: Instance.getInstanceId()!, deviceId: Device.getDeviceId()!, interests: localInterests, retryStrategy: JustDont())
+        if localInterestsHash != self.deviceStateStore.getServerConfirmedInterestsHash() {
+            let result = self.networkService.setSubscriptions(instanceId: self.instanceId, deviceId: self.deviceStateStore.getDeviceId()!, interests: localInterests, retryStrategy: JustDont())
             if case .value(()) = result {
-                DeviceStateStore.interestsService.persistServerConfirmedInterestsHash(localInterestsHash)
+                self.deviceStateStore.persistServerConfirmedInterestsHash(localInterestsHash)
             }
         }
     }
@@ -150,13 +181,13 @@ class ServerSyncProcessHandler {
             case .SubscribeJob(_, localInterestsChanged: false), .UnsubscribeJob(_, localInterestsChanged: false), .SetSubscriptions(_, localInterestsChanged: false):
                 return .value(()) // if local interests haven't changed, then we don't need to sync with server
             case .SubscribeJob(let interest, localInterestsChanged: true):
-                return self.networkService.subscribe(instanceId: Instance.getInstanceId()!, deviceId: Device.getDeviceId()!, interest: interest, retryStrategy: WithInfiniteExpBackoff())
+                return self.networkService.subscribe(instanceId: self.instanceId, deviceId: self.deviceStateStore.getDeviceId()!, interest: interest, retryStrategy: WithInfiniteExpBackoff())
             case .UnsubscribeJob(let interest, localInterestsChanged: true):
-                return self.networkService.unsubscribe(instanceId: Instance.getInstanceId()!, deviceId: Device.getDeviceId()!, interest: interest, retryStrategy: WithInfiniteExpBackoff())
+                return self.networkService.unsubscribe(instanceId: self.instanceId, deviceId: self.deviceStateStore.getDeviceId()!, interest: interest, retryStrategy: WithInfiniteExpBackoff())
             case .SetSubscriptions(let interests, localInterestsChanged: true):
-                return self.networkService.setSubscriptions(instanceId: Instance.getInstanceId()!, deviceId: Device.getDeviceId()!, interests: interests, retryStrategy: WithInfiniteExpBackoff())
+                return self.networkService.setSubscriptions(instanceId: self.instanceId, deviceId: self.deviceStateStore.getDeviceId()!, interests: interests, retryStrategy: WithInfiniteExpBackoff())
             case .ReportEventJob(let eventType):
-                return self.networkService.track(instanceId: Instance.getInstanceId()!, deviceId: Device.getDeviceId()!, eventType: eventType, retryStrategy: WithInfiniteExpBackoff())
+                return self.networkService.track(instanceId: eventType.getInstanceId(), deviceId: self.deviceStateStore.getDeviceId()!, eventType: eventType, retryStrategy: WithInfiniteExpBackoff())
             case .ApplicationStartJob(let metadata):
                 processApplicationStartJob(metadata: metadata)
                 return .value(()) // this was always a best effort operation
@@ -175,7 +206,7 @@ class ServerSyncProcessHandler {
         case .value:
             return
         case .error(PushNotificationsAPIError.DeviceNotFound):
-            if recreateDevice(token: Device.getAPNsToken()!) {
+            if recreateDevice(token: self.deviceStateStore.getAPNsToken()!) {
                 processJob(job)
             } else {
                 print("[PushNotifications]: Not retrying, skipping job: \(job).")
@@ -190,51 +221,51 @@ class ServerSyncProcessHandler {
 
     private func recreateDevice(token: String) -> Bool {
         // Register device with Error
-        let result = self.networkService.register(instanceId: Instance.getInstanceId()!, deviceToken: token, metadata: Metadata.getCurrentMetadata(), retryStrategy: WithInfiniteExpBackoff())
+        let result = self.networkService.register(instanceId: self.instanceId, deviceToken: token, metadata: Metadata.current, retryStrategy: WithInfiniteExpBackoff())
 
         switch result {
         case .error(let error):
             print("[PushNotifications]: Unrecoverable error when registering device with Pusher Beams (Reason - \(error.getErrorMessage()))")
             return false
         case .value(let device):
-            let localIntersets: [String] = DeviceStateStore.synchronize {
-                Device.persist(device.id)
-                Device.persistAPNsToken(token: token)
-                return DeviceStateStore.interestsService.getSubscriptions() ?? []
+            let localIntersets: [String] = InstanceDeviceStateStore.synchronize {
+                self.deviceStateStore.persistDeviceId(device.id)
+                self.deviceStateStore.persistAPNsToken(token: token)
+                return self.deviceStateStore.getInterests() ?? []
             }
 
             if !localIntersets.isEmpty {
-                _ = self.networkService.setSubscriptions(instanceId: Instance.getInstanceId()!, deviceId: device.id, interests: localIntersets, retryStrategy: WithInfiniteExpBackoff())
+                _ = self.networkService.setSubscriptions(instanceId: self.instanceId, deviceId: device.id, interests: localIntersets, retryStrategy: WithInfiniteExpBackoff())
             }
 
-            if let userId = DeviceStateStore.usersService.getUserId() {
+            if let userId = self.deviceStateStore.getUserId() {
                 let tokenProvider = self.getTokenProvider()
                 if tokenProvider == nil {
-                    // Any failures during this process are equivalent to de-authing the user e.g. setUserId(null)
+                    // Any failures during this process are equivalent to de-authing the user e.g. persistUserId(null)
                     // If the user session is indeed over, there should be a Stop in the backlog eventually
                     // If the user session is still valid, there should be a setUserId in the backlog
 
                     print("[PushNotifications]: Warning - Failed to set the user id due token provider not being present")
-                    DeviceStateStore.usersService.removeUserId()
+                    self.deviceStateStore.removeUserId()
                 } else {
                     let semaphore = DispatchSemaphore(value: 0)
                     do {
                         try tokenProvider!.fetchToken(userId: userId, completionHandler: { jwt, error in
                             if error != nil {
                                 print("[PushNotifications]: Warning - Unexpected customer error: \(error!.localizedDescription)")
-                                DeviceStateStore.usersService.removeUserId()
+                                self.deviceStateStore.removeUserId()
                                 semaphore.signal()
                                 return
                             }
 
-                            let result = self.networkService.setUserId(instanceId: Instance.getInstanceId()!, deviceId: Device.getDeviceId()!, token: jwt, retryStrategy: WithInfiniteExpBackoff())
+                            let result = self.networkService.setUserId(instanceId: self.instanceId, deviceId: self.deviceStateStore.getDeviceId()!, token: jwt, retryStrategy: WithInfiniteExpBackoff())
 
                             switch result {
                             case .value:
-                                DeviceStateStore.usersService.setUserId(userId: userId)
+                                self.deviceStateStore.persistUserId(userId: userId)
                             case .error(let error):
                                 print("[PushNotifications]: Warning - Unexpected error: \(error.getErrorMessage())")
-                                DeviceStateStore.usersService.removeUserId()
+                                self.deviceStateStore.removeUserId()
                                 semaphore.signal()
                                 return
                             }
@@ -244,7 +275,7 @@ class ServerSyncProcessHandler {
                         semaphore.wait()
                     } catch (let error) {
                         print("[PushNotifications]: Warning - Unexpected error: \(error.localizedDescription)")
-                        DeviceStateStore.usersService.removeUserId()
+                        self.deviceStateStore.removeUserId()
                     }
                 }
             }
@@ -270,11 +301,11 @@ class ServerSyncProcessHandler {
                     return
                 }
 
-                let result = self.networkService.setUserId(instanceId: Instance.getInstanceId()!, deviceId: Device.getDeviceId()!, token: jwt, retryStrategy: WithInfiniteExpBackoff())
+                let result = self.networkService.setUserId(instanceId: self.instanceId, deviceId: self.deviceStateStore.getDeviceId()!, token: jwt, retryStrategy: WithInfiniteExpBackoff())
 
                 switch result {
                 case .value:
-                    DeviceStateStore.usersService.setUserId(userId: userId)
+                    self.deviceStateStore.persistUserId(userId: userId)
                     self.handleServerSyncEvent(.UserIdSetEvent(userId: userId, error: nil))
                 case .error(let error):
                     let error = TokenProviderError.error("[PushNotifications] - Error when synchronising with server: \(error)")

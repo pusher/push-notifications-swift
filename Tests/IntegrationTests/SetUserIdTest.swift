@@ -9,36 +9,22 @@ class SetUserIdTest: XCTestCase {
     let validCucasJWTToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjQ3MDc5OTIzMDIsImlzcyI6Imh0dHBzOi8vMWI4ODA1OTAtNjMwMS00YmI1LWIzNGYtNDVkYjFjNWY1NjQ0LnB1c2hub3RpZmljYXRpb25zLnB1c2hlci5jb20iLCJzdWIiOiJjdWNhcyJ9.CTtrDXh7vae3rSSKBKf5X0y4RQpFg7YvIlirmBQqJn4"
 
     override func setUp() {
-        if let deviceId = Device.getDeviceId() {
-            TestAPIClientHelper().deleteDevice(instanceId: instanceId, deviceId: deviceId)
-        }
-
-        UserDefaults(suiteName: Constants.UserDefaults.suiteName).map { userDefaults in
-            Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
-        }
-
-       TestHelper().removeSyncjobStore()
+        super.setUp()
+        TestHelper.clearEverything(instanceId: instanceId)
     }
 
     override func tearDown() {
-        if let deviceId = Device.getDeviceId() {
-            TestAPIClientHelper().deleteDevice(instanceId: instanceId, deviceId: deviceId)
-        }
-
-        UserDefaults(suiteName: Constants.UserDefaults.suiteName).map { userDefaults in
-            Array(userDefaults.dictionaryRepresentation().keys).forEach(userDefaults.removeObject)
-        }
-
-        TestHelper().removeSyncjobStore()
+        TestHelper.clearEverything(instanceId: instanceId)
+        super.tearDown()
     }
 
     func testSetUserIdShouldAssociateThisDeviceWithUserOnTheServer() {
-        let pushNotifications = PushNotifications()
-        pushNotifications.start(instanceId: instanceId)
+        let pushNotifications = PushNotifications(instanceId: instanceId)
+        pushNotifications.start()
         pushNotifications.registerDeviceToken(validToken)
 
-        expect(Device.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
-        let deviceId = Device.getDeviceId()!
+        expect(InstanceDeviceStateStore(self.instanceId).getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        let deviceId = InstanceDeviceStateStore(self.instanceId).getDeviceId()!
 
         let tokenProvider = StubTokenProvider(jwt: validCucasJWTToken, error: nil)
         pushNotifications.setUserId("cucas", tokenProvider: tokenProvider) { _ in }
@@ -48,8 +34,8 @@ class SetUserIdTest: XCTestCase {
     }
 
     func testSetUserIdShouldThrowExceptionIfUserIdIsReassigned() {
-        let pushNotifications = PushNotifications()
-        pushNotifications.start(instanceId: instanceId)
+        let pushNotifications = PushNotifications(instanceId: instanceId)
+        pushNotifications.start()
         pushNotifications.registerDeviceToken(validToken)
         let expCucas = expectation(description: "Set user id for cucas should succeed")
         let expPotato = expectation(description: "Set user id for potato should fail")
@@ -69,8 +55,8 @@ class SetUserIdTest: XCTestCase {
     }
 
     func testSetUserIdCallStopAndSettingADifferentUserIdSucceeds() {
-        let pushNotifications = PushNotifications()
-        pushNotifications.start(instanceId: instanceId)
+        let pushNotifications = PushNotifications(instanceId: instanceId)
+        pushNotifications.start()
         pushNotifications.registerDeviceToken(validToken)
 
         let tokenProvider = StubTokenProvider(jwt: validCucasJWTToken, error: nil)
@@ -90,7 +76,7 @@ class SetUserIdTest: XCTestCase {
     }
 
     func testSetUserIdShouldReturnErrorIfStartHasNotBeenCalled() {
-        let pushNotifications = PushNotifications()
+        let pushNotifications = PushNotifications(instanceId: instanceId)
         let exp = expectation(description: "It should return an error")
         let tokenProvider = StubTokenProvider(jwt: validCucasJWTToken, error: nil)
         pushNotifications.setUserId("cucas", tokenProvider: tokenProvider) { error in

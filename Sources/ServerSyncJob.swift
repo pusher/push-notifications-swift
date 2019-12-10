@@ -38,6 +38,17 @@ extension ServerSyncJob: Codable {
         case openEventTypeKey
         case deliveryEventTypeKey
     }
+    
+    private enum ServerSyncJobError: LocalizedError {
+        case ParseError(reason: String)
+        
+        public var errorDescription: String? {
+            switch self {
+            case .ParseError(let reason):
+                return NSLocalizedString("Parsing error", comment: reason)
+            }
+        }
+    }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -85,7 +96,8 @@ extension ServerSyncJob: Codable {
                 self = .ReportEventJob(eventType: deliveryEventType)
                 return
             }
-            self = .ReportEventJob(eventType: OpenEventType.init(publishId: "", deviceId: "", userId: "", timestampSecs: 0))
+            
+            throw ServerSyncJobError.ParseError(reason: "Issue with the report event")
         case .StopJobKey:
             self = .StopJob
             return
