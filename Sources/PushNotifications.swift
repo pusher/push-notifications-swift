@@ -29,7 +29,7 @@ import Foundation
     
     //! Returns a shared singleton PushNotifications object.
     /// - Tag: shared
-    @objc public static let shared = PushNotificationStatic.self
+    @objc public static let shared = PushNotificationsStatic.self
     
     private lazy var serverSyncHandler = ServerSyncProcessHandler.obtain(
         instanceId: self.instanceId,
@@ -73,7 +73,7 @@ import Foundation
      */
     /// - Tag: register
     @objc public func registerForRemoteNotifications() {
-        PushNotificationStatic.registerForRemoteNotifications()
+        PushNotificationsStatic.registerForRemoteNotifications()
     }
     #if os(iOS)
     /**
@@ -83,7 +83,7 @@ import Foundation
      */
     /// - Tag: registerOptions
     @objc public func registerForRemoteNotifications(options: UNAuthorizationOptions) {
-        PushNotificationStatic.registerForRemoteNotifications(options: options)
+        PushNotificationsStatic.registerForRemoteNotifications(options: options)
     }
     #elseif os(OSX)
     /**
@@ -92,7 +92,7 @@ import Foundation
      - Parameter options: A bit mask specifying the types of notifications the app accepts. See [NSApplication.RemoteNotificationType](https://developer.apple.com/documentation/appkit/nsapplication.remotenotificationtype) for valid bit-mask values.
      */
     @objc public func registerForRemoteNotifications(options: NSApplication.RemoteNotificationType) {
-        PushNotificationStatic.registerForRemoteNotifications(options: options)
+        PushNotificationsStatic.registerForRemoteNotifications(options: options)
     }
     #endif
 
@@ -212,7 +212,7 @@ import Foundation
      */
     /// - Tag: registerDeviceToken
     @objc public func registerDeviceToken(_ deviceToken: Data) {
-        PushNotificationStatic.registerDeviceToken(deviceToken)
+        PushNotificationsStatic.registerDeviceToken(deviceToken)
     }
 
     /**
@@ -327,7 +327,7 @@ import Foundation
     /// - Tag: handleNotification
     @discardableResult
     @objc public func handleNotification(userInfo: [AnyHashable: Any]) -> RemoteNotificationType {
-        return PushNotificationStatic.handleNotification(userInfo: userInfo)
+        return PushNotificationsStatic.handleNotification(userInfo: userInfo)
     }
 
     private func validateInterestName(_ interest: String) -> Bool {

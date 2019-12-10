@@ -7,7 +7,7 @@ import NotificationCenter
 #endif
 import Foundation
 
-@objc public final class PushNotificationStatic: NSObject {
+@objc public final class PushNotificationsStatic: NSObject {
     
     private override init() {
         // prevent other people initialising us
