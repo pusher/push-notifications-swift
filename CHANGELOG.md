@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased](https://github.com/pusher/push-notifications-swift/compare/3.0.0...HEAD)
 
+## Fixed
+
+- Allow register for remote notifications to be called from the static push notifications.
+
+
 ## [3.0.0](https://github.com/pusher/push-notifications-swift/compare/2.1.2...3.0.0)
 
 ## Added
