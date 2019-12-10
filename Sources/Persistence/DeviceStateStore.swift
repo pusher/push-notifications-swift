@@ -13,11 +13,11 @@ public class DeviceStateStore {
             let newInstanceDSS = InstanceDeviceStateStore(instanceId)
             
             if let oldInterests = oldInstanceDSS.getInterests() {
-                newInstanceDSS.persistInterests(oldInterests)
+               _ = newInstanceDSS.persistInterests(oldInterests)
             }
             
             if let oldUserId = oldInstanceDSS.getUserId() {
-                newInstanceDSS.persistUserId(userId: oldUserId)
+                _ = newInstanceDSS.persistUserId(userId: oldUserId)
             }
             
             newInstanceDSS.persistServerConfirmedInterestsHash(oldInstanceDSS.getServerConfirmedInterestsHash())

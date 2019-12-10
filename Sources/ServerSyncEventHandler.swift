@@ -19,7 +19,7 @@ internal class ServerSyncEventHandler {
     
     // used only for testing purposes
     internal static func destroy(instanceId: String) {
-        serverSyncEventHandlersQueue.sync {
+        _ = serverSyncEventHandlersQueue.sync {
             self.serverSyncEventHandlers.removeValue(forKey: instanceId)
         }
     }

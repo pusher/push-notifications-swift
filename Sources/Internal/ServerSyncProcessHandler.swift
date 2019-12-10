@@ -23,7 +23,7 @@ class ServerSyncProcessHandler {
 
     // used only for testing purposes
     internal static func destroy(instanceId: String) {
-        serverSyncHandlersQueue.sync {
+        _ = serverSyncHandlersQueue.sync {
             self.serverSyncHandlers.removeValue(forKey: instanceId)
         }
     }
@@ -123,7 +123,7 @@ class ServerSyncProcessHandler {
 
                 let localInterestsWillChange = Set(self.deviceStateStore.getInterests() ?? []) != interestsSet
                 if localInterestsWillChange {
-                    self.deviceStateStore.persistInterests(Array(interestsSet))
+                    _ = self.deviceStateStore.persistInterests(Array(interestsSet))
                     self.handleServerSyncEvent(.InterestsChangedEvent(interests: Array(interestsSet)))
                 }
 
@@ -262,7 +262,7 @@ class ServerSyncProcessHandler {
 
                             switch result {
                             case .value:
-                                self.deviceStateStore.persistUserId(userId: userId)
+                                _ = self.deviceStateStore.persistUserId(userId: userId)
                             case .error(let error):
                                 print("[PushNotifications]: Warning - Unexpected error: \(error.getErrorMessage())")
                                 self.deviceStateStore.removeUserId()
@@ -305,7 +305,7 @@ class ServerSyncProcessHandler {
 
                 switch result {
                 case .value:
-                    self.deviceStateStore.persistUserId(userId: userId)
+                    _ = self.deviceStateStore.persistUserId(userId: userId)
                     self.handleServerSyncEvent(.UserIdSetEvent(userId: userId, error: nil))
                 case .error(let error):
                     let error = TokenProviderError.error("[PushNotifications] - Error when synchronising with server: \(error)")
