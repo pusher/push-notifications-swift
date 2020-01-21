@@ -4,7 +4,7 @@ class ServerSyncProcessHandler {
     private static let serverSyncHandlersQueue = DispatchQueue(label: "com.pusher.beams.serverSyncHandlersQueue")
     private static var serverSyncHandlers = [String: ServerSyncProcessHandler]()
     internal static func obtain(instanceId: String, getTokenProvider: @escaping () -> TokenProvider?, handleServerSyncEvent: @escaping (ServerSyncEvent) -> Void) -> ServerSyncProcessHandler {
-        serverSyncHandlersQueue.sync {
+        return serverSyncHandlersQueue.sync {
             if let handler = self.serverSyncHandlers[instanceId] {
                 return handler
             } else {
@@ -16,7 +16,7 @@ class ServerSyncProcessHandler {
     }
     
     internal static func obtain(instanceId: String) -> ServerSyncProcessHandler? {
-        serverSyncHandlersQueue.sync {
+        return serverSyncHandlersQueue.sync {
             return self.serverSyncHandlers[instanceId]
         }
     }

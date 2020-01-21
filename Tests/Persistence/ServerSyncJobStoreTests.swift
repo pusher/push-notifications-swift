@@ -31,8 +31,8 @@ class ServerSyncJobStoreTests : XCTestCase {
             XCTFail()
         }
         
-        let firstElement = jobstore.first
-        if case .SetUserIdJob(let userId) = firstElement {
+        if let firstElement = jobstore.first,
+            case .SetUserIdJob(let userId) = firstElement {
             XCTAssertEqual(userId, "danielle")
         } else {
             XCTFail()
