@@ -46,8 +46,8 @@ class DeviceStateStoreTests : XCTestCase {
         
         // save things to the old storage
         let oldInstanceStorage = InstanceDeviceStateStore(nil)
-        oldInstanceStorage.persistInterests(["lemon", "pomelo", "grapefruit"])
-        oldInstanceStorage.persistUserId(userId: "danielle")
+        _ = oldInstanceStorage.persistInterests(["lemon", "pomelo", "grapefruit"])
+        _ = oldInstanceStorage.persistUserId(userId: "danielle")
         oldInstanceStorage.persistServerConfirmedInterestsHash("hash12345")
         oldInstanceStorage.persistStartJobHasBeenEnqueued(flag: true)
         oldInstanceStorage.persistUserIdHasBeenCalledWith(userId: "danielleHasBeenCalled")

@@ -30,7 +30,7 @@ class InterestPersistableTests: XCTestCase {
 
     func testPersistInterestsThatWereNotSavedYet() {
         let interests = ["a", "b", "c", "d", "e"]
-        self.deviceStateStore.persistInterests(interests)
+        _ = self.deviceStateStore.persistInterests(interests)
         let storedInterests = self.deviceStateStore.getInterests()
         XCTAssertNotNil(storedInterests!)
         XCTAssertTrue(interests.containsSameElements(as: storedInterests!))
@@ -58,7 +58,7 @@ class InterestPersistableTests: XCTestCase {
         let persistenceOperation = self.deviceStateStore.persistInterest("interest")
         XCTAssertTrue(persistenceOperation)
         let interests = ["a", "b", "c", "d", "e"]
-        self.deviceStateStore.persistInterests(interests)
+        _ = self.deviceStateStore.persistInterests(interests)
         let storedInterests = self.deviceStateStore.getInterests()
         XCTAssertNotNil(storedInterests!)
         XCTAssert(storedInterests?.count == 5)
@@ -67,7 +67,7 @@ class InterestPersistableTests: XCTestCase {
 
     func testBatchSaveInterestsAndPersistAnotherInterest() {
         let interests = ["a", "b", "c", "d", "e"]
-        self.deviceStateStore.persistInterests(interests)
+        _ = self.deviceStateStore.persistInterests(interests)
         let persistenceOperation = self.deviceStateStore.persistInterest("interest")
         let storedInterests = self.deviceStateStore.getInterests()
         XCTAssertNotNil(storedInterests!)
@@ -78,7 +78,7 @@ class InterestPersistableTests: XCTestCase {
 
     func testBatchSaveInterestsAndSaveExistingInterest() {
         let interests = ["a", "b", "c"]
-        self.deviceStateStore.persistInterests(interests)
+        _ = self.deviceStateStore.persistInterests(interests)
         let persistenceOperation = self.deviceStateStore.persistInterest("a")
         XCTAssertFalse(persistenceOperation)
         let storedInterests = self.deviceStateStore.getInterests()

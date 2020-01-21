@@ -21,11 +21,11 @@ class InstanceDeviceStateStoreTests : XCTestCase {
     
     func testTwoInstancesDoNotIntefere() {
         // set 1 instance up with some interests and a device
-        instanceDeviceStateStore1.persistInterests(["cat", "dog"])
+        _ = instanceDeviceStateStore1.persistInterests(["cat", "dog"])
         instanceDeviceStateStore1.persistDeviceId("deviceId1")
         
         // set 2nd instance up with different interests and a device
-        instanceDeviceStateStore2.persistInterests(["banana", "apple", "pear"])
+        _ = instanceDeviceStateStore2.persistInterests(["banana", "apple", "pear"])
         instanceDeviceStateStore2.persistDeviceId("deviceId2")
         
         // check they're saved

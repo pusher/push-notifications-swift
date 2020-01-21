@@ -453,7 +453,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         }
 
         // Pretending we already stored the user id.
-        self.deviceStateStore.persistUserId(userId: "cucas")
+        _ = self.deviceStateStore.persistUserId(userId: "cucas")
 
         let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
         let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
