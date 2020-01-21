@@ -6,7 +6,7 @@ internal class ServerSyncEventHandler {
     static var serverSyncEventHandlers = [String: ServerSyncEventHandler]()
     
     static func obtain(instanceId: String) -> ServerSyncEventHandler {
-        serverSyncEventHandlersQueue.sync {
+        return serverSyncEventHandlersQueue.sync {
             if let handler = self.serverSyncEventHandlers[instanceId] {
                 return handler
             } else {
