@@ -5,6 +5,7 @@
 [![Documentation](https://pusher.github.io/push-notifications-swift/badge.svg)](https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html)
 [![CocoaPods](https://img.shields.io/cocoapods/v/PushNotifications.svg)](https://cocoapods.org/pods/PushNotifications)
 [![Carthage](https://img.shields.io/badge/carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Swift Package Manager compatible](https://img.shields.io/badge/SPM-compatible-4BC51D.svg?style=flat)](https://github.com/apple/swift-package-manager)
 [![Twitter](https://img.shields.io/badge/twitter-@Pusher-blue.svg?style=flat)](http://twitter.com/Pusher)
 
 ## Example Code
@@ -75,6 +76,29 @@ Continue following the steps below depending on the platform that you're buildin
 
 - If you're building for OS X, follow [this](https://github.com/Carthage/Carthage#if-youre-building-for-os-x) guide.
 - If you're building for iOS, tvOS, or watchOS, follow [this](https://github.com/Carthage/Carthage#if-youre-building-for-ios-tvos-or-watchos) guide.
+
+### Swift Package Manager
+
+[Swift Package Manager](https://swift.org/package-manager/)  is a tool for managing the distribution of Swift code. It’s integrated with the Swift build system to automate the process of downloading, compiling, and linking dependencies.
+
+
+####  Manual Xcode integration
+
+To integrate Pusher Beams into your Xcode project using Swift Package Manager, in your Xcode choose `File` > `Swift Packages` > `Add Package Dependency...`  and provide the following URL:
+
+```
+https://github.com/pusher/push-notifications-swift
+```
+
+####  Swift Package Manager dependency
+
+To add Pusher Beams as a dependency of your own package use the follwing code:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/pusher/push-notifications-swift.git", from: "3.0.2")
+]
+```
 
 ## Migrating from 2.x.x to 3.x.x
 
