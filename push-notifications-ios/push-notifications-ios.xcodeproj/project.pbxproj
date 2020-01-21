@@ -126,6 +126,7 @@
 				TargetAttributes = {
 					A17D4CFC2018947B00C01431 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1130;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
