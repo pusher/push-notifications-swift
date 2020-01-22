@@ -442,12 +442,12 @@
 				TargetAttributes = {
 					A155BFB21F9E38040070A609 = {
 						CreatedOnToolsVersion = 9.1;
-						LastSwiftMigration = 0910;
+						LastSwiftMigration = 1130;
 						ProvisioningStyle = Automatic;
 					};
 					A155BFBB1F9E38040070A609 = {
 						CreatedOnToolsVersion = 9.1;
-						LastSwiftMigration = 0910;
+						LastSwiftMigration = 1130;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -458,6 +458,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = A155BFA91F9E38040070A609;
 			productRefGroup = A155BFB41F9E38040070A609 /* Products */;
