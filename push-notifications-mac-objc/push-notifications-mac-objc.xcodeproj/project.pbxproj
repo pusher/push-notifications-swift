@@ -313,6 +313,7 @@
 				DEVELOPMENT_TEAM = H7FL434D9W;
 				INFOPLIST_FILE = "push-notifications-mac-objc/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MARKETING_VERSION = 3.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.pusher.push-notifications-mac-objc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -329,6 +330,7 @@
 				DEVELOPMENT_TEAM = H7FL434D9W;
 				INFOPLIST_FILE = "push-notifications-mac-objc/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MARKETING_VERSION = 3.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.pusher.push-notifications-mac-objc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

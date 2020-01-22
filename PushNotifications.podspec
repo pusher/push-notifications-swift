@@ -1,10 +1,10 @@
 Pod::Spec.new do |s|
   s.name             = 'PushNotifications'
-  s.version          = '3.0.1'
+  s.version          = '3.0.2'
   s.summary          = 'PushNotifications SDK'
   s.homepage         = 'https://github.com/pusher/push-notifications-swift'
   s.license          = 'MIT'
-  s.author           = { "Luka Bratos" => "luka@pusher.com" }
+  s.author           = { "Pusher Limited" => "support@pusher.com" }
   s.source           = { git: "https://github.com/pusher/push-notifications-swift.git", tag: s.version.to_s }
   s.social_media_url = 'https://twitter.com/pusher'
   s.documentation_url = 'https://pusher.github.io/push-notifications-swift/Classes/PushNotifications.html'
