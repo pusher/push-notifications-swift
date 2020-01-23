@@ -25,7 +25,6 @@
 //    NSError *anyError;
 //    [pn2 addDeviceInterestWithInterest:@"debug-carrots" error:&anyError]
     
-    
 
     return YES;
 }
