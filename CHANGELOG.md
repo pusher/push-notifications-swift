@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased](https://github.com/pusher/push-notifications-swift/compare/3.0.2...HEAD)
 
+## Fixed
+
+- Ensure all public methods are accessible with objective-c
+
 ## [3.0.1](https://github.com/pusher/push-notifications-swift/compare/3.0.1...3.0.2)
 
 ## Added
