@@ -114,10 +114,16 @@ import Foundation
      */
     /// - Tag: stop
     @objc public static func stop(completion: @escaping () -> Void) {
-        if let staticInstance = instance {
-            staticInstance.stop(completion: completion)
-        } else {
-            fatalError("PushNotifications.shared.start must have been called first")
+        let instances = DeviceStateStore().getInstanceIds()
+        let dispatchGroup = DispatchGroup()
+
+        for instance in instances {
+            dispatchGroup.enter()
+            PushNotifications(instanceId: instance).stop(completion: dispatchGroup.leave)
+        }
+
+        dispatchGroup.notify(queue: .main) {
+            completion()
         }
     }
     
