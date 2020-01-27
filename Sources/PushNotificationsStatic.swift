@@ -131,15 +131,16 @@ import Foundation
     /// - Tag: clearAllState
     @objc public static func clearAllState(completion: @escaping () -> Void) {
         let instances = DeviceStateStore().getInstanceIds()
-        let dgroup = DispatchGroup()
+        let dispatchGroup = DispatchGroup()
 
         for instance in instances {
-            dgroup.enter()
-            PushNotifications(instanceId: instance).clearAllState(completion: dgroup.leave)
+            dispatchGroup.enter()
+            PushNotifications(instanceId: instance).clearAllState(completion: dispatchGroup.leave)
         }
 
-        dgroup.wait()
-        completion()
+        dispatchGroup.notify(queue: .main) {
+            completion()
+        }
     }
     
     /**
