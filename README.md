@@ -43,7 +43,7 @@ use_frameworks!
 
 # Replace `<Your Target Name>` with your app's target name.
 target '<Your Target Name>' do
-    pod 'PushNotifications', '~> 3.0.3'
+    pod 'PushNotifications', '~> 3.0.4'
 end
 ```
 
@@ -96,7 +96,7 @@ To add Pusher Beams as a dependency of your own package use the follwing code:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/pusher/push-notifications-swift.git", from: "3.0.3")
+    .package(url: "https://github.com/pusher/push-notifications-swift.git", from: "3.0.4")
 ]
 ```
 
