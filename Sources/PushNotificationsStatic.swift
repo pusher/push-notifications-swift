@@ -130,11 +130,16 @@ import Foundation
      */
     /// - Tag: clearAllState
     @objc public static func clearAllState(completion: @escaping () -> Void) {
-        if let staticInstance = instance {
-            staticInstance.clearAllState(completion: completion)
-        } else {
-            fatalError("PushNotifications.shared.start must have been called first")
+        let instances = DeviceStateStore().getInstanceIds()
+        let dgroup = DispatchGroup()
+
+        for instance in instances {
+            dgroup.enter()
+            PushNotifications(instanceId: instance).clearAllState(completion: dgroup.leave)
         }
+
+        dgroup.wait()
+        completion()
     }
     
     /**
