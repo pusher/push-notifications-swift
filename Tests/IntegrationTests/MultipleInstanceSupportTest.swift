@@ -130,6 +130,84 @@ class MultipleInstanceSupportTest: XCTestCase {
         expect(InstanceDeviceStateStore(TestHelper.instanceId2).getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
     }
     
+    func testCallingClearAllStateShouldNotCrashIfNoInstancesExist() {
+        let exp = expectation(description: "clearAllState completion handler should succeed")
+
+        PushNotificationsStatic.clearAllState {
+            exp.fulfill()
+        }
+        
+        waitForExpectations(timeout: 1)
+    }
+    
+    func testCallingClearAllStateShouldClearAllInstancesState() {
+        let pni1 = PushNotifications(instanceId: TestHelper.instanceId)
+        let pni2 = PushNotifications(instanceId: TestHelper.instanceId2)
+        
+        pni1.start()
+        pni2.start()
+        
+        pni1.registerDeviceToken(validAPNsToken)
+        
+        expect(InstanceDeviceStateStore(TestHelper.instanceId).getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        expect(InstanceDeviceStateStore(TestHelper.instanceId2).getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        
+        let device1 = InstanceDeviceStateStore(TestHelper.instanceId).getDeviceId()!
+        let device2 = InstanceDeviceStateStore(TestHelper.instanceId2).getDeviceId()!
+
+        let exp = expectation(description: "clearAllState completion handler should succeed")
+        PushNotificationsStatic.clearAllState {
+            exp.fulfill()
+        }
+        
+        waitForExpectations(timeout: 10)
+        
+        // the server shouldn't have these devices anymore
+        expect(TestAPIClientHelper().getDevice(instanceId: TestHelper.instanceId, deviceId: device1))
+            .toEventually(beNil(), timeout: 10)
+        expect(TestAPIClientHelper().getDevice(instanceId: TestHelper.instanceId2, deviceId: device2))
+            .toEventually(beNil(), timeout: 10)
+    }
+    
+    func testCallingStopShouldNotCrashIfNoInstancesExist() {
+        let exp = expectation(description: "stop completion handler should succeed")
+
+        PushNotificationsStatic.stop {
+            exp.fulfill()
+        }
+        
+        waitForExpectations(timeout: 1)
+    }
+    
+    func testCallingStopShouldClearAllInstancesState() {
+        let pni1 = PushNotifications(instanceId: TestHelper.instanceId)
+        let pni2 = PushNotifications(instanceId: TestHelper.instanceId2)
+        
+        pni1.start()
+        pni2.start()
+        
+        pni1.registerDeviceToken(validAPNsToken)
+        
+        expect(InstanceDeviceStateStore(TestHelper.instanceId).getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        expect(InstanceDeviceStateStore(TestHelper.instanceId2).getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        
+        let device1 = InstanceDeviceStateStore(TestHelper.instanceId).getDeviceId()!
+        let device2 = InstanceDeviceStateStore(TestHelper.instanceId2).getDeviceId()!
+
+        let exp = expectation(description: "stop completion handler should succeed")
+        PushNotificationsStatic.stop {
+            exp.fulfill()
+        }
+        
+        waitForExpectations(timeout: 10)
+        
+        // the server shouldn't have these devices anymore
+        expect(TestAPIClientHelper().getDevice(instanceId: TestHelper.instanceId, deviceId: device1))
+            .toEventually(beNil(), timeout: 10)
+        expect(TestAPIClientHelper().getDevice(instanceId: TestHelper.instanceId2, deviceId: device2))
+            .toEventually(beNil(), timeout: 10)
+    }
+    
     class StubTokenProvider: TokenProvider {
         private let jwt: String
         private let error: Error?
