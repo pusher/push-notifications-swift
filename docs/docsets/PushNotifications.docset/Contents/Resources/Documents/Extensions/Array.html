@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>RemoteNotificationType Enumeration Reference</title>
+    <title>Array Extension Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Enum/RemoteNotificationType" class="dashAnchor"></a>
-    <a title="RemoteNotificationType Enumeration Reference"></a>
+    <a name="//apple_ref/swift/Extension/Array" class="dashAnchor"></a>
+    <a title="Array Extension Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">PushNotifications Docs</a> (100% documented)</p>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">PushNotifications Reference</a>
         <img id="carat" src="../img/carat.png" />
-        RemoteNotificationType Enumeration Reference
+        Array Extension Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -135,34 +135,34 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>RemoteNotificationType</h1>
+            <h1>Array</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">enum</span> <span class="kt">RemoteNotificationType</span> <span class="p">:</span> <span class="kt">Int</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Array</span> <span class="k">where</span> <span class="kt">Element</span> <span class="o">==</span> <span class="kt">String</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Array</span> <span class="k">where</span> <span class="kt">Element</span><span class="p">:</span> <span class="kt">Comparable</span></code></pre>
 
                 </div>
               </div>
-            <p>Remote Notification Type provides an option to ignore Pusher initiated related features.
-Whenever you receive push notification the <a href="https://docs.pusher.com/beams/reference/ios#handle-notification">handleNotification(userInfo:)</a> method should be called.
-Sometimes, these notifications are just for Pusher SDK to handle.</p>
-
-<p><em>Values</em></p>
-
-<p><code>ShouldIgnore</code> It&rsquo;s safe to ignore Pusher initiated notification.</p>
-
-<p><code>ShouldProcess</code> Do not ignore notification as it may contain additional data.</p>
-
+            
           </section>
           <section class="section task-group-section">
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Element%60%20==%20%60String%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Element` == `String`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Element%60%20==%20%60String%60"></a>
+                  <h3 class="section-name"><p>Available where <code>Element</code> == <code>String</code></p>
+</h3>
+                </div>
+              </div>
               <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PushNotifications@E@RemoteNotificationType@RemoteNotificationTypeShouldIgnore"></a>
-                    <a name="//apple_ref/swift/Element/ShouldIgnore" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PushNotifications@E@RemoteNotificationType@RemoteNotificationTypeShouldIgnore">ShouldIgnore</a>
+                    <a name="/s:Sa17PushNotificationsSSRszlE16calculateMD5HashSSyF"></a>
+                    <a name="//apple_ref/swift/Method/calculateMD5Hash()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sa17PushNotificationsSSRszlE16calculateMD5HashSSyF">calculateMD5Hash()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -170,26 +170,38 @@ Sometimes, these notifications are just for Pusher SDK to handle.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Ignore Pusher initiated notification.</p>
-
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="kt">ShouldIgnore</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">calculateMD5Hash</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Element%60:%20%60Comparable%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Element`: `Comparable`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Element%60:%20%60Comparable%60"></a>
+                  <h3 class="section-name"><p>Available where <code>Element</code>: <code>Comparable</code></p>
+</h3>
+                </div>
+              </div>
+              <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PushNotifications@E@RemoteNotificationType@RemoteNotificationTypeShouldProcess"></a>
-                    <a name="//apple_ref/swift/Element/ShouldProcess" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PushNotifications@E@RemoteNotificationType@RemoteNotificationTypeShouldProcess">ShouldProcess</a>
+                    <a name="/s:Sa17PushNotificationsSLRzlE20containsSameElements2asSbSayxG_tF"></a>
+                    <a name="//apple_ref/swift/Method/containsSameElements(as:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sa17PushNotificationsSLRzlE20containsSameElements2asSbSayxG_tF">containsSameElements(as:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -197,14 +209,13 @@ Sometimes, these notifications are just for Pusher SDK to handle.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Do not ignore notification.</p>
-
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="kt">ShouldProcess</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">containsSameElements</span><span class="p">(</span><span class="k">as</span> <span class="nv">other</span><span class="p">:</span> <span class="p">[</span><span class="kt">Element</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>

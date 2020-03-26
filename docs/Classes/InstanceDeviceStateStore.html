@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>RemoteNotificationType Enumeration Reference</title>
+    <title>InstanceDeviceStateStore Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Enum/RemoteNotificationType" class="dashAnchor"></a>
-    <a title="RemoteNotificationType Enumeration Reference"></a>
+    <a name="//apple_ref/swift/Class/InstanceDeviceStateStore" class="dashAnchor"></a>
+    <a title="InstanceDeviceStateStore Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">PushNotifications Docs</a> (100% documented)</p>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">PushNotifications Reference</a>
         <img id="carat" src="../img/carat.png" />
-        RemoteNotificationType Enumeration Reference
+        InstanceDeviceStateStore Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -135,24 +135,14 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>RemoteNotificationType</h1>
+            <h1>InstanceDeviceStateStore</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">enum</span> <span class="kt">RemoteNotificationType</span> <span class="p">:</span> <span class="kt">Int</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">InstanceDeviceStateStore</span></code></pre>
 
                 </div>
               </div>
-            <p>Remote Notification Type provides an option to ignore Pusher initiated related features.
-Whenever you receive push notification the <a href="https://docs.pusher.com/beams/reference/ios#handle-notification">handleNotification(userInfo:)</a> method should be called.
-Sometimes, these notifications are just for Pusher SDK to handle.</p>
-
-<p><em>Values</em></p>
-
-<p><code>ShouldIgnore</code> It&rsquo;s safe to ignore Pusher initiated notification.</p>
-
-<p><code>ShouldProcess</code> Do not ignore notification as it may contain additional data.</p>
-
+            
           </section>
           <section class="section task-group-section">
             <div class="task-group">
@@ -160,9 +150,9 @@ Sometimes, these notifications are just for Pusher SDK to handle.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PushNotifications@E@RemoteNotificationType@RemoteNotificationTypeShouldIgnore"></a>
-                    <a name="//apple_ref/swift/Element/ShouldIgnore" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PushNotifications@E@RemoteNotificationType@RemoteNotificationTypeShouldIgnore">ShouldIgnore</a>
+                    <a name="/s:17PushNotifications24InstanceDeviceStateStoreC11synchronize1fxxyXE_tlFZ"></a>
+                    <a name="//apple_ref/swift/Method/synchronize(f:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17PushNotifications24InstanceDeviceStateStoreC11synchronize1fxxyXE_tlFZ">synchronize(f:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -170,41 +160,13 @@ Sometimes, these notifications are just for Pusher SDK to handle.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Ignore Pusher initiated notification.</p>
-
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="kt">ShouldIgnore</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PushNotifications@E@RemoteNotificationType@RemoteNotificationTypeShouldProcess"></a>
-                    <a name="//apple_ref/swift/Element/ShouldProcess" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PushNotifications@E@RemoteNotificationType@RemoteNotificationTypeShouldProcess">ShouldProcess</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Do not ignore notification.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="kt">ShouldProcess</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="n">synchronize</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">f</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">T</span></code></pre>
 
                         </div>
                       </div>
