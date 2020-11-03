@@ -1,5 +1,6 @@
 import XCTest
 import OHHTTPStubs
+import OHHTTPStubsSwift
 @testable import PushNotifications
 
 class BeamsTokenProviderTests: XCTestCase {
@@ -18,7 +19,7 @@ class BeamsTokenProviderTests: XCTestCase {
 
     override func tearDown() {
         self.beamsTokenProvider = nil
-        OHHTTPStubs.removeAllStubs()
+        HTTPStubs.removeAllStubs()
         super.tearDown()
     }
 
@@ -31,7 +32,7 @@ class BeamsTokenProviderTests: XCTestCase {
             "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NDA1NjA"
         ]
         stub(condition: isAbsoluteURLString(url.absoluteString)) { _ in
-            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
         }
 
         let exp = expectation(description: "It should successfully fetch the token")
@@ -61,7 +62,7 @@ class BeamsTokenProviderTests: XCTestCase {
         let responseToken = ""
         let stubData = responseToken.data(using: .utf8)
         stub(condition: isAbsoluteURLString(url.absoluteString)) { _ in
-            return OHHTTPStubsResponse(data: stubData!, statusCode: 500, headers: nil)
+            return HTTPStubsResponse(data: stubData!, statusCode: 500, headers: nil)
         }
 
         let exp = expectation(description: "It should return an error.")
@@ -91,7 +92,7 @@ class BeamsTokenProviderTests: XCTestCase {
     func testBeamsTokenIsNil() {
         let url = self.authURL()
         stub(condition: isAbsoluteURLString(url.absoluteString)) { _ in
-            return OHHTTPStubsResponse(error: PushNotificationsError.error("[PushNotifications] - BeamsTokenProvider: Token is nil"))
+            return HTTPStubsResponse(error: PushNotificationsError.error("[PushNotifications] - BeamsTokenProvider: Token is nil"))
         }
 
         let exp = expectation(description: "It should return an error.")
