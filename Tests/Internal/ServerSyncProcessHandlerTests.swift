@@ -1,5 +1,8 @@
 import XCTest
 import OHHTTPStubs
+#if canImport(OHHTTPStubsSwift)
+import OHHTTPStubsSwift
+#endif
 @testable import PushNotifications
 
 class ServerSyncProcessHandlerTests: XCTestCase {
@@ -22,7 +25,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
     }
 
     override func tearDown() {
-        OHHTTPStubs.removeAllStubs()
+        HTTPStubs.removeAllStubs()
         TestHelper.clearEverything(instanceId: instanceId)
         super.tearDown()
     }
@@ -38,7 +41,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
 
             exp.fulfill()
 
-            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
         }
 
         let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
@@ -66,9 +69,9 @@ class ServerSyncProcessHandlerTests: XCTestCase {
                     "id": self.deviceId
                 ]
 
-                return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+                return HTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
             } else {
-                return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 500, headers: nil)
+                return HTTPStubsResponse(jsonObject: jsonObject, statusCode: 500, headers: nil)
             }
         }
 
@@ -90,7 +93,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
 
         stub(condition: anyRequestIsFineReally) { _ in
             exp.fulfill()
-            return OHHTTPStubsResponse(jsonObject: [], statusCode: 500, headers: nil)
+            return HTTPStubsResponse(jsonObject: [], statusCode: 500, headers: nil)
         }
 
         let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
@@ -113,7 +116,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
                 "initialInterestSet": ["interest-x", "hello"]
             ]
 
-            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
         }
 
         let jobs = [
@@ -160,7 +163,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
                 "initialInterestSet": ["interest-x", "hello"]
             ]
 
-            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
         }
 
         let jobs = [
@@ -193,14 +196,14 @@ class ServerSyncProcessHandlerTests: XCTestCase {
                 "initialInterestSet": ["interest-x", "hello"]
             ]
 
-            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
         }
 
         let exp = expectation(description: "It should successfully set subscriptions")
         let setInterestsURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(self.deviceId)/interests")!
         stub(condition: isMethodPUT() && isAbsoluteURLString(setInterestsURL.absoluteString)) { _ in
             exp.fulfill()
-            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
         }
 
         let jobs = [
@@ -236,7 +239,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
                 "initialInterestSet": ["interest-x", "hello"]
             ]
 
-            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
         }
 
         let exp = expectation(description: "It should not call set subscriptions")
@@ -244,7 +247,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         let setInterestsURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(self.deviceId)/interests")!
         stub(condition: isMethodPUT() && isAbsoluteURLString(setInterestsURL.absoluteString)) { _ in
             exp.fulfill()
-            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
         }
 
         let jobs = [
@@ -275,7 +278,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
                 "initialInterestSet": ["interest-x", "hello"]
             ]
 
-            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
         }
 
         let jobs = [
@@ -300,13 +303,13 @@ class ServerSyncProcessHandlerTests: XCTestCase {
                 "initialInterestSet": ["interest-x", "hello"]
             ]
 
-            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
         }
 
         let deleteURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)")!
 
         stub(condition: isAbsoluteURLString(deleteURL.absoluteString)) { _ in
-            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
         }
 
         let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
@@ -339,25 +342,25 @@ class ServerSyncProcessHandlerTests: XCTestCase {
 
             expRegisterCalled = true
 
-            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
         }
 
         let addInterestURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(self.deviceId)/interests/hello")!
         stub(condition: isMethodPOST() && isAbsoluteURLString(addInterestURL.absoluteString)) { _ in
             expSubscribeCalled = true
-            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
         }
 
         let removeInterestURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(self.deviceId)/interests/hello")!
         stub(condition: isMethodDELETE() && isAbsoluteURLString(removeInterestURL.absoluteString)) { _ in
             expUnsubscribeCalled = true
-            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
         }
 
         let setSubscriptionsURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(self.deviceId)/interests")!
         stub(condition: isMethodPUT() && isAbsoluteURLString(setSubscriptionsURL.absoluteString)) { _ in
             expSetSubscriptionsCalled = true
-            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
         }
 
         let jobs = [
@@ -395,17 +398,17 @@ class ServerSyncProcessHandlerTests: XCTestCase {
 
             isFirstTimeRegistering = false
 
-            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
         }
 
         let subscribeURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/interests/hello")!
         stub(condition: isMethodPOST() && isAbsoluteURLString(subscribeURL.absoluteString)) { _ in
-            return OHHTTPStubsResponse(jsonObject: [], statusCode: 404, headers: nil)
+            return HTTPStubsResponse(jsonObject: [], statusCode: 404, headers: nil)
         }
 
         let subscribe2URL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(newDeviceId)/interests/hello")!
         stub(condition: isMethodPOST() && isAbsoluteURLString(subscribe2URL.absoluteString)) { _ in
-            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
         }
 
         let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
@@ -439,17 +442,17 @@ class ServerSyncProcessHandlerTests: XCTestCase {
 
             isFirstTimeRegistering = false
 
-            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
         }
 
         let subscribeURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/interests/hello")!
         stub(condition: isMethodPOST() && isAbsoluteURLString(subscribeURL.absoluteString)) { _ in
-            return OHHTTPStubsResponse(jsonObject: [], statusCode: 404, headers: nil)
+            return HTTPStubsResponse(jsonObject: [], statusCode: 404, headers: nil)
         }
 
         let subscribe2URL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(newDeviceId)/interests/hello")!
         stub(condition: isMethodPOST() && isAbsoluteURLString(subscribe2URL.absoluteString)) { _ in
-            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
         }
 
         // Pretending we already stored the user id.
@@ -478,19 +481,19 @@ class ServerSyncProcessHandlerTests: XCTestCase {
                 "id": self.deviceId
             ]
 
-            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
         }
 
         let deleteURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)")!
         stub(condition: isAbsoluteURLString(deleteURL.absoluteString)) { _ in
-            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
         }
 
         var numMetadataCalled = 0
         let metadataURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/metadata")!
         stub(condition: isMethodPUT() && isAbsoluteURLString(metadataURL.absoluteString)) { _ in
             numMetadataCalled += 1
-            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
         }
 
         let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
@@ -530,19 +533,19 @@ class ServerSyncProcessHandlerTests: XCTestCase {
                 "id": self.deviceId
             ]
 
-            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
         }
 
         let deleteURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)")!
         stub(condition: isAbsoluteURLString(deleteURL.absoluteString)) { _ in
-            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
         }
 
         var numInterestsCalled = 0
         let setInterestsURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/interests")!
         stub(condition: isMethodPUT() && isAbsoluteURLString(setInterestsURL.absoluteString)) { _ in
             numInterestsCalled += 1
-            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
         }
 
         let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
@@ -582,7 +585,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
                 "id": self.deviceId
             ]
 
-            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
         }
 
         let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
@@ -600,7 +603,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
         let setUserIdURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/user")!
         stub(condition: isMethodPUT() && isAbsoluteURLString(setUserIdURL.absoluteString)) { _ in
             exp.fulfill()
-            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
         }
 
         serverSyncProcessHandler.jobQueue.append(setUserIdJob)
@@ -618,7 +621,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
                 "id": self.deviceId
             ]
 
-            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
         }
 
         let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
@@ -644,7 +647,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
 
         let setUserIdURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/user")!
         stub(condition: isMethodPUT() && isAbsoluteURLString(setUserIdURL.absoluteString)) { _ in
-            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
         }
 
         serverSyncProcessHandler.jobQueue.append(setUserIdJob)
@@ -660,7 +663,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
                 "id": self.deviceId
             ]
 
-            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
         }
 
         let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
@@ -686,7 +689,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
 
         let setUserIdURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/user")!
         stub(condition: isMethodPUT() && isAbsoluteURLString(setUserIdURL.absoluteString)) { _ in
-            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
         }
 
         serverSyncProcessHandler.jobQueue.append(setUserIdJob)
@@ -702,7 +705,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
                 "id": self.deviceId
             ]
 
-            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
         }
 
         let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
@@ -729,7 +732,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
 
         let setUserIdURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/user")!
         stub(condition: isMethodPUT() && isAbsoluteURLString(setUserIdURL.absoluteString)) { _ in
-            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
         }
 
         serverSyncProcessHandler.jobQueue.append(setUserIdJob)
@@ -745,7 +748,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
                 "id": self.deviceId
             ]
 
-            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
         }
 
         let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
@@ -772,7 +775,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
 
         let setUserIdURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/user")!
         stub(condition: isMethodPUT() && isAbsoluteURLString(setUserIdURL.absoluteString)) { _ in
-            return OHHTTPStubsResponse(jsonObject: [], statusCode: 400, headers: nil)
+            return HTTPStubsResponse(jsonObject: [], statusCode: 400, headers: nil)
         }
 
         serverSyncProcessHandler.jobQueue.append(setUserIdJob)
@@ -788,7 +791,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
                 "id": self.deviceId
             ]
 
-            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
         }
 
         let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
@@ -815,7 +818,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
 
         let setUserIdURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/user")!
         stub(condition: isMethodPUT() && isAbsoluteURLString(setUserIdURL.absoluteString)) { _ in
-            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
         }
 
         serverSyncProcessHandler.jobQueue.append(setUserIdJob)
@@ -837,13 +840,13 @@ class ServerSyncProcessHandlerTests: XCTestCase {
 
             expRegisterCalled = true
 
-            return OHHTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
         }
 
         let trackURL = URL(string: "https://\(instanceId).pushnotifications.pusher.com/reporting_api/v2/instances/\(instanceId)/events")!
         stub(condition: isMethodPOST() && isAbsoluteURLString(trackURL.absoluteString)) { _ in
             trackCalled = true
-            return OHHTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
+            return HTTPStubsResponse(jsonObject: [], statusCode: 200, headers: nil)
         }
 
         let startJob = ServerSyncJob.StartJob(instanceId: instanceId, token: deviceToken)
