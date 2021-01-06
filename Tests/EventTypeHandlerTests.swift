@@ -103,7 +103,7 @@ class EventTypeHandlerTests: XCTestCase {
     func testEventTypeOpen() {
         let userInfo = ["aps": ["alert": ["title": "Hello", "body": "Hello, world!"], "content-available": 1], "data": ["pusher": ["instanceId": "1b880590-6301-4bb5-b34f-45db1c5f5644", "publishId": "pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df"]]]
         guard let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo) else {
-            return XCTFail()
+            return XCTFail("The 'eventType' should not be 'nil'")
         }
 
         XCTAssertTrue(eventType.event == Constants.ReportEventType.open)
@@ -115,7 +115,7 @@ class EventTypeHandlerTests: XCTestCase {
 
         let userInfo = ["aps": ["content-available": 1], "data": ["pusher": ["instanceId": "1b880590-6301-4bb5-b34f-45db1c5f5644", "publishId": "pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df"]]]
         guard let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo) else {
-            return XCTFail()
+            return XCTFail("The 'eventType' should not be 'nil'")
         }
 
         XCTAssertNotNil(eventType.userId)
@@ -125,7 +125,7 @@ class EventTypeHandlerTests: XCTestCase {
     func testUserIdEmpty() {
         let userInfo = ["aps": ["content-available": 1], "data": ["pusher": ["instanceId": "1b880590-6301-4bb5-b34f-45db1c5f5644", "publishId": "pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df", "userId": nil]]]
         guard let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo) else {
-            return XCTFail()
+            return XCTFail("The 'eventType' should not be 'nil'")
         }
         XCTAssertNil(eventType.userId)
         XCTAssertEqual(eventType.userId, nil)

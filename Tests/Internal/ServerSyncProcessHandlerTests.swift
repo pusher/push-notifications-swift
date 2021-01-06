@@ -137,7 +137,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
                 XCTAssertTrue(interests.containsSameElements(as: Array(expectedInterestsSet)))
                 exp.fulfill()
             default:
-                XCTFail()
+                XCTFail("The event should be of type '.InterestsChangedEvent'")
             }
             return
         }
@@ -635,7 +635,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
                 case .UserIdSetEvent("cucas", nil):
                     exp.fulfill()
                 default:
-                    XCTFail()
+                    XCTFail("The event should be of type '.UserIdSetEvent'")
                 }
             }
         )
@@ -677,7 +677,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
                     XCTAssertNotNil(error)
                     exp.fulfill()
                 default:
-                    XCTFail()
+                    XCTFail("The event should be of type '.UserIdSetEvent'")
                 }
         }
         )
@@ -720,7 +720,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
                     XCTAssertNotNil(error)
                     exp.fulfill()
                 default:
-                    XCTFail()
+                    XCTFail("The event should be of type '.UserIdSetEvent'")
                 }
         }
         )
@@ -763,7 +763,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
                     XCTAssertNotNil(error)
                     exp.fulfill()
                 default:
-                    XCTFail()
+                    XCTFail("The event should be of type '.UserIdSetEvent'")
                 }
         }
         )
@@ -806,7 +806,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
                     XCTAssertNotNil(error)
                     exp.fulfill()
                 default:
-                    XCTFail()
+                    XCTFail("The event should be of type '.UserIdSetEvent'")
                 }
         }
         )

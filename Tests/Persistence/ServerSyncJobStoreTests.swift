@@ -27,14 +27,14 @@ class ServerSyncJobStoreTests: XCTestCase {
         if case .SetUserIdJob(let userId) = list[0] {
             XCTAssertEqual(userId, "danielle")
         } else {
-            XCTFail()
+            XCTFail("The job should be of type '.SetUserIdJob'")
         }
 
         if let firstElement = jobstore.first,
             case .SetUserIdJob(let userId) = firstElement {
             XCTAssertEqual(userId, "danielle")
         } else {
-            XCTFail()
+            XCTFail("The job should be of type '.SetUserIdJob'")
         }
 
         jobstore.removeFirst()

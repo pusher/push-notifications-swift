@@ -30,7 +30,7 @@ class DeviceInterestsTest: XCTestCase {
         let allInterests = invalidInterests + validInterests
         XCTAssertThrowsError(try pushNotifications.setDeviceInterests(interests: allInterests)) { error in
             guard case MultipleInvalidInterestsError.invalidNames(let names) = error else {
-                return XCTFail()
+                return XCTFail("The error should be of type 'MultipleInvalidInterestsError'")
             }
 
             XCTAssertNotNil(names)

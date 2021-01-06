@@ -70,18 +70,14 @@ struct ServerSyncJobStore {
     }
 
     var isEmpty: Bool {
-        get {
-            return syncJobStoreQueue.sync {
-                return self.jobStoreArray.isEmpty
-            }
+        return syncJobStoreQueue.sync {
+            return self.jobStoreArray.isEmpty
         }
     }
 
     var first: ServerSyncJob? {
-        get {
-            return syncJobStoreQueue.sync {
-                return jobStoreArray.first
-            }
+        return syncJobStoreQueue.sync {
+            return jobStoreArray.first
         }
     }
 
