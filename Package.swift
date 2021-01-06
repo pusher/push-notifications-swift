@@ -11,9 +11,9 @@ let package = Package(name: "PushNotifications",
                       ],
                       dependencies: [
                         .package(url: "https://github.com/Quick/Nimble",
-                                 .upToNextMajor(from: "8.1.2")),
-                        .package(url: "https://github.com/AliSoftware/OHHTTPStubs",
                                  .upToNextMajor(from: "9.0.0")),
+                        .package(url: "https://github.com/AliSoftware/OHHTTPStubs",
+                                 .upToNextMajor(from: "9.1.0")),
                       ],
                       targets: [
                         .target(name: "PushNotifications",
