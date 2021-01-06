@@ -24,17 +24,17 @@ class ApplicationStartTests: XCTestCase {
         pushNotifications.registerDeviceToken(validToken)
 
         let deviceStateStore = InstanceDeviceStateStore(self.instanceId)
-        expect(deviceStateStore.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        expect(deviceStateStore.getDeviceId()).toEventuallyNot(beNil(), timeout: .seconds(10))
         let deviceId = deviceStateStore.getDeviceId()!
 
         expect(TestAPIClientHelper().getDeviceInterests(instanceId: self.instanceId, deviceId: deviceId))
-            .toEventually(equal([]), timeout: 10)
+            .toEventually(equal([]), timeout: .seconds(10))
 
         _ = InstanceDeviceStateStore(self.instanceId).persistInterests(["cucas", "panda", "potato"])
         pushNotifications.start()
 
         expect(TestAPIClientHelper().getDeviceInterests(instanceId: self.instanceId, deviceId: deviceId))
-            .toEventually(contain("cucas", "panda", "potato"), timeout: 10)
+            .toEventually(contain("cucas", "panda", "potato"), timeout: .seconds(10))
     }
 }
 

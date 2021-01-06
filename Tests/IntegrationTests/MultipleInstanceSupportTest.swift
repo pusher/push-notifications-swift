@@ -51,9 +51,9 @@ class MultipleInstanceSupportTest: XCTestCase {
         let deviceId2 = InstanceDeviceStateStore(TestHelper.instanceId2).getDeviceId()!
 
         expect(TestAPIClientHelper().getDevice(instanceId: TestHelper.instanceId, deviceId: deviceId1)?.userId)
-            .toEventually(equal("cucas"), timeout: 30)
+            .toEventually(equal("cucas"), timeout: .seconds(30))
         expect(TestAPIClientHelper().getDevice(instanceId: TestHelper.instanceId2, deviceId: deviceId2)?.userId)
-        .toEventually(equal("jess"), timeout: 30)
+        .toEventually(equal("jess"), timeout: .seconds(30))
     }
     
     func testStoppingOneShouldNotStopTheOther() {
@@ -66,13 +66,13 @@ class MultipleInstanceSupportTest: XCTestCase {
         pni1.registerDeviceToken(validAPNsToken)
         pni2.registerDeviceToken(validAPNsToken)
         
-        expect(InstanceDeviceStateStore(TestHelper.instanceId).getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
-        expect(InstanceDeviceStateStore(TestHelper.instanceId2).getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        expect(InstanceDeviceStateStore(TestHelper.instanceId).getDeviceId()).toEventuallyNot(beNil(), timeout: .seconds(10))
+        expect(InstanceDeviceStateStore(TestHelper.instanceId2).getDeviceId()).toEventuallyNot(beNil(), timeout: .seconds(10))
         
         pni1.stop { }
         
-        expect(InstanceDeviceStateStore(TestHelper.instanceId).getDeviceId()).toEventually(beNil(), timeout: 10)
-        expect(InstanceDeviceStateStore(TestHelper.instanceId2).getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        expect(InstanceDeviceStateStore(TestHelper.instanceId).getDeviceId()).toEventually(beNil(), timeout: .seconds(10))
+        expect(InstanceDeviceStateStore(TestHelper.instanceId2).getDeviceId()).toEventuallyNot(beNil(), timeout: .seconds(10))
     }
     
     func testInterestsShouldNotAffectEachOther() {
@@ -85,8 +85,8 @@ class MultipleInstanceSupportTest: XCTestCase {
         pni1.registerDeviceToken(validAPNsToken)
         pni2.registerDeviceToken(validAPNsToken)
         
-        expect(InstanceDeviceStateStore(TestHelper.instanceId).getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
-        expect(InstanceDeviceStateStore(TestHelper.instanceId2).getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        expect(InstanceDeviceStateStore(TestHelper.instanceId).getDeviceId()).toEventuallyNot(beNil(), timeout: .seconds(10))
+        expect(InstanceDeviceStateStore(TestHelper.instanceId2).getDeviceId()).toEventuallyNot(beNil(), timeout: .seconds(10))
         
         let device1 = InstanceDeviceStateStore(TestHelper.instanceId).getDeviceId()!
         let device2 = InstanceDeviceStateStore(TestHelper.instanceId2).getDeviceId()!
@@ -98,9 +98,9 @@ class MultipleInstanceSupportTest: XCTestCase {
         XCTAssertTrue(pni2.getDeviceInterests()!.containsSameElements(as: ["pizza", "burger", "chip"]))
         
         expect(TestAPIClientHelper().getDeviceInterests(instanceId: TestHelper.instanceId, deviceId: device1))
-            .toEventually(contain("carrot", "sweetcorn", "pea"), timeout: 10)
+            .toEventually(contain("carrot", "sweetcorn", "pea"), timeout: .seconds(10))
         expect(TestAPIClientHelper().getDeviceInterests(instanceId: TestHelper.instanceId2, deviceId: device2))
-            .toEventually(contain("pizza", "burger", "chip"), timeout: 10)
+            .toEventually(contain("pizza", "burger", "chip"), timeout: .seconds(10))
         
         try! pni1.addDeviceInterest(interest: "okra")
         try! pni1.removeDeviceInterest(interest: "sweetcorn")
@@ -111,9 +111,9 @@ class MultipleInstanceSupportTest: XCTestCase {
         XCTAssertTrue(pni2.getDeviceInterests()!.containsSameElements(as: ["pizza", "hotdog", "chip"]))
         
         expect(TestAPIClientHelper().getDeviceInterests(instanceId: TestHelper.instanceId, deviceId: device1))
-            .toEventually(contain("carrot", "okra", "pea"), timeout: 10)
+            .toEventually(contain("carrot", "okra", "pea"), timeout: .seconds(10))
         expect(TestAPIClientHelper().getDeviceInterests(instanceId: TestHelper.instanceId2, deviceId: device2))
-            .toEventually(contain("pizza", "hotdog", "chip"), timeout: 10)
+            .toEventually(contain("pizza", "hotdog", "chip"), timeout: .seconds(10))
         
     }
     
@@ -126,8 +126,8 @@ class MultipleInstanceSupportTest: XCTestCase {
         
         pni1.registerDeviceToken(validAPNsToken)
         
-        expect(InstanceDeviceStateStore(TestHelper.instanceId).getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
-        expect(InstanceDeviceStateStore(TestHelper.instanceId2).getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        expect(InstanceDeviceStateStore(TestHelper.instanceId).getDeviceId()).toEventuallyNot(beNil(), timeout: .seconds(10))
+        expect(InstanceDeviceStateStore(TestHelper.instanceId2).getDeviceId()).toEventuallyNot(beNil(), timeout: .seconds(10))
     }
     
     func testCallingClearAllStateShouldNotCrashIfNoInstancesExist() {
@@ -149,8 +149,8 @@ class MultipleInstanceSupportTest: XCTestCase {
         
         pni1.registerDeviceToken(validAPNsToken)
         
-        expect(InstanceDeviceStateStore(TestHelper.instanceId).getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
-        expect(InstanceDeviceStateStore(TestHelper.instanceId2).getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        expect(InstanceDeviceStateStore(TestHelper.instanceId).getDeviceId()).toEventuallyNot(beNil(), timeout: .seconds(10))
+        expect(InstanceDeviceStateStore(TestHelper.instanceId2).getDeviceId()).toEventuallyNot(beNil(), timeout: .seconds(10))
         
         let device1 = InstanceDeviceStateStore(TestHelper.instanceId).getDeviceId()!
         let device2 = InstanceDeviceStateStore(TestHelper.instanceId2).getDeviceId()!
@@ -164,9 +164,9 @@ class MultipleInstanceSupportTest: XCTestCase {
         
         // the server shouldn't have these devices anymore
         expect(TestAPIClientHelper().getDevice(instanceId: TestHelper.instanceId, deviceId: device1))
-            .toEventually(beNil(), timeout: 10)
+            .toEventually(beNil(), timeout: .seconds(10))
         expect(TestAPIClientHelper().getDevice(instanceId: TestHelper.instanceId2, deviceId: device2))
-            .toEventually(beNil(), timeout: 10)
+            .toEventually(beNil(), timeout: .seconds(10))
     }
     
     func testCallingStopShouldNotCrashIfNoInstancesExist() {
@@ -188,8 +188,8 @@ class MultipleInstanceSupportTest: XCTestCase {
         
         pni1.registerDeviceToken(validAPNsToken)
         
-        expect(InstanceDeviceStateStore(TestHelper.instanceId).getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
-        expect(InstanceDeviceStateStore(TestHelper.instanceId2).getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        expect(InstanceDeviceStateStore(TestHelper.instanceId).getDeviceId()).toEventuallyNot(beNil(), timeout: .seconds(10))
+        expect(InstanceDeviceStateStore(TestHelper.instanceId2).getDeviceId()).toEventuallyNot(beNil(), timeout: .seconds(10))
         
         let device1 = InstanceDeviceStateStore(TestHelper.instanceId).getDeviceId()!
         let device2 = InstanceDeviceStateStore(TestHelper.instanceId2).getDeviceId()!
@@ -203,9 +203,9 @@ class MultipleInstanceSupportTest: XCTestCase {
         
         // the server shouldn't have these devices anymore
         expect(TestAPIClientHelper().getDevice(instanceId: TestHelper.instanceId, deviceId: device1))
-            .toEventually(beNil(), timeout: 10)
+            .toEventually(beNil(), timeout: .seconds(10))
         expect(TestAPIClientHelper().getDevice(instanceId: TestHelper.instanceId2, deviceId: device2))
-            .toEventually(beNil(), timeout: 10)
+            .toEventually(beNil(), timeout: .seconds(10))
     }
     
     class StubTokenProvider: TokenProvider {

@@ -23,14 +23,14 @@ class SetUserIdTest: XCTestCase {
         pushNotifications.start()
         pushNotifications.registerDeviceToken(validToken)
 
-        expect(InstanceDeviceStateStore(self.instanceId).getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        expect(InstanceDeviceStateStore(self.instanceId).getDeviceId()).toEventuallyNot(beNil(), timeout: .seconds(10))
         let deviceId = InstanceDeviceStateStore(self.instanceId).getDeviceId()!
 
         let tokenProvider = StubTokenProvider(jwt: validCucasJWTToken, error: nil)
         pushNotifications.setUserId("cucas", tokenProvider: tokenProvider) { _ in }
 
         expect(TestAPIClientHelper().getDevice(instanceId: self.instanceId, deviceId: deviceId)?.userId)
-            .toEventually(equal("cucas"), timeout: 30)
+            .toEventually(equal("cucas"), timeout: .seconds(30))
     }
 
     func testSetUserIdShouldThrowExceptionIfUserIdIsReassigned() {
