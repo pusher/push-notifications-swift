@@ -76,7 +76,7 @@ public class DeviceStateStore {
         guard persistedInstanceIds.sorted().elementsEqual(instanceIds.sorted()) else {
             self.removeAllInstanceIds()
             for instanceId in instanceIds {
-                _ = self.persistInstanceId(instanceId)
+                self.persistInstanceId(instanceId)
             }
 
             return
