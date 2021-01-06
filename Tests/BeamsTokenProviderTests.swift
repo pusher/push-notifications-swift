@@ -50,8 +50,7 @@ class BeamsTokenProviderTests: XCTestCase {
                 XCTAssertEqual(token, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NDA1NjA")
                 exp.fulfill()
             }
-        }
-        catch {
+        } catch {
             XCTFail()
             exp.fulfill()
         }
@@ -70,7 +69,7 @@ class BeamsTokenProviderTests: XCTestCase {
         let exp = expectation(description: "It should return an error.")
 
         do {
-            try self.beamsTokenProvider.fetchToken(userId: "Johnny Cash") { (token, error) in
+            try self.beamsTokenProvider.fetchToken(userId: "Johnny Cash") { (_, error) in
                 guard case TokenProviderError.error(let errorMessage) = error! else {
                     XCTFail()
                     return exp.fulfill()
@@ -82,8 +81,7 @@ class BeamsTokenProviderTests: XCTestCase {
                 XCTAssertEqual(errorMessage, expectedErrorMessage)
                 exp.fulfill()
             }
-        }
-        catch {
+        } catch {
             XCTFail()
             exp.fulfill()
         }
@@ -100,7 +98,7 @@ class BeamsTokenProviderTests: XCTestCase {
         let exp = expectation(description: "It should return an error.")
 
         do {
-            try self.beamsTokenProvider.fetchToken(userId: "Johnny Cash") { (token, error) in
+            try self.beamsTokenProvider.fetchToken(userId: "Johnny Cash") { (_, error) in
                 guard case TokenProviderError.error(let errorMessage) = error! else {
                     XCTFail()
                     return exp.fulfill()
@@ -112,8 +110,7 @@ class BeamsTokenProviderTests: XCTestCase {
                 XCTAssertEqual(errorMessage, expectedErrorMessage)
                 exp.fulfill()
             }
-        }
-        catch {
+        } catch {
             XCTFail()
             exp.fulfill()
         }

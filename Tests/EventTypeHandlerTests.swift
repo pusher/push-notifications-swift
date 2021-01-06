@@ -2,14 +2,14 @@ import XCTest
 @testable import PushNotifications
 
 class EventTypeHandlerTests: XCTestCase {
-    
+
     override func setUp() {
         super.setUp()
-        
+
         // we extract the device id when parsing events, we need to make sure this exists for all the tests
         InstanceDeviceStateStore(TestHelper.instanceId).persistDeviceId("abcd")
     }
-    
+
     override func tearDown() {
         InstanceDeviceStateStore(TestHelper.instanceId).deleteDeviceId()
         super.tearDown()
@@ -132,25 +132,25 @@ class EventTypeHandlerTests: XCTestCase {
     }
 
     func testItIsInternalNotification() {
-        let userInfo = ["aps" : ["alert": ["title": "Hello", "body": "Hello, world!"], "content-available": 1], "data": ["pusher": ["instanceId": "1b880590-6301-4bb5-b34f-45db1c5f5644", "publishId": "pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df", "userShouldIgnore": true]]]
+        let userInfo = ["aps": ["alert": ["title": "Hello", "body": "Hello, world!"], "content-available": 1], "data": ["pusher": ["instanceId": "1b880590-6301-4bb5-b34f-45db1c5f5644", "publishId": "pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df", "userShouldIgnore": true]]]
 
         let remoteNotificationType = EventTypeHandler.getRemoteNotificationType(userInfo)
         XCTAssertTrue(remoteNotificationType == .ShouldIgnore)
     }
 
     func testItIsNotInternalNotification() {
-        let userInfo = ["aps" : ["alert": ["title": "Hello", "body": "Hello, world!"], "content-available": 1], "data": ["pusher": ["instanceId": "1b880590-6301-4bb5-b34f-45db1c5f5644", "publishId": "pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df"]]]
+        let userInfo = ["aps": ["alert": ["title": "Hello", "body": "Hello, world!"], "content-available": 1], "data": ["pusher": ["instanceId": "1b880590-6301-4bb5-b34f-45db1c5f5644", "publishId": "pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df"]]]
 
         let remoteNotificationType = EventTypeHandler.getRemoteNotificationType(userInfo)
         XCTAssertTrue(remoteNotificationType == .ShouldProcess)
     }
-    
+
     func testMissingInstanceIdReturnsNil() {
         let userInfo = ["aps": ["content-available": 1], "data": ["pusher": ["publishId": "pubid-33f3f68e-b0c5-438f-b50f-fae93f6c48df", "userId": nil]]]
         let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo)
         XCTAssertNil(eventType)
     }
-    
+
     func testMissingPublishIdReturnsNil() {
         let userInfo = ["aps": ["content-available": 1], "data": ["pusher": ["instanceId": "1b880590-6301-4bb5-b34f-45db1c5f5644", "userId": nil]]]
         let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo)

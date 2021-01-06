@@ -37,4 +37,3 @@ class ApplicationStartTests: XCTestCase {
             .toEventually(contain("cucas", "panda", "potato"), timeout: 10)
     }
 }
-

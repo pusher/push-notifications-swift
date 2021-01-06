@@ -15,10 +15,10 @@ struct TestAPIClientHelper {
     func getDeviceInterests(instanceId: String, deviceId: String) -> [String]? {
         let session = URLSession.init(configuration: .ephemeral)
         let semaphore = DispatchSemaphore(value: 0)
-        var interests: Interests? = nil
+        var interests: Interests?
 
         let request = setRequest(url: URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)/interests")!, httpMethod: .GET)
-        session.dataTask(with: request) { (data, urlResponse, error) in
+        session.dataTask(with: request) { (data, _, _) in
             interests = try? JSONDecoder().decode(Interests.self, from: data!)
             semaphore.signal()
         }.resume()
@@ -32,7 +32,7 @@ struct TestAPIClientHelper {
         let semaphore = DispatchSemaphore(value: 0)
 
         let request = setRequest(url: URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)")!, httpMethod: .DELETE)
-        session.dataTask(with: request) { (data, urlResponse, error) in
+        session.dataTask(with: request) { (_, _, _) in
             semaphore.signal()
         }.resume()
 
@@ -42,10 +42,10 @@ struct TestAPIClientHelper {
     func getDevice(instanceId: String, deviceId: String) -> TestDevice? {
         let session = URLSession.init(configuration: .ephemeral)
         let semaphore = DispatchSemaphore(value: 0)
-        var device: TestDevice? = nil
+        var device: TestDevice?
 
         let request = setRequest(url: URL(string: "https://\(instanceId).pushnotifications.pusher.com/device_api/v1/instances/\(instanceId)/devices/apns/\(deviceId)")!, httpMethod: .GET)
-        session.dataTask(with: request) { (data, urlResponse, error) in
+        session.dataTask(with: request) { (data, _, _) in
             device = try? JSONDecoder().decode(TestDevice.self, from: data!)
             semaphore.signal()
             }.resume()
