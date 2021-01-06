@@ -1,6 +1,8 @@
 import UIKit
 import PushNotifications
 
+// swiftlint:disable force_try
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?

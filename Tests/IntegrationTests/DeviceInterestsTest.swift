@@ -2,6 +2,8 @@ import XCTest
 import Nimble
 @testable import PushNotifications
 
+// swiftlint:disable nesting function_body_length
+
 class DeviceInterestsTest: XCTestCase {
     // Real production instance.
     let instanceId = "1b880590-6301-4bb5-b34f-45db1c5f5644"
