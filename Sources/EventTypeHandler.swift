@@ -18,7 +18,7 @@ struct EventTypeHandler {
         else {
             return nil
         }
-        
+
         let deviceStateStore = InstanceDeviceStateStore(instanceId)
         guard let deviceId = deviceStateStore.getDeviceId() else {
             return nil
@@ -50,7 +50,7 @@ struct EventTypeHandler {
         else {
             return nil
         }
-        
+
         let deviceStateStore = InstanceDeviceStateStore(instanceId)
         guard let deviceId = deviceStateStore.getDeviceId() else {
             return nil
@@ -79,7 +79,7 @@ struct EventTypeHandler {
         else {
             return nil
         }
-        
+
         let deviceStateStore = InstanceDeviceStateStore(instanceId)
         guard let deviceId = deviceStateStore.getDeviceId() else {
             return nil
@@ -140,7 +140,7 @@ struct EventTypeHandler {
 
         let hasCustomerData = data.count > 1 // checks if there's anything other than the `pusher` key
 
-        if (hasCustomerData && isForeground) {
+        if hasCustomerData && isForeground {
             return .ShouldProcess
         }
 

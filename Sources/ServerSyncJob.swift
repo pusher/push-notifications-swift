@@ -38,10 +38,10 @@ extension ServerSyncJob: Codable {
         case openEventTypeKey
         case deliveryEventTypeKey
     }
-    
+
     private enum ServerSyncJobError: LocalizedError {
         case ParseError(reason: String)
-        
+
         public var errorDescription: String? {
             switch self {
             case .ParseError(let reason):
@@ -96,7 +96,7 @@ extension ServerSyncJob: Codable {
                 self = .ReportEventJob(eventType: deliveryEventType)
                 return
             }
-            
+
             throw ServerSyncJobError.ParseError(reason: "Issue with the report event")
         case .StopJobKey:
             self = .StopJob

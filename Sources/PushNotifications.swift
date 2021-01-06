@@ -8,29 +8,29 @@ import NotificationCenter
 import Foundation
 
 @objc public final class PushNotifications: NSObject {
-    
+
     internal let instanceId: String
     private let deviceStateStore: InstanceDeviceStateStore
     private let serverSyncEventHandler: ServerSyncEventHandler
-    
+
     // The object that acts as the delegate of push notifications.
     public weak var delegate: InterestsChangedDelegate?
-    
+
     @objc public init(instanceId: String) {
         self.instanceId = instanceId
         self.deviceStateStore = InstanceDeviceStateStore(instanceId)
         self.serverSyncEventHandler = ServerSyncEventHandler.obtain(instanceId: instanceId)
-        
+
         super.init()
         serverSyncEventHandler.registerInterestsChangedDelegate({ [weak self] in return self?.delegate })
 
         DeviceStateStore().persistInstanceId(instanceId)
     }
-    
+
     //! Returns a shared singleton PushNotifications object.
     /// - Tag: shared
     @objc public static let shared = PushNotificationsStatic.self
-    
+
     private lazy var serverSyncHandler = ServerSyncProcessHandler.obtain(
         instanceId: self.instanceId,
         getTokenProvider: { return PushNotifications.shared.tokenProvider[self.instanceId] },

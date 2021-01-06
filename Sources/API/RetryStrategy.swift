@@ -22,7 +22,7 @@ public class WithInfiniteExpBackoff: RetryStrategy {
     private var retryCount = 0
 
     func retry<T>(f: () -> Result<T, PushNotificationsAPIError>) -> Result<T, PushNotificationsAPIError> {
-        while (true) {
+        while true {
             let result = f()
 
             switch result {

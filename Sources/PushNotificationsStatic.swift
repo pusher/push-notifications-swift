@@ -8,14 +8,14 @@ import NotificationCenter
 import Foundation
 
 @objc public final class PushNotificationsStatic: NSObject {
-    
+
     private override init() {
         // prevent other people initialising us
     }
-    
+
     private static var instance: PushNotifications?
-    internal static var tokenProvider = Dictionary<String, TokenProvider>()
-    
+    internal static var tokenProvider = [String: TokenProvider]()
+
     /**
      Start PushNotifications service.
 
@@ -25,7 +25,7 @@ import Foundation
      */
     /// - Tag: start
     @objc public static func start(instanceId: String) {
-        if (instance == nil) {
+        if instance == nil {
             instance = PushNotifications(instanceId: instanceId)
         } else if self.instance!.instanceId != instanceId {
             print("PushNotifications.shared.start has been called before with a different instance id! before: \(self.instance!.instanceId), now: \(instanceId).")
@@ -37,7 +37,7 @@ import Foundation
         }
         instance?.start()
     }
-    
+
     /**
      Register to receive remote notifications via Apple Push Notification service.
 
@@ -49,7 +49,7 @@ import Foundation
     @objc public static func registerForRemoteNotifications() {
         self.registerForPushNotifications(options: [.alert, .sound, .badge])
     }
-    
+
     #if os(iOS)
     /**
      Register to receive remote notifications via Apple Push Notification service.
@@ -70,7 +70,7 @@ import Foundation
         self.registerForPushNotifications(options: options)
     }
     #endif
-    
+
     #if os(iOS)
     private static func registerForPushNotifications(options: UNAuthorizationOptions) {
         UNUserNotificationCenter.current().requestAuthorization(options: options) { (granted, error) in
@@ -89,7 +89,7 @@ import Foundation
         NSApplication.shared.registerForRemoteNotifications(matching: options)
     }
     #endif
-    
+
     /**
      Set user id.
      
@@ -105,7 +105,7 @@ import Foundation
             fatalError("PushNotifications.shared.start must have been called first")
         }
     }
-    
+
     /**
      Disable Beams service.
      
@@ -126,7 +126,7 @@ import Foundation
             completion()
         }
     }
-    
+
     /**
      Clears all the state on the SDK leaving it in the empty started state.
      
@@ -148,7 +148,7 @@ import Foundation
             completion()
         }
     }
-    
+
     /**
      Register device token with PushNotifications service.
      
@@ -160,24 +160,24 @@ import Foundation
     @objc public static func registerDeviceToken(_ deviceToken: Data) {
         let instances = DeviceStateStore().getInstanceIds()
         var hasAnInstanceBeenStarted = false
-        
+
         for instance in instances {
             let instanceDeviceStateStore = InstanceDeviceStateStore(instance)
             if instanceDeviceStateStore.getStartJobHasBeenEnqueued() {
                 hasAnInstanceBeenStarted = true
                 instanceDeviceStateStore.persistAPNsToken(token: deviceToken.hexadecimalRepresentation())
-                
+
                 // TODO: Handle Token Refresh support
                 ServerSyncProcessHandler.obtain(instanceId: instance)?
                     .sendMessage(serverSyncJob: ServerSyncJob.StartJob(instanceId: instance, token: deviceToken.hexadecimalRepresentation()))
             }
         }
-        
+
         if !hasAnInstanceBeenStarted {
              print("[PushNotifications] - Something went wrong. Please make sure that you've called `start` before `registerDeviceToken`.")
         }
     }
-    
+
     /**
      Subscribes the device to an interest.
      
@@ -195,7 +195,7 @@ import Foundation
             fatalError("PushNotifications.shared.start must have been called first")
         }
     }
-    
+
     /**
      Sets the subscriptions state for the device.
      Any interests not in the set will be unsubscribed from, so this will replace the interest set by the one provided.
@@ -214,7 +214,7 @@ import Foundation
             fatalError("PushNotifications.shared.start must have been called first")
         }
     }
-    
+
     /**
      Unsubscribe the device from an interest.
      
@@ -232,7 +232,7 @@ import Foundation
             fatalError("PushNotifications.shared.start must have been called first")
         }
     }
-    
+
     ///Unsubscribes the device from all the interests.
     /// - Tag: clearDeviceInterests
     @objc public static func clearDeviceInterests() throws {
@@ -242,7 +242,7 @@ import Foundation
             fatalError("PushNotifications.shared.start must have been called first")
         }
     }
-    
+
     /**
      Get the interest subscriptions that the device is currently subscribed to.
      
@@ -256,7 +256,7 @@ import Foundation
             fatalError("PushNotifications.shared.start must have been called first")
         }
     }
-    
+
     /**
      Handle Remote Notification.
      
@@ -268,7 +268,7 @@ import Foundation
         guard FeatureFlags.DeliveryTrackingEnabled else {
             return .ShouldProcess
         }
-        
+
         #if os(iOS)
         let applicationState = UIApplication.shared.applicationState
         guard let eventType = EventTypeHandler.getNotificationEventType(userInfo: userInfo, applicationState: applicationState) else {
@@ -279,10 +279,10 @@ import Foundation
             return .ShouldProcess
         }
         #endif
-        
+
         let serverSyncProcessHandler = ServerSyncProcessHandler.obtain(instanceId: eventType.getInstanceId())
         serverSyncProcessHandler?.sendMessage(serverSyncJob: .ReportEventJob(eventType: eventType))
-        
+
         return EventTypeHandler.getRemoteNotificationType(userInfo)
     }
 }

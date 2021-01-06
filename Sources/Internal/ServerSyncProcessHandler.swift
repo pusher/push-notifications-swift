@@ -14,7 +14,7 @@ class ServerSyncProcessHandler {
             }
         }
     }
-    
+
     internal static func obtain(instanceId: String) -> ServerSyncProcessHandler? {
         return serverSyncHandlersQueue.sync {
             return self.serverSyncHandlers[instanceId]
@@ -27,7 +27,7 @@ class ServerSyncProcessHandler {
             self.serverSyncHandlers.removeValue(forKey: instanceId)
         }
     }
-    
+
     private let instanceId: String
     private let sendMessageQueue: DispatchQueue
     private let handleMessageQueue: DispatchQueue
@@ -159,7 +159,7 @@ class ServerSyncProcessHandler {
         let localMetadata = self.deviceStateStore.getMetadata()
         if metadata != localMetadata {
             let result = self.networkService.syncMetadata(instanceId: self.instanceId, deviceId: self.deviceStateStore.getDeviceId()!, metadata: metadata, retryStrategy: JustDont())
-            if case .value(()) = result {
+            if case .value = result {
                 self.deviceStateStore.persistMetadata(metadata: metadata)
             }
         }
@@ -169,7 +169,7 @@ class ServerSyncProcessHandler {
 
         if localInterestsHash != self.deviceStateStore.getServerConfirmedInterestsHash() {
             let result = self.networkService.setSubscriptions(instanceId: self.instanceId, deviceId: self.deviceStateStore.getDeviceId()!, interests: localInterests, retryStrategy: JustDont())
-            if case .value(()) = result {
+            if case .value = result {
                 self.deviceStateStore.persistServerConfirmedInterestsHash(localInterestsHash)
             }
         }
@@ -273,7 +273,7 @@ class ServerSyncProcessHandler {
                             semaphore.signal()
                         })
                         semaphore.wait()
-                    } catch (let error) {
+                    } catch let error {
                         print("[PushNotifications]: Warning - Unexpected error: \(error.localizedDescription)")
                         self.deviceStateStore.removeUserId()
                     }
@@ -317,7 +317,7 @@ class ServerSyncProcessHandler {
                 semaphore.signal()
             })
             semaphore.wait()
-        } catch (let error) {
+        } catch let error {
             let error = TokenProviderError.error("[PushNotifications] - Error when executing `fetchToken` method: \(error)")
             self.handleServerSyncEvent(.UserIdSetEvent(userId: userId, error: error))
         }
@@ -326,7 +326,7 @@ class ServerSyncProcessHandler {
     func handleMessage(serverSyncJob: ServerSyncJob) {
         // If the SDK hasn't started yet we can't do anything, so skip
         var shouldSkip: Bool
-        if case .StartJob(_) = serverSyncJob {
+        if case .StartJob = serverSyncJob {
             shouldSkip = false
         } else {
             shouldSkip = !hasStarted()
@@ -341,7 +341,7 @@ class ServerSyncProcessHandler {
             processStartJob(instanceId: instanceId, token: token)
 
             // Clear up the queue up to the StartJob.
-            while(!jobQueue.isEmpty) {
+            while !jobQueue.isEmpty {
                 switch jobQueue.first! {
                 case .StartJob:
                     jobQueue.removeFirst()
