@@ -11,5 +11,6 @@ disabled_rules:
   - line_length
   - identifier_name
 
-file_length:
-  warning: 450
+# This generates a compiler error if more than this many SwiftLint warnings are present
+# (This threshold can become more restrictive as remaining warnings are resolved via refactoring)
+warning_threshold: 12
