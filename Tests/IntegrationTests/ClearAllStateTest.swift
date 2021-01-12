@@ -23,7 +23,7 @@ class ClearAllStateTest: XCTestCase {
         pushNotifications.registerDeviceToken(validToken)
 
         let deviceStateStore = InstanceDeviceStateStore(self.instanceId)
-        expect(deviceStateStore.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        expect(deviceStateStore.getDeviceId()).toEventuallyNot(beNil(), timeout: .seconds(10))
         let deviceId = deviceStateStore.getDeviceId()
 
         XCTAssertNoThrow(try pushNotifications.addDeviceInterest(interest: "a"))
@@ -34,10 +34,10 @@ class ClearAllStateTest: XCTestCase {
         }
 
         expect(TestAPIClientHelper().getDevice(instanceId: self.instanceId, deviceId: deviceId!))
-            .toEventually(beNil(), timeout: 10)
+            .toEventually(beNil(), timeout: .seconds(10))
 
         XCTAssertEqual(pushNotifications.getDeviceInterests(), [])
-        expect(InstanceDeviceStateStore(self.instanceId).getDeviceId()).toEventuallyNot(equal(deviceId!), timeout: 10)
+        expect(InstanceDeviceStateStore(self.instanceId).getDeviceId()).toEventuallyNot(equal(deviceId!), timeout: .seconds(10))
 
         waitForExpectations(timeout: 1)
     }
