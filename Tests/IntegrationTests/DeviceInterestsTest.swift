@@ -69,11 +69,11 @@ class DeviceInterestsTest: XCTestCase {
         pushNotifications.start()
         pushNotifications.registerDeviceToken(validToken)
 
-        expect(self.deviceStateStore.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        expect(self.deviceStateStore.getDeviceId()).toEventuallyNot(beNil(), timeout: .seconds(10))
         let deviceId = self.deviceStateStore.getDeviceId()!
 
         expect(TestAPIClientHelper().getDeviceInterests(instanceId: self.instanceId, deviceId: deviceId))
-            .toEventually(equal(["panda"]), timeout: 10)
+            .toEventually(equal(["panda"]), timeout: .seconds(10))
     }
 
     func testLocalInterestsSetShouldBeMergedAfterDeviceRegistration() {
@@ -97,11 +97,11 @@ class DeviceInterestsTest: XCTestCase {
         pushNotifications.start()
         pushNotifications.registerDeviceToken(validToken)
 
-        expect(self.deviceStateStore.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        expect(self.deviceStateStore.getDeviceId()).toEventuallyNot(beNil(), timeout: .seconds(10))
         let deviceId = self.deviceStateStore.getDeviceId()!
 
         expect(TestAPIClientHelper().getDeviceInterests(instanceId: self.instanceId, deviceId: deviceId))
-            .toEventually(equal(["panda", "zebra"]), timeout: 10)
+            .toEventually(equal(["panda", "zebra"]), timeout: .seconds(10))
 
         // Clearing local storage to pretend that SDK didn't start.
         UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName(instanceId: self.instanceId)).map { userDefaults in
@@ -137,12 +137,12 @@ class DeviceInterestsTest: XCTestCase {
         pushNotifications2.registerDeviceToken(validToken)
         waitForExpectations(timeout: 10)
 
-        expect(self.deviceStateStore.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        expect(self.deviceStateStore.getDeviceId()).toEventuallyNot(beNil(), timeout: .seconds(10))
         let deviceId2 = self.deviceStateStore.getDeviceId()!
         XCTAssertEqual(deviceId, deviceId2)
 
         expect(TestAPIClientHelper().getDeviceInterests(instanceId: self.instanceId, deviceId: deviceId2))
-            .toEventually(contain("zebra", "lion"), timeout: 10)
+            .toEventually(contain("zebra", "lion"), timeout: .seconds(10))
     }
 
     func testInterestsSetDidChangeAndCallbackIsCalled() {

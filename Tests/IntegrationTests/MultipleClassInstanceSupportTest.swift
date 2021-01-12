@@ -24,7 +24,7 @@ class MultipleClassInstanceSupportTest: XCTestCase {
         pushNotifications1.start()
         pushNotifications1.registerDeviceToken(validToken)
         
-        expect(self.deviceStateStore.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        expect(self.deviceStateStore.getDeviceId()).toEventuallyNot(beNil(), timeout: .seconds(10))
         let deviceId = self.deviceStateStore.getDeviceId()!
         
         let exp = expectation(description: "Stop completion handler must be called")
@@ -33,7 +33,7 @@ class MultipleClassInstanceSupportTest: XCTestCase {
         }
         
         expect(TestAPIClientHelper().getDevice(instanceId: TestHelper.instanceId, deviceId: deviceId))
-            .toEventually(beNil(), timeout: 10)
+            .toEventually(beNil(), timeout: .seconds(10))
         
         waitForExpectations(timeout: 1)
     }
@@ -89,12 +89,12 @@ class MultipleClassInstanceSupportTest: XCTestCase {
         pushNotifications1.start()
         pushNotifications1.registerDeviceToken(validToken)
 
-        expect(self.deviceStateStore.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        expect(self.deviceStateStore.getDeviceId()).toEventuallyNot(beNil(), timeout: .seconds(10))
         let deviceId = self.deviceStateStore.getDeviceId()!
         
         pushNotifications2.clearAllState { }
         
-        expect(self.deviceStateStore.getDeviceId()).toEventuallyNot(be(deviceId), timeout: 10)
+        expect(self.deviceStateStore.getDeviceId()).toEventuallyNot(be(deviceId), timeout: .seconds(10))
     }
     
     class StubTokenProvider: TokenProvider {

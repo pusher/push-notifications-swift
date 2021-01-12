@@ -23,7 +23,7 @@ class StopTests: XCTestCase {
         pushNotifications.start()
         pushNotifications.registerDeviceToken(validToken)
 
-        expect(self.deviceStateStore.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        expect(self.deviceStateStore.getDeviceId()).toEventuallyNot(beNil(), timeout: .seconds(10))
         let deviceId = self.deviceStateStore.getDeviceId()!
 
         let exp = expectation(description: "Stop completion handler must be called")
@@ -32,7 +32,7 @@ class StopTests: XCTestCase {
         }
 
         expect(TestAPIClientHelper().getDevice(instanceId: self.instanceId, deviceId: deviceId))
-            .toEventually(beNil(), timeout: 10)
+            .toEventually(beNil(), timeout: .seconds(10))
 
         waitForExpectations(timeout: 1)
     }
@@ -42,7 +42,7 @@ class StopTests: XCTestCase {
         pushNotifications.start()
         pushNotifications.registerDeviceToken(validToken)
 
-        expect(self.deviceStateStore.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        expect(self.deviceStateStore.getDeviceId()).toEventuallyNot(beNil(), timeout: .seconds(10))
 
         pushNotifications.stop { }
 
@@ -54,15 +54,15 @@ class StopTests: XCTestCase {
         pushNotifications.start()
         pushNotifications.registerDeviceToken(validToken)
 
-        expect(self.deviceStateStore.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        expect(self.deviceStateStore.getDeviceId()).toEventuallyNot(beNil(), timeout: .seconds(10))
 
         pushNotifications.stop { }
 
-        expect(self.deviceStateStore.getDeviceId()).toEventually(beNil(), timeout: 10)
+        expect(self.deviceStateStore.getDeviceId()).toEventually(beNil(), timeout: .seconds(10))
 
         pushNotifications.start()
         pushNotifications.registerDeviceToken(validToken)
 
-        expect(self.deviceStateStore.getDeviceId()).toEventuallyNot(beNil(), timeout: 10)
+        expect(self.deviceStateStore.getDeviceId()).toEventuallyNot(beNil(), timeout: .seconds(10))
     }
 }
