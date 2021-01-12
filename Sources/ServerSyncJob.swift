@@ -106,44 +106,44 @@ extension ServerSyncJob: Codable {
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        let k: CodingKeys = .discriminator
+        let key: CodingKeys = .discriminator
 
         switch self {
         case .StartJob(let instanceId, let token):
-            let v: Discriminator = .StartJobKey
-            try container.encode(v, forKey: k)
+            let value: Discriminator = .StartJobKey
+            try container.encode(value, forKey: key)
             try container.encode(instanceId, forKey: .startJobInstanceIdKey)
             try container.encode(token, forKey: .startJobTokenKey)
         case .RefreshTokenJob(let newToken):
-            let v: Discriminator = .RefreshTokenJobKey
-            try container.encode(v, forKey: k)
+            let value: Discriminator = .RefreshTokenJobKey
+            try container.encode(value, forKey: key)
             try container.encode(newToken, forKey: .newTokenKey)
         case .SubscribeJob(let interest, let localInterestsChanged):
-            let v: Discriminator = .SubscribeJobKey
-            try container.encode(v, forKey: k)
+            let value: Discriminator = .SubscribeJobKey
+            try container.encode(value, forKey: key)
             try container.encode(interest, forKey: .interestKey)
             try container.encode(localInterestsChanged, forKey: .localInterestsChangedKey)
         case .UnsubscribeJob(let interest, let localInterestsChanged):
-            let v: Discriminator = .UnsubscribeJobKey
-            try container.encode(v, forKey: k)
+            let value: Discriminator = .UnsubscribeJobKey
+            try container.encode(value, forKey: key)
             try container.encode(interest, forKey: .interestKey)
             try container.encode(localInterestsChanged, forKey: .localInterestsChangedKey)
         case .SetSubscriptions(let interests, let localInterestsChanged):
-            let v: Discriminator = .SetSubscriptionsKey
-            try container.encode(v, forKey: k)
+            let value: Discriminator = .SetSubscriptionsKey
+            try container.encode(value, forKey: key)
             try container.encode(interests, forKey: .interestsKey)
             try container.encode(localInterestsChanged, forKey: .localInterestsChangedKey)
         case .ApplicationStartJob(let metadata):
-            let v: Discriminator = .ApplicationStartJobKey
-            try container.encode(v, forKey: k)
+            let value: Discriminator = .ApplicationStartJobKey
+            try container.encode(value, forKey: key)
             try container.encode(metadata, forKey: .metadataKey)
         case .SetUserIdJob(let userId):
-            let v: Discriminator = .SetUserIdJobKey
-            try container.encode(v, forKey: k)
+            let value: Discriminator = .SetUserIdJobKey
+            try container.encode(value, forKey: key)
             try container.encode(userId, forKey: .userIdKey)
         case .ReportEventJob(let eventType):
-            let v: Discriminator = .ReportEventJobKey
-            try container.encode(v, forKey: k)
+            let value: Discriminator = .ReportEventJobKey
+            try container.encode(value, forKey: key)
             if let openEventType = eventType as? OpenEventType {
                 try container.encode(openEventType, forKey: .openEventTypeKey)
             }
@@ -151,8 +151,8 @@ extension ServerSyncJob: Codable {
                 try container.encode(deliveryEventType, forKey: .deliveryEventTypeKey)
             }
         case .StopJob:
-            let v: Discriminator = .StopJobKey
-            try container.encode(v, forKey: k)
+            let value: Discriminator = .StopJobKey
+            try container.encode(value, forKey: key)
         }
     }
 }

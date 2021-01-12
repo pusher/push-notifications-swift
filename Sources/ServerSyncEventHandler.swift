@@ -34,8 +34,8 @@ internal class ServerSyncEventHandler {
             switch event {
             case .InterestsChangedEvent(let interests):
                 self.interestsChangedDelegates.forEach({ delegate in
-                    if let d = delegate() {
-                        d.interestsSetOnDeviceDidChange(interests: interests)
+                    if let delegate = delegate() {
+                        delegate.interestsSetOnDeviceDidChange(interests: interests)
                     }
                 })
 

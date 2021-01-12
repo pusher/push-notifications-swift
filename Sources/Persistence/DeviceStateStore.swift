@@ -107,10 +107,10 @@ public class InstanceDeviceStateStore {
         self.service = UserDefaults(suiteName: PersistenceConstants.UserDefaults.suiteName(instanceId: instanceId))!
     }
 
-    public static func synchronize<T>(f: () -> T) -> T {
+    public static func synchronize<T>(function: () -> T) -> T {
         var result: T?
         InstanceDeviceStateStore.queue.sync {
-            result = f()
+            result = function()
         }
         return result!
     }
