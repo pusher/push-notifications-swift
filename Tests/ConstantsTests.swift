@@ -29,4 +29,3 @@ class ConstantsTests: XCTestCase {
         XCTAssertEqual(Constants.ReportEventType.delivery, "Delivery")
     }
 }
-

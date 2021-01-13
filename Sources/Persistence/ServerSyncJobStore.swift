@@ -10,14 +10,14 @@ struct ServerSyncJobStore {
     init(instanceId: String) {
         self.instanceId = instanceId
         self.syncJobStoreFileName = "\(self.instanceId)-syncJobStore"
-        
+
         self.jobStoreArray = self.loadOperations()
     }
 
     // https://stackoverflow.com/a/46369152
-    private struct FailableDecodable<Base : Decodable> : Decodable {
+    private struct FailableDecodable<Base: Decodable>: Decodable {
         let base: Base?
-        
+
         init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.base = try? container.decode(Base.self)
@@ -70,18 +70,14 @@ struct ServerSyncJobStore {
     }
 
     var isEmpty: Bool {
-        get {
-            return syncJobStoreQueue.sync {
-                return self.jobStoreArray.isEmpty
-            }
+        return syncJobStoreQueue.sync {
+            return self.jobStoreArray.isEmpty
         }
     }
 
     var first: ServerSyncJob? {
-        get {
-            return syncJobStoreQueue.sync {
-                return jobStoreArray.first
-            }
+        return syncJobStoreQueue.sync {
+            return jobStoreArray.first
         }
     }
 
@@ -100,7 +96,7 @@ struct ServerSyncJobStore {
 
     mutating func removeFirst() {
         syncJobStoreQueue.sync {
-            if (self.jobStoreArray.count > 0) {
+            if self.jobStoreArray.count > 0 {
                 self.jobStoreArray.removeFirst()
                 self.persistOperations(self.jobStoreArray)
             }

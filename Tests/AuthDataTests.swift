@@ -21,4 +21,3 @@ class AuthDataTests: XCTestCase {
         XCTAssertEqual(self.authData.queryParams, ["1": "2"])
     }
 }
-

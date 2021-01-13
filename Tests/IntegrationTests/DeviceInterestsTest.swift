@@ -2,6 +2,8 @@ import XCTest
 import Nimble
 @testable import PushNotifications
 
+// swiftlint:disable nesting function_body_length
+
 class DeviceInterestsTest: XCTestCase {
     // Real production instance.
     let instanceId = "1b880590-6301-4bb5-b34f-45db1c5f5644"
@@ -28,7 +30,7 @@ class DeviceInterestsTest: XCTestCase {
         let allInterests = invalidInterests + validInterests
         XCTAssertThrowsError(try pushNotifications.setDeviceInterests(interests: allInterests)) { error in
             guard case MultipleInvalidInterestsError.invalidNames(let names) = error else {
-                return XCTFail()
+                return XCTFail("The error should be of type 'MultipleInvalidInterestsError'")
             }
 
             XCTAssertNotNil(names)
@@ -77,10 +79,10 @@ class DeviceInterestsTest: XCTestCase {
     }
 
     func testLocalInterestsSetShouldBeMergedAfterDeviceRegistration() {
-        
+
         class StubInterestsChanged: InterestsChangedDelegate {
-            let completion: ([String]) -> ()
-            init(completion: @escaping ([String]) -> ()) {
+            let completion: ([String]) -> Void
+            init(completion: @escaping ([String]) -> Void) {
                 self.completion = completion
             }
 
@@ -88,7 +90,7 @@ class DeviceInterestsTest: XCTestCase {
                 completion(interests)
             }
         }
-        
+
         // Creating device and setting interests to simulate preexisting device with interests.
         let pushNotifications = PushNotifications(instanceId: instanceId)
         XCTAssertNoThrow(try pushNotifications.addDeviceInterest(interest: "panda"))
@@ -113,7 +115,7 @@ class DeviceInterestsTest: XCTestCase {
         // Creating new instance to pretend a fresh state
         let pushNotifications2 = PushNotifications(instanceId: instanceId)
         XCTAssertNoThrow(try pushNotifications2.removeDeviceInterest(interest: "panda"))
-        
+
         let exp = expectation(description: "Interests changed called with ['lion']")
         let stubInterestsChanged = StubInterestsChanged(completion: { interests in
             XCTAssertTrue(interests.containsSameElements(as: ["lion"]))
@@ -124,7 +126,6 @@ class DeviceInterestsTest: XCTestCase {
 
         XCTAssertNoThrow(try pushNotifications2.addDeviceInterest(interest: "lion"))
         waitForExpectations(timeout: 10)
-        
 
         let exp2 = expectation(description: "Interests changed called with ['zebra', 'lion']")
         let stubInterestsChanged2 = StubInterestsChanged(completion: { interests in
@@ -149,8 +150,8 @@ class DeviceInterestsTest: XCTestCase {
         let pushNotifications = PushNotifications(instanceId: instanceId)
 
         class StubInterestsChanged: InterestsChangedDelegate {
-            let completion: ([String]) -> ()
-            init(completion: @escaping ([String]) -> ()) {
+            let completion: ([String]) -> Void
+            init(completion: @escaping ([String]) -> Void) {
                 self.completion = completion
             }
 
@@ -171,7 +172,7 @@ class DeviceInterestsTest: XCTestCase {
 
         exp = expectation(description: "Interests changed not called")
         exp.isInverted = true
-        stubInterestsChanged = StubInterestsChanged(completion: { interests in
+        stubInterestsChanged = StubInterestsChanged(completion: { _ in
             exp.fulfill()
         })
         pushNotifications.delegate = stubInterestsChanged
@@ -189,7 +190,7 @@ class DeviceInterestsTest: XCTestCase {
 
         exp = expectation(description: "Interests changed not called")
         exp.isInverted = true
-        stubInterestsChanged = StubInterestsChanged(completion: { interests in
+        stubInterestsChanged = StubInterestsChanged(completion: { _ in
             exp.fulfill()
         })
         pushNotifications.delegate = stubInterestsChanged
@@ -209,7 +210,7 @@ class DeviceInterestsTest: XCTestCase {
 
         exp = expectation(description: "Interests changed not called")
         exp.isInverted = true
-        stubInterestsChanged = StubInterestsChanged(completion: { interests in
+        stubInterestsChanged = StubInterestsChanged(completion: { _ in
             exp.fulfill()
         })
         pushNotifications.delegate = stubInterestsChanged

@@ -3,38 +3,38 @@ import XCTest
 
 class ArrayContainsSameElementsTests: XCTestCase {
     func testArrayContainsSameElements1() {
-        let a = ["a", "b", "c", "d", "e"]
-        let b = ["b", "d", "a", "e", "c"]
-        XCTAssertTrue(a.containsSameElements(as: b))
+        let arrayOne = ["a", "b", "c", "d", "e"]
+        let arrayTwo = ["b", "d", "a", "e", "c"]
+        XCTAssertTrue(arrayOne.containsSameElements(as: arrayTwo))
     }
 
     func testArrayContainsSameElements2() {
-        let a = ["a", "b", "c", "d"]
-        let b = ["b", "d", "a", "e", "c"]
-        XCTAssertFalse(a.containsSameElements(as: b))
+        let arrayOne = ["a", "b", "c", "d"]
+        let arrayTwo = ["b", "d", "a", "e", "c"]
+        XCTAssertFalse(arrayOne.containsSameElements(as: arrayTwo))
     }
 
     func testArrayContainsSameElements3() {
-        let a = ["a", "b", "c", "d", "2"]
-        let b = ["b", "d", "a", "e", "c"]
-        XCTAssertFalse(a.containsSameElements(as: b))
+        let arrayOne = ["a", "b", "c", "d", "2"]
+        let arrayTwo = ["b", "d", "a", "e", "c"]
+        XCTAssertFalse(arrayOne.containsSameElements(as: arrayTwo))
     }
 
     func testArrayContainsSameElements4() {
-        let a = ["1", "1"]
-        let b = ["1", "2"]
-        XCTAssertFalse(a.containsSameElements(as: b))
+        let arrayOne = ["1", "1"]
+        let arrayTwo = ["1", "2"]
+        XCTAssertFalse(arrayOne.containsSameElements(as: arrayTwo))
     }
 
     func testArrayContainsSameElements5() {
-        let a = ["-", "adffevs", "2332", ""]
-        let b = ["adffevs", "", "", "2332"]
-        XCTAssertFalse(a.containsSameElements(as: b))
+        let arrayOne = ["-", "adffevs", "2332", ""]
+        let arrayTwo = ["adffevs", "", "", "2332"]
+        XCTAssertFalse(arrayOne.containsSameElements(as: arrayTwo))
     }
 
     func testArrayContainsSameElements6() {
-        let a = ["com.pusher.sdk:123", "com.pusher.sdk:12321", "123"]
-        let b = ["123", "com.pusher.sdk:123", "com.pusher.sdk:12321"]
-        XCTAssertTrue(a.containsSameElements(as: b))
+        let arrayOne = ["com.pusher.sdk:123", "com.pusher.sdk:12321", "123"]
+        let arrayTwo = ["123", "com.pusher.sdk:123", "com.pusher.sdk:12321"]
+        XCTAssertTrue(arrayOne.containsSameElements(as: arrayTwo))
     }
 }

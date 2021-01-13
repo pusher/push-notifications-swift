@@ -8,29 +8,29 @@ import NotificationCenter
 import Foundation
 
 @objc public final class PushNotifications: NSObject {
-    
+
     internal let instanceId: String
     private let deviceStateStore: InstanceDeviceStateStore
     private let serverSyncEventHandler: ServerSyncEventHandler
-    
+
     // The object that acts as the delegate of push notifications.
     public weak var delegate: InterestsChangedDelegate?
-    
+
     @objc public init(instanceId: String) {
         self.instanceId = instanceId
         self.deviceStateStore = InstanceDeviceStateStore(instanceId)
         self.serverSyncEventHandler = ServerSyncEventHandler.obtain(instanceId: instanceId)
-        
+
         super.init()
         serverSyncEventHandler.registerInterestsChangedDelegate({ [weak self] in return self?.delegate })
 
         DeviceStateStore().persistInstanceId(instanceId)
     }
-    
+
     //! Returns a shared singleton PushNotifications object.
     /// - Tag: shared
     @objc public static let shared = PushNotificationsStatic.self
-    
+
     private lazy var serverSyncHandler = ServerSyncProcessHandler.obtain(
         instanceId: self.instanceId,
         getTokenProvider: { return PushNotifications.shared.tokenProvider[self.instanceId] },
@@ -61,7 +61,7 @@ import Foundation
 
         startHasBeenCalledThisSession = true
         deviceStateStore.persistStartJobHasBeenEnqueued(flag: true)
-        self.serverSyncHandler.sendMessage(serverSyncJob: .ApplicationStartJob(metadata: Metadata.current))
+        self.serverSyncHandler.sendMessage(serverSyncJob: .applicationStartJob(metadata: .current))
     }
 
     /**
@@ -145,7 +145,7 @@ import Foundation
         } else {
             self.serverSyncEventHandler.userIdCallbacks[userId] = [wrapperCompletion]
         }
-        self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.SetUserIdJob(userId: userId))
+        self.serverSyncHandler.sendMessage(serverSyncJob: .setUserIdJob(userId: userId))
     }
 
     @objc private func printHelpfulMessage() {
@@ -177,7 +177,7 @@ import Foundation
         startHasBeenCalledThisSession = false
 
         self.serverSyncEventHandler.stopCallbacks.append(completion)
-        self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.StopJob)
+        self.serverSyncHandler.sendMessage(serverSyncJob: .stopJob)
     }
 
     /**
@@ -234,7 +234,7 @@ import Foundation
             self.deviceStateStore.persistInterest(interest)
         }
 
-        self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.SubscribeJob(interest: interest, localInterestsChanged: interestsChanged))
+        self.serverSyncHandler.sendMessage(serverSyncJob: .subscribeJob(interest: interest, localInterestsChanged: interestsChanged))
         if interestsChanged {
             self.interestsSetOnDeviceDidChange()
         }
@@ -260,7 +260,7 @@ import Foundation
             self.deviceStateStore.persistInterests(interests)
         }
 
-        self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.SetSubscriptions(interests: interests, localInterestsChanged: interestsChanged))
+        self.serverSyncHandler.sendMessage(serverSyncJob: .setSubscriptions(interests: interests, localInterestsChanged: interestsChanged))
         if interestsChanged {
             self.interestsSetOnDeviceDidChange()
         }
@@ -285,7 +285,7 @@ import Foundation
             self.deviceStateStore.removeInterest(interest: interest)
         }
 
-        self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.UnsubscribeJob(interest: interest, localInterestsChanged: interestsChanged))
+        self.serverSyncHandler.sendMessage(serverSyncJob: .unsubscribeJob(interest: interest, localInterestsChanged: interestsChanged))
         if interestsChanged {
             self.interestsSetOnDeviceDidChange()
         }
@@ -316,7 +316,7 @@ import Foundation
             return
         }
 
-        self.serverSyncEventHandler.handleEvent(event: .InterestsChangedEvent(interests: interests))
+        self.serverSyncEventHandler.handleEvent(event: .interestsChangedEvent(interests: interests))
     }
 
     /**

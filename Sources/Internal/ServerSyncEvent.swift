@@ -1,7 +1,7 @@
 import Foundation
 
-public enum ServerSyncEvent {
-    case InterestsChangedEvent(interests: [String])
-    case UserIdSetEvent(userId: String, error: Error?)
-    case StopEvent
+enum ServerSyncEvent {
+    case interestsChangedEvent(interests: [String])
+    case userIdSetEvent(userId: String, error: Error?)
+    case stopEvent
 }

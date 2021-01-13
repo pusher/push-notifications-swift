@@ -401,6 +401,7 @@
 				A155BFAF1F9E38040070A609 /* Frameworks */,
 				A155BFB01F9E38040070A609 /* Headers */,
 				A155BFB11F9E38040070A609 /* Resources */,
+				532ECD5D25A5CC5000BA2312 /* Run SwiftLint with autocorrect */,
 			);
 			buildRules = (
 			);
@@ -489,6 +490,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		532ECD5D25A5CC5000BA2312 /* Run SwiftLint with autocorrect */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run SwiftLint with autocorrect";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  cd .. && swiftlint autocorrect && swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
 		A1197BD920626ABC00FD7335 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

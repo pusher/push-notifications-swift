@@ -42,7 +42,7 @@ class BeamsTokenProviderTests: XCTestCase {
         do {
             try self.beamsTokenProvider.fetchToken(userId: "Johnny Cash") { (token, error) in
                 guard error == nil else {
-                    XCTFail()
+                    XCTFail("Calling 'fetchToken(userId:)' should result in no error")
                     return exp.fulfill()
                 }
 
@@ -50,9 +50,8 @@ class BeamsTokenProviderTests: XCTestCase {
                 XCTAssertEqual(token, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NDA1NjA")
                 exp.fulfill()
             }
-        }
-        catch {
-            XCTFail()
+        } catch {
+            XCTFail("Calling 'fetchToken(userId:)' should not fail")
             exp.fulfill()
         }
 
@@ -70,9 +69,9 @@ class BeamsTokenProviderTests: XCTestCase {
         let exp = expectation(description: "It should return an error.")
 
         do {
-            try self.beamsTokenProvider.fetchToken(userId: "Johnny Cash") { (token, error) in
+            try self.beamsTokenProvider.fetchToken(userId: "Johnny Cash") { (_, error) in
                 guard case TokenProviderError.error(let errorMessage) = error! else {
-                    XCTFail()
+                    XCTFail("Calling 'fetchToken(userId:)' should result in a 'TokenProviderError'")
                     return exp.fulfill()
                 }
 
@@ -82,9 +81,8 @@ class BeamsTokenProviderTests: XCTestCase {
                 XCTAssertEqual(errorMessage, expectedErrorMessage)
                 exp.fulfill()
             }
-        }
-        catch {
-            XCTFail()
+        } catch {
+            XCTFail("Calling 'fetchToken(userId:)' should not fail")
             exp.fulfill()
         }
 
@@ -100,9 +98,9 @@ class BeamsTokenProviderTests: XCTestCase {
         let exp = expectation(description: "It should return an error.")
 
         do {
-            try self.beamsTokenProvider.fetchToken(userId: "Johnny Cash") { (token, error) in
+            try self.beamsTokenProvider.fetchToken(userId: "Johnny Cash") { (_, error) in
                 guard case TokenProviderError.error(let errorMessage) = error! else {
-                    XCTFail()
+                    XCTFail("Calling 'fetchToken(userId:)' should result in a 'TokenProviderError'")
                     return exp.fulfill()
                 }
 
@@ -112,9 +110,8 @@ class BeamsTokenProviderTests: XCTestCase {
                 XCTAssertEqual(errorMessage, expectedErrorMessage)
                 exp.fulfill()
             }
-        }
-        catch {
-            XCTFail()
+        } catch {
+            XCTFail("Calling 'fetchToken(userId:)' should not fail")
             exp.fulfill()
         }
 

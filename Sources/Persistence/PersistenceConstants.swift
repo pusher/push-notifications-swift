@@ -9,7 +9,7 @@ struct PersistenceConstants {
                 return "PushNotifications.\(instanceId!)"
             }
         }
-        
+
         static let globalSuiteName = "PushNotificationsInstances"
         static let metadataSDKVersion = "com.pusher.sdk.metadata.sdkVersion"
         static let metadataiOSVersion = "com.pusher.sdk.metadata.iosVersion"

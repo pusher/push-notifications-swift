@@ -20,7 +20,7 @@ struct OpenEventType: ReportEventType, Codable {
         self.userId = userId
         self.timestampSecs = timestampSecs
     }
-    
+
     func getInstanceId() -> String {
         return self.instanceId
     }
@@ -48,7 +48,7 @@ struct DeliveryEventType: ReportEventType, Codable {
         self.hasDisplayableContent = hasDisplayableContent
         self.hasData = hasData
     }
-    
+
     func getInstanceId() -> String {
         return self.instanceId
     }

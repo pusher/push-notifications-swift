@@ -4,7 +4,7 @@ public struct Metadata: Equatable, Codable {
     let sdkVersion: String?
     let iosVersion: String?
     let macosVersion: String?
-    
+
     internal static var current: Metadata = {
         let sdkVersion = SDK.version
         let systemVersion = SystemVersion.version
