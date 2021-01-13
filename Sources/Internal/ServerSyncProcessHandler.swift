@@ -83,11 +83,11 @@ class ServerSyncProcessHandler {
         let result = self.networkService.register(instanceId: instanceId, deviceToken: token, metadata: .current, retryStrategy: WithInfiniteExpBackoff())
 
         switch result {
-        case .error(let error):
-            print("[PushNotifications]: Unrecoverable error when registering device with Pusher Beams (Reason - \(error.getErrorMessage()))")
+        case .failure(let error):
+            print("[PushNotifications]: Unrecoverable error when registering device with Pusher Beams (Reason - \(error.debugDescription))")
             print("[PushNotifications]: SDK will not start.")
             return
-        case .value(let device):
+        case .success(let device):
             var outstandingJobs: [ServerSyncJob] = []
             InstanceDeviceStateStore.synchronize {
                 // Replay sub/unsub/setsub operations in job queue over initial interest set
@@ -159,7 +159,7 @@ class ServerSyncProcessHandler {
         let localMetadata = self.deviceStateStore.getMetadata()
         if metadata != localMetadata {
             let result = self.networkService.syncMetadata(instanceId: self.instanceId, deviceId: self.deviceStateStore.getDeviceId()!, metadata: metadata, retryStrategy: JustDont())
-            if case .value = result {
+            if case .success = result {
                 self.deviceStateStore.persistMetadata(metadata: metadata)
             }
         }
@@ -169,7 +169,7 @@ class ServerSyncProcessHandler {
 
         if localInterestsHash != self.deviceStateStore.getServerConfirmedInterestsHash() {
             let result = self.networkService.setSubscriptions(instanceId: self.instanceId, deviceId: self.deviceStateStore.getDeviceId()!, interests: localInterests, retryStrategy: JustDont())
-            if case .value = result {
+            if case .success = result {
                 self.deviceStateStore.persistServerConfirmedInterestsHash(localInterestsHash)
             }
         }
@@ -179,7 +179,7 @@ class ServerSyncProcessHandler {
         let result: Result<Void, PushNotificationsAPIError> = {
             switch job {
             case .subscribeJob(_, localInterestsChanged: false), .unsubscribeJob(_, localInterestsChanged: false), .setSubscriptions(_, localInterestsChanged: false):
-                return .value(()) // if local interests haven't changed, then we don't need to sync with server
+                return .success(()) // if local interests haven't changed, then we don't need to sync with server
             case .subscribeJob(let interest, localInterestsChanged: true):
                 return self.networkService.subscribe(instanceId: self.instanceId, deviceId: self.deviceStateStore.getDeviceId()!, interest: interest, retryStrategy: WithInfiniteExpBackoff())
             case .unsubscribeJob(let interest, localInterestsChanged: true):
@@ -190,28 +190,28 @@ class ServerSyncProcessHandler {
                 return self.networkService.track(instanceId: eventType.getInstanceId(), deviceId: self.deviceStateStore.getDeviceId()!, eventType: eventType, retryStrategy: WithInfiniteExpBackoff())
             case .applicationStartJob(let metadata):
                 processApplicationStartJob(metadata: metadata)
-                return .value(()) // this was always a best effort operation
+                return .success(()) // this was always a best effort operation
             case .setUserIdJob(let userId):
                 processSetUserIdJob(userId: userId)
-                return .value(()) // errors were already handled at this point
+                return .success(()) // errors were already handled at this point
             case .startJob, .stopJob:
-                return .value(()) // already handled in `handleMessage`
+                return .success(()) // already handled in `handleMessage`
             case .refreshTokenJob:
                 // TODO: Implement refresh token
-                return .value(())
+                return .success(())
             }
         }()
 
         switch result {
-        case .value:
+        case .success:
             return
-        case .error(.deviceNotFound):
+        case .failure(.deviceNotFound):
             if recreateDevice(token: self.deviceStateStore.getAPNsToken()!) {
                 processJob(job)
             } else {
                 print("[PushNotifications]: Not retrying, skipping job: \(job).")
             }
-        case .error(let error):
+        case .failure(let error):
             // not really recoverable, so log it here and also monitor 400s closely on our backend
             // (this really shouldn't happen)
             print("[PushNotifications]: Fail to make a valid request to the server for job \(job), skipping it. Error: \(error)")
@@ -224,10 +224,10 @@ class ServerSyncProcessHandler {
         let result = self.networkService.register(instanceId: self.instanceId, deviceToken: token, metadata: .current, retryStrategy: WithInfiniteExpBackoff())
 
         switch result {
-        case .error(let error):
-            print("[PushNotifications]: Unrecoverable error when registering device with Pusher Beams (Reason - \(error.getErrorMessage()))")
+        case .failure(let error):
+            print("[PushNotifications]: Unrecoverable error when registering device with Pusher Beams (Reason - \(error.debugDescription))")
             return false
-        case .value(let device):
+        case .success(let device):
             let localIntersets: [String] = InstanceDeviceStateStore.synchronize {
                 self.deviceStateStore.persistDeviceId(device.id)
                 self.deviceStateStore.persistAPNsToken(token: token)
@@ -261,10 +261,10 @@ class ServerSyncProcessHandler {
                             let result = self.networkService.setUserId(instanceId: self.instanceId, deviceId: self.deviceStateStore.getDeviceId()!, token: jwt, retryStrategy: WithInfiniteExpBackoff())
 
                             switch result {
-                            case .value:
+                            case .success:
                                 _ = self.deviceStateStore.persistUserId(userId: userId)
-                            case .error(let error):
-                                print("[PushNotifications]: Warning - Unexpected error: \(error.getErrorMessage())")
+                            case .failure(let error):
+                                print("[PushNotifications]: Warning - Unexpected error: \(error.debugDescription)")
                                 self.deviceStateStore.removeUserId()
                                 semaphore.signal()
                                 return
@@ -304,10 +304,10 @@ class ServerSyncProcessHandler {
                 let result = self.networkService.setUserId(instanceId: self.instanceId, deviceId: self.deviceStateStore.getDeviceId()!, token: jwt, retryStrategy: WithInfiniteExpBackoff())
 
                 switch result {
-                case .value:
+                case .success:
                     _ = self.deviceStateStore.persistUserId(userId: userId)
                     self.handleServerSyncEvent(.userIdSetEvent(userId: userId, error: nil))
-                case .error(let error):
+                case .failure(let error):
                     let error = TokenProviderError.error("[PushNotifications] - Error when synchronising with server: \(error)")
                     self.handleServerSyncEvent(.userIdSetEvent(userId: userId, error: error))
                     semaphore.signal()
