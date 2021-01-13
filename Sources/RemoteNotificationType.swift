@@ -1,5 +1,7 @@
 import Foundation
 
+// swiftlint:disable identifier_name
+
 /**
  Remote Notification Type provides an option to ignore Pusher initiated related features.
  Whenever you receive push notification the [handleNotification(userInfo:)](https://docs.pusher.com/beams/reference/ios#handle-notification) method should be called.
