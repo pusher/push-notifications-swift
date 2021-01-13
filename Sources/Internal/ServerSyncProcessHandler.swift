@@ -50,7 +50,7 @@ class ServerSyncProcessHandler {
 
         self.jobQueue.toList().forEach { job in
             switch job {
-            case .SetUserIdJob:
+            case .setUserIdJob:
                 // Skipping it. If the user is still supposed to logged in, then
                 // there should be another setUserIdJob being enqueued upon launch
                 return
@@ -95,27 +95,27 @@ class ServerSyncProcessHandler {
 
                 for job in jobQueue.toList() {
                     switch job {
-                    case .StartJob:
+                    case .startJob:
                         break
-                    case .SubscribeJob(let interest, _):
+                    case .subscribeJob(let interest, _):
                         interestsSet.insert(interest)
-                    case .UnsubscribeJob(let interest, _):
+                    case .unsubscribeJob(let interest, _):
                         interestsSet.remove(interest)
-                    case .SetSubscriptions(let interests, _):
+                    case .setSubscriptions(let interests, _):
                         interestsSet = Set(interests)
-                    case .StopJob:
+                    case .stopJob:
                         outstandingJobs.removeAll()
                         // Any subscriptions changes done at this point are just discarded,
                         // and we need to assume the initial interest set as the starting point again
                         interestsSet = device.initialInterestSet ?? Set<String>()
-                    case .SetUserIdJob:
+                    case .setUserIdJob:
                         outstandingJobs.append(job)
-                    case .ApplicationStartJob:
+                    case .applicationStartJob:
                         // ignoring it as we are already going to sync the state anyway
                         continue
-                    case .RefreshTokenJob:
+                    case .refreshTokenJob:
                         outstandingJobs.append(job)
-                    case .ReportEventJob:
+                    case .reportEventJob:
                         // If SDK hasn't started yet we couldn't have receive any remote notifications
                         continue
                     }
@@ -124,7 +124,7 @@ class ServerSyncProcessHandler {
                 let localInterestsWillChange = Set(self.deviceStateStore.getInterests() ?? []) != interestsSet
                 if localInterestsWillChange {
                     _ = self.deviceStateStore.persistInterests(Array(interestsSet))
-                    self.handleServerSyncEvent(.InterestsChangedEvent(interests: Array(interestsSet)))
+                    self.handleServerSyncEvent(.interestsChangedEvent(interests: Array(interestsSet)))
                 }
 
                 self.deviceStateStore.persistAPNsToken(token: token)
@@ -152,7 +152,7 @@ class ServerSyncProcessHandler {
         self.deviceStateStore.removeMetadata()
         self.deviceStateStore.persistServerConfirmedInterestsHash("")
         self.deviceStateStore.removeUserId()
-        self.handleServerSyncEvent(.StopEvent)
+        self.handleServerSyncEvent(.stopEvent)
     }
 
     private func processApplicationStartJob(metadata: Metadata) {
@@ -178,25 +178,25 @@ class ServerSyncProcessHandler {
     private func processJob(_ job: ServerSyncJob) {
         let result: Result<Void, PushNotificationsAPIError> = {
             switch job {
-            case .SubscribeJob(_, localInterestsChanged: false), .UnsubscribeJob(_, localInterestsChanged: false), .SetSubscriptions(_, localInterestsChanged: false):
+            case .subscribeJob(_, localInterestsChanged: false), .unsubscribeJob(_, localInterestsChanged: false), .setSubscriptions(_, localInterestsChanged: false):
                 return .value(()) // if local interests haven't changed, then we don't need to sync with server
-            case .SubscribeJob(let interest, localInterestsChanged: true):
+            case .subscribeJob(let interest, localInterestsChanged: true):
                 return self.networkService.subscribe(instanceId: self.instanceId, deviceId: self.deviceStateStore.getDeviceId()!, interest: interest, retryStrategy: WithInfiniteExpBackoff())
-            case .UnsubscribeJob(let interest, localInterestsChanged: true):
+            case .unsubscribeJob(let interest, localInterestsChanged: true):
                 return self.networkService.unsubscribe(instanceId: self.instanceId, deviceId: self.deviceStateStore.getDeviceId()!, interest: interest, retryStrategy: WithInfiniteExpBackoff())
-            case .SetSubscriptions(let interests, localInterestsChanged: true):
+            case .setSubscriptions(let interests, localInterestsChanged: true):
                 return self.networkService.setSubscriptions(instanceId: self.instanceId, deviceId: self.deviceStateStore.getDeviceId()!, interests: interests, retryStrategy: WithInfiniteExpBackoff())
-            case .ReportEventJob(let eventType):
+            case .reportEventJob(let eventType):
                 return self.networkService.track(instanceId: eventType.getInstanceId(), deviceId: self.deviceStateStore.getDeviceId()!, eventType: eventType, retryStrategy: WithInfiniteExpBackoff())
-            case .ApplicationStartJob(let metadata):
+            case .applicationStartJob(let metadata):
                 processApplicationStartJob(metadata: metadata)
                 return .value(()) // this was always a best effort operation
-            case .SetUserIdJob(let userId):
+            case .setUserIdJob(let userId):
                 processSetUserIdJob(userId: userId)
                 return .value(()) // errors were already handled at this point
-            case .StartJob, .StopJob:
+            case .startJob, .stopJob:
                 return .value(()) // already handled in `handleMessage`
-            case .RefreshTokenJob:
+            case .refreshTokenJob:
                 // TODO: Implement refresh token
                 return .value(())
             }
@@ -205,7 +205,7 @@ class ServerSyncProcessHandler {
         switch result {
         case .value:
             return
-        case .error(PushNotificationsAPIError.DeviceNotFound):
+        case .error(PushNotificationsAPIError.deviceNotFound):
             if recreateDevice(token: self.deviceStateStore.getAPNsToken()!) {
                 processJob(job)
             } else {
@@ -287,7 +287,7 @@ class ServerSyncProcessHandler {
     func processSetUserIdJob(userId: String) {
         guard let tokenProvider = self.getTokenProvider() else {
             let error = TokenProviderError.error("[PushNotifications] - Token provider missing")
-            self.handleServerSyncEvent(.UserIdSetEvent(userId: userId, error: error))
+            self.handleServerSyncEvent(.userIdSetEvent(userId: userId, error: error))
             return
         }
 
@@ -296,7 +296,7 @@ class ServerSyncProcessHandler {
             try tokenProvider.fetchToken(userId: userId, completionHandler: { jwt, error in
                 if error != nil {
                     let error = TokenProviderError.error("[PushNotifications] - Error when fetching token: \(error!)")
-                    self.handleServerSyncEvent(.UserIdSetEvent(userId: userId, error: error))
+                    self.handleServerSyncEvent(.userIdSetEvent(userId: userId, error: error))
                     semaphore.signal()
                     return
                 }
@@ -306,10 +306,10 @@ class ServerSyncProcessHandler {
                 switch result {
                 case .value:
                     _ = self.deviceStateStore.persistUserId(userId: userId)
-                    self.handleServerSyncEvent(.UserIdSetEvent(userId: userId, error: nil))
+                    self.handleServerSyncEvent(.userIdSetEvent(userId: userId, error: nil))
                 case .error(let error):
                     let error = TokenProviderError.error("[PushNotifications] - Error when synchronising with server: \(error)")
-                    self.handleServerSyncEvent(.UserIdSetEvent(userId: userId, error: error))
+                    self.handleServerSyncEvent(.userIdSetEvent(userId: userId, error: error))
                     semaphore.signal()
                     return
                 }
@@ -319,14 +319,14 @@ class ServerSyncProcessHandler {
             semaphore.wait()
         } catch let error {
             let error = TokenProviderError.error("[PushNotifications] - Error when executing `fetchToken` method: \(error)")
-            self.handleServerSyncEvent(.UserIdSetEvent(userId: userId, error: error))
+            self.handleServerSyncEvent(.userIdSetEvent(userId: userId, error: error))
         }
     }
 
     func handleMessage(serverSyncJob: ServerSyncJob) {
         // If the SDK hasn't started yet we can't do anything, so skip
         var shouldSkip: Bool
-        if case .StartJob = serverSyncJob {
+        if case .startJob = serverSyncJob {
             shouldSkip = false
         } else {
             shouldSkip = !hasStarted()
@@ -337,13 +337,13 @@ class ServerSyncProcessHandler {
         }
 
         switch serverSyncJob {
-        case .StartJob(let instanceId, let token):
+        case .startJob(let instanceId, let token):
             processStartJob(instanceId: instanceId, token: token)
 
             // Clear up the queue up to the StartJob.
             while !jobQueue.isEmpty {
                 switch jobQueue.first! {
-                case .StartJob:
+                case .startJob:
                     jobQueue.removeFirst()
                     return
                 default:
@@ -351,7 +351,7 @@ class ServerSyncProcessHandler {
                 }
             }
 
-        case .StopJob:
+        case .stopJob:
             processStopJob()
             jobQueue.removeFirst()
 

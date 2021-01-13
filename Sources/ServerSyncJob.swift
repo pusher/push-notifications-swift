@@ -1,28 +1,28 @@
 import Foundation
 
 enum ServerSyncJob {
-    case StartJob(instanceId: String, token: String)
-    case RefreshTokenJob(newToken: String)
-    case SubscribeJob(interest: String, localInterestsChanged: Bool)
-    case UnsubscribeJob(interest: String, localInterestsChanged: Bool)
-    case SetSubscriptions(interests: [String], localInterestsChanged: Bool)
-    case ApplicationStartJob(metadata: Metadata)
-    case SetUserIdJob(userId: String)
-    case ReportEventJob(eventType: ReportEventType)
-    case StopJob
+    case startJob(instanceId: String, token: String)
+    case refreshTokenJob(newToken: String)
+    case subscribeJob(interest: String, localInterestsChanged: Bool)
+    case unsubscribeJob(interest: String, localInterestsChanged: Bool)
+    case setSubscriptions(interests: [String], localInterestsChanged: Bool)
+    case applicationStartJob(metadata: Metadata)
+    case setUserIdJob(userId: String)
+    case reportEventJob(eventType: ReportEventType)
+    case stopJob
 }
 
 extension ServerSyncJob: Codable {
     enum Discriminator: Int, Codable {
-        case StartJobKey = 0
-        case RefreshTokenJobKey = 1
-        case SubscribeJobKey = 2
-        case UnsubscribeJobKey = 3
-        case SetSubscriptionsKey = 4
-        case ApplicationStartJobKey = 5
-        case SetUserIdJobKey = 6
-        case ReportEventJobKey = 7
-        case StopJobKey = 8
+        case startJobKey = 0
+        case refreshTokenJobKey = 1
+        case subscribeJobKey = 2
+        case unsubscribeJobKey = 3
+        case setSubscriptionsKey = 4
+        case applicationStartJobKey = 5
+        case setUserIdJobKey = 6
+        case reportEventJobKey = 7
+        case stopJobKey = 8
     }
 
     enum CodingKeys: String, CodingKey {
@@ -40,11 +40,11 @@ extension ServerSyncJob: Codable {
     }
 
     private enum ServerSyncJobError: LocalizedError {
-        case ParseError(reason: String)
+        case parseError(reason: String)
 
         public var errorDescription: String? {
             switch self {
-            case .ParseError(let reason):
+            case .parseError(let reason):
                 return NSLocalizedString("Parsing error", comment: reason)
             }
         }
@@ -55,51 +55,51 @@ extension ServerSyncJob: Codable {
 
         let discriminator = try container.decode(Discriminator.self, forKey: .discriminator)
         switch discriminator {
-        case .StartJobKey:
+        case .startJobKey:
             let instanceId = try container.decode(String.self, forKey: .startJobInstanceIdKey)
             let token = try container.decode(String.self, forKey: .startJobTokenKey)
-            self = .StartJob(instanceId: instanceId, token: token)
+            self = .startJob(instanceId: instanceId, token: token)
             return
-        case .RefreshTokenJobKey:
+        case .refreshTokenJobKey:
             let newToken = try container.decode(String.self, forKey: .newTokenKey)
-            self = .RefreshTokenJob(newToken: newToken)
+            self = .refreshTokenJob(newToken: newToken)
             return
-        case .SubscribeJobKey:
+        case .subscribeJobKey:
             let interest = try container.decode(String.self, forKey: .interestKey)
             let localInterestsChangedKey = try container.decode(Bool.self, forKey: .localInterestsChangedKey)
-            self = .SubscribeJob(interest: interest, localInterestsChanged: localInterestsChangedKey)
+            self = .subscribeJob(interest: interest, localInterestsChanged: localInterestsChangedKey)
             return
-        case .UnsubscribeJobKey:
+        case .unsubscribeJobKey:
             let interest = try container.decode(String.self, forKey: .interestKey)
             let localInterestsChangedKey = try container.decode(Bool.self, forKey: .localInterestsChangedKey)
-            self = .UnsubscribeJob(interest: interest, localInterestsChanged: localInterestsChangedKey)
+            self = .unsubscribeJob(interest: interest, localInterestsChanged: localInterestsChangedKey)
             return
-        case .SetSubscriptionsKey:
+        case .setSubscriptionsKey:
             let interests = try container.decode([String].self, forKey: .interestsKey)
             let localInterestsChangedKey = try container.decode(Bool.self, forKey: .localInterestsChangedKey)
-            self = .SetSubscriptions(interests: interests, localInterestsChanged: localInterestsChangedKey)
+            self = .setSubscriptions(interests: interests, localInterestsChanged: localInterestsChangedKey)
             return
-        case .ApplicationStartJobKey:
+        case .applicationStartJobKey:
             let metadata = try container.decode(Metadata.self, forKey: .metadataKey)
-            self = .ApplicationStartJob(metadata: metadata)
+            self = .applicationStartJob(metadata: metadata)
             return
-        case .SetUserIdJobKey:
+        case .setUserIdJobKey:
             let userId = try container.decode(String.self, forKey: .userIdKey)
-            self = .SetUserIdJob(userId: userId)
+            self = .setUserIdJob(userId: userId)
             return
-        case .ReportEventJobKey:
+        case .reportEventJobKey:
             if let openEventType = try? container.decode(OpenEventType.self, forKey: .openEventTypeKey) {
-                self = .ReportEventJob(eventType: openEventType)
+                self = .reportEventJob(eventType: openEventType)
                 return
             }
             if let deliveryEventType = try? container.decode(DeliveryEventType.self, forKey: .deliveryEventTypeKey) {
-                self = .ReportEventJob(eventType: deliveryEventType)
+                self = .reportEventJob(eventType: deliveryEventType)
                 return
             }
 
-            throw ServerSyncJobError.ParseError(reason: "Issue with the report event")
-        case .StopJobKey:
-            self = .StopJob
+            throw ServerSyncJobError.parseError(reason: "Issue with the report event")
+        case .stopJobKey:
+            self = .stopJob
             return
         }
     }
@@ -109,40 +109,40 @@ extension ServerSyncJob: Codable {
         let key: CodingKeys = .discriminator
 
         switch self {
-        case .StartJob(let instanceId, let token):
-            let value: Discriminator = .StartJobKey
+        case .startJob(let instanceId, let token):
+            let value: Discriminator = .startJobKey
             try container.encode(value, forKey: key)
             try container.encode(instanceId, forKey: .startJobInstanceIdKey)
             try container.encode(token, forKey: .startJobTokenKey)
-        case .RefreshTokenJob(let newToken):
-            let value: Discriminator = .RefreshTokenJobKey
+        case .refreshTokenJob(let newToken):
+            let value: Discriminator = .refreshTokenJobKey
             try container.encode(value, forKey: key)
             try container.encode(newToken, forKey: .newTokenKey)
-        case .SubscribeJob(let interest, let localInterestsChanged):
-            let value: Discriminator = .SubscribeJobKey
+        case .subscribeJob(let interest, let localInterestsChanged):
+            let value: Discriminator = .subscribeJobKey
             try container.encode(value, forKey: key)
             try container.encode(interest, forKey: .interestKey)
             try container.encode(localInterestsChanged, forKey: .localInterestsChangedKey)
-        case .UnsubscribeJob(let interest, let localInterestsChanged):
-            let value: Discriminator = .UnsubscribeJobKey
+        case .unsubscribeJob(let interest, let localInterestsChanged):
+            let value: Discriminator = .unsubscribeJobKey
             try container.encode(value, forKey: key)
             try container.encode(interest, forKey: .interestKey)
             try container.encode(localInterestsChanged, forKey: .localInterestsChangedKey)
-        case .SetSubscriptions(let interests, let localInterestsChanged):
-            let value: Discriminator = .SetSubscriptionsKey
+        case .setSubscriptions(let interests, let localInterestsChanged):
+            let value: Discriminator = .setSubscriptionsKey
             try container.encode(value, forKey: key)
             try container.encode(interests, forKey: .interestsKey)
             try container.encode(localInterestsChanged, forKey: .localInterestsChangedKey)
-        case .ApplicationStartJob(let metadata):
-            let value: Discriminator = .ApplicationStartJobKey
+        case .applicationStartJob(let metadata):
+            let value: Discriminator = .applicationStartJobKey
             try container.encode(value, forKey: key)
             try container.encode(metadata, forKey: .metadataKey)
-        case .SetUserIdJob(let userId):
-            let value: Discriminator = .SetUserIdJobKey
+        case .setUserIdJob(let userId):
+            let value: Discriminator = .setUserIdJobKey
             try container.encode(value, forKey: key)
             try container.encode(userId, forKey: .userIdKey)
-        case .ReportEventJob(let eventType):
-            let value: Discriminator = .ReportEventJobKey
+        case .reportEventJob(let eventType):
+            let value: Discriminator = .reportEventJobKey
             try container.encode(value, forKey: key)
             if let openEventType = eventType as? OpenEventType {
                 try container.encode(openEventType, forKey: .openEventTypeKey)
@@ -150,8 +150,8 @@ extension ServerSyncJob: Codable {
             if let deliveryEventType = eventType as? DeliveryEventType {
                 try container.encode(deliveryEventType, forKey: .deliveryEventTypeKey)
             }
-        case .StopJob:
-            let value: Discriminator = .StopJobKey
+        case .stopJob:
+            let value: Discriminator = .stopJobKey
             try container.encode(value, forKey: key)
         }
     }

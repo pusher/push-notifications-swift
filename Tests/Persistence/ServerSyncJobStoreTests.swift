@@ -17,21 +17,21 @@ class ServerSyncJobStoreTests: XCTestCase {
 
         XCTAssertTrue(jobstore.isEmpty)
 
-        jobstore.append(.SetUserIdJob(userId: "danielle"))
+        jobstore.append(.setUserIdJob(userId: "danielle"))
 
         XCTAssertFalse(jobstore.isEmpty)
 
         let list = jobstore.toList()
         XCTAssertEqual(list.count, 1)
 
-        if case .SetUserIdJob(let userId) = list[0] {
+        if case .setUserIdJob(let userId) = list[0] {
             XCTAssertEqual(userId, "danielle")
         } else {
             XCTFail("The job should be of type '.SetUserIdJob'")
         }
 
         if let firstElement = jobstore.first,
-            case .SetUserIdJob(let userId) = firstElement {
+            case .setUserIdJob(let userId) = firstElement {
             XCTAssertEqual(userId, "danielle")
         } else {
             XCTFail("The job should be of type '.SetUserIdJob'")

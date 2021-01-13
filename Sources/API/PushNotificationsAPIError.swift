@@ -1,23 +1,23 @@
 import Foundation
 
 enum PushNotificationsAPIError {
-    case DeviceNotFound
-    case BadRequest(reason: String)
-    case BadJWT(reason: String)
-    case GenericError(reason: String)
-    case BadDeviceToken(reason: String)
+    case deviceNotFound
+    case badRequest(reason: String)
+    case badJWT(reason: String)
+    case genericError(reason: String)
+    case badDeviceToken(reason: String)
 
     func getErrorMessage() -> String {
         switch self {
-        case .DeviceNotFound:
+        case .deviceNotFound:
             return "Device Not Found"
-        case .BadRequest(let reason):
+        case .badRequest(let reason):
             return "Bad Request: \(reason)"
-        case .BadJWT(let reason):
+        case .badJWT(let reason):
             return "Bad JWT: \(reason)"
-        case .GenericError(let reason):
+        case .genericError(let reason):
             return "Error: \(reason)"
-        case .BadDeviceToken(let reason):
+        case .badDeviceToken(let reason):
             return "Bad Device Token: \(reason)"
         }
     }

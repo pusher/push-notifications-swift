@@ -169,7 +169,7 @@ import Foundation
 
                 // TODO: Handle Token Refresh support
                 ServerSyncProcessHandler.obtain(instanceId: instance)?
-                    .sendMessage(serverSyncJob: ServerSyncJob.StartJob(instanceId: instance, token: deviceToken.hexadecimalRepresentation()))
+                    .sendMessage(serverSyncJob: ServerSyncJob.startJob(instanceId: instance, token: deviceToken.hexadecimalRepresentation()))
             }
         }
 
@@ -281,7 +281,7 @@ import Foundation
         #endif
 
         let serverSyncProcessHandler = ServerSyncProcessHandler.obtain(instanceId: eventType.getInstanceId())
-        serverSyncProcessHandler?.sendMessage(serverSyncJob: .ReportEventJob(eventType: eventType))
+        serverSyncProcessHandler?.sendMessage(serverSyncJob: .reportEventJob(eventType: eventType))
 
         return EventTypeHandler.getRemoteNotificationType(userInfo)
     }

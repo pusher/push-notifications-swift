@@ -32,20 +32,20 @@ internal class ServerSyncEventHandler {
     func handleEvent(event: ServerSyncEvent) {
         DispatchQueue.main.async {
             switch event {
-            case .InterestsChangedEvent(let interests):
+            case .interestsChangedEvent(let interests):
                 self.interestsChangedDelegates.forEach({ delegate in
                     if let delegate = delegate() {
                         delegate.interestsSetOnDeviceDidChange(interests: interests)
                     }
                 })
 
-            case .UserIdSetEvent(let userId, let error):
+            case .userIdSetEvent(let userId, let error):
                 if !(self.userIdCallbacks[userId]?.isEmpty ?? true) {
                     if let completion = self.userIdCallbacks[userId]?.removeFirst() {
                         completion(error)
                     }
                 }
-            case .StopEvent:
+            case .stopEvent:
                 if !(self.stopCallbacks.isEmpty) {
                     let completion = self.stopCallbacks.removeFirst()
                     completion()

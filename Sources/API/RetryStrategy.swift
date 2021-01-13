@@ -28,10 +28,10 @@ public class WithInfiniteExpBackoff: RetryStrategy {
             switch result {
             case .error(let error):
                 switch error {
-                case .DeviceNotFound, .BadRequest, .BadJWT, .BadDeviceToken:
+                case .deviceNotFound, .badRequest, .badJWT, .badDeviceToken:
                     // Not recoverable cases.
                     return result
-                case .GenericError:
+                case .genericError:
                     print("[PushNotifications]: Network error: \(error.getErrorMessage())")
                     self.retryCount += 1
                     let delay = calculateExponentialBackoffMs(attemptCount: self.retryCount)
