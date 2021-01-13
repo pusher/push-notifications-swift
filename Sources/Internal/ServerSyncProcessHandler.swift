@@ -3,7 +3,7 @@ import Foundation
 class ServerSyncProcessHandler {
     private static let serverSyncHandlersQueue = DispatchQueue(label: "com.pusher.beams.serverSyncHandlersQueue")
     private static var serverSyncHandlers = [String: ServerSyncProcessHandler]()
-    internal static func obtain(instanceId: String, getTokenProvider: @escaping () -> TokenProvider?, handleServerSyncEvent: @escaping (ServerSyncEvent) -> Void) -> ServerSyncProcessHandler {
+    static func obtain(instanceId: String, getTokenProvider: @escaping () -> TokenProvider?, handleServerSyncEvent: @escaping (ServerSyncEvent) -> Void) -> ServerSyncProcessHandler {
         return serverSyncHandlersQueue.sync {
             if let handler = self.serverSyncHandlers[instanceId] {
                 return handler
@@ -15,14 +15,14 @@ class ServerSyncProcessHandler {
         }
     }
 
-    internal static func obtain(instanceId: String) -> ServerSyncProcessHandler? {
+    static func obtain(instanceId: String) -> ServerSyncProcessHandler? {
         return serverSyncHandlersQueue.sync {
             return self.serverSyncHandlers[instanceId]
         }
     }
 
     // used only for testing purposes
-    internal static func destroy(instanceId: String) {
+    static func destroy(instanceId: String) {
         _ = serverSyncHandlersQueue.sync {
             self.serverSyncHandlers.removeValue(forKey: instanceId)
         }
@@ -37,7 +37,7 @@ class ServerSyncProcessHandler {
     public var jobQueue: ServerSyncJobStore
     private let deviceStateStore: InstanceDeviceStateStore
 
-    internal init(instanceId: String, getTokenProvider: @escaping () -> TokenProvider?, handleServerSyncEvent: @escaping (ServerSyncEvent) -> Void) {
+    init(instanceId: String, getTokenProvider: @escaping () -> TokenProvider?, handleServerSyncEvent: @escaping (ServerSyncEvent) -> Void) {
         self.instanceId = instanceId
         self.deviceStateStore = InstanceDeviceStateStore(instanceId)
         self.getTokenProvider = getTokenProvider

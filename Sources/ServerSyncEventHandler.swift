@@ -1,6 +1,6 @@
 import Foundation
 
-internal class ServerSyncEventHandler {
+class ServerSyncEventHandler {
 
     static let serverSyncEventHandlersQueue = DispatchQueue(label: "com.pusher.beams.serverSyncEventHandlersQueue")
     static var serverSyncEventHandlers = [String: ServerSyncEventHandler]()
@@ -18,14 +18,14 @@ internal class ServerSyncEventHandler {
     }
 
     // used only for testing purposes
-    internal static func destroy(instanceId: String) {
+    static func destroy(instanceId: String) {
         _ = serverSyncEventHandlersQueue.sync {
             self.serverSyncEventHandlers.removeValue(forKey: instanceId)
         }
     }
 
-    internal var userIdCallbacks = [String: [(Error?) -> Void]]()
-    internal var stopCallbacks = [() -> Void]()
+    var userIdCallbacks = [String: [(Error?) -> Void]]()
+    var stopCallbacks = [() -> Void]()
 
     private var interestsChangedDelegates = [() -> InterestsChangedDelegate?]()
 
