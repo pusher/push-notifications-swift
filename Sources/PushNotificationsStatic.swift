@@ -169,7 +169,7 @@ import Foundation
 
                 // TODO: Handle Token Refresh support
                 ServerSyncProcessHandler.obtain(instanceId: instance)?
-                    .sendMessage(serverSyncJob: ServerSyncJob.startJob(instanceId: instance, token: deviceToken.hexadecimalRepresentation()))
+                    .sendMessage(serverSyncJob: .startJob(instanceId: instance, token: deviceToken.hexadecimalRepresentation()))
             }
         }
 

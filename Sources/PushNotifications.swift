@@ -61,7 +61,7 @@ import Foundation
 
         startHasBeenCalledThisSession = true
         deviceStateStore.persistStartJobHasBeenEnqueued(flag: true)
-        self.serverSyncHandler.sendMessage(serverSyncJob: .applicationStartJob(metadata: Metadata.current))
+        self.serverSyncHandler.sendMessage(serverSyncJob: .applicationStartJob(metadata: .current))
     }
 
     /**
@@ -145,7 +145,7 @@ import Foundation
         } else {
             self.serverSyncEventHandler.userIdCallbacks[userId] = [wrapperCompletion]
         }
-        self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.setUserIdJob(userId: userId))
+        self.serverSyncHandler.sendMessage(serverSyncJob: .setUserIdJob(userId: userId))
     }
 
     @objc private func printHelpfulMessage() {
@@ -177,7 +177,7 @@ import Foundation
         startHasBeenCalledThisSession = false
 
         self.serverSyncEventHandler.stopCallbacks.append(completion)
-        self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.stopJob)
+        self.serverSyncHandler.sendMessage(serverSyncJob: .stopJob)
     }
 
     /**
@@ -234,7 +234,7 @@ import Foundation
             self.deviceStateStore.persistInterest(interest)
         }
 
-        self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.subscribeJob(interest: interest, localInterestsChanged: interestsChanged))
+        self.serverSyncHandler.sendMessage(serverSyncJob: .subscribeJob(interest: interest, localInterestsChanged: interestsChanged))
         if interestsChanged {
             self.interestsSetOnDeviceDidChange()
         }
@@ -260,7 +260,7 @@ import Foundation
             self.deviceStateStore.persistInterests(interests)
         }
 
-        self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.setSubscriptions(interests: interests, localInterestsChanged: interestsChanged))
+        self.serverSyncHandler.sendMessage(serverSyncJob: .setSubscriptions(interests: interests, localInterestsChanged: interestsChanged))
         if interestsChanged {
             self.interestsSetOnDeviceDidChange()
         }
@@ -285,7 +285,7 @@ import Foundation
             self.deviceStateStore.removeInterest(interest: interest)
         }
 
-        self.serverSyncHandler.sendMessage(serverSyncJob: ServerSyncJob.unsubscribeJob(interest: interest, localInterestsChanged: interestsChanged))
+        self.serverSyncHandler.sendMessage(serverSyncJob: .unsubscribeJob(interest: interest, localInterestsChanged: interestsChanged))
         if interestsChanged {
             self.interestsSetOnDeviceDidChange()
         }

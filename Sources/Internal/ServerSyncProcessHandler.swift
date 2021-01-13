@@ -80,7 +80,7 @@ class ServerSyncProcessHandler {
 
     private func processStartJob(instanceId: String, token: String) {
         // Register device with Error
-        let result = self.networkService.register(instanceId: instanceId, deviceToken: token, metadata: Metadata.current, retryStrategy: WithInfiniteExpBackoff())
+        let result = self.networkService.register(instanceId: instanceId, deviceToken: token, metadata: .current, retryStrategy: WithInfiniteExpBackoff())
 
         switch result {
         case .error(let error):
@@ -205,7 +205,7 @@ class ServerSyncProcessHandler {
         switch result {
         case .value:
             return
-        case .error(PushNotificationsAPIError.deviceNotFound):
+        case .error(.deviceNotFound):
             if recreateDevice(token: self.deviceStateStore.getAPNsToken()!) {
                 processJob(job)
             } else {
@@ -221,7 +221,7 @@ class ServerSyncProcessHandler {
 
     private func recreateDevice(token: String) -> Bool {
         // Register device with Error
-        let result = self.networkService.register(instanceId: self.instanceId, deviceToken: token, metadata: Metadata.current, retryStrategy: WithInfiniteExpBackoff())
+        let result = self.networkService.register(instanceId: self.instanceId, deviceToken: token, metadata: .current, retryStrategy: WithInfiniteExpBackoff())
 
         switch result {
         case .error(let error):
