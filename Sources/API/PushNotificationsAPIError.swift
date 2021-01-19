@@ -1,13 +1,13 @@
 import Foundation
 
-enum PushNotificationsAPIError {
+enum PushNotificationsAPIError: Error, CustomDebugStringConvertible {
     case deviceNotFound
     case badRequest(reason: String)
     case badJWT(reason: String)
     case genericError(reason: String)
     case badDeviceToken(reason: String)
 
-    func getErrorMessage() -> String {
+    var debugDescription: String {
         switch self {
         case .deviceNotFound:
             return "Device Not Found"
