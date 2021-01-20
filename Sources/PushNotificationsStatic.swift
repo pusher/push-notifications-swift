@@ -233,7 +233,7 @@ import Foundation
         }
     }
 
-    ///Unsubscribes the device from all the interests.
+    /// Unsubscribes the device from all the interests.
     /// - Tag: clearDeviceInterests
     @objc public static func clearDeviceInterests() throws {
         if let staticInstance = instance {

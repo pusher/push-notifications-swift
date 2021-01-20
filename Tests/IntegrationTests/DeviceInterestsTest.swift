@@ -2,7 +2,7 @@ import XCTest
 import Nimble
 @testable import PushNotifications
 
-// swiftlint:disable nesting function_body_length
+// swiftlint:disable function_body_length
 
 class DeviceInterestsTest: XCTestCase {
     // Real production instance.
