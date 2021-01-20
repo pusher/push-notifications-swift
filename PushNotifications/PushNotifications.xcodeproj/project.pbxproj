@@ -81,7 +81,8 @@
 		53202E5125B0A9AD009221F6 /* ClearAllStateTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53202E3025B0A9AD009221F6 /* ClearAllStateTest.swift */; };
 		53202E5225B0A9AD009221F6 /* DeviceInterestsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53202E3125B0A9AD009221F6 /* DeviceInterestsTest.swift */; };
 		A144AB501F9E3DA3009F0040 /* PushNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB481F9E3DA2009F0040 /* PushNotifications.swift */; };
-		A1482A582181F3CD00F19A4E /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1482A572181F3CD00F19A4E /* Result.swift */; };
+		A144AB511F9E3DA3009F0040 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB491F9E3DA3009F0040 /* HTTPMethod.swift */; };
+		A1504E17206B9D98002D1E74 /* EventTypeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1504E16206B9D98002D1E74 /* EventTypeHandler.swift */; };
 		A155BFBD1F9E38040070A609 /* PushNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A155BFB31F9E38040070A609 /* PushNotifications.framework */; };
 		A155BFC41F9E38040070A609 /* PushNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = A155BFB61F9E38040070A609 /* PushNotifications.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D36A947D239FB24D0015169F /* PushNotificationsStatic.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36A947A239FB24C0015169F /* PushNotificationsStatic.swift */; };
@@ -173,7 +174,8 @@
 		53202E3125B0A9AD009221F6 /* DeviceInterestsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInterestsTest.swift; sourceTree = "<group>"; };
 		A1197BD6206266D200FD7335 /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = ../Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
 		A144AB481F9E3DA2009F0040 /* PushNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PushNotifications.swift; path = ../../Sources/PushNotifications.swift; sourceTree = "<group>"; };
-		A1482A572181F3CD00F19A4E /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Result.swift; path = ../../Sources/Result.swift; sourceTree = "<group>"; };
+		A144AB491F9E3DA3009F0040 /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HTTPMethod.swift; path = ../../Sources/HTTPMethod.swift; sourceTree = "<group>"; };
+		A1504E16206B9D98002D1E74 /* EventTypeHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventTypeHandler.swift; path = ../../Sources/EventTypeHandler.swift; sourceTree = "<group>"; };
 		A155BFB31F9E38040070A609 /* PushNotifications.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PushNotifications.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A155BFB61F9E38040070A609 /* PushNotifications.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PushNotifications.h; sourceTree = "<group>"; };
 		A155BFB71F9E38040070A609 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -412,7 +414,15 @@
 				D36A947A239FB24C0015169F /* PushNotificationsStatic.swift */,
 				A155BFB61F9E38040070A609 /* PushNotifications.h */,
 				A144AB481F9E3DA2009F0040 /* PushNotifications.swift */,
-				A1482A572181F3CD00F19A4E /* Result.swift */,
+				A1F0E941219B18B800D32363 /* PushNotificationsError.swift */,
+				A16782541FA0EA2C00A193DF /* Reason.swift */,
+				A1E78E302020AEF400DD94B2 /* Register.swift */,
+				A1EFF5C8207B7E78006C3004 /* RemoteNotificationType.swift */,
+				A1E80009201A213000467EB9 /* ReportEventType.swift */,
+				A140FFD62020C5E600931AF6 /* SDK.swift */,
+				A1DAD62D2020CAE7001497B5 /* SystemVersion.swift */,
+				A19B15D22189E4FC008E6DB5 /* Token.swift */,
+				A1327BDE2178EB62001483E1 /* TokenProvider.swift */,
 			);
 			path = PushNotifications;
 			sourceTree = "<group>";
@@ -580,15 +590,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				53202E0725B0A966009221F6 /* ServerSyncProcessHandler.swift in Sources */,
-				53202DED25B0A966009221F6 /* FeatureFlags.swift in Sources */,
-				53202E0225B0A966009221F6 /* BeamsTokenProvider.swift in Sources */,
-				A1482A582181F3CD00F19A4E /* Result.swift in Sources */,
-				53202DE725B0A966009221F6 /* SystemVersion.swift in Sources */,
-				53202DFA25B0A966009221F6 /* DeviceTokenHelper.swift in Sources */,
-				53202DFB25B0A966009221F6 /* MD5.swift in Sources */,
-				53202DE925B0A966009221F6 /* PushNotificationsAPIError.swift in Sources */,
-				53202DFF25B0A966009221F6 /* RetryStrategy.swift in Sources */,
+				A1E78E312020AEF400DD94B2 /* Register.swift in Sources */,
+				A1F122E32237C90600F7D766 /* PushNotificationsNetworkable.swift in Sources */,
+				A1F122E82237C9D400F7D766 /* PushNotificationsAPIError.swift in Sources */,
+				A140FFD72020C5E600931AF6 /* SDK.swift in Sources */,
+				A144AB4C1F9E3DA3009F0040 /* DeviceTokenHelper.swift in Sources */,
+				A140FFD12020BE5700931AF6 /* Encodable+Encode.swift in Sources */,
+				A182088D2014C6F4007D86C6 /* Array+ContainsSameElements.swift in Sources */,
+				A138645B212C5057009FE29D /* Constants.swift in Sources */,
+				A1EB82FB225B7FA600D63F7C /* ServerSyncEvent.swift in Sources */,
+				A140FFD32020BECF00931AF6 /* Interests.swift in Sources */,
+				A1327BDF2178EB62001483E1 /* BeamsTokenProvider.swift in Sources */,
+				A1F0E942219B18B800D32363 /* PushNotificationsError.swift in Sources */,
+				A1327BE02178EB62001483E1 /* AuthData.swift in Sources */,
+				A126312722CB726900DDAD28 /* ServerSyncJob.swift in Sources */,
+				A1D2AC3D22560D3E00AF4871 /* String+HexStringToData.swift in Sources */,
+				A1F122E42237C90600F7D766 /* NetworkService.swift in Sources */,
+				A1DAD62E2020CAE7001497B5 /* SystemVersion.swift in Sources */,
+				A104B3A120F75C9000587100 /* Array+CalculateMD5Hash.swift in Sources */,
+				D37C57232386B0A900F9EA90 /* PersistenceConstants.swift in Sources */,
+				A1EFF5C9207B7E78006C3004 /* RemoteNotificationType.swift in Sources */,
+				A10552ED2028A934001E45D1 /* Metadata.swift in Sources */,
+				A144AB511F9E3DA3009F0040 /* HTTPMethod.swift in Sources */,
+				A1AC401520FDFF1E002E6128 /* MD5.swift in Sources */,
 				A144AB501F9E3DA3009F0040 /* PushNotifications.swift in Sources */,
 				53202DEB25B0A966009221F6 /* PublishId.swift in Sources */,
 				53202E0425B0A966009221F6 /* NetworkService.swift in Sources */,
@@ -821,7 +845,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -848,7 +872,7 @@
 				SDKROOT = "";
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -886,7 +910,7 @@
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
 				SWIFT_OBJC_BRIDGING_HEADER = "PushNotificationsTests/PushNotificationsTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -923,7 +947,7 @@
 				SDKROOT = "";
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
 				SWIFT_OBJC_BRIDGING_HEADER = "PushNotificationsTests/PushNotificationsTests-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

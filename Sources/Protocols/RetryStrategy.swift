@@ -9,10 +9,10 @@ public struct JustDont: RetryStrategy {
         let result = function()
 
         switch result {
-        case .error(let error):
-            print("[PushNotifications]: Network error: \(error.getErrorMessage())")
+        case .failure(let error):
+            print("[PushNotifications]: Network error: \(error.debugDescription)")
             return result
-        case .value:
+        case .success:
             return result
         }
     }
@@ -26,19 +26,19 @@ public class WithInfiniteExpBackoff: RetryStrategy {
             let result = function()
 
             switch result {
-            case .error(let error):
+            case .failure(let error):
                 switch error {
                 case .deviceNotFound, .badRequest, .badJWT, .badDeviceToken:
                     // Not recoverable cases.
                     return result
                 case .genericError:
-                    print("[PushNotifications]: Network error: \(error.getErrorMessage())")
+                    print("[PushNotifications]: Network error: \(error.debugDescription)")
                     self.retryCount += 1
                     let delay = calculateExponentialBackoffMs(attemptCount: self.retryCount)
                     Thread.sleep(forTimeInterval: TimeInterval(delay / 1000.0))
                     continue
                 }
-            case .value:
+            case .success:
                 return result
             }
         }
