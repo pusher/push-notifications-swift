@@ -27,7 +27,7 @@ import Foundation
         DeviceStateStore().persistInstanceId(instanceId)
     }
 
-    //! Returns a shared singleton PushNotifications object.
+    // ! Returns a shared singleton PushNotifications object.
     /// - Tag: shared
     @objc public static let shared = PushNotificationsStatic.self
 
@@ -291,7 +291,7 @@ import Foundation
         }
     }
 
-    ///Unsubscribes the device from all the interests.
+    /// Unsubscribes the device from all the interests.
     /// - Tag: clearDeviceInterests
     @objc public func clearDeviceInterests() throws {
         try self.setDeviceInterests(interests: [])

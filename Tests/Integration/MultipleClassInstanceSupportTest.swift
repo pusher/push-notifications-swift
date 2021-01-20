@@ -2,8 +2,6 @@ import XCTest
 import Nimble
 @testable import PushNotifications
 
-// swiftlint:disable nesting
-
 class MultipleClassInstanceSupportTest: XCTestCase {
     let validToken = "notadevicetoken-apns-MultipleClassInstanceSupportTest".data(using: .utf8)!
     let deviceStateStore = InstanceDeviceStateStore(TestHelper.instanceId)
