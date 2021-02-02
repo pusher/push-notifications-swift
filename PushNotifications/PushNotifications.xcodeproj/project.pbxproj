@@ -80,6 +80,7 @@
 		534FE4B925B854A800093A38 /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53202DC125B0A966009221F6 /* FeatureFlags.swift */; };
 		534FE4BC25B854B000093A38 /* DeviceTokenHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53202DD025B0A966009221F6 /* DeviceTokenHelper.swift */; };
 		534FE4BF25B8551B00093A38 /* BeamsTokenProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53202DDA25B0A966009221F6 /* BeamsTokenProvider.swift */; };
+		534FE4CB25B9BDF900093A38 /* URL+NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534FE4CA25B9BDF900093A38 /* URL+NetworkService.swift */; };
 		A144AB501F9E3DA3009F0040 /* PushNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144AB481F9E3DA2009F0040 /* PushNotifications.swift */; };
 		A155BFBD1F9E38040070A609 /* PushNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A155BFB31F9E38040070A609 /* PushNotifications.framework */; };
 		A155BFC41F9E38040070A609 /* PushNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = A155BFB61F9E38040070A609 /* PushNotifications.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -170,6 +171,7 @@
 		53202E2F25B0A9AD009221F6 /* ApplicationStartTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationStartTests.swift; sourceTree = "<group>"; };
 		53202E3025B0A9AD009221F6 /* ClearAllStateTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClearAllStateTest.swift; sourceTree = "<group>"; };
 		53202E3125B0A9AD009221F6 /* DeviceInterestsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInterestsTest.swift; sourceTree = "<group>"; };
+		534FE4CA25B9BDF900093A38 /* URL+NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+NetworkService.swift"; sourceTree = "<group>"; };
 		A1197BD6206266D200FD7335 /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = ../Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
 		A144AB481F9E3DA2009F0040 /* PushNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PushNotifications.swift; path = ../../Sources/PushNotifications.swift; sourceTree = "<group>"; };
 		A144AB491F9E3DA3009F0040 /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HTTPMethod.swift; path = ../../Sources/HTTPMethod.swift; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 				53202DCC25B0A966009221F6 /* Encodable+Encode.swift */,
 				53202DCD25B0A966009221F6 /* Array+CalculateMD5Hash.swift */,
 				53202DCE25B0A966009221F6 /* String+HexStringToData.swift */,
+				534FE4CA25B9BDF900093A38 /* URL+NetworkService.swift */,
 			);
 			name = Extensions;
 			path = ../../Sources/Extensions;
@@ -588,6 +591,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A144AB501F9E3DA3009F0040 /* PushNotifications.swift in Sources */,
+				534FE4CB25B9BDF900093A38 /* URL+NetworkService.swift in Sources */,
 				53202DEB25B0A966009221F6 /* PublishId.swift in Sources */,
 				53202E0425B0A966009221F6 /* NetworkService.swift in Sources */,
 				53202DF725B0A966009221F6 /* Encodable+Encode.swift in Sources */,
