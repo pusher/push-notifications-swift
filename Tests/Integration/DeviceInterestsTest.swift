@@ -20,7 +20,7 @@ class DeviceInterestsTest: XCTestCase {
         super.tearDown()
     }
 
-    func testInterestNameValidation() {
+    func testInterestNameValidation() throws {
         let pushNotifications = PushNotifications(instanceId: instanceId)
         XCTAssertThrowsError(try pushNotifications.addDeviceInterest(interest: "hello$*"))
         XCTAssertThrowsError(try pushNotifications.removeDeviceInterest(interest: "hello$*"))
@@ -37,12 +37,12 @@ class DeviceInterestsTest: XCTestCase {
             XCTAssertEqual(names, invalidInterests)
         }
 
-        try! invalidInterests.forEach { interest in
+        try invalidInterests.forEach { interest in
             XCTAssertThrowsError(try pushNotifications.addDeviceInterest(interest: interest))
             XCTAssertThrowsError(try pushNotifications.removeDeviceInterest(interest: interest))
         }
 
-        try! validInterests.forEach { interest in
+        try validInterests.forEach { interest in
             XCTAssertNoThrow(try pushNotifications.addDeviceInterest(interest: interest))
             XCTAssertNoThrow(try pushNotifications.removeDeviceInterest(interest: interest))
         }

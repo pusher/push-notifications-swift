@@ -75,7 +75,7 @@ class MultipleInstanceSupportTest: XCTestCase {
         expect(InstanceDeviceStateStore(TestHelper.instanceId2).getDeviceId()).toEventuallyNot(beNil(), timeout: .seconds(10))
     }
 
-    func testInterestsShouldNotAffectEachOther() {
+    func testInterestsShouldNotAffectEachOther() throws {
         let pni1 = PushNotifications(instanceId: TestHelper.instanceId)
         let pni2 = PushNotifications(instanceId: TestHelper.instanceId2)
 
@@ -91,8 +91,8 @@ class MultipleInstanceSupportTest: XCTestCase {
         let device1 = InstanceDeviceStateStore(TestHelper.instanceId).getDeviceId()!
         let device2 = InstanceDeviceStateStore(TestHelper.instanceId2).getDeviceId()!
 
-        try! pni1.setDeviceInterests(interests: ["carrot", "sweetcorn", "pea"])
-        try! pni2.setDeviceInterests(interests: ["pizza", "burger", "chip"])
+        try pni1.setDeviceInterests(interests: ["carrot", "sweetcorn", "pea"])
+        try pni2.setDeviceInterests(interests: ["pizza", "burger", "chip"])
 
         XCTAssertTrue(pni1.getDeviceInterests()!.containsSameElements(as: ["carrot", "sweetcorn", "pea"]))
         XCTAssertTrue(pni2.getDeviceInterests()!.containsSameElements(as: ["pizza", "burger", "chip"]))
@@ -102,10 +102,10 @@ class MultipleInstanceSupportTest: XCTestCase {
         expect(TestAPIClientHelper().getDeviceInterests(instanceId: TestHelper.instanceId2, deviceId: device2))
             .toEventually(contain("pizza", "burger", "chip"), timeout: .seconds(10))
 
-        try! pni1.addDeviceInterest(interest: "okra")
-        try! pni1.removeDeviceInterest(interest: "sweetcorn")
-        try! pni2.addDeviceInterest(interest: "hotdog")
-        try! pni2.removeDeviceInterest(interest: "burger")
+        try pni1.addDeviceInterest(interest: "okra")
+        try pni1.removeDeviceInterest(interest: "sweetcorn")
+        try pni2.addDeviceInterest(interest: "hotdog")
+        try pni2.removeDeviceInterest(interest: "burger")
 
         XCTAssertTrue(pni1.getDeviceInterests()!.containsSameElements(as: ["carrot", "okra", "pea"]))
         XCTAssertTrue(pni2.getDeviceInterests()!.containsSameElements(as: ["pizza", "hotdog", "chip"]))

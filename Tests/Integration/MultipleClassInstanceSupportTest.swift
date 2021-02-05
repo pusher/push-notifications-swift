@@ -56,7 +56,7 @@ class MultipleClassInstanceSupportTest: XCTestCase {
         waitForExpectations(timeout: 10)
     }
 
-    func testInterestsChangedDelegateCalledOnCorrectCallback() {
+    func testInterestsChangedDelegateCalledOnCorrectCallback() throws {
         let pushNotifications1 = PushNotifications(instanceId: TestHelper.instanceId)
         let pushNotifications2 = PushNotifications(instanceId: TestHelper.instanceId)
 
@@ -77,7 +77,7 @@ class MultipleClassInstanceSupportTest: XCTestCase {
         })
         pushNotifications1.delegate = stubInterestsChanged
 
-        XCTAssertNoThrow(try! pushNotifications2.addDeviceInterest(interest: "panda"))
+        XCTAssertNoThrow(try pushNotifications2.addDeviceInterest(interest: "panda"))
 
         waitForExpectations(timeout: 1)
     }
