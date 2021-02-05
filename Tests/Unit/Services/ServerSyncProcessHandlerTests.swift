@@ -1,5 +1,5 @@
-import XCTest
 import OHHTTPStubs
+import XCTest
 #if canImport(OHHTTPStubsSwift)
 import OHHTTPStubsSwift
 #endif
@@ -7,15 +7,15 @@ import OHHTTPStubsSwift
 
 class ServerSyncProcessHandlerTests: XCTestCase {
 
-    let instanceId = "8a070eaa-033f-46d6-bb90-f4c15acc47e1"
-    let deviceId = "apns-8792dc3f-45ce-4fd9-ab6d-3bf731f813c6"
-    let deviceToken = "e4cea6a8b2419499c8c716bec80b705d7a5d8864adb2c69400bab9b7abe43ff1"
-    let noTokenProvider: () -> TokenProvider? = {
+    private let instanceId = "8a070eaa-033f-46d6-bb90-f4c15acc47e1"
+    private let deviceId = "apns-8792dc3f-45ce-4fd9-ab6d-3bf731f813c6"
+    private let deviceToken = "e4cea6a8b2419499c8c716bec80b705d7a5d8864adb2c69400bab9b7abe43ff1"
+    private let noTokenProvider: () -> TokenProvider? = {
         return nil
     }
-    let deviceStateStore = InstanceDeviceStateStore("8a070eaa-033f-46d6-bb90-f4c15acc47e1")
+    private let deviceStateStore = InstanceDeviceStateStore("8a070eaa-033f-46d6-bb90-f4c15acc47e1")
 
-    let ignoreServerSyncEvent: (ServerSyncEvent) -> Void = { _ in
+    private let ignoreServerSyncEvent: (ServerSyncEvent) -> Void = { _ in
         return
     }
 
@@ -140,6 +140,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
             case .interestsChangedEvent(let interests):
                 XCTAssertTrue(interests.containsSameElements(as: Array(expectedInterestsSet)))
                 exp.fulfill()
+
             default:
                 XCTFail("The event should be of type '.InterestsChangedEvent'")
             }
@@ -656,6 +657,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
                 switch event {
                 case .userIdSetEvent("cucas", nil):
                     exp.fulfill()
+
                 default:
                     XCTFail("The event should be of type '.UserIdSetEvent'")
                 }
@@ -698,10 +700,11 @@ class ServerSyncProcessHandlerTests: XCTestCase {
                 case .userIdSetEvent("cucas", let error):
                     XCTAssertNotNil(error)
                     exp.fulfill()
+
                 default:
                     XCTFail("The event should be of type '.UserIdSetEvent'")
                 }
-        }
+            }
         )
         serverSyncProcessHandler.jobQueue.append(startJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
@@ -741,10 +744,11 @@ class ServerSyncProcessHandlerTests: XCTestCase {
                 case .userIdSetEvent("cucas", let error):
                     XCTAssertNotNil(error)
                     exp.fulfill()
+
                 default:
                     XCTFail("The event should be of type '.UserIdSetEvent'")
                 }
-        }
+            }
         )
         serverSyncProcessHandler.jobQueue.append(startJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
@@ -784,10 +788,11 @@ class ServerSyncProcessHandlerTests: XCTestCase {
                 case .userIdSetEvent("cucas", let error):
                     XCTAssertNotNil(error)
                     exp.fulfill()
+
                 default:
                     XCTFail("The event should be of type '.UserIdSetEvent'")
                 }
-        }
+            }
         )
         serverSyncProcessHandler.jobQueue.append(startJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
@@ -827,10 +832,11 @@ class ServerSyncProcessHandlerTests: XCTestCase {
                 case .userIdSetEvent("cucas", let error):
                     XCTAssertNotNil(error)
                     exp.fulfill()
+
                 default:
                     XCTFail("The event should be of type '.UserIdSetEvent'")
                 }
-        }
+            }
         )
         serverSyncProcessHandler.jobQueue.append(startJob)
         serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
@@ -887,7 +893,7 @@ class ServerSyncProcessHandlerTests: XCTestCase {
     }
     #endif
 
-    class StubTokenProvider: TokenProvider {
+    private class StubTokenProvider: TokenProvider {
         private let jwt: String
         private let error: Error?
         private let exception: Error?

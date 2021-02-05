@@ -60,33 +60,40 @@ extension ServerSyncJob: Codable {
             let token = try container.decode(String.self, forKey: .startJobTokenKey)
             self = .startJob(instanceId: instanceId, token: token)
             return
+
         case .refreshTokenJobKey:
             let newToken = try container.decode(String.self, forKey: .newTokenKey)
             self = .refreshTokenJob(newToken: newToken)
             return
+
         case .subscribeJobKey:
             let interest = try container.decode(String.self, forKey: .interestKey)
             let localInterestsChangedKey = try container.decode(Bool.self, forKey: .localInterestsChangedKey)
             self = .subscribeJob(interest: interest, localInterestsChanged: localInterestsChangedKey)
             return
+
         case .unsubscribeJobKey:
             let interest = try container.decode(String.self, forKey: .interestKey)
             let localInterestsChangedKey = try container.decode(Bool.self, forKey: .localInterestsChangedKey)
             self = .unsubscribeJob(interest: interest, localInterestsChanged: localInterestsChangedKey)
             return
+
         case .setSubscriptionsKey:
             let interests = try container.decode([String].self, forKey: .interestsKey)
             let localInterestsChangedKey = try container.decode(Bool.self, forKey: .localInterestsChangedKey)
             self = .setSubscriptions(interests: interests, localInterestsChanged: localInterestsChangedKey)
             return
+
         case .applicationStartJobKey:
             let metadata = try container.decode(Metadata.self, forKey: .metadataKey)
             self = .applicationStartJob(metadata: metadata)
             return
+
         case .setUserIdJobKey:
             let userId = try container.decode(String.self, forKey: .userIdKey)
             self = .setUserIdJob(userId: userId)
             return
+
         case .reportEventJobKey:
             if let openEventType = try? container.decode(OpenEventType.self, forKey: .openEventTypeKey) {
                 self = .reportEventJob(eventType: openEventType)
@@ -98,6 +105,7 @@ extension ServerSyncJob: Codable {
             }
 
             throw ServerSyncJobError.parseError(reason: "Issue with the report event")
+
         case .stopJobKey:
             self = .stopJob
             return
@@ -114,33 +122,40 @@ extension ServerSyncJob: Codable {
             try container.encode(value, forKey: key)
             try container.encode(instanceId, forKey: .startJobInstanceIdKey)
             try container.encode(token, forKey: .startJobTokenKey)
+
         case .refreshTokenJob(let newToken):
             let value: Discriminator = .refreshTokenJobKey
             try container.encode(value, forKey: key)
             try container.encode(newToken, forKey: .newTokenKey)
+
         case .subscribeJob(let interest, let localInterestsChanged):
             let value: Discriminator = .subscribeJobKey
             try container.encode(value, forKey: key)
             try container.encode(interest, forKey: .interestKey)
             try container.encode(localInterestsChanged, forKey: .localInterestsChangedKey)
+
         case .unsubscribeJob(let interest, let localInterestsChanged):
             let value: Discriminator = .unsubscribeJobKey
             try container.encode(value, forKey: key)
             try container.encode(interest, forKey: .interestKey)
             try container.encode(localInterestsChanged, forKey: .localInterestsChangedKey)
+
         case .setSubscriptions(let interests, let localInterestsChanged):
             let value: Discriminator = .setSubscriptionsKey
             try container.encode(value, forKey: key)
             try container.encode(interests, forKey: .interestsKey)
             try container.encode(localInterestsChanged, forKey: .localInterestsChangedKey)
+
         case .applicationStartJob(let metadata):
             let value: Discriminator = .applicationStartJobKey
             try container.encode(value, forKey: key)
             try container.encode(metadata, forKey: .metadataKey)
+
         case .setUserIdJob(let userId):
             let value: Discriminator = .setUserIdJobKey
             try container.encode(value, forKey: key)
             try container.encode(userId, forKey: .userIdKey)
+
         case .reportEventJob(let eventType):
             let value: Discriminator = .reportEventJobKey
             try container.encode(value, forKey: key)
@@ -150,6 +165,7 @@ extension ServerSyncJob: Codable {
             if let deliveryEventType = eventType as? DeliveryEventType {
                 try container.encode(deliveryEventType, forKey: .deliveryEventTypeKey)
             }
+
         case .stopJob:
             let value: Discriminator = .stopJobKey
             try container.encode(value, forKey: key)

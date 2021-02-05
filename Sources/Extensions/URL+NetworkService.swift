@@ -56,6 +56,5 @@ extension URL {
                          deviceId: String) -> URL? {
             return URL(string: "\(deviceEndpoint(instanceId: instanceId, deviceId: deviceId))/user")
         }
-
     }
 }

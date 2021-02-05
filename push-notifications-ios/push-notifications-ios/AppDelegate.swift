@@ -1,5 +1,5 @@
-import UIKit
 import PushNotifications
+import UIKit
 
 // swiftlint:disable force_try
 

@@ -1,5 +1,5 @@
-import XCTest
 @testable import PushNotifications
+import XCTest
 
 class ServerSyncJobStoreTests: XCTestCase {
     override func setUp() {

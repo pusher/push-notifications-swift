@@ -12,6 +12,7 @@ public struct JustDont: RetryStrategy {
         case .failure(let error):
             print("[PushNotifications]: Network error: \(error.debugDescription)")
             return result
+
         case .success:
             return result
         }
@@ -31,6 +32,7 @@ public class WithInfiniteExpBackoff: RetryStrategy {
                 case .deviceNotFound, .badRequest, .badJWT, .badDeviceToken:
                     // Not recoverable cases.
                     return result
+
                 case .genericError:
                     print("[PushNotifications]: Network error: \(error.debugDescription)")
                     self.retryCount += 1
@@ -38,6 +40,7 @@ public class WithInfiniteExpBackoff: RetryStrategy {
                     Thread.sleep(forTimeInterval: TimeInterval(delay / 1000.0))
                     continue
                 }
+
             case .success:
                 return result
             }

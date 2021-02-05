@@ -45,6 +45,7 @@ class ServerSyncEventHandler {
                         completion(error)
                     }
                 }
+
             case .stopEvent:
                 if !(self.stopCallbacks.isEmpty) {
                     let completion = self.stopCallbacks.removeFirst()
@@ -57,5 +58,4 @@ class ServerSyncEventHandler {
     func registerInterestsChangedDelegate(_ interestsChangedDelegate: @escaping () -> InterestsChangedDelegate?) {
         self.interestsChangedDelegates.append(interestsChangedDelegate)
     }
-
 }

@@ -1,12 +1,12 @@
-import XCTest
 import Nimble
 @testable import PushNotifications
+import XCTest
 
 class MultipleInstanceSupportTest: XCTestCase {
 
-    let validCucasToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjQ3MDc5OTIzMDIsImlzcyI6Imh0dHBzOi8vMWI4ODA1OTAtNjMwMS00YmI1LWIzNGYtNDVkYjFjNWY1NjQ0LnB1c2hub3RpZmljYXRpb25zLnB1c2hlci5jb20iLCJzdWIiOiJjdWNhcyJ9.CTtrDXh7vae3rSSKBKf5X0y4RQpFg7YvIlirmBQqJn4"
-    let validJessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjQ3MDc5OTIzMDIsImlzcyI6Imh0dHBzOi8vOGJhNzZkYWMtYjJkZS00NzJmLWJjZjItNzRjY2E0MzhlYTEzLnB1c2hub3RpZmljYXRpb25zLnB1c2hlci5jb20iLCJzdWIiOiJqZXNzIn0.1x2qaxoOtMuz6CYxLOdySUjm7ivSH6AKkRqNmCqWe9o"
-    let validAPNsToken = "notadevicetoken-apns-SetUserIdTest".data(using: .utf8)!
+    private let validCucasToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjQ3MDc5OTIzMDIsImlzcyI6Imh0dHBzOi8vMWI4ODA1OTAtNjMwMS00YmI1LWIzNGYtNDVkYjFjNWY1NjQ0LnB1c2hub3RpZmljYXRpb25zLnB1c2hlci5jb20iLCJzdWIiOiJjdWNhcyJ9.CTtrDXh7vae3rSSKBKf5X0y4RQpFg7YvIlirmBQqJn4"
+    private let validJessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjQ3MDc5OTIzMDIsImlzcyI6Imh0dHBzOi8vOGJhNzZkYWMtYjJkZS00NzJmLWJjZjItNzRjY2E0MzhlYTEzLnB1c2hub3RpZmljYXRpb25zLnB1c2hlci5jb20iLCJzdWIiOiJqZXNzIn0.1x2qaxoOtMuz6CYxLOdySUjm7ivSH6AKkRqNmCqWe9o"
+    private let validAPNsToken = "notadevicetoken-apns-SetUserIdTest".data(using: .utf8)!
 
     override func setUp() {
         super.setUp()
@@ -114,7 +114,6 @@ class MultipleInstanceSupportTest: XCTestCase {
             .toEventually(contain("carrot", "okra", "pea"), timeout: .seconds(10))
         expect(TestAPIClientHelper().getDeviceInterests(instanceId: TestHelper.instanceId2, deviceId: device2))
             .toEventually(contain("pizza", "hotdog", "chip"), timeout: .seconds(10))
-
     }
 
     func testMultipleDeviceTokenRegistrationAffectsAllStartedInstances() {
@@ -208,7 +207,7 @@ class MultipleInstanceSupportTest: XCTestCase {
             .toEventually(beNil(), timeout: .seconds(10))
     }
 
-    class StubTokenProvider: TokenProvider {
+    private class StubTokenProvider: TokenProvider {
         private let jwt: String
         private let error: Error?
 

@@ -1,10 +1,10 @@
-import XCTest
 @testable import PushNotifications
+import XCTest
 
 class InstanceDeviceStateStoreTests: XCTestCase {
 
-    let instanceDeviceStateStore1 = InstanceDeviceStateStore("instanceId1")
-    let instanceDeviceStateStore2 = InstanceDeviceStateStore("instanceId2")
+    private let instanceDeviceStateStore1 = InstanceDeviceStateStore("instanceId1")
+    private let instanceDeviceStateStore2 = InstanceDeviceStateStore("instanceId2")
 
     override func setUp() {
         super.setUp()

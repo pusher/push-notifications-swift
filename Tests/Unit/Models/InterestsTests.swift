@@ -1,8 +1,8 @@
-import XCTest
 @testable import PushNotifications
+import XCTest
 
 class InterestsTests: XCTestCase {
-    let interests = Interests(interests: ["a", "b", "c"])
+    private let interests = Interests(interests: ["a", "b", "c"])
 
     func testContainsInterests() {
         XCTAssertNotNil(self.interests)

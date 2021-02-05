@@ -1,11 +1,11 @@
-import XCTest
 @testable import PushNotifications
+import XCTest
 
 class RegisterTests: XCTestCase {
     #if os(iOS)
-    let register = Register(token: "123", bundleIdentifier: "com.pusher", metadata: Metadata(sdkVersion: "0.4.0", iosVersion: "11.2.0", macosVersion: nil))
+    private let register = Register(token: "123", bundleIdentifier: "com.pusher", metadata: Metadata(sdkVersion: "0.4.0", iosVersion: "11.2.0", macosVersion: nil))
     #elseif os(OSX)
-    let register = Register(token: "123", bundleIdentifier: "com.pusher", metadata: Metadata(sdkVersion: "0.4.0", iosVersion: nil, macosVersion: "10.9"))
+    private let register = Register(token: "123", bundleIdentifier: "com.pusher", metadata: Metadata(sdkVersion: "0.4.0", iosVersion: nil, macosVersion: "10.9"))
     #endif
 
     #if os(iOS)

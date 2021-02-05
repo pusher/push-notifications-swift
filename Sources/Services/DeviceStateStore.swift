@@ -94,7 +94,6 @@ public class DeviceStateStore {
             }
         }
     }
-
 }
 
 public class InstanceDeviceStateStore {
@@ -289,5 +288,4 @@ public class InstanceDeviceStateStore {
     func clear() {
         self.removeFromPersistanceStore(prefix: "")
     }
-
 }

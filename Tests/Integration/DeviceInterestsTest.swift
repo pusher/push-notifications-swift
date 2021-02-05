@@ -1,14 +1,14 @@
-import XCTest
 import Nimble
 @testable import PushNotifications
+import XCTest
 
 // swiftlint:disable function_body_length
 
 class DeviceInterestsTest: XCTestCase {
     // Real production instance.
-    let instanceId = "1b880590-6301-4bb5-b34f-45db1c5f5644"
-    let validToken = "notadevicetoken-apns-DeviceInterestsTest".data(using: .utf8)!
-    let deviceStateStore = InstanceDeviceStateStore("1b880590-6301-4bb5-b34f-45db1c5f5644")
+    private let instanceId = "1b880590-6301-4bb5-b34f-45db1c5f5644"
+    private let validToken = "notadevicetoken-apns-DeviceInterestsTest".data(using: .utf8)!
+    private let deviceStateStore = InstanceDeviceStateStore("1b880590-6301-4bb5-b34f-45db1c5f5644")
 
     override func setUp() {
         super.setUp()
@@ -218,5 +218,4 @@ class DeviceInterestsTest: XCTestCase {
 
         waitForExpectations(timeout: 1)
     }
-
 }

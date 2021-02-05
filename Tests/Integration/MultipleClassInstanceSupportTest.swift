@@ -1,11 +1,11 @@
-import XCTest
 import Nimble
 @testable import PushNotifications
+import XCTest
 
 class MultipleClassInstanceSupportTest: XCTestCase {
-    let validToken = "notadevicetoken-apns-MultipleClassInstanceSupportTest".data(using: .utf8)!
-    let deviceStateStore = InstanceDeviceStateStore(TestHelper.instanceId)
-    let validCucasJWTToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjQ3MDc5OTIzMDIsImlzcyI6Imh0dHBzOi8vMWI4ODA1OTAtNjMwMS00YmI1LWIzNGYtNDVkYjFjNWY1NjQ0LnB1c2hub3RpZmljYXRpb25zLnB1c2hlci5jb20iLCJzdWIiOiJjdWNhcyJ9.CTtrDXh7vae3rSSKBKf5X0y4RQpFg7YvIlirmBQqJn4"
+    private let validToken = "notadevicetoken-apns-MultipleClassInstanceSupportTest".data(using: .utf8)!
+    private let deviceStateStore = InstanceDeviceStateStore(TestHelper.instanceId)
+    private let validCucasJWTToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjQ3MDc5OTIzMDIsImlzcyI6Imh0dHBzOi8vMWI4ODA1OTAtNjMwMS00YmI1LWIzNGYtNDVkYjFjNWY1NjQ0LnB1c2hub3RpZmljYXRpb25zLnB1c2hlci5jb20iLCJzdWIiOiJjdWNhcyJ9.CTtrDXh7vae3rSSKBKf5X0y4RQpFg7YvIlirmBQqJn4"
 
     override func setUp() {
         super.setUp()
@@ -97,7 +97,7 @@ class MultipleClassInstanceSupportTest: XCTestCase {
         expect(self.deviceStateStore.getDeviceId()).toEventuallyNot(be(deviceId), timeout: .seconds(10))
     }
 
-    class StubTokenProvider: TokenProvider {
+    private class StubTokenProvider: TokenProvider {
         private let jwt: String
         private let error: Error?
 
@@ -110,5 +110,4 @@ class MultipleClassInstanceSupportTest: XCTestCase {
             completion(jwt, error)
         }
     }
-
 }

@@ -1,5 +1,5 @@
-import XCTest
 @testable import PushNotifications
+import XCTest
 
 class InterestsMD5HashTests: XCTestCase {
     func testCalculatedHashIsCorrect() {
