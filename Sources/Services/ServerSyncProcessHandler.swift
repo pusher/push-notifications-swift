@@ -54,6 +54,7 @@ class ServerSyncProcessHandler {
                 // Skipping it. If the user is still supposed to logged in, then
                 // there should be another setUserIdJob being enqueued upon launch
                 return
+
             default:
                 self.handleMessageQueue.async {
                     self.handleMessage(serverSyncJob: job)
@@ -87,6 +88,7 @@ class ServerSyncProcessHandler {
             print("[PushNotifications]: Unrecoverable error when registering device with Pusher Beams (Reason - \(error.debugDescription))")
             print("[PushNotifications]: SDK will not start.")
             return
+
         case .success(let device):
             var outstandingJobs: [ServerSyncJob] = []
             InstanceDeviceStateStore.synchronize {
@@ -97,24 +99,32 @@ class ServerSyncProcessHandler {
                     switch job {
                     case .startJob:
                         break
+
                     case .subscribeJob(let interest, _):
                         interestsSet.insert(interest)
+
                     case .unsubscribeJob(let interest, _):
                         interestsSet.remove(interest)
+
                     case .setSubscriptions(let interests, _):
                         interestsSet = Set(interests)
+
                     case .stopJob:
                         outstandingJobs.removeAll()
                         // Any subscriptions changes done at this point are just discarded,
                         // and we need to assume the initial interest set as the starting point again
                         interestsSet = device.initialInterestSet ?? Set<String>()
+
                     case .setUserIdJob:
                         outstandingJobs.append(job)
+
                     case .applicationStartJob:
                         // ignoring it as we are already going to sync the state anyway
                         continue
+
                     case .refreshTokenJob:
                         outstandingJobs.append(job)
+
                     case .reportEventJob:
                         // If SDK hasn't started yet we couldn't have receive any remote notifications
                         continue
@@ -182,12 +192,16 @@ class ServerSyncProcessHandler {
                 return .success(()) // if local interests haven't changed, then we don't need to sync with server
             case .subscribeJob(let interest, localInterestsChanged: true):
                 return self.networkService.subscribe(instanceId: self.instanceId, deviceId: self.deviceStateStore.getDeviceId()!, interest: interest, retryStrategy: WithInfiniteExpBackoff())
+
             case .unsubscribeJob(let interest, localInterestsChanged: true):
                 return self.networkService.unsubscribe(instanceId: self.instanceId, deviceId: self.deviceStateStore.getDeviceId()!, interest: interest, retryStrategy: WithInfiniteExpBackoff())
+
             case .setSubscriptions(let interests, localInterestsChanged: true):
                 return self.networkService.setSubscriptions(instanceId: self.instanceId, deviceId: self.deviceStateStore.getDeviceId()!, interests: interests, retryStrategy: WithInfiniteExpBackoff())
+
             case .reportEventJob(let eventType):
                 return self.networkService.track(instanceId: eventType.getInstanceId(), deviceId: self.deviceStateStore.getDeviceId()!, eventType: eventType, retryStrategy: WithInfiniteExpBackoff())
+
             case .applicationStartJob(let metadata):
                 processApplicationStartJob(metadata: metadata)
                 return .success(()) // this was always a best effort operation
@@ -205,12 +219,14 @@ class ServerSyncProcessHandler {
         switch result {
         case .success:
             return
+
         case .failure(.deviceNotFound):
             if recreateDevice(token: self.deviceStateStore.getAPNsToken()!) {
                 processJob(job)
             } else {
                 print("[PushNotifications]: Not retrying, skipping job: \(job).")
             }
+
         case .failure(let error):
             // not really recoverable, so log it here and also monitor 400s closely on our backend
             // (this really shouldn't happen)
@@ -227,6 +243,7 @@ class ServerSyncProcessHandler {
         case .failure(let error):
             print("[PushNotifications]: Unrecoverable error when registering device with Pusher Beams (Reason - \(error.debugDescription))")
             return false
+
         case .success(let device):
             let localIntersets: [String] = InstanceDeviceStateStore.synchronize {
                 self.deviceStateStore.persistDeviceId(device.id)
@@ -263,6 +280,7 @@ class ServerSyncProcessHandler {
                             switch result {
                             case .success:
                                 _ = self.deviceStateStore.persistUserId(userId: userId)
+
                             case .failure(let error):
                                 print("[PushNotifications]: Warning - Unexpected error: \(error.debugDescription)")
                                 self.deviceStateStore.removeUserId()
@@ -307,6 +325,7 @@ class ServerSyncProcessHandler {
                 case .success:
                     _ = self.deviceStateStore.persistUserId(userId: userId)
                     self.handleServerSyncEvent(.userIdSetEvent(userId: userId, error: nil))
+
                 case .failure(let error):
                     let error = TokenProviderError.error("[PushNotifications] - Error when synchronising with server: \(error)")
                     self.handleServerSyncEvent(.userIdSetEvent(userId: userId, error: error))
@@ -346,6 +365,7 @@ class ServerSyncProcessHandler {
                 case .startJob:
                     jobQueue.removeFirst()
                     return
+
                 default:
                     jobQueue.removeFirst()
                 }

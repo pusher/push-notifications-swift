@@ -9,7 +9,7 @@ import Foundation
 
 @objc public final class PushNotificationsStatic: NSObject {
 
-    private override init() {
+    override private init() {
         // prevent other people initialising us
     }
 
@@ -73,7 +73,7 @@ import Foundation
 
     #if os(iOS)
     private static func registerForPushNotifications(options: UNAuthorizationOptions) {
-        UNUserNotificationCenter.current().requestAuthorization(options: options) { (granted, error) in
+        UNUserNotificationCenter.current().requestAuthorization(options: options) { granted, error in
             if granted {
                 DispatchQueue.main.async {
                     UIApplication.shared.registerForRemoteNotifications()

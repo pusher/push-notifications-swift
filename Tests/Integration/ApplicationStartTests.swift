@@ -1,11 +1,11 @@
-import XCTest
 import Nimble
 @testable import PushNotifications
+import XCTest
 
 class ApplicationStartTests: XCTestCase {
     // Real production instance.
-    let instanceId = "1b880590-6301-4bb5-b34f-45db1c5f5644"
-    let validToken = "notadevicetoken-apns-ApplicationStartTests".data(using: .utf8)!
+    private let instanceId = "1b880590-6301-4bb5-b34f-45db1c5f5644"
+    private let validToken = "notadevicetoken-apns-ApplicationStartTests".data(using: .utf8)!
 
     override func setUp() {
         super.setUp()

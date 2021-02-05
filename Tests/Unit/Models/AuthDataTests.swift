@@ -1,9 +1,9 @@
-import XCTest
 @testable import PushNotifications
+import XCTest
 
 class AuthDataTests: XCTestCase {
 
-    var authData: AuthData!
+    private var authData: AuthData!
 
     override func setUp() {
         super.setUp()

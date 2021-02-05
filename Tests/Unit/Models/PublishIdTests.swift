@@ -1,8 +1,8 @@
-import XCTest
 @testable import PushNotifications
+import XCTest
 
 class PublishIdTests: XCTestCase {
-    var userInfo: [AnyHashable: Any]!
+    private var userInfo: [AnyHashable: Any]!
 
     override func setUp() {
         self.userInfo = self.constructUserInfo()
@@ -20,7 +20,7 @@ class PublishIdTests: XCTestCase {
         XCTAssertEqual(parsedId, "123")
     }
 
-    func constructUserInfo() -> [AnyHashable: Any] {
+    private func constructUserInfo() -> [AnyHashable: Any] {
         let publishId = ["publishId": "123"]
         let pusher = ["pusher": publishId]
         let data = ["data": pusher]

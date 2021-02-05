@@ -33,7 +33,7 @@ import Foundation
             urlRequest.addValue(header.value, forHTTPHeaderField: header.key)
         }
 
-        urlSession.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
+        urlSession.dataTask(with: urlRequest, completionHandler: { data, response, error in
             guard let data = data else {
                 return completion("", TokenProviderError.error("[PushNotifications] - BeamsTokenProvider: Token is nil"))
             }

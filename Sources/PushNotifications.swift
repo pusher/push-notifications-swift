@@ -34,7 +34,7 @@ import Foundation
     private lazy var serverSyncHandler = ServerSyncProcessHandler.obtain(
         instanceId: self.instanceId,
         getTokenProvider: { return PushNotifications.shared.tokenProvider[self.instanceId] },
-        handleServerSyncEvent: { [weak self] (event) in
+        handleServerSyncEvent: { [weak self] event in
             self?.serverSyncEventHandler.handleEvent(event: event)
         }
     )
@@ -124,10 +124,12 @@ import Foundation
         case .none:
             // There was no user id previously stored.
             break
+
         case .some(false):
             // Although there was a previous call with the same user id, it might still be in progress
             // therefore, for the callbacks to work, we will just enqueue the `.SetUserIdJob`
             break
+
         case .some(true):
             completion(TokenProviderError.error("[PushNotifications] - Changing the `userId` is not allowed."))
             return
@@ -200,7 +202,6 @@ import Foundation
                 self.registerDeviceToken(apnsToken.hexStringToData()!)
             }
         }
-
     }
 
     /**
@@ -345,7 +346,7 @@ import Foundation
  InterestsChangedDelegate protocol.
  Method `interestsSetOnDeviceDidChange(interests:)` will be called when interests set changes.
  */
-@objc public protocol InterestsChangedDelegate: class {
+@objc public protocol InterestsChangedDelegate: AnyObject {
     /**
      Tells the delegate that the device's interests subscriptions list has changed.
 

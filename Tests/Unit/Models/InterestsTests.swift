@@ -1,15 +1,15 @@
-import XCTest
 @testable import PushNotifications
+import XCTest
 
 class InterestsTests: XCTestCase {
-    let interests = Interests(interests: ["a", "b", "c"])
+    private let interests = Interests(interests: ["a", "b", "c"])
 
     func testContainsInterests() {
         XCTAssertNotNil(self.interests)
     }
 
-    func testInterestsEncoded() {
-        let interestskEncoded = try! self.interests.encode()
+    func testInterestsEncoded() throws {
+        let interestskEncoded = try self.interests.encode()
         XCTAssertNotNil(interestskEncoded)
         let interestsJSONExpected = "{\"interests\":[\"a\",\"b\",\"c\"]}"
         let interestsJSON = String(data: interestskEncoded, encoding: .utf8)!

@@ -1,5 +1,5 @@
-import XCTest
 import OHHTTPStubs
+import XCTest
 #if canImport(OHHTTPStubsSwift)
 import OHHTTPStubsSwift
 #endif
@@ -7,9 +7,9 @@ import OHHTTPStubsSwift
 
 class BeamsTokenProviderTests: XCTestCase {
 
-    let instanceId = "8a070eaa-033f-46d6-bb90-f4c15acc47e1"
-    let deviceId = "apns-8792dc3f-45ce-4fd9-ab6d-3bf731f813c6"
-    var beamsTokenProvider: BeamsTokenProvider!
+    private let instanceId = "8a070eaa-033f-46d6-bb90-f4c15acc47e1"
+    private let deviceId = "apns-8792dc3f-45ce-4fd9-ab6d-3bf731f813c6"
+    private var beamsTokenProvider: BeamsTokenProvider!
 
     override func setUp() {
         super.setUp()
@@ -40,7 +40,7 @@ class BeamsTokenProviderTests: XCTestCase {
         let exp = expectation(description: "It should successfully fetch the token")
 
         do {
-            try self.beamsTokenProvider.fetchToken(userId: "Johnny Cash") { (token, error) in
+            try self.beamsTokenProvider.fetchToken(userId: "Johnny Cash") { token, error in
                 guard error == nil else {
                     XCTFail("Calling 'fetchToken(userId:)' should result in no error")
                     return exp.fulfill()
@@ -69,7 +69,7 @@ class BeamsTokenProviderTests: XCTestCase {
         let exp = expectation(description: "It should return an error.")
 
         do {
-            try self.beamsTokenProvider.fetchToken(userId: "Johnny Cash") { (_, error) in
+            try self.beamsTokenProvider.fetchToken(userId: "Johnny Cash") { _, error in
                 guard case TokenProviderError.error(let errorMessage) = error! else {
                     XCTFail("Calling 'fetchToken(userId:)' should result in a 'TokenProviderError'")
                     return exp.fulfill()
@@ -98,7 +98,7 @@ class BeamsTokenProviderTests: XCTestCase {
         let exp = expectation(description: "It should return an error.")
 
         do {
-            try self.beamsTokenProvider.fetchToken(userId: "Johnny Cash") { (_, error) in
+            try self.beamsTokenProvider.fetchToken(userId: "Johnny Cash") { _, error in
                 guard case TokenProviderError.error(let errorMessage) = error! else {
                     XCTFail("Calling 'fetchToken(userId:)' should result in a 'TokenProviderError'")
                     return exp.fulfill()

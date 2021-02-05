@@ -1,9 +1,9 @@
-import XCTest
 @testable import PushNotifications
+import XCTest
 
 class UserPersistableTests: XCTestCase {
 
-    var deviceStateStore: InstanceDeviceStateStore!
+    private var deviceStateStore: InstanceDeviceStateStore!
 
     override func setUp() {
             super.setUp()

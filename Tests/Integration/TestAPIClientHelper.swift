@@ -13,14 +13,14 @@ struct TestDevice: Codable {
 
 struct TestAPIClientHelper {
     func getDeviceInterests(instanceId: String, deviceId: String) -> [String]? {
-        let session = URLSession.init(configuration: .ephemeral)
+        let session = URLSession(configuration: .ephemeral)
         let semaphore = DispatchSemaphore(value: 0)
         var interests: Interests?
 
         let request = setRequest(url: URL.PushNotifications.interests(instanceId: instanceId,
                                                                       deviceId: deviceId)!,
                                  httpMethod: .GET)
-        session.dataTask(with: request) { (data, _, _) in
+        session.dataTask(with: request) { data, _, _ in
             interests = try? JSONDecoder().decode(Interests.self, from: data!)
             semaphore.signal()
         }.resume()
@@ -30,13 +30,13 @@ struct TestAPIClientHelper {
     }
 
     func deleteDevice(instanceId: String, deviceId: String) {
-        let session = URLSession.init(configuration: .ephemeral)
+        let session = URLSession(configuration: .ephemeral)
         let semaphore = DispatchSemaphore(value: 0)
 
         let request = setRequest(url: URL.PushNotifications.device(instanceId: instanceId,
                                                                    deviceId: deviceId)!,
                                  httpMethod: .DELETE)
-        session.dataTask(with: request) { (_, _, _) in
+        session.dataTask(with: request) { _, _, _ in
             semaphore.signal()
         }.resume()
 
@@ -44,17 +44,17 @@ struct TestAPIClientHelper {
     }
 
     func getDevice(instanceId: String, deviceId: String) -> TestDevice? {
-        let session = URLSession.init(configuration: .ephemeral)
+        let session = URLSession(configuration: .ephemeral)
         let semaphore = DispatchSemaphore(value: 0)
         var device: TestDevice?
 
         let request = setRequest(url: URL.PushNotifications.device(instanceId: instanceId,
                                                                    deviceId: deviceId)!,
                                  httpMethod: .GET)
-        session.dataTask(with: request) { (data, _, _) in
+        session.dataTask(with: request) { data, _, _ in
             device = try? JSONDecoder().decode(TestDevice.self, from: data!)
             semaphore.signal()
-            }.resume()
+        }.resume()
 
         semaphore.wait()
         return device

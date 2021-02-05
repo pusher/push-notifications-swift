@@ -1,11 +1,11 @@
-import XCTest
 @testable import PushNotifications
+import XCTest
 
 class RegisterTests: XCTestCase {
     #if os(iOS)
-    let register = Register(token: "123", bundleIdentifier: "com.pusher", metadata: Metadata(sdkVersion: "0.4.0", iosVersion: "11.2.0", macosVersion: nil))
+    private let register = Register(token: "123", bundleIdentifier: "com.pusher", metadata: Metadata(sdkVersion: "0.4.0", iosVersion: "11.2.0", macosVersion: nil))
     #elseif os(OSX)
-    let register = Register(token: "123", bundleIdentifier: "com.pusher", metadata: Metadata(sdkVersion: "0.4.0", iosVersion: nil, macosVersion: "10.9"))
+    private let register = Register(token: "123", bundleIdentifier: "com.pusher", metadata: Metadata(sdkVersion: "0.4.0", iosVersion: nil, macosVersion: "10.9"))
     #endif
 
     #if os(iOS)
@@ -19,12 +19,12 @@ class RegisterTests: XCTestCase {
         XCTAssertEqual(register.metadata.macosVersion, nil)
     }
 
-    func testRegisterEncoded() {
-        let registerEncoded = try! self.register.encode()
+    func testRegisterEncoded() throws {
+        let registerEncoded = try self.register.encode()
         XCTAssertNotNil(registerEncoded)
         let registerJSON = String(data: registerEncoded, encoding: .utf8)!
 
-        let registerDecoded = try! JSONDecoder().decode(Register.self, from: registerJSON.data(using: .utf8)!)
+        let registerDecoded = try JSONDecoder().decode(Register.self, from: registerJSON.data(using: .utf8)!)
 
         XCTAssertNotNil(registerDecoded)
         XCTAssertEqual(registerDecoded.token, "123")
@@ -44,12 +44,12 @@ class RegisterTests: XCTestCase {
         XCTAssertEqual(register.metadata.macosVersion, "10.9")
     }
 
-    func testRegisterEncoded() {
-        let registerEncoded = try! self.register.encode()
+    func testRegisterEncoded() throws {
+        let registerEncoded = try self.register.encode()
         XCTAssertNotNil(registerEncoded)
         let registerJSON = String(data: registerEncoded, encoding: .utf8)!
 
-        let registerDecoded = try! JSONDecoder().decode(Register.self, from: registerJSON.data(using: .utf8)!)
+        let registerDecoded = try JSONDecoder().decode(Register.self, from: registerJSON.data(using: .utf8)!)
 
         XCTAssertNotNil(registerDecoded)
         XCTAssertEqual(registerDecoded.token, "123")

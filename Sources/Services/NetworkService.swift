@@ -33,6 +33,7 @@ class NetworkService: PushNotificationsNetworkable {
                     return .failure(.genericError(reason: "Error while encoding device payload."))
                 }
                 return .success(device)
+
             case .failure(let error):
                 return .failure(error)
             }
@@ -55,6 +56,7 @@ class NetworkService: PushNotificationsNetworkable {
             switch self.networkRequest(request, session: self.session, retryStrategy: retryStrategy) {
             case .success:
                 return .success(())
+
             case .failure(let error):
                 return .failure(error)
             }
@@ -79,6 +81,7 @@ class NetworkService: PushNotificationsNetworkable {
             switch self.networkRequest(request, session: self.session, retryStrategy: retryStrategy) {
             case .success:
                 return .success(())
+
             case .failure(let error):
                 return .failure(error)
             }
@@ -101,6 +104,7 @@ class NetworkService: PushNotificationsNetworkable {
             switch self.networkRequest(request, session: self.session, retryStrategy: retryStrategy) {
             case .success:
                 return .success(())
+
             case .failure(let error):
                 return .failure(error)
             }
@@ -124,6 +128,7 @@ class NetworkService: PushNotificationsNetworkable {
             switch self.networkRequest(request, session: self.session, retryStrategy: retryStrategy) {
             case .success:
                 return .success(())
+
             case .failure(let error):
                 return .failure(error)
             }
@@ -147,6 +152,7 @@ class NetworkService: PushNotificationsNetworkable {
             switch self.networkRequest(request, session: self.session, retryStrategy: retryStrategy) {
             case .success:
                 return .success(())
+
             case .failure(let error):
                 return .failure(error)
             }
@@ -168,6 +174,7 @@ class NetworkService: PushNotificationsNetworkable {
             switch self.networkRequest(request, session: self.session, retryStrategy: retryStrategy) {
             case .success:
                 return .success(())
+
             case .failure(let error):
                 return .failure(error)
             }
@@ -187,6 +194,7 @@ class NetworkService: PushNotificationsNetworkable {
             switch self.networkRequest(request, session: self.session, retryStrategy: retryStrategy) {
             case .success:
                 return .success(())
+
             case .failure(let error):
                 return .failure(error)
             }
@@ -206,6 +214,7 @@ class NetworkService: PushNotificationsNetworkable {
             switch self.networkRequest(request, session: self.session, retryStrategy: retryStrategy) {
             case .success:
                 return .success(())
+
             case .failure(let error):
                 return .failure(error)
             }
@@ -219,7 +228,7 @@ class NetworkService: PushNotificationsNetworkable {
         let semaphore = DispatchSemaphore(value: 0)
         var result: Result<Data, PushNotificationsAPIError>?
 
-        session.dataTask(with: request, completionHandler: { (data, response, error) in
+        session.dataTask(with: request, completionHandler: { data, response, error in
             guard
                 let data = data,
                 let httpURLResponse = response as? HTTPURLResponse
@@ -239,10 +248,12 @@ class NetworkService: PushNotificationsNetworkable {
             switch statusCode {
             case 200..<300:
                 result = .success(data)
+
             case 400:
                 let reason = try? JSONDecoder().decode(Reason.self, from: data)
 
                 result = .failure(.badRequest(reason: reason?.description  ?? "Unknown API error"))
+
             case 401, 403:
                 let reason = try? JSONDecoder().decode(Reason.self, from: data)
 
@@ -252,8 +263,10 @@ class NetworkService: PushNotificationsNetworkable {
                 } else {
                     result = .failure(.badJWT(reason: reason?.description  ?? "Unknown API error"))
                 }
+
             case 404:
                 result = .failure(.deviceNotFound)
+
             default:
                 let reason = try? JSONDecoder().decode(Reason.self, from: data)
 
