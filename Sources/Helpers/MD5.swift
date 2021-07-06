@@ -19,13 +19,11 @@
 
 import Foundation
 
-// MARK: - Public
-
-public func MD5(_ input: String) -> String {
-  return hex_md5(input)
-}
-
 // MARK: - Functions
+
+func MD5(_ input: String) -> String {
+    return hex_md5(input)
+}
 
 func hex_md5(_ input: String) -> String {
   return rstr2hex(rstr_md5(str2rstr_utf8(input)))

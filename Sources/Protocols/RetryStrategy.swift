@@ -4,7 +4,7 @@ protocol RetryStrategy {
     func retry<T>(function: () -> Result<T, PushNotificationsAPIError>) -> Result<T, PushNotificationsAPIError>
 }
 
-public struct JustDont: RetryStrategy {
+struct JustDont: RetryStrategy {
     func retry<T>(function: () -> Result<T, PushNotificationsAPIError>) -> Result<T, PushNotificationsAPIError> {
         let result = function()
 
@@ -19,7 +19,7 @@ public struct JustDont: RetryStrategy {
     }
 }
 
-public class WithInfiniteExpBackoff: RetryStrategy {
+class WithInfiniteExpBackoff: RetryStrategy {
     private var retryCount = 0
 
     func retry<T>(function: () -> Result<T, PushNotificationsAPIError>) -> Result<T, PushNotificationsAPIError> {
