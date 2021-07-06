@@ -1,6 +1,6 @@
 import Foundation
 
-public class DeviceStateStore {
+class DeviceStateStore {
 
     let service: UserDefaults
 
@@ -96,7 +96,7 @@ public class DeviceStateStore {
     }
 }
 
-public class InstanceDeviceStateStore {
+class InstanceDeviceStateStore {
     static let queue = DispatchQueue(label: "com.pusher.beams.deviceStateStoreQueue")
     let service: UserDefaults
     let instanceId: String?
