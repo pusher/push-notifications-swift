@@ -44,7 +44,7 @@ use_frameworks!
 
 # Replace `<Your Target Name>` with your app's target name.
 target '<Your Target Name>' do
-    pod 'PushNotifications', '~> 3.0.4'
+    pod 'PushNotifications', '~> 4.0.0'
 end
 ```
 
@@ -97,11 +97,11 @@ To add Pusher Beams as a dependency of your own package use the follwing code:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/pusher/push-notifications-swift.git", from: "3.0.4")
+    .package(url: "https://github.com/pusher/push-notifications-swift.git", from: "4.0.0")
 ]
 ```
 
-## Migrating from 2.x.x to 3.x.x
+## Migrating from 2.x.x
 
 We now require you to start beams before you can use the library, for example to register any interests. This means the following code would no longer work and log an error to the console:
 
