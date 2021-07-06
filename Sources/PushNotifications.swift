@@ -7,15 +7,18 @@ import NotificationCenter
 #endif
 import Foundation
 
+/// The top-level entrypoint to the Beams Swift SDK.
 @objc public final class PushNotifications: NSObject {
 
     internal let instanceId: String
     private let deviceStateStore: InstanceDeviceStateStore
     private let serverSyncEventHandler: ServerSyncEventHandler
 
-    // The object that acts as the delegate of push notifications.
+    /// The object that acts as the delegate of push notifications.
     public weak var delegate: InterestsChangedDelegate?
 
+    /// Creates a `PushNotifications` object with a given `instanceId`.
+    /// - Parameter instanceId: The instance identifier (from your app dashboard).
     @objc public init(instanceId: String) {
         self.instanceId = instanceId
         self.deviceStateStore = InstanceDeviceStateStore(instanceId)
@@ -27,8 +30,8 @@ import Foundation
         DeviceStateStore().persistInstanceId(instanceId)
     }
 
-    // ! Returns a shared singleton PushNotifications object.
-    /// - Tag: shared
+    /// Returns a shared singleton PushNotifications object
+    /// that can be accessed from anywhere in your project.
     @objc public static let shared = PushNotificationsStatic.self
 
     private lazy var serverSyncHandler = ServerSyncProcessHandler.obtain(
