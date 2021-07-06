@@ -1,6 +1,54 @@
 {
   "warnings": [
-
+    {
+      "file": "/Users/danielbrowne/Documents/Work/push-notifications-swift/Sources/Helpers/MD5.swift",
+      "line": 24,
+      "symbol": "MD5(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/danielbrowne/Documents/Work/push-notifications-swift/Sources/Models/Metadata.swift",
+      "line": 3,
+      "symbol": "Metadata",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/danielbrowne/Documents/Work/push-notifications-swift/Sources/Protocols/RetryStrategy.swift",
+      "line": 7,
+      "symbol": "JustDont",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/danielbrowne/Documents/Work/push-notifications-swift/Sources/Protocols/RetryStrategy.swift",
+      "line": 22,
+      "symbol": "WithInfiniteExpBackoff",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/danielbrowne/Documents/Work/push-notifications-swift/Sources/Services/DeviceStateStore.swift",
+      "line": 3,
+      "symbol": "DeviceStateStore",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/danielbrowne/Documents/Work/push-notifications-swift/Sources/Services/DeviceStateStore.swift",
+      "line": 99,
+      "symbol": "InstanceDeviceStateStore",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/danielbrowne/Documents/Work/push-notifications-swift/Sources/Services/DeviceStateStore.swift",
+      "line": 109,
+      "symbol": "InstanceDeviceStateStore.synchronize(function:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    }
   ],
-  "source_directory": "/Users/luka/Developer/push-notifications-swift/PushNotifications"
+  "source_directory": "/Users/danielbrowne/Documents/Work/push-notifications-swift"
 }

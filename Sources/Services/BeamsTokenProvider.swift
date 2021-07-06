@@ -1,14 +1,27 @@
 import Foundation
 
+/// Used to generate tokens for users to authenticate against.
 @objc public final class BeamsTokenProvider: NSObject, TokenProvider {
+
+    /// The authentication endpoint URL `String`.
     public let authURL: String
+
+    /// A closure that returns an `AuthData` object.
     public let getAuthData: () -> AuthData
 
+    /// Creates a `BeamsTokenProvider` instance.
+    /// - Parameters:
+    ///   - authURL: The authentication endpoint URL `String`.
+    ///   - getAuthData: A closure that returns an `AuthData` object.
     @objc public init(authURL: String, getAuthData: @escaping () -> (AuthData)) {
         self.authURL = authURL
         self.getAuthData = getAuthData
     }
 
+    /// Fetch a token for a given user to authenticate against.
+    /// - Parameters:
+    ///   - userId: The user ID `String`.
+    ///   - completion: A closure containing a valid token `String` or an `Error`.
     public func fetchToken(userId: String, completionHandler completion: @escaping (String, Error?) -> Void) throws {
         let authData = getAuthData()
         let headers = authData.headers

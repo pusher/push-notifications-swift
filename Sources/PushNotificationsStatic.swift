@@ -7,6 +7,7 @@ import NotificationCenter
 #endif
 import Foundation
 
+/// A static equivalent of the `PushNotifications` type.
 @objc public final class PushNotificationsStatic: NSObject {
 
     override private init() {

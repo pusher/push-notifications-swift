@@ -8,14 +8,22 @@
     <script src="../js/jquery.min.js" defer></script>
     <script src="../js/jazzy.js" defer></script>
     
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
     <a name="//apple_ref/swift/Protocol/InterestsChangedDelegate" class="dashAnchor"></a>
     <a title="InterestsChangedDelegate Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">PushNotifications Docs</a> (100% documented)</p>
+        <p><a href="../index.html">PushNotifications 3.0.4 Docs</a> (89% documented)</p>
         <p class="header-right"><a href="https://github.com/pusher/push-notifications-swift"><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -38,7 +46,19 @@
                 <a href="../Classes/BeamsTokenProvider.html">BeamsTokenProvider</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes.html#/s:17PushNotifications16DeviceStateStoreC">DeviceStateStore</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/InstanceDeviceStateStore.html">InstanceDeviceStateStore</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/PushNotifications.html">PushNotifications</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PushNotificationsStatic.html">PushNotificationsStatic</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes.html#/s:17PushNotifications22WithInfiniteExpBackoffC">WithInfiniteExpBackoff</a>
               </li>
             </ul>
           </li>
@@ -59,9 +79,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/RemoteNotificationType.html">RemoteNotificationType</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Enums/Result.html">Result</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/TokenProviderError.html">TokenProviderError</a>
@@ -87,6 +104,17 @@
               </li>
             </ul>
           </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs.html#/s:17PushNotifications8JustDontV">JustDont</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs.html#/s:17PushNotifications8MetadataV">Metadata</a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
       <article class="main-content">
@@ -95,14 +123,18 @@
             <h1>InterestsChangedDelegate</h1>
               <div class="declaration">
                 <div class="language">
+                  
                   <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">InterestsChangedDelegate</span> <span class="p">:</span> <span class="kt">AnyObject</span></code></pre>
+<span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">InterestsChangedDelegate</span></code></pre>
 
                 </div>
               </div>
             <p>InterestsChangedDelegate protocol.
 Method <code>interestsSetOnDeviceDidChange(interests:)</code> will be called when interests set changes.</p>
 
+              <div class="slightly-smaller">
+                <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/PushNotifications.swift#L352-L360">Show on GitHub</a>
+              </div>
           </section>
           <section class="section task-group-section">
             <div class="task-group">
@@ -110,56 +142,9 @@ Method <code>interestsSetOnDeviceDidChange(interests:)</code> will be called whe
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PushNotifications@objc(pl)InterestsChangedDelegate(im)interestsSetDidChangeWithInterests:"></a>
-                    <a name="//apple_ref/swift/Method/interestsSetDidChange(interests:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PushNotifications@objc(pl)InterestsChangedDelegate(im)interestsSetDidChangeWithInterests:">interestsSetDidChange(interests:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Tells the delegate that the interests list has changed.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available(*, deprecated, renamed: "interestsSetOnDeviceDidChange(interests:﹚")</span>
-<span class="kd">func</span> <span class="nf">interestsSetDidChange</span><span class="p">(</span><span class="nv">interests</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>interests</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The new list of interests.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/c:@M@PushNotifications@objc(pl)InterestsChangedDelegate(im)interestsSetOnDeviceDidChangeWithInterests:"></a>
                     <a name="//apple_ref/swift/Method/interestsSetOnDeviceDidChange(interests:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PushNotifications@objc(pl)InterestsChangedDelegate(im)interestsSetOnDeviceDidChangeWithInterests:">interestsSetOnDeviceDidChange(interests:)</a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(pl)InterestsChangedDelegate(im)interestsSetOnDeviceDidChangeWithInterests:">interestsSetOnDeviceDidChange(interests:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -197,6 +182,9 @@ Method <code>interestsSetOnDeviceDidChange(interests:)</code> will be called whe
                           </tbody>
                         </table>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/PushNotifications.swift#L359">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -205,8 +193,8 @@ Method <code>interestsSetOnDeviceDidChange(interests:)</code> will be called whe
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://pusher.com" target="_blank" rel="external">Pusher</a>. All rights reserved. (Last updated: 2019-02-26)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2021 <a class="link" href="https://pusher.com" target="_blank" rel="external">Pusher</a>. All rights reserved. (Last updated: 2021-07-06)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>
