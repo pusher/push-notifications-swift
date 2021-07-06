@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>PushNotifications Class Reference</title>
+    <title>PushNotificationsStatic Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -13,8 +13,8 @@
     <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
-    <a name="//apple_ref/swift/Class/PushNotifications" class="dashAnchor"></a>
-    <a title="PushNotifications Class Reference"></a>
+    <a name="//apple_ref/swift/Class/PushNotificationsStatic" class="dashAnchor"></a>
+    <a title="PushNotificationsStatic Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">PushNotifications 3.0.4 Docs</a> (89% documented)</p>
@@ -30,7 +30,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">PushNotifications Reference</a>
         <img id="carat" src="../img/carat.png" />
-        PushNotifications Class Reference
+        PushNotificationsStatic Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -120,19 +120,19 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>PushNotifications</h1>
+            <h1>PushNotificationsStatic</h1>
               <div class="declaration">
                 <div class="language">
                   
                   <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">PushNotifications</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+<span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">PushNotificationsStatic</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
 
                 </div>
               </div>
-            <p>The top-level entrypoint to the Beams Swift SDK.</p>
+            <p>A static equivalent of the <code><a href="../Classes/PushNotifications.html">PushNotifications</a></code> type.</p>
 
               <div class="slightly-smaller">
-                <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/PushNotifications.swift#L11-L346">Show on GitHub</a>
+                <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/PushNotificationsStatic.swift#L11-L289">Show on GitHub</a>
               </div>
           </section>
           <section class="section task-group-section">
@@ -141,9 +141,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:17PushNotificationsAAC8delegateAA24InterestsChangedDelegate_pSgvp"></a>
-                    <a name="//apple_ref/swift/Property/delegate" class="dashAnchor"></a>
-                    <a class="token" href="#/s:17PushNotificationsAAC8delegateAA24InterestsChangedDelegate_pSgvp">delegate</a>
+                    <a name="/c:@M@PushNotifications@objc(cs)PushNotificationsStatic(cm)startWithInstanceId:"></a>
+                    <a name="//apple_ref/swift/Method/start(instanceId:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotificationsStatic(cm)startWithInstanceId:">start(instanceId:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -151,37 +151,12 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The object that acts as the delegate of push notifications.</p>
+                        <p>Start PushNotifications service.</p>
+<div class="aside aside-precondition">
+    <p class="aside-title">Precondition</p>
+    <p><code>instanceId</code> should not be nil.</p>
 
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">delegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/InterestsChangedDelegate.html">InterestsChangedDelegate</a></span><span class="p">?</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/PushNotifications.swift#L18">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)initWithInstanceId:"></a>
-                    <a name="//apple_ref/swift/Method/init(instanceId:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)initWithInstanceId:">init(instanceId:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Creates a <code>PushNotifications</code> object with a given <code>instanceId</code>.</p>
+</div>
 
                       </div>
                       <div class="declaration">
@@ -189,7 +164,7 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">instanceId</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">start</span><span class="p">(</span><span class="nv">instanceId</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -205,7 +180,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>The instance identifier (from your app dashboard).</p>
+                                  <p>PushNotifications instance id.</p>
                                 </div>
                               </td>
                             </tr>
@@ -213,7 +188,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/PushNotifications.swift#L22-L31">Show on GitHub</a>
+                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/PushNotificationsStatic.swift#L28-L40">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -221,72 +196,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(cpy)shared"></a>
-                    <a name="//apple_ref/swift/Variable/shared" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(cpy)shared">shared</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns a shared singleton PushNotifications object
-that can be accessed from anywhere in your project.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">shared</span><span class="p">:</span> <span class="kt"><a href="../Classes/PushNotificationsStatic.html">PushNotificationsStatic</a></span><span class="o">.</span><span class="k">Type</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/PushNotifications.swift#L35">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)start"></a>
-                    <a name="//apple_ref/swift/Method/start()" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)start">start()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Start PushNotifications service.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">start</span><span class="p">()</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/PushNotifications.swift#L51-L68">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)registerForRemoteNotifications"></a>
+                    <a name="/c:@M@PushNotifications@objc(cs)PushNotificationsStatic(cm)registerForRemoteNotifications"></a>
                     <a name="//apple_ref/swift/Method/registerForRemoteNotifications()" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)registerForRemoteNotifications">registerForRemoteNotifications()</a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotificationsStatic(cm)registerForRemoteNotifications">registerForRemoteNotifications()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -299,7 +211,7 @@ that can be accessed from anywhere in your project.</p>
 <p>Convenience method is using <code>.alert</code>, <code>.sound</code>, and <code>.badge</code> as default authorization options.</p>
 <div class="aside aside-see-also">
     <p class="aside-title">See also</p>
-    <code><a href="../Classes/PushNotifications.html#/registerForRemoteNotifications(options:)">registerForRemoteNotifications(options:)</a></code>
+    <code><a href="../Classes/PushNotificationsStatic.html#/registerForRemoteNotifications(options:)">registerForRemoteNotifications(options:)</a></code>
 
 </div>
 
@@ -309,12 +221,12 @@ that can be accessed from anywhere in your project.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">registerForRemoteNotifications</span><span class="p">()</span></code></pre>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">registerForRemoteNotifications</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/PushNotifications.swift#L78-L80">Show on GitHub</a>
+                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/PushNotificationsStatic.swift#L50-L52">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -341,9 +253,9 @@ that can be accessed from anywhere in your project.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)registerForRemoteNotificationsWithOptions:"></a>
+                    <a name="/c:@M@PushNotifications@objc(cs)PushNotificationsStatic(cm)registerForRemoteNotificationsWithOptions:"></a>
                     <a name="//apple_ref/swift/Method/registerForRemoteNotifications(options:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)registerForRemoteNotificationsWithOptions:">registerForRemoteNotifications(options:<wbr>)</a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotificationsStatic(cm)registerForRemoteNotificationsWithOptions:">registerForRemoteNotifications(options:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -359,7 +271,7 @@ that can be accessed from anywhere in your project.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">registerForRemoteNotifications</span><span class="p">(</span><span class="nv">options</span><span class="p">:</span> <span class="kt">NSApplication</span><span class="o">.</span><span class="kt"><a href="../Enums/RemoteNotificationType.html">RemoteNotificationType</a></span><span class="p">)</span></code></pre>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">registerForRemoteNotifications</span><span class="p">(</span><span class="nv">options</span><span class="p">:</span> <span class="kt">NSApplication</span><span class="o">.</span><span class="kt"><a href="../Enums/RemoteNotificationType.html">RemoteNotificationType</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -383,7 +295,7 @@ that can be accessed from anywhere in your project.</p>
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/PushNotifications.swift#L97-L99">Show on GitHub</a>
+                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/PushNotificationsStatic.swift#L70-L72">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -391,9 +303,9 @@ that can be accessed from anywhere in your project.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)setUserId:tokenProvider:completion:"></a>
+                    <a name="/c:@M@PushNotifications@objc(cs)PushNotificationsStatic(cm)setUserId:tokenProvider:completion:"></a>
                     <a name="//apple_ref/swift/Method/setUserId(_:tokenProvider:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)setUserId:tokenProvider:completion:">setUserId(_:<wbr>tokenProvider:<wbr>completion:<wbr>)</a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotificationsStatic(cm)setUserId:tokenProvider:completion:">setUserId(_:<wbr>tokenProvider:<wbr>completion:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -409,7 +321,7 @@ that can be accessed from anywhere in your project.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">setUserId</span><span class="p">(</span><span class="n">_</span> <span class="nv">userId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">tokenProvider</span><span class="p">:</span> <span class="kt"><a href="../Protocols/TokenProvider.html">TokenProvider</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">setUserId</span><span class="p">(</span><span class="n">_</span> <span class="nv">userId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">tokenProvider</span><span class="p">:</span> <span class="kt"><a href="../Protocols/TokenProvider.html">TokenProvider</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -457,7 +369,7 @@ that can be accessed from anywhere in your project.</p>
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/PushNotifications.swift#L110-L154">Show on GitHub</a>
+                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/PushNotificationsStatic.swift#L102-L108">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -465,9 +377,9 @@ that can be accessed from anywhere in your project.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)stopWithCompletion:"></a>
+                    <a name="/c:@M@PushNotifications@objc(cs)PushNotificationsStatic(cm)stopWithCompletion:"></a>
                     <a name="//apple_ref/swift/Method/stop(completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)stopWithCompletion:">stop(completion:<wbr>)</a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotificationsStatic(cm)stopWithCompletion:">stop(completion:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -485,7 +397,7 @@ that can be accessed from anywhere in your project.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">stop</span><span class="p">(</span><span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">stop</span><span class="p">(</span><span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -509,7 +421,7 @@ that can be accessed from anywhere in your project.</p>
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/PushNotifications.swift#L167-L186">Show on GitHub</a>
+                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/PushNotificationsStatic.swift#L117-L129">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -517,9 +429,9 @@ that can be accessed from anywhere in your project.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)clearAllStateWithCompletion:"></a>
+                    <a name="/c:@M@PushNotifications@objc(cs)PushNotificationsStatic(cm)clearAllStateWithCompletion:"></a>
                     <a name="//apple_ref/swift/Method/clearAllState(completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)clearAllStateWithCompletion:">clearAllState(completion:<wbr>)</a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotificationsStatic(cm)clearAllStateWithCompletion:">clearAllState(completion:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -538,7 +450,7 @@ Device is now in a fresh state, ready for new subscriptions or user being set.</
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">clearAllState</span><span class="p">(</span><span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">clearAllState</span><span class="p">(</span><span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -562,7 +474,7 @@ Device is now in a fresh state, ready for new subscriptions or user being set.</
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/PushNotifications.swift#L196-L208">Show on GitHub</a>
+                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/PushNotificationsStatic.swift#L139-L151">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -570,9 +482,9 @@ Device is now in a fresh state, ready for new subscriptions or user being set.</
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)registerDeviceToken:"></a>
+                    <a name="/c:@M@PushNotifications@objc(cs)PushNotificationsStatic(cm)registerDeviceToken:"></a>
                     <a name="//apple_ref/swift/Method/registerDeviceToken(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)registerDeviceToken:">registerDeviceToken(_:<wbr>)</a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotificationsStatic(cm)registerDeviceToken:">registerDeviceToken(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -593,7 +505,7 @@ Device is now in a fresh state, ready for new subscriptions or user being set.</
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">registerDeviceToken</span><span class="p">(</span><span class="n">_</span> <span class="nv">deviceToken</span><span class="p">:</span> <span class="kt">Data</span><span class="p">)</span></code></pre>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">registerDeviceToken</span><span class="p">(</span><span class="n">_</span> <span class="nv">deviceToken</span><span class="p">:</span> <span class="kt">Data</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -617,7 +529,7 @@ Device is now in a fresh state, ready for new subscriptions or user being set.</
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/PushNotifications.swift#L218-L220">Show on GitHub</a>
+                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/PushNotificationsStatic.swift#L161-L180">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -625,9 +537,9 @@ Device is now in a fresh state, ready for new subscriptions or user being set.</
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)addDeviceInterestWithInterest:error:"></a>
+                    <a name="/c:@M@PushNotifications@objc(cs)PushNotificationsStatic(cm)addDeviceInterestWithInterest:error:"></a>
                     <a name="//apple_ref/swift/Method/addDeviceInterest(interest:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)addDeviceInterestWithInterest:error:">addDeviceInterest(interest:<wbr>)</a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotificationsStatic(cm)addDeviceInterestWithInterest:error:">addDeviceInterest(interest:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -652,7 +564,7 @@ Device is now in a fresh state, ready for new subscriptions or user being set.</
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">addDeviceInterest</span><span class="p">(</span><span class="nv">interest</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">addDeviceInterest</span><span class="p">(</span><span class="nv">interest</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
@@ -676,7 +588,7 @@ Device is now in a fresh state, ready for new subscriptions or user being set.</
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/PushNotifications.swift#L232-L245">Show on GitHub</a>
+                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/PushNotificationsStatic.swift#L192-L198">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -684,9 +596,9 @@ Device is now in a fresh state, ready for new subscriptions or user being set.</
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)setDeviceInterestsWithInterests:error:"></a>
+                    <a name="/c:@M@PushNotifications@objc(cs)PushNotificationsStatic(cm)setDeviceInterestsWithInterests:error:"></a>
                     <a name="//apple_ref/swift/Method/setDeviceInterests(interests:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)setDeviceInterestsWithInterests:error:">setDeviceInterests(interests:<wbr>)</a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotificationsStatic(cm)setDeviceInterestsWithInterests:error:">setDeviceInterests(interests:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -712,7 +624,7 @@ Any interests not in the set will be unsubscribed from, so this will replace the
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">setDeviceInterests</span><span class="p">(</span><span class="nv">interests</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span> <span class="k">throws</span></code></pre>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">setDeviceInterests</span><span class="p">(</span><span class="nv">interests</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
@@ -736,7 +648,7 @@ Any interests not in the set will be unsubscribed from, so this will replace the
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/PushNotifications.swift#L258-L271">Show on GitHub</a>
+                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/PushNotificationsStatic.swift#L211-L217">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -744,9 +656,9 @@ Any interests not in the set will be unsubscribed from, so this will replace the
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)removeDeviceInterestWithInterest:error:"></a>
+                    <a name="/c:@M@PushNotifications@objc(cs)PushNotificationsStatic(cm)removeDeviceInterestWithInterest:error:"></a>
                     <a name="//apple_ref/swift/Method/removeDeviceInterest(interest:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)removeDeviceInterestWithInterest:error:">removeDeviceInterest(interest:<wbr>)</a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotificationsStatic(cm)removeDeviceInterestWithInterest:error:">removeDeviceInterest(interest:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -771,7 +683,7 @@ Any interests not in the set will be unsubscribed from, so this will replace the
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">removeDeviceInterest</span><span class="p">(</span><span class="nv">interest</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">removeDeviceInterest</span><span class="p">(</span><span class="nv">interest</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
@@ -795,7 +707,7 @@ Any interests not in the set will be unsubscribed from, so this will replace the
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/PushNotifications.swift#L283-L296">Show on GitHub</a>
+                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/PushNotificationsStatic.swift#L229-L235">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -803,9 +715,9 @@ Any interests not in the set will be unsubscribed from, so this will replace the
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)clearDeviceInterestsAndReturnError:"></a>
+                    <a name="/c:@M@PushNotifications@objc(cs)PushNotificationsStatic(cm)clearDeviceInterestsAndReturnError:"></a>
                     <a name="//apple_ref/swift/Method/clearDeviceInterests()" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)clearDeviceInterestsAndReturnError:">clearDeviceInterests()</a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotificationsStatic(cm)clearDeviceInterestsAndReturnError:">clearDeviceInterests()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -825,12 +737,12 @@ Any interests not in the set will be unsubscribed from, so this will replace the
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">clearDeviceInterests</span><span class="p">()</span> <span class="k">throws</span></code></pre>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">clearDeviceInterests</span><span class="p">()</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/PushNotifications.swift#L300-L302">Show on GitHub</a>
+                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/PushNotificationsStatic.swift#L239-L245">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -838,9 +750,9 @@ Any interests not in the set will be unsubscribed from, so this will replace the
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)getDeviceInterests"></a>
+                    <a name="/c:@M@PushNotifications@objc(cs)PushNotificationsStatic(cm)getDeviceInterests"></a>
                     <a name="//apple_ref/swift/Method/getDeviceInterests()" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)getDeviceInterests">getDeviceInterests()</a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotificationsStatic(cm)getDeviceInterests">getDeviceInterests()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -856,7 +768,7 @@ Any interests not in the set will be unsubscribed from, so this will replace the
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">getDeviceInterests</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">]?</span></code></pre>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getDeviceInterests</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">]?</span></code></pre>
 
                         </div>
                       </div>
@@ -865,7 +777,7 @@ Any interests not in the set will be unsubscribed from, so this will replace the
                         <p>Array of interests</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/PushNotifications.swift#L310-L314">Show on GitHub</a>
+                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/PushNotificationsStatic.swift#L253-L259">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -873,9 +785,9 @@ Any interests not in the set will be unsubscribed from, so this will replace the
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PushNotifications@objc(cs)PushNotifications(im)handleNotificationWithUserInfo:"></a>
+                    <a name="/c:@M@PushNotifications@objc(cs)PushNotificationsStatic(cm)handleNotificationWithUserInfo:"></a>
                     <a name="//apple_ref/swift/Method/handleNotification(userInfo:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotifications(im)handleNotificationWithUserInfo:">handleNotification(userInfo:<wbr>)</a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)PushNotificationsStatic(cm)handleNotificationWithUserInfo:">handleNotification(userInfo:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -892,7 +804,7 @@ Any interests not in the set will be unsubscribed from, so this will replace the
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
 <span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">handleNotification</span><span class="p">(</span><span class="nv">userInfo</span><span class="p">:</span> <span class="p">[</span><span class="kt">AnyHashable</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/RemoteNotificationType.html">RemoteNotificationType</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">handleNotification</span><span class="p">(</span><span class="nv">userInfo</span><span class="p">:</span> <span class="p">[</span><span class="kt">AnyHashable</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/RemoteNotificationType.html">RemoteNotificationType</a></span></code></pre>
 
                         </div>
                       </div>
@@ -916,7 +828,7 @@ Any interests not in the set will be unsubscribed from, so this will replace the
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/PushNotifications.swift#L333-L335">Show on GitHub</a>
+                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/PushNotificationsStatic.swift#L268-L288">Show on GitHub</a>
                       </div>
                     </section>
                   </div>

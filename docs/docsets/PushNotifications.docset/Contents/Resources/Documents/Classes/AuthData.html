@@ -8,14 +8,22 @@
     <script src="../js/jquery.min.js" defer></script>
     <script src="../js/jazzy.js" defer></script>
     
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
     <a name="//apple_ref/swift/Class/AuthData" class="dashAnchor"></a>
     <a title="AuthData Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">PushNotifications Docs</a> (100% documented)</p>
+        <p><a href="../index.html">PushNotifications 3.0.4 Docs</a> (89% documented)</p>
         <p class="header-right"><a href="https://github.com/pusher/push-notifications-swift"><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -38,7 +46,19 @@
                 <a href="../Classes/BeamsTokenProvider.html">BeamsTokenProvider</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes.html#/s:17PushNotifications16DeviceStateStoreC">DeviceStateStore</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/InstanceDeviceStateStore.html">InstanceDeviceStateStore</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/PushNotifications.html">PushNotifications</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PushNotificationsStatic.html">PushNotificationsStatic</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes.html#/s:17PushNotifications22WithInfiniteExpBackoffC">WithInfiniteExpBackoff</a>
               </li>
             </ul>
           </li>
@@ -59,9 +79,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/RemoteNotificationType.html">RemoteNotificationType</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Enums/Result.html">Result</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/TokenProviderError.html">TokenProviderError</a>
@@ -87,6 +104,17 @@
               </li>
             </ul>
           </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs.html#/s:17PushNotifications8JustDontV">JustDont</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs.html#/s:17PushNotifications8MetadataV">Metadata</a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
       <article class="main-content">
@@ -95,12 +123,17 @@
             <h1>AuthData</h1>
               <div class="declaration">
                 <div class="language">
+                  
                   <pre class="highlight swift"><code><span class="kd">@objc</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="kt">AuthData</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
 
                 </div>
               </div>
-            
+            <p>Authentication data that is provided to a <code><a href="../Protocols/TokenProvider.html">TokenProvider</a></code>, such as <code><a href="../Classes/BeamsTokenProvider.html">BeamsTokenProvider</a></code>.</p>
+
+              <div class="slightly-smaller">
+                <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/Models/AuthData.swift#L4-L20">Show on GitHub</a>
+              </div>
           </section>
           <section class="section task-group-section">
             <div class="task-group">
@@ -118,7 +151,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>The headers to attach to the <code>URLRequest</code> triggered by the <code><a href="../Protocols/TokenProvider.html">TokenProvider</a></code> when calling <code>fetchToken(userId:completion:)</code>.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -127,6 +161,9 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">headers</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">String</span><span class="p">]</span></code></pre>
 
                         </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/Models/AuthData.swift#L7">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -144,7 +181,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>The query parameters to attach to the <code>URLRequest</code> triggered by the <code><a href="../Protocols/TokenProvider.html">TokenProvider</a></code> when calling <code>fetchToken(userId:completion:)</code>.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -154,6 +192,9 @@
 
                         </div>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/Models/AuthData.swift#L10">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -162,7 +203,7 @@
                     <code>
                     <a name="/c:@M@PushNotifications@objc(cs)AuthData(im)initWithHeaders:queryParams:"></a>
                     <a name="//apple_ref/swift/Method/init(headers:queryParams:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)AuthData(im)initWithHeaders:queryParams:">init(headers:queryParams:)</a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)AuthData(im)initWithHeaders:queryParams:">init(headers:<wbr>queryParams:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -170,7 +211,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Create an <code>AuthData</code> instance based on some <code><a href="../Classes/AuthData.html#/s:17PushNotifications8AuthDataC7headersSDyS2SGvp">headers</a></code> and <code><a href="../Classes/AuthData.html#/s:17PushNotifications8AuthDataC11queryParamsSDyS2SGvp">queryParams</a></code>.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -181,6 +223,40 @@
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>headers</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A <code>Dictionary</code> of header key / value pairs.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>queryParams</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A <code>Dictionary</code> of query parameters key / value pairs.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/Models/AuthData.swift#L16-L19">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -189,8 +265,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://pusher.com" target="_blank" rel="external">Pusher</a>. All rights reserved. (Last updated: 2019-02-26)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2021 <a class="link" href="https://pusher.com" target="_blank" rel="external">Pusher</a>. All rights reserved. (Last updated: 2021-07-06)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

@@ -8,14 +8,22 @@
     <script src="../js/jquery.min.js" defer></script>
     <script src="../js/jazzy.js" defer></script>
     
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
     <a name="//apple_ref/swift/Class/BeamsTokenProvider" class="dashAnchor"></a>
     <a title="BeamsTokenProvider Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">PushNotifications Docs</a> (100% documented)</p>
+        <p><a href="../index.html">PushNotifications 3.0.4 Docs</a> (89% documented)</p>
         <p class="header-right"><a href="https://github.com/pusher/push-notifications-swift"><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -38,7 +46,19 @@
                 <a href="../Classes/BeamsTokenProvider.html">BeamsTokenProvider</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes.html#/s:17PushNotifications16DeviceStateStoreC">DeviceStateStore</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/InstanceDeviceStateStore.html">InstanceDeviceStateStore</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/PushNotifications.html">PushNotifications</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PushNotificationsStatic.html">PushNotificationsStatic</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes.html#/s:17PushNotifications22WithInfiniteExpBackoffC">WithInfiniteExpBackoff</a>
               </li>
             </ul>
           </li>
@@ -59,9 +79,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/RemoteNotificationType.html">RemoteNotificationType</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Enums/Result.html">Result</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/TokenProviderError.html">TokenProviderError</a>
@@ -87,6 +104,17 @@
               </li>
             </ul>
           </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs.html#/s:17PushNotifications8JustDontV">JustDont</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs.html#/s:17PushNotifications8MetadataV">Metadata</a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
       <article class="main-content">
@@ -95,12 +123,17 @@
             <h1>BeamsTokenProvider</h1>
               <div class="declaration">
                 <div class="language">
+                  
                   <pre class="highlight swift"><code><span class="kd">@objc</span>
 <span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">BeamsTokenProvider</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="../Protocols/TokenProvider.html">TokenProvider</a></span></code></pre>
 
                 </div>
               </div>
-            
+            <p>Used to generate tokens for users to authenticate against.</p>
+
+              <div class="slightly-smaller">
+                <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/Services/BeamsTokenProvider.swift#L4-L71">Show on GitHub</a>
+              </div>
           </section>
           <section class="section task-group-section">
             <div class="task-group">
@@ -118,7 +151,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>The authentication endpoint URL <code>String</code>.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -127,6 +161,9 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">authURL</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/Services/BeamsTokenProvider.swift#L7">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -144,7 +181,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>A closure that returns an <code><a href="../Classes/AuthData.html">AuthData</a></code> object.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -154,6 +192,9 @@
 
                         </div>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/Services/BeamsTokenProvider.swift#L10">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -162,7 +203,7 @@
                     <code>
                     <a name="/c:@M@PushNotifications@objc(cs)BeamsTokenProvider(im)initWithAuthURL:getAuthData:"></a>
                     <a name="//apple_ref/swift/Method/init(authURL:getAuthData:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)BeamsTokenProvider(im)initWithAuthURL:getAuthData:">init(authURL:getAuthData:)</a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)BeamsTokenProvider(im)initWithAuthURL:getAuthData:">init(authURL:<wbr>getAuthData:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -170,7 +211,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Creates a <code>BeamsTokenProvider</code> instance.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -181,15 +223,49 @@
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>authURL</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The authentication endpoint URL <code>String</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>getAuthData</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A closure that returns an <code><a href="../Classes/AuthData.html">AuthData</a></code> object.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/Services/BeamsTokenProvider.swift#L16-L19">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@PushNotifications@objc(pl)TokenProvider(im)fetchTokenWithUserId:error:completionHandler:"></a>
+                    <a name="/c:@M@PushNotifications@objc(cs)BeamsTokenProvider(im)fetchTokenWithUserId:error:completionHandler:"></a>
                     <a name="//apple_ref/swift/Method/fetchToken(userId:completionHandler:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@PushNotifications@objc(pl)TokenProvider(im)fetchTokenWithUserId:error:completionHandler:">fetchToken(userId:completionHandler:)</a>
+                    <a class="token" href="#/c:@M@PushNotifications@objc(cs)BeamsTokenProvider(im)fetchTokenWithUserId:error:completionHandler:">fetchToken(userId:<wbr>completionHandler:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -197,7 +273,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Fetch a token for a given user to authenticate against.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -207,6 +284,40 @@
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>userId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The user ID <code>String</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A closure containing a valid token <code>String</code> or an <code>Error</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/pusher/push-notifications-swift/tree/3.0.4/Sources/Services/BeamsTokenProvider.swift#L25-L70">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -215,8 +326,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://pusher.com" target="_blank" rel="external">Pusher</a>. All rights reserved. (Last updated: 2019-02-26)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2021 <a class="link" href="https://pusher.com" target="_blank" rel="external">Pusher</a>. All rights reserved. (Last updated: 2021-07-06)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>
