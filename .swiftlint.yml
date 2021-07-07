@@ -1,4 +1,5 @@
 excluded:
+  - .build
   - Sources/Helpers/MD5.swift # this dependency will be removed in the future version of the SDK
   - Carthage
   - Package.swift
