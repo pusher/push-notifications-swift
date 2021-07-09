@@ -11,7 +11,7 @@ let package = Package(name: "PushNotifications",
                       ],
                       dependencies: [
                         .package(url: "https://github.com/Quick/Nimble",
-                                 .upToNextMajor(from: "9.0.0")),
+                                 .upToNextMajor(from: "9.2.0")),
                         .package(url: "https://github.com/AliSoftware/OHHTTPStubs",
                                  .upToNextMajor(from: "9.1.0")),
                         // Source code linting
