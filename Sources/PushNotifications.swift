@@ -10,7 +10,7 @@ import Foundation
 /// The top-level entrypoint to the Beams Swift SDK.
 @objc public final class PushNotifications: NSObject {
 
-    internal let instanceId: String
+    let instanceId: String
     private let deviceStateStore: InstanceDeviceStateStore
     private let serverSyncEventHandler: ServerSyncEventHandler
 
