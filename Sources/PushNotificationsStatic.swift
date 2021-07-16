@@ -15,7 +15,7 @@ import Foundation
     }
 
     private static var instance: PushNotifications?
-    internal static var tokenProvider = [String: TokenProvider]()
+    static var tokenProvider = [String: TokenProvider]()
 
     /**
      Start PushNotifications service.
