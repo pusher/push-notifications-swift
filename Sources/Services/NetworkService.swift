@@ -270,7 +270,11 @@ class NetworkService: PushNotificationsNetworkable {
             default:
                 let reason = try? JSONDecoder().decode(Reason.self, from: data)
 
-                result = .failure(.genericError(reason: reason?.description  ?? "Unknown API error"))
+                if reason?.description.elementsEqual("Device could not be created") ?? false {
+                    result = .failure(.couldNotCreateDevice)
+                } else {
+                    result = .failure(.genericError(reason: reason?.description  ?? "Unknown API error"))
+                }
             }
 
             semaphore.signal()
