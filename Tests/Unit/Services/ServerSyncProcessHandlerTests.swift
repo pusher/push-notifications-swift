@@ -82,6 +82,39 @@ class ServerSyncProcessHandlerTests: XCTestCase {
 
         waitForExpectations(timeout: 1)
     }
+    
+    func testStopAfterDeviceCouldNotBeCreated() {
+        // This test is similar to the previous testStartJobRetriesDeviceCreation, except inverted and tests a specific "Device could not be created" response from our API. It must not retry.
+        let url = URL.PushNotifications.devices(instanceId: instanceId)!
+        let exp = expectation(description: "It should stop")
+        exp.isInverted = true
+        var numberOfAttempts = 0
+        stub(condition: isMethodPOST() && isAbsoluteURLString(url.absoluteString)) { _ in
+            let jsonObject: [String: Any] = [
+                "description": "Device could not be created"
+            ]
+
+            numberOfAttempts += 1
+            if numberOfAttempts == 2 {
+                exp.fulfill()
+                let jsonObject: [String: Any] = [
+                    "id": self.deviceId
+                ]
+                
+                return HTTPStubsResponse(jsonObject: jsonObject, statusCode: 200, headers: nil)
+            } else {
+                return HTTPStubsResponse(jsonObject: jsonObject, statusCode: 500, headers: nil)
+            }
+        }
+
+        let startJob: ServerSyncJob = .startJob(instanceId: instanceId, token: deviceToken)
+        let serverSyncProcessHandler = ServerSyncProcessHandler(instanceId: instanceId, getTokenProvider: noTokenProvider, handleServerSyncEvent: ignoreServerSyncEvent)
+        serverSyncProcessHandler.jobQueue.append(startJob)
+        serverSyncProcessHandler.handleMessage(serverSyncJob: startJob)
+
+        waitForExpectations(timeout: 1)
+    }
+
 
     func testItShouldSkipJobsBeforeStartJob() {
         let exp = expectation(description: "It should not trigger any server endpoints")

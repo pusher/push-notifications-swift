@@ -6,6 +6,7 @@ enum PushNotificationsAPIError: Error, CustomDebugStringConvertible {
     case badJWT(reason: String)
     case genericError(reason: String)
     case badDeviceToken(reason: String)
+    case couldNotCreateDevice
 
     var debugDescription: String {
         switch self {
@@ -19,6 +20,8 @@ enum PushNotificationsAPIError: Error, CustomDebugStringConvertible {
             return "Error: \(reason)"
         case .badDeviceToken(let reason):
             return "Bad Device Token: \(reason)"
+        case .couldNotCreateDevice:
+            return "Device could not be created"
         }
     }
 }
