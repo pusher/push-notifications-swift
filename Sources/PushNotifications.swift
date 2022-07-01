@@ -152,6 +152,18 @@ import Foundation
         }
         self.serverSyncHandler.sendMessage(serverSyncJob: .setUserIdJob(userId: userId))
     }
+    
+    /**
+     Get the UserId that the device is currently authenticated to.
+     
+     - returns: string of UserId
+     */
+    /// - Tag: getUserId
+    @objc public func getUserId() -> String? {
+        return InstanceDeviceStateStore.synchronize {
+            return self.deviceStateStore.getUserId()
+        }
+    }
 
     @objc private func printHelpfulMessage() {
         print("[PushNotifications] - It looks like setUserId hasn't completed yet -- have you called `registerDeviceToken`?")
