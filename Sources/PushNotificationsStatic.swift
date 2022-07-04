@@ -106,7 +106,20 @@ import Foundation
             fatalError("PushNotifications.shared.start must have been called first")
         }
     }
-
+    
+    /**
+     Get the UserId that the device is currently authenticated to.
+     
+     - returns: string of UserId
+     */
+    /// - Tag: getUserId
+    @objc public static func getUserId() -> String? {
+        if let staticInstance = instance {
+            return staticInstance.getUserId()
+        } else {
+            fatalError("PushNotifications.shared.start must have been called first")
+        }
+    }
     /**
      Disable Beams service.
      
