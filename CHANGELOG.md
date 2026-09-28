@@ -5,7 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/pusher/push-notifications-swift/compare/4.0.0...HEAD)
+## [Unreleased](https://github.com/pusher/push-notifications-swift/compare/5.0.0...HEAD)
+
+## [5.0.0](https://github.com/pusher/push-notifications-swift/compare/4.0.0...5.0.0)
+
+## Changed
+
+- **Breaking:** Raised the minimum supported OS versions to iOS 15.0 and macOS 12.0 (from iOS 10.0 and macOS 10.10), required to build under Xcode 27. Apps still targeting older OS versions should pin to `4.0.0` or earlier.
 
 ## [4.0.0](https://github.com/pusher/push-notifications-swift/compare/3.0.4...4.0.0)
 
