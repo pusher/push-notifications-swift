@@ -21,7 +21,10 @@
 ### Minimum Requirements
 
 - Swift 5.0+
-- [Xcode 12.0 and above](https://itunes.apple.com/us/app/xcode/id497799835) - The easiest way to get Xcode is from the [App Store](https://itunes.apple.com/us/app/xcode/id497799835?mt=12), but you can also download it from [developer.apple.com](https://developer.apple.com/) if you have an AppleID registered with an Apple Developer account.
+- [Xcode 13.0 and above](https://itunes.apple.com/us/app/xcode/id497799835) - The easiest way to get Xcode is from the [App Store](https://itunes.apple.com/us/app/xcode/id497799835?mt=12), but you can also download it from [developer.apple.com](https://developer.apple.com/) if you have an AppleID registered with an Apple Developer account.
+- iOS 15.0+ / macOS 12.0+
+
+If you need support for older versions of iOS or macOS, please pin to `4.0.0` or earlier.
 
 ## Installation
 
@@ -39,12 +42,12 @@ To integrate Pusher Beams into your Xcode project using CocoaPods, specify it in
 
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '10.0'
+platform :ios, '15.0'
 use_frameworks!
 
 # Replace `<Your Target Name>` with your app's target name.
 target '<Your Target Name>' do
-    pod 'PushNotifications', '~> 4.0.0'
+    pod 'PushNotifications', '~> 4.1.0'
 end
 ```
 
@@ -97,7 +100,7 @@ To add Pusher Beams as a dependency of your own package use the follwing code:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/pusher/push-notifications-swift.git", from: "4.0.0")
+    .package(url: "https://github.com/pusher/push-notifications-swift.git", from: "4.1.0")
 ]
 ```
 
